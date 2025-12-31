@@ -1,0 +1,9 @@
+export 'package:qualiverse/features/edit_files/data/file_model.dart';
+export 'package:qualiverse/features/edit_files/data/file_size_formatter.dart';
+export 'package:qualiverse/features/edit_files/presentation/controller/files_cubit.dart';
+export 'package:qualiverse/features/edit_files/presentation/controller/files_state.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/edit_files_screen.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_body.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_new_button.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top_and_title.dart';

@@ -1,0 +1,9 @@
+export 'package:qualiverse/features/accreditation_list/presentation/accreditation_list_screen.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/accreditation_list_body.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/accreditation_list_top.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/accreditation_list_top_and_title.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/line.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/middle_content.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/table_of_files.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/table_with_line.dart';
+export 'package:qualiverse/features/accreditation_list/presentation/widgets/upload_file_buttom.dart';

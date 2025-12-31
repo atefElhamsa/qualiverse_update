@@ -1,0 +1,17 @@
+export 'package:qualiverse/features/setting/data/model/info_item_model.dart';
+export 'package:qualiverse/features/setting/presentation/controller/setting_cubit.dart';
+export 'package:qualiverse/features/setting/presentation/controller/setting_state.dart';
+export 'package:qualiverse/features/setting/presentation/view/setting_screen.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/cancel_save_buttons.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/custom_field_read_only.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/info_item_widget.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/info_list_widget.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/log_out_button.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/notification_check_dark.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/profile_card_widget.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_body.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_desktop_layout.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_fields.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_left_part.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_right_part.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/setting_text.dart';

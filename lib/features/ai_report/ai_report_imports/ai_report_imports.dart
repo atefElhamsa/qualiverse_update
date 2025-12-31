@@ -1,0 +1,11 @@
+export 'package:qualiverse/features/ai_report/data/models/file_item_model.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/ai_report_screen.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_body.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_found_file.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_not_found_file.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_top.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/edit_approved_buttons.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/file_item_widget.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/linear_progress.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/list_file_item_widget.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/start_end_number_file_completed.dart';

@@ -1,0 +1,10 @@
+export 'package:qualiverse/features/courses_first_term/data/models/course_model.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/courses_first_term_screen.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/course_item_widget.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/courses_buttons_bottom.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/courses_buttons_report_description_widget.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/courses_first_term_body.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/courses_list.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/first_term_top.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/first_term_top_and_title.dart';
+export 'package:qualiverse/features/courses_first_term/presentation/view/widgets/second_term_button.dart';

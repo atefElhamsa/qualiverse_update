@@ -1,0 +1,12 @@
+export 'package:qualiverse/features/reset_password/data/service/reset_password_service.dart';
+export 'package:qualiverse/features/reset_password/presentation/controller/reset_password_cubit.dart';
+export 'package:qualiverse/features/reset_password/presentation/controller/reset_password_state.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/reset_password_screen.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/back_login_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/big_image_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/email_field_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_and_description_text_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_password_body.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_password_body_details.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_right_part_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/send_button_widget.dart';

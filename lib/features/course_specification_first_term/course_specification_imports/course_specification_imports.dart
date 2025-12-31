@@ -1,0 +1,5 @@
+export 'package:qualiverse/features/course_specification_first_term/presentation/view/course_specification_first_term_screen.dart';
+export 'package:qualiverse/features/course_specification_first_term/presentation/view/widgets/course_specification_first_term_body.dart';
+export 'package:qualiverse/features/course_specification_first_term/presentation/view/widgets/course_specification_top.dart';
+export 'package:qualiverse/features/course_specification_second_term/presentation/view/course_specification_second_term_screen.dart';
+export 'package:qualiverse/features/course_specification_second_term/presentation/view/widgets/course_specification_second_term_body.dart';

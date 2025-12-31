@@ -1,0 +1,14 @@
+export 'package:qualiverse/features/home/data/models/home_last_body_model.dart';
+export 'package:qualiverse/features/home/data/models/side_bar_item_model.dart';
+export 'package:qualiverse/features/home/presentation/view/home_screen.dart';
+export 'package:qualiverse/features/home/presentation/view/side_bar.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/custom_home_last_widget.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_animation.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_body.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_body_first_part.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_body_last_part.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_body_second_part.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/home_layout.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/main_wrapper.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_item.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_menu.dart';

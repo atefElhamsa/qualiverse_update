@@ -1,0 +1,5 @@
+export 'package:qualiverse/features/rapporteur_report_first_term/presentation/view/rapporteur_report_first_term_screen.dart';
+export 'package:qualiverse/features/rapporteur_report_first_term/presentation/view/widgets/rapporteur_report_first_term_body.dart';
+export 'package:qualiverse/features/rapporteur_report_first_term/presentation/view/widgets/rapporteur_report_top.dart';
+export 'package:qualiverse/features/rapporteur_report_second_term/presentation/view/rapporteur_report_second_term_screen.dart';
+export 'package:qualiverse/features/rapporteur_report_second_term/presentation/view/widgets/rapporteur_report_second_term_body.dart';

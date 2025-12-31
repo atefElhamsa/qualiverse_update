@@ -1,0 +1,15 @@
+export 'package:qualiverse/features/department/data/models/academic_year_model.dart';
+export 'package:qualiverse/features/department/data/models/department_model.dart';
+export 'package:qualiverse/features/department/data/service/academic_year_services.dart';
+export 'package:qualiverse/features/department/data/service/department_services.dart';
+export 'package:qualiverse/features/department/presentation/controller/academic_year_cubit.dart';
+export 'package:qualiverse/features/department/presentation/controller/academic_year_state.dart';
+export 'package:qualiverse/features/department/presentation/controller/department_cubit.dart';
+export 'package:qualiverse/features/department/presentation/controller/department_state.dart';
+export 'package:qualiverse/features/department/presentation/view/department_screen.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/department_body.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/department_body_details.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/selected_academic_year_widget.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/selected_department_widget.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/selected_year_and_department_widget.dart';
+export 'package:qualiverse/features/department/presentation/view/widgets/standard_button.dart';
