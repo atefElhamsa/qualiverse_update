@@ -10,38 +10,33 @@ class SettingCubit extends Cubit<SettingState> {
   static SettingCubit get(context) => BlocProvider.of(context);
 
   String languageCode = 'en';
-
   bool isDark = false;
 
   String? email;
   String? password;
 
+  // =========================
+  // INIT
+  // =========================
   Future<void> initSetting({required BuildContext context}) async {
     // ===== LANGUAGE =====
     final savedLang = CashHelper.getData(key: KeysTexts.lang);
+    final deviceLang =
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 
-    if (savedLang != null) {
-      // مستخدم مختار قبل كده
-      languageCode = savedLang;
-    } else {
-      // أول مرة → لغة الجهاز
-      languageCode =
-          WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    languageCode = savedLang ?? deviceLang;
+
+    // غير اللغة فقط لو مختلفة
+    if (context.locale.languageCode != languageCode) {
+      await context.setLocale(Locale(languageCode));
     }
-
-    // تطبيق اللغة على easy_localization
-    await context.setLocale(Locale(languageCode));
 
     // ===== THEME =====
     final savedTheme = CashHelper.getData(key: KeysTexts.theme);
 
-    if (savedTheme != null) {
-      // مستخدم مختار قبل كده
-      isDark = savedTheme == 'dark';
-    } else {
-      // أول مرة → ثيم الجهاز
-      isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    }
+    isDark = savedTheme != null
+        ? savedTheme == 'dark'
+        : MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     // ===== USER DATA =====
     email = CashHelper.getData(key: KeysTexts.userEmail);
@@ -50,26 +45,43 @@ class SettingCubit extends Cubit<SettingState> {
     emit(SettingInitial());
   }
 
+  // =========================
+  // CHANGE LANGUAGE
+  // =========================
   Future<void> changeLanguage({
     required String lang,
     required BuildContext context,
   }) async {
+    // Guard
+    if (languageCode == lang) return;
+
     languageCode = lang;
 
     await context.setLocale(Locale(lang));
-
-    // حفظ القرار
-    CashHelper.saveData(key: KeysTexts.lang, value: lang);
+    await CashHelper.saveData(key: KeysTexts.lang, value: lang);
 
     emit(LanguageChangedState());
   }
 
-  // تغيير الثيم
+  // =========================
+  // CHANGE THEME
+  // =========================
   void changeTheme({required bool dark}) {
-    isDark = dark;
+    if (isDark == dark) return;
 
+    isDark = dark;
     CashHelper.saveData(key: KeysTexts.theme, value: dark ? 'dark' : 'light');
 
     emit(ThemeChangedState());
+  }
+
+  // =========================
+  // REFRESH USER DATA
+  // =========================
+  void refreshUserData() {
+    email = CashHelper.getData(key: KeysTexts.userEmail);
+    password = CashHelper.getData(key: KeysTexts.userPassword);
+
+    emit(SettingInitial());
   }
 }

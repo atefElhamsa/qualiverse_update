@@ -5,10 +5,22 @@ import 'package:dio/dio.dart';
 import '../../../../routing/all_routes_imports.dart';
 
 class LoginInterceptor extends Interceptor {
+  // =============================
+  // Singleton
+  // =============================
+  static final LoginInterceptor _instance = LoginInterceptor._internal();
+  factory LoginInterceptor() => _instance;
+  LoginInterceptor._internal();
+
   bool _isRefreshing = false;
   bool _loggedOut = false;
 
   final List<QueuedRequest> _queue = [];
+
+  // بعد Login
+  void reset() {
+    _loggedOut = false;
+  }
 
   bool isAuthPath(String path) {
     return path.contains(EndPoints.login) ||
@@ -16,31 +28,39 @@ class LoginInterceptor extends Interceptor {
   }
 
   // =============================
-  // ADD ACCESS TOKEN
+  // ON REQUEST
   // =============================
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (!isAuthPath(options.path)) {
-      final token = LoginStorage.token;
-      if (token != null && token.isNotEmpty) {
-        options.headers['Authorization'] = 'Bearer $token';
-      }
+    // متحطش Authorization على login / refresh
+    if (isAuthPath(options.path)) {
+      handler.next(options);
+      return;
     }
+
+    // ضيف التوكن لو موجود
+    final token = LoginStorage.token;
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
+    }
+
     handler.next(options);
   }
 
   // =============================
-  // HANDLE 401
+  // ON ERROR (401)
   // =============================
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
+    // تجاهل أي حالة غير 401
     if (_loggedOut ||
         err.response?.statusCode != 401 ||
         isAuthPath(err.requestOptions.path)) {
-      return handler.next(err);
+      handler.next(err);
+      return;
     }
 
-    // لو refresh شغال → نخزن الطلب
+    // لو refresh شغال → استنى
     if (_isRefreshing) {
       final completer = Completer<Response>();
       _queue.add(QueuedRequest(err.requestOptions, completer));
@@ -51,31 +71,38 @@ class LoginInterceptor extends Interceptor {
       return;
     }
 
-    // نبدأ refresh
+    // =============================
+    // حاول تعمل Refresh
+    // =============================
     _isRefreshing = true;
     final refreshed = await refreshToken();
     _isRefreshing = false;
 
-    // refreshTokenExpiration خلص
+    // ❌ فشل refresh = انتهت الجلسة
     if (!refreshed) {
       _forceLogout();
+      handler.next(err);
       return;
     }
 
+    // =============================
     // إعادة الطلبات اللي كانت مستنية
+    // =============================
     for (final q in _queue) {
       try {
-        q.completer.complete(await retry(q.options));
+        q.completer.complete(await _retry(q.options));
       } catch (e) {
         q.completer.completeError(e);
       }
     }
     _queue.clear();
 
+    // =============================
     // إعادة الطلب الحالي
+    // =============================
     try {
-      handler.resolve(await retry(err.requestOptions));
-    } catch (e) {
+      handler.resolve(await _retry(err.requestOptions));
+    } catch (_) {
       handler.next(err);
     }
   }
@@ -84,34 +111,35 @@ class LoginInterceptor extends Interceptor {
   // REFRESH TOKEN
   // =============================
   Future<bool> refreshToken() async {
-    try {
-      final refreshToken = LoginStorage.refreshToken;
-      if (refreshToken == null || refreshToken.isEmpty) {
-        return false;
-      }
+    // ✅ هنا بس نفحص expiration
+    if (LoginStorage.isRefreshTokenExpired) return false;
 
+    final token = LoginStorage.token;
+    final refreshToken = LoginStorage.refreshToken;
+
+    if (token == null || refreshToken == null) return false;
+
+    try {
       final res = await ApiClient.refreshDio.post(
         EndPoints.refreshToken,
-        data: {'refreshToken': refreshToken},
+        data: {'token': token, 'refreshToken': refreshToken},
       );
 
-      // لسه صالح
       if (res.statusCode == 200) {
         LoginStorage.setSession(
           tokenValue: res.data['token'],
           refreshTokenValue: res.data['refreshToken'],
+          refreshTokenExpirationValue: DateTime.parse(
+            res.data['refreshTokenExpiration'],
+          ),
         );
+
         await LoginStorage.savePersistent();
         return true;
       }
 
-      // أي status غير 200 = refresh انتهى
       return false;
-    } on DioException catch (e) {
-      // refreshTokenExpiration خلص
-      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
-        return false;
-      }
+    } catch (_) {
       return false;
     }
   }
@@ -119,27 +147,29 @@ class LoginInterceptor extends Interceptor {
   // =============================
   // RETRY REQUEST
   // =============================
-
-  Future<Response> retry(RequestOptions req) {
+  Future<Response> _retry(RequestOptions req) {
     final token = LoginStorage.token;
 
-    req.headers['Authorization'] = 'Bearer $token';
-    return ApiClient.dio.fetch(req);
-  }
+    final options = Options(
+      method: req.method,
+      headers: {
+        ...req.headers,
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+      contentType: req.contentType,
+      responseType: req.responseType,
+      followRedirects: req.followRedirects,
+      receiveTimeout: req.receiveTimeout,
+      sendTimeout: req.sendTimeout,
+    );
 
-  // Future<Response> retry(RequestOptions req) {
-  //   final token = LoginStorage.token;
-  //
-  //   return ApiClient.dio.request(
-  //     req.path,
-  //     data: req.data,
-  //     queryParameters: req.queryParameters,
-  //     options: Options(
-  //       method: req.method,
-  //       headers: {...req.headers, 'Authorization': 'Bearer $token'},
-  //     ),
-  //   );
-  // }
+    return ApiClient.dio.request(
+      req.path,
+      data: req.data,
+      queryParameters: req.queryParameters,
+      options: options,
+    );
+  }
 
   // =============================
   // FORCE LOGOUT
@@ -155,7 +185,7 @@ class LoginInterceptor extends Interceptor {
 }
 
 // =============================
-// QUEUE MODEL
+// QUEUED REQUEST MODEL
 // =============================
 class QueuedRequest {
   final RequestOptions options;

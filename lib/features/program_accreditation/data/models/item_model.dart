@@ -1,6 +1,5 @@
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
-// Item data model.
 class ItemModel {
   final String imageLight;
 

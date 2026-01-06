@@ -26,9 +26,10 @@ class SelectedDepartmentWidget extends StatelessWidget {
         if (state is DepartmentSuccess) {
           final departmentCubit = DepartmentCubit.get(context);
           final List<String> departmentNames = state.departments
-              .map((e) => e.name)
+              .map((e) => e.localizedName(context))
               .toList();
-          final String? selectedDepartmentName = state.selectedDepartment?.name;
+          final String? selectedDepartmentName = state.selectedDepartment
+              ?.localizedName(context);
           return CustomDropButtonAndTitle(
             dropButtonModel: DropButtonModel(
               selectedData: selectedDepartmentName,
@@ -38,7 +39,7 @@ class SelectedDepartmentWidget extends StatelessWidget {
               onChanged: (value) {
                 if (value == null) return;
                 final selectedModel = state.departments.firstWhere(
-                  (d) => d.name == value,
+                  (d) => d.localizedName(context) == value,
                 );
                 departmentCubit.selectDepartment(department: selectedModel);
               },

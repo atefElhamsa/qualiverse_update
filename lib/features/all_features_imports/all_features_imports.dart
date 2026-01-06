@@ -1,7 +1,5 @@
 // Accreditation Feature Exports
 export 'package:qualiverse/features/accreditation/accreditation_imports/accreditation_imports.dart';
-// Accreditation List Feature Exports
-export 'package:qualiverse/features/accreditation_list/accreditation_list_imports/accreditation_list_imports.dart';
 // AI Description Feature Exports
 export 'package:qualiverse/features/ai_description/ai_description_imports/ai_description_imports.dart';
 // AI Main Feature Exports
@@ -22,6 +20,8 @@ export 'package:qualiverse/features/department/department_imports/department_imp
 export 'package:qualiverse/features/edit_files/edit_files_imports/edit_files_imports.dart';
 // Home Feature Exports
 export 'package:qualiverse/features/home/home_imports/home_imports.dart';
+// Accreditation List Feature Exports
+export 'package:qualiverse/features/indicators/indicators_imports/indicators_imports.dart';
 // Institutional Accreditation Feature Exports
 export 'package:qualiverse/features/institutional_accreditation/institutional_accreditation_imports/institutional_accreditation_imports.dart';
 // Login Feature Exports

@@ -23,12 +23,7 @@ void main() async {
         startLocale: Locale(
           WidgetsBinding.instance.platformDispatcher.locale.languageCode,
         ),
-        child: Builder(
-          builder: (context) {
-            context.read<SettingCubit>().initSetting(context: context);
-            return const MyApp();
-          },
-        ),
+        child: const MyApp(),
       ),
     ),
   );

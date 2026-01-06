@@ -19,7 +19,6 @@ class InstitutionalButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Institutional accreditation button.
         SizedBox(
           height: 80.h,
           width: 248.w,
@@ -37,14 +36,13 @@ class InstitutionalButton extends StatelessWidget {
                   : AppColors.colorButtonDark,
               radius: 20,
               customText: CustomText(
-                title: types[0].type,
+                title: types[0].localizedType(context),
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
               ),
             ),
           ),
         ),
         const SizedBox(height: 20),
-        // Image for institutional accreditation.
         Image.asset(
           Theme.of(context).scaffoldBackgroundColor == AppColors.white
               ? AppImages.institutionalAccreditationImageLight

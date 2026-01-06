@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
     return conn != ConnectivityResult.none;
   }
 
-  Future<void> loginCubit() async {
+  Future<void> loginCubit(BuildContext context) async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       emit(LoginFailure(errorMessage: "fillAllFields".tr()));
       return;
@@ -52,7 +52,10 @@ class LoginCubit extends Cubit<LoginState> {
       LoginStorage.setSession(
         tokenValue: result.token,
         refreshTokenValue: result.refreshToken,
+        refreshTokenExpirationValue: result.refreshTokenExpiration,
       );
+
+      LoginInterceptor().reset();
 
       if (rememberMe) {
         await LoginStorage.savePersistent();
@@ -68,6 +71,7 @@ class LoginCubit extends Cubit<LoginState> {
       );
 
       emit(LoginSuccess(loginModel: result));
+      context.read<SettingCubit>().refreshUserData();
     } catch (e) {
       emit(
         LoginFailure(

@@ -54,7 +54,14 @@ class GridViewInstitutionalItemsWidget extends StatelessWidget {
                       .selectInstitutionalAccreditation(
                         accreditation: accreditations[index],
                       );
-                  context.pushNamed(AppRoutes.accreditationListScreen);
+                  context.pushNamed(
+                    AppRoutes.indicatorsScreen,
+                    extra: IndicatorsArgs(
+                      accreditationModel: accreditations[index],
+                      title: "institutionalIndicators",
+                      index: index,
+                    ),
+                  );
                 },
               );
             },

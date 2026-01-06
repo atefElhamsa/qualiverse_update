@@ -53,7 +53,7 @@ class FieldsWidget extends StatelessWidget {
               focusNode: loginCubit.passwordNode,
               isObscured: true,
               onFieldSubmitted: (submit) {
-                loginCubit.loginCubit();
+                loginCubit.loginCubit(context);
               },
               hintText: "enterPassword".tr(),
               controller: loginCubit.passwordController,

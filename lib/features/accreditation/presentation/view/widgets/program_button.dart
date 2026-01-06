@@ -20,7 +20,6 @@ class ProgramButton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Software accreditation button.
         SizedBox(
           height: 80.h,
           width: 198.w,
@@ -28,7 +27,6 @@ class ProgramButton extends StatelessWidget {
             buttonModel: ButtonModel(
               onPressed: () {
                 typesCubit.changeIndex(0);
-                // Navigate to department screen.
                 context.pushNamed(AppRoutes.departmentScreen);
               },
               backgroundColor:
@@ -39,7 +37,7 @@ class ProgramButton extends StatelessWidget {
                   : AppColors.colorButtonDark,
               radius: 20,
               customText: CustomText(
-                title: types[1].type,
+                title: types[1].localizedType(context),
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
               ),
             ),

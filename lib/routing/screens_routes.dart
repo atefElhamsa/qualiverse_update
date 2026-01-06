@@ -238,16 +238,18 @@ class ScreensRoutes {
     );
   }
 
-  static GoRoute accreditationListRoute() {
+  static GoRoute indicatorRoute() {
     return GoRoute(
-      path: AppRoutes.accreditationListScreen,
-      name: AppRoutes.accreditationListScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AccreditationListScreen(),
-        // type: PageTransitionType.scale,
-      ),
+      path: AppRoutes.indicatorsScreen,
+      name: AppRoutes.indicatorsScreen,
+      pageBuilder: (context, state) {
+        final args = state.extra as IndicatorsArgs;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: IndicatorsScreen(indicatorsArgs: args),
+        );
+      },
     );
   }
 

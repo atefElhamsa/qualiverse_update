@@ -6,8 +6,8 @@ class AppTexts {
       "نظام الاعتماد والجودة";
 
   // English and Arabic strings for "Software Accreditation".
-  static const String softwareAccreditationEnglish = "Software Accreditation";
-  static const String softwareAccreditationArabic = "الإعتماد البرمجي";
+  static const String softwareAccreditationEnglish = "Program Accreditation";
+  static const String softwareAccreditationArabic = "الإعتماد البرنامجي";
 
   // English and Arabic strings for "Institutional Accreditation".
   static const String institutionalAccreditationEnglish =

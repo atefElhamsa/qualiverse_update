@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-// Widget for the bottom body of the accreditation screen.
 class AccreditationBottomBody extends StatelessWidget {
   const AccreditationBottomBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Centered and fitted row of accreditation buttons.
     return BlocBuilder<TypesCubit, TypesState>(
       builder: (context, state) {
         if (state is TypesLoading) {
@@ -31,14 +29,12 @@ class AccreditationBottomBody extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Column for software accreditation button and image.
                   ProgramButton(
                     typesCubit: typesCubit,
                     selectedIndex: selectedIndex,
                     types: types,
                   ),
                   const SizedBox(width: 90),
-                  // Column for institutional accreditation button and image.
                   InstitutionalButton(
                     typesCubit: typesCubit,
                     selectedIndex: selectedIndex,

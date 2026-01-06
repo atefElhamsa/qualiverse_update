@@ -52,7 +52,14 @@ class GridViewProgramItemsWidget extends StatelessWidget {
                       .selectProgramAccreditation(
                         accreditation: accreditations[index],
                       );
-                  context.pushNamed(AppRoutes.accreditationListScreen);
+                  context.pushNamed(
+                    AppRoutes.indicatorsScreen,
+                    extra: IndicatorsArgs(
+                      accreditationModel: accreditations[index],
+                      title: "programIndicators",
+                      index: index,
+                    ),
+                  );
                 },
               );
             },

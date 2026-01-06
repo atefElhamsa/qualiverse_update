@@ -35,7 +35,7 @@ class RouterGenerator {
       ScreensRoutes.coursesFirstTermRoute(),
       ScreensRoutes.coursesSecondTermRoute(),
       ScreensRoutes.editFilesRoute(),
-      ScreensRoutes.accreditationListRoute(),
+      ScreensRoutes.indicatorRoute(),
       ScreensRoutes.splashRoute(),
       ScreensRoutes.dashboardRoute(),
       ScreensRoutes.courseSpecificationFirstTermRoute(),

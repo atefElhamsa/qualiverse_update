@@ -46,7 +46,7 @@ class AppRoutes {
   static const String editFilesScreen = '/edit_files';
 
   // Route for the accreditation list screen.
-  static const String accreditationListScreen = '/accreditation_list';
+  static const String indicatorsScreen = '/indicators';
 
   // ..... Route for the splash screen.
   static const String splashScreen = '/splash';

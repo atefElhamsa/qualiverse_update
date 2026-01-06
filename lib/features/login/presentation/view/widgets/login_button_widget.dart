@@ -22,7 +22,7 @@ class LoginButtonWidget extends StatelessWidget {
                 child: CustomButton(
                   buttonModel: ButtonModel(
                     onPressed: () {
-                      loginCubit.loginCubit();
+                      loginCubit.loginCubit(context);
                     },
                     backgroundColor: AppColors.loginButtonColor,
                     radius: 4,

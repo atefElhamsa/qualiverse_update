@@ -7,6 +7,7 @@ class EndPoints {
   static const String accreditationTypes = "accreditations";
   static const String department = "Department";
   static const String academicYears = "AcademicYear";
+  static const String indicator = "Indicator";
 
   static String accreditations({
     required int academicYearId,
@@ -21,5 +22,9 @@ class EndPoints {
     }
 
     return buffer.toString();
+  }
+
+  static String indicatorsByCriterionId({required int criterionId}) {
+    return "Indicator/$criterionId";
   }
 }
