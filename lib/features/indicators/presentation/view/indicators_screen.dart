@@ -6,7 +6,6 @@ class IndicatorsScreen extends StatelessWidget {
   const IndicatorsScreen({super.key, required this.indicatorsArgs});
 
   final IndicatorsArgs indicatorsArgs;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

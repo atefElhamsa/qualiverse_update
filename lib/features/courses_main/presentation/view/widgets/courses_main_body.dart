@@ -40,22 +40,17 @@ class _CoursesMainBodyState extends State<CoursesMainBody> {
   Widget build(BuildContext context) {
     final inherited = HomeBodyInherited.of(context);
     final isDrawerVisible = inherited.isDrawerVisible;
-    // Get the current locale.
     Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
-    // Return a custom scaffold containing the UI elements.
     return CustomScaffold(
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Display the top part of the scaffold.
           !isDrawerVisible
               ? CustomScaffoldTop(controller: inherited.controller)
               : const SizedBox(),
-          // Center the "courses" title.
           Center(
             child: CustomText(
-              // Localized title.
-              title: "courses".tr(),
+              title: "coursesFile".tr(),
               textStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontSize: 50.sp,
               ), // Apply custom text style.

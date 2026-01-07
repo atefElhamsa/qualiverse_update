@@ -21,3 +21,8 @@ final class IndicatorsError extends IndicatorsState {
 
   IndicatorsError({required this.message});
 }
+
+class IndicatorUploadLoading extends IndicatorsState {
+  final int indicatorId;
+  IndicatorUploadLoading({required this.indicatorId});
+}

@@ -52,7 +52,7 @@
   "accreditation": "Accreditation",
   "Evaluation methods": "Evaluation methods",
   "AnAcademicSystemThatAimsToEnsureQualityInAcademicProcessesInLineWithInternationalStandards": "An academic system that aims to\nensure quality in academic processes in line with international standards",
-  "courses": "Courses",
+  "coursesFile": "Courses file",
   "level": "Level",
   "chooseStudyLevel": "Choose Study Level",
   "firstLevel": "First",
@@ -167,5 +167,7 @@
   "uploadedFiles": "Uploaded Files",
   "noIndicatorsTitle": "No indicators are available for this accreditation",
   "noIndicatorsDescription": "This will be shown here when you add indicators",
-  "noFile": "No File"
+  "noFile": "No File",
+  "please_wait_uploading": "Please wait, uploading file...",
+  "no_file_uploaded_yet": "No file has been uploaded yet. Please upload a file first."
 }

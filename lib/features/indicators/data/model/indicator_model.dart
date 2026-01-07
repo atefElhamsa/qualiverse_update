@@ -8,6 +8,7 @@ class IndicatorModel {
   final String descriptionAr;
   final String descriptionEn;
   final String? filePath;
+  final String? fileName;
 
   IndicatorModel({
     required this.id,
@@ -16,6 +17,7 @@ class IndicatorModel {
     required this.descriptionAr,
     required this.descriptionEn,
     required this.filePath,
+    required this.fileName,
   });
 
   factory IndicatorModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class IndicatorModel {
       descriptionAr: json['descriptionAr'],
       descriptionEn: json['descriptionEn'],
       filePath: json['filePath'],
+      fileName: json['fileName'],
     );
   }
 }

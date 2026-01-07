@@ -20,7 +20,7 @@ class TableWithLine extends StatelessWidget {
           children: [
             indicators.isEmpty
                 ? const SizedBox()
-                : Line(indicatorsLength: indicators.length),
+                : Line(indicators: indicators),
             SizedBox(height: 15),
             TableOfFiles(
               indicatorsArgs: indicatorsArgs,

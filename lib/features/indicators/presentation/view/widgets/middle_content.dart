@@ -52,7 +52,7 @@ class MiddleContent extends StatelessWidget {
                   ),
                   SizedBox(width: 10),
                   Text(
-                    '1 / ${indicators.length}',
+                    '${indicators.where((element) => element.filePath != null).length} / ${indicators.length}',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                   ),
                 ],

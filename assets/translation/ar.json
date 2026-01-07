@@ -52,7 +52,7 @@
   "accreditation": "الاعتماد",
   "Evaluation methods": "طرق التقييم",
   "AnAcademicSystemThatAimsToEnsureQualityInAcademicProcessesInLineWithInternationalStandards": "النظام الأكاديمي الذي يهدف إلى ضمان الجودة في العمليات الاكاديمية مع المعايير الدولية",
-  "courses": "المقررات",
+  "coursesFile": "ملف المقررات",
   "level": "الفرقة",
   "chooseStudyLevel": "اختار الفرقة",
   "firstLevel": "أولى",
@@ -167,5 +167,7 @@
   "uploadedFiles": "الملفات المرفوعة",
   "noIndicatorsTitle": "لا توجد مؤشرات لهذا الاعتماد",
   "noIndicatorsDescription": "سيتم عرض المؤشرات هنا عند إضافتها",
-  "noFile": "لا يوجد ملف"
+  "noFile": "لا يوجد ملف",
+  "please_wait_uploading": "برجاء الانتظار، جاري رفع الملف...",
+  "no_file_uploaded_yet": "لم يتم رفع أي ملف بعد. يرجى رفع ملف أولًا."
 }

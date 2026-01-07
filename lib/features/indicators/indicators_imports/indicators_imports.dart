@@ -1,9 +1,11 @@
 export 'package:qualiverse/features/indicators/data/model/indicator_args.dart';
 export 'package:qualiverse/features/indicators/data/model/indicator_model.dart';
+export 'package:qualiverse/features/indicators/data/model/indicator_pdf_file.dart';
 export 'package:qualiverse/features/indicators/data/service/indicators_service.dart';
 export 'package:qualiverse/features/indicators/presentation/controller/indicators_cubit.dart';
 export 'package:qualiverse/features/indicators/presentation/controller/indicators_state.dart';
 export 'package:qualiverse/features/indicators/presentation/view/indicators_screen.dart';
+export 'package:qualiverse/features/indicators/presentation/view/widgets/build_table_row.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/empty_indicators_list.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/indicators_body.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/indicators_top.dart';

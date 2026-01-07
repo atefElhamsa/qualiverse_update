@@ -1,5 +1,6 @@
 class EndPoints {
   static const String baseUrl = "https://qualiverse.runasp.net/api/";
+  static const String baseUrlToOpenFile = "https://qualiverse.runasp.net";
   static const String login = "Account/login";
   static const String refreshToken = "Account/refresh";
   static const String register = "Account/register";
