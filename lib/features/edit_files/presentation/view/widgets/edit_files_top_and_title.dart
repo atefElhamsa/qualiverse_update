@@ -16,15 +16,23 @@ class EditFilesTopAndTitle extends StatelessWidget {
         children: [
           const EditFilesTop(),
           Positioned(
-            top: 160.h,
+            top: 130.h,
             left: 0,
             right: 0,
             child: Center(
-              child: CustomText(
-                title: "editFiles".tr(),
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.displayLarge!.copyWith(fontSize: 50.sp),
+              child: Column(
+                children: [
+                  CustomText(
+                    title: "editFiles".tr(),
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.displayLarge!.copyWith(fontSize: 50.sp),
+                  ),
+                  CustomText(
+                    title: "manageEvidenceFiles".tr(),
+                    textStyle: Theme.of(context).textTheme.headlineLarge!,
+                  ),
+                ],
               ),
             ),
           ),

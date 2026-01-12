@@ -163,11 +163,20 @@
   "standard_11": "المعيار الحادي عشر",
   "standard_12": "المعيار الثاني عشر",
   "indicator": "المؤشر",
-  "uploadFile": "رفع الملف",
+  "uploadFile": "رفع ملف",
   "uploadedFiles": "الملفات المرفوعة",
   "noIndicatorsTitle": "لا توجد مؤشرات لهذا الاعتماد",
   "noIndicatorsDescription": "سيتم عرض المؤشرات هنا عند إضافتها",
   "noFile": "لا يوجد ملف",
   "please_wait_uploading": "برجاء الانتظار، جاري رفع الملف...",
-  "no_file_uploaded_yet": "لم يتم رفع أي ملف بعد. يرجى رفع ملف أولًا."
+  "no_file_uploaded_yet": "لم يتم رفع أي ملف بعد. يرجى رفع ملف أولًا.",
+  "manageEvidenceFiles": "إدارة ملفات الأدلة",
+  "newFolder": "مجلد جديد",
+  "uploadFolder": "رفع مجلد",
+  "description": "الوصف",
+  "documentaryAnalysis": "التحليل الوثائقي",
+  "midtermExam": "امتحان الميدترم",
+  "studentWorkCopy": "نسخة من أعمال الطلاب",
+  "finalExam": "الامتحان النهائي",
+  "ExamPaperAnalysis": "تحليل ورقة الامتحان"
 }

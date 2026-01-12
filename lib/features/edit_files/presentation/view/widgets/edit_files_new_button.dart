@@ -1,41 +1,72 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
-class EditFilesNewButton extends StatelessWidget {
+import '../../../../../routing/all_routes_imports.dart';
+
+class EditFilesNewButton extends StatefulWidget {
   const EditFilesNewButton({super.key});
 
   @override
+  State<EditFilesNewButton> createState() => _EditFilesNewButtonState();
+}
+
+class _EditFilesNewButtonState extends State<EditFilesNewButton> {
+  OverlayEntry? menuOverlay;
+  final LayerLink layerLink = LayerLink();
+
+  @override
+  void dispose() {
+    removeMenu();
+    super.dispose();
+  }
+
+  void toggleMenu() {
+    menuOverlay == null ? showMenu() : removeMenu();
+  }
+
+  void removeMenu() {
+    if (menuOverlay != null) {
+      menuOverlay!.remove();
+      menuOverlay = null;
+    }
+  }
+
+  void showMenu() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || menuOverlay != null) return;
+
+      menuOverlay = OverlayEntry(
+        builder: (_) => MenuOverlay(
+          layerLink: layerLink,
+          onDismiss: removeMenu,
+          onItemSelected: onMenuItemSelected,
+        ),
+      );
+
+      Overlay.of(context).insert(menuOverlay!);
+    });
+  }
+
+  void onMenuItemSelected(String value) {
+    removeMenu();
+
+    switch (value) {
+      case 'new_folder':
+        debugPrint('New Folder');
+        break;
+      case 'upload_folder':
+        debugPrint('Upload Folder');
+        break;
+      case 'upload_file':
+        debugPrint('Upload File');
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 101.w,
-      height: 56.h,
-      child: ElevatedButton.icon(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.scaffoldLight1,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.r),
-          ),
-        ),
-        label: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.add, color: AppColors.white, size: 24.sp),
-            const SizedBox(width: 10),
-            CustomText(
-              title: "new".tr(),
-              textStyle: GoogleFonts.cairo(
-                fontSize: 18.sp,
-                color: AppColors.white,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ),
-      ),
+    return CompositedTransformTarget(
+      link: layerLink,
+      child: NewButton(onTap: toggleMenu),
     );
   }
 }

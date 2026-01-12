@@ -169,5 +169,14 @@
   "noIndicatorsDescription": "This will be shown here when you add indicators",
   "noFile": "No File",
   "please_wait_uploading": "Please wait, uploading file...",
-  "no_file_uploaded_yet": "No file has been uploaded yet. Please upload a file first."
+  "no_file_uploaded_yet": "No file has been uploaded yet. Please upload a file first.",
+  "manageEvidenceFiles": "Manage Evidence Files",
+  "newFolder": "New Folder",
+  "uploadFolder": "Upload Folder",
+  "description": "Description",
+  "documentaryAnalysis": "Documentary Analysis",
+  "midtermExam": "Midterm Exam",
+  "studentWorkCopy": "student work copy",
+  "finalExam": "Final Exam",
+  "ExamPaperAnalysis": "Exam Paper Analysis"
 }

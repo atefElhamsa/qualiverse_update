@@ -10,7 +10,12 @@ class EditFilesBody extends StatelessWidget {
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [EditFilesTopAndTitle(), EditFilesNewButton()],
+        children: [
+          EditFilesTopAndTitle(),
+          EditFilesNewButton(),
+          SizedBox(height: 20),
+          EditFilesList(),
+        ],
       ),
     );
   }
