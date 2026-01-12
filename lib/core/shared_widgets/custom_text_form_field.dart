@@ -16,11 +16,18 @@ class CustomTextFormField extends StatelessWidget {
       child: BlocBuilder<PasswordCubit, bool>(
         builder: (context, isObscured) {
           return TextFormField(
+            controller: textFieldModel.controller,
             onTap: textFieldModel.onTap,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: textFieldModel.keyboardType,
             obscureText: isPasswordField ? isObscured : false,
-            controller: textFieldModel.controller,
+            enableInteractiveSelection: true,
+            toolbarOptions: const ToolbarOptions(
+              copy: true,
+              cut: true,
+              paste: true,
+              selectAll: true,
+            ),
             validator: textFieldModel.validator,
             focusNode: textFieldModel.focusNode,
             onFieldSubmitted: textFieldModel.onFieldSubmitted,
@@ -37,23 +44,10 @@ class CustomTextFormField extends StatelessWidget {
                   isPasswordField
                       ? (isObscured ? Icons.visibility : Icons.visibility_off)
                       : Icons.clear,
-                  color: Theme.of(context).inputDecorationTheme.suffixIconColor,
                 ),
               ),
               hintText: textFieldModel.hintText,
               label: textFieldModel.customTextLabel,
-              hintStyle: Theme.of(context).inputDecorationTheme.hintStyle,
-              enabledBorder: Theme.of(
-                context,
-              ).inputDecorationTheme.enabledBorder,
-              focusedBorder: Theme.of(
-                context,
-              ).inputDecorationTheme.focusedBorder,
-              errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
-              focusedErrorBorder: Theme.of(
-                context,
-              ).inputDecorationTheme.focusedErrorBorder,
-              errorStyle: Theme.of(context).inputDecorationTheme.errorStyle,
             ),
           );
         },

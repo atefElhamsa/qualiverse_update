@@ -12,7 +12,7 @@ class RouterGenerator {
   static GoRouter mainRoutingInOurApp = GoRouter(
     errorBuilder: (context, state) => const NotFoundPage(),
     // Page to display for undefined routes.
-    initialLocation: AppRoutes.editFilesScreen,
+    initialLocation: AppRoutes.settingScreen,
     // Starting route of the app.
     debugLogDiagnostics: true,
     // Enables router debugging logs.

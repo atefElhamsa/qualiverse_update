@@ -47,6 +47,8 @@ class AppColors {
   // Side Bar Text colors
   static const Color sideBarTextLight = Color(0xFFFFFFFF);
   static const Color sideBarTextDark = Color(0xFF000000);
+  static const Color selectedItemColor1 = Color(0xFF4FA3E3);
+  static const Color selectedItemColor2 = Color(0xFFA7D3F5);
 
   // custom container colors
   static const Color customContainerLightHover = Color.fromARGB(

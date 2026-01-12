@@ -13,11 +13,13 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () 
-      {
+      onTap: () {
         controller?.showDrawer();
       },
-      child: Image.asset(AppImages.drawerImage, fit: BoxFit.cover),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Image.asset(AppImages.drawerImage, fit: BoxFit.cover),
+      ),
     );
   }
 }

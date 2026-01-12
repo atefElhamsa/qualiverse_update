@@ -11,6 +11,7 @@ class SettingCubit extends Cubit<SettingState> {
 
   String languageCode = 'en';
   bool isDark = false;
+  int selectedIndex = 0;
 
   String? email;
   String? password;
@@ -82,6 +83,14 @@ class SettingCubit extends Cubit<SettingState> {
     email = CashHelper.getData(key: KeysTexts.userEmail);
     password = CashHelper.getData(key: KeysTexts.userPassword);
 
+    emit(SettingInitial());
+  }
+
+  // =========================
+  // Change Index
+  // =========================
+  void changeIndex(int index) {
+    selectedIndex = index;
     emit(SettingInitial());
   }
 }
