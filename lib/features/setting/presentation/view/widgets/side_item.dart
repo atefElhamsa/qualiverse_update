@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +21,7 @@ class SideItem extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           width: double.infinity,
           height: 50.h,
-          margin: EdgeInsets.only(right: 25.w),
+          margin: EdgeInsetsDirectional.only(end: 25.w),
           decoration: BoxDecoration(
             gradient: isSelected
                 ? const LinearGradient(
@@ -48,7 +49,7 @@ class SideItem extends StatelessWidget {
               const SizedBox(width: 12),
 
               CustomText(
-                title: sideItemModel.title,
+                title: sideItemModel.title.tr(),
                 textStyle: GoogleFonts.inter(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w400,

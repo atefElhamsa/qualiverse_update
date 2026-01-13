@@ -14,7 +14,7 @@ class SideBarList extends StatelessWidget {
         final settingCubit = SettingCubit.get(context);
         final List<SideItemModel> sidesItem = [
           SideItemModel(
-            title: 'Account',
+            title: 'account',
             index: 0,
             selectedIndex: settingCubit.selectedIndex,
             onTap: () {
@@ -22,7 +22,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'Notification',
+            title: 'notifications',
             index: 1,
             selectedIndex: settingCubit.selectedIndex,
             onTap: () {
@@ -30,7 +30,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'Language',
+            title: 'language',
             index: 2,
             selectedIndex: settingCubit.selectedIndex,
             onTap: () {
@@ -38,7 +38,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'Help',
+            title: 'help',
             index: 3,
             selectedIndex: settingCubit.selectedIndex,
             onTap: () {

@@ -30,7 +30,7 @@ class SideBarTop extends StatelessWidget {
             textStyle: Theme.of(context).textTheme.headlineLarge!,
           ),
           const SizedBox(height: 10),
-          CustomDrawer(controller: inherited.controller),
+          CustomDrawerAndBackWidget(controller: inherited.controller),
           const SizedBox(height: 25),
           CustomText(
             title: "settings".tr(),

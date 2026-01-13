@@ -41,7 +41,7 @@ class _UploadFileButtomState extends State<UploadFileButtom> {
         style: ElevatedButton.styleFrom(
           backgroundColor: _isHovered
               ? Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                    ? AppColors.buttonUploadFileHoverd
+                    ? AppColors.buttonUploadFileHovered
                     : AppColors.white
               : AppColors.colorButtonLight,
           shape: RoundedRectangleBorder(

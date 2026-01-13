@@ -1,14 +1,45 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class HelpSettingsContent extends StatelessWidget {
   const HelpSettingsContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Help',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    final _ = context.locale;
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 50.h),
+            child: CustomText(
+              title: "accountSupport".tr(),
+              textStyle: GoogleFonts.inter(
+                fontSize: 32.sp,
+                fontWeight: FontWeight.w700,
+                color: AppColors.black,
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
+          CustomText(
+            title: "howCanWeHelpYou".tr(),
+            textStyle: GoogleFonts.inter(
+              fontSize: 40.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.black,
+            ),
+          ),
+          const SizedBox(height: 30),
+          HelpFirstContainer(),
+          const SizedBox(height: 15),
+          HelpSecondContainer(),
+        ],
       ),
     );
   }

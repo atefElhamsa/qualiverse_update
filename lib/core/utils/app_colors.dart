@@ -49,6 +49,7 @@ class AppColors {
   static const Color sideBarTextDark = Color(0xFF000000);
   static const Color selectedItemColor1 = Color(0xFF4FA3E3);
   static const Color selectedItemColor2 = Color(0xFFA7D3F5);
+  static const Color customContainerSettingColor = Color(0xFFE1E2FF);
 
   // custom container colors
   static const Color customContainerLightHover = Color.fromARGB(
@@ -71,7 +72,7 @@ class AppColors {
   static const Color noFileColor = Color(0xFF10B981);
 
   // button colors for accreditation list
-  static const Color buttonUploadFileHoverd = Color(0xFF3B82F6);
+  static const Color buttonUploadFileHovered = Color(0xFF3B82F6);
 
   // Splash Screen colors
   static const Color splashBackground1 = Color(0xFFBDCAE5);

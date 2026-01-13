@@ -77,6 +77,11 @@ class AppThemeData {
         fontWeight: FontWeight.w400,
         color: AppColors.redLight,
       ),
+      titleSmall: GoogleFonts.inter(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.colorButtonLight,
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -182,6 +187,11 @@ class AppThemeData {
         fontSize: 20.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.redLight,
+      ),
+      titleSmall: GoogleFonts.inter(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w700,
+        color: AppColors.white,
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
