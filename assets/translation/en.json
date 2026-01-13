@@ -199,5 +199,7 @@
   "use_as_app_language": "Use as app language",
   "remove": "Remove",
   "english_us": "English (United States)",
-  "arabic": "Arabic"
+  "arabic": "Arabic",
+  "delete": "Delete",
+  "download": "Download"
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,6 +18,7 @@ class MenuOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return Positioned.fill(
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
@@ -25,7 +27,9 @@ class MenuOverlay extends StatelessWidget {
           children: [
             CompositedTransformFollower(
               link: layerLink,
-              offset: const Offset(40, 60),
+              offset: locale == Locale('ar')
+                  ? Offset(-100, 60)
+                  : Offset(40, 60),
               child: Material(
                 color: AppColors.transparent,
                 child: Container(

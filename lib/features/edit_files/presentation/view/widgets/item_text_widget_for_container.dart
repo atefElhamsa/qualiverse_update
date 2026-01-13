@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../core/all_core_imports/all_core_imports.dart';
+import '../../../../../routing/all_routes_imports.dart';
 
 class ItemTextWidgetForContainer extends StatelessWidget {
   const ItemTextWidgetForContainer({super.key, required this.title});
@@ -11,6 +11,7 @@ class ItemTextWidgetForContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _ = context.locale;
     return Container(
       width: 221.w,
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
@@ -36,7 +37,7 @@ class ItemTextWidgetForContainer extends StatelessWidget {
               ),
             ),
           ),
-          Icon(Icons.more_vert, size: 20.sp, color: AppColors.mainBlack),
+          EditDeleteDownloadList(),
         ],
       ),
     );

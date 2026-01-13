@@ -4,6 +4,7 @@ export 'package:qualiverse/features/edit_files/presentation/controller/files_cub
 export 'package:qualiverse/features/edit_files/presentation/controller/files_state.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/edit_files_screen.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/container_widget.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_delete_download_list.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_body.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_list.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_new_button.dart';
