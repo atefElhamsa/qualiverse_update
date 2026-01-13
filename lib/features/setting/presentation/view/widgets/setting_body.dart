@@ -8,12 +8,20 @@ class SettingBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffoldSetting(
-      widget: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SideBarWidget(),
-          Expanded(child: SettingContent()),
-        ],
+      widget: LayoutBuilder(
+        builder: (context, constraints) {
+          return SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SideBarWidget(),
+                Expanded(child: SettingContent()),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -11,19 +11,17 @@ class HelpSettingsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final _ = context.locale;
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w, top: 70.h),
+      child: ListView(
+        padding: EdgeInsets.all(10),
+        physics: BouncingScrollPhysics(),
         children: [
-          Padding(
-            padding: EdgeInsets.only(top: 50.h),
-            child: CustomText(
-              title: "accountSupport".tr(),
-              textStyle: GoogleFonts.inter(
-                fontSize: 32.sp,
-                fontWeight: FontWeight.w700,
-                color: AppColors.black,
-              ),
+          CustomText(
+            title: "accountSupport".tr(),
+            textStyle: GoogleFonts.inter(
+              fontSize: 32.sp,
+              fontWeight: FontWeight.w700,
+              color: AppColors.black,
             ),
           ),
           const SizedBox(height: 30),

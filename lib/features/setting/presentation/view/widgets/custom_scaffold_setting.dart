@@ -37,7 +37,7 @@ class CustomScaffoldSetting extends StatelessWidget {
                 borderRadius: BorderRadius.circular(23.r),
               )
             : null,
-        child: SingleChildScrollView(child: widget),
+        child: widget,
       ),
     );
   }

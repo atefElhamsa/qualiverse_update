@@ -10,7 +10,6 @@ class SideBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 360.w,
-      height: MediaQuery.sizeOf(context).height * 782 / 832,
       decoration: BoxDecoration(
         color: AppColors.grey,
         borderRadius: BorderRadius.only(
