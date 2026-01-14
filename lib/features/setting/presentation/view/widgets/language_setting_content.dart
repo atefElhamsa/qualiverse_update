@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 import '../../../../../core/all_core_imports/all_core_imports.dart';
@@ -19,11 +18,9 @@ class LanguageSettingsContent extends StatelessWidget {
         children: [
           CustomText(
             title: "accountLanguage".tr(),
-            textStyle: GoogleFonts.inter(
-              fontSize: 32.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.black,
-            ),
+            textStyle: Theme.of(
+              context,
+            ).textTheme.headlineLarge!.copyWith(fontSize: 32.sp),
           ),
           Padding(
             padding: EdgeInsets.only(top: 100.h),

@@ -24,3 +24,4 @@ export 'package:qualiverse/features/setting/presentation/view/widgets/side_bar_l
 export 'package:qualiverse/features/setting/presentation/view/widgets/side_bar_top.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/side_bar_widget.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/side_item.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/theme_selector.dart';

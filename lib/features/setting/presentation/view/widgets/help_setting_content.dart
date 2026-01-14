@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class HelpSettingsContent extends StatelessWidget {
@@ -18,20 +17,16 @@ class HelpSettingsContent extends StatelessWidget {
         children: [
           CustomText(
             title: "accountSupport".tr(),
-            textStyle: GoogleFonts.inter(
-              fontSize: 32.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.black,
-            ),
+            textStyle: Theme.of(
+              context,
+            ).textTheme.headlineLarge!.copyWith(fontSize: 32.sp),
           ),
           const SizedBox(height: 30),
           CustomText(
             title: "howCanWeHelpYou".tr(),
-            textStyle: GoogleFonts.inter(
-              fontSize: 40.sp,
-              fontWeight: FontWeight.w600,
-              color: AppColors.black,
-            ),
+            textStyle: Theme.of(
+              context,
+            ).textTheme.headlineLarge!.copyWith(fontSize: 40.sp),
           ),
           const SizedBox(height: 30),
           HelpFirstContainer(),

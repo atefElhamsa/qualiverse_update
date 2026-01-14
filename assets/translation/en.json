@@ -201,5 +201,9 @@
   "english_us": "English (United States)",
   "arabic": "Arabic",
   "delete": "Delete",
-  "download": "Download"
+  "download": "Download",
+  "accountNotification": "Account Notification",
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark"
 }

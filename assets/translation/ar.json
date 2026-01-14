@@ -201,5 +201,9 @@
   "english_us": "الإنجليزية (الولايات المتحدة)",
   "arabic": "العربية",
   "delete": "حذف",
-  "download": "تحميل"
+  "download": "تحميل",
+  "accountNotification": "اشعارات الحساب",
+  "theme": "الثيم",
+  "light": "فاتح",
+  "dark": "داكن"
 }
