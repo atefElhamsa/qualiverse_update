@@ -103,7 +103,7 @@
   "institutional": "Institutional",
   "aiModel": "AI Model",
   "alreadyMember": "Already a member ?",
-  "email": "E-mail",
+  "email": "Email",
   "editFiles": "Edit Files",
   "pleaseSelectedYearAndDepartment": "Please complete all required fields before continuing.",
   "pleaseSelectYear": "Please Select Year",
@@ -206,5 +206,14 @@
   "theme": "Theme",
   "light": "Light",
   "dark": "Dark",
-  "myUpdates": "MY Updates"
+  "myUpdates": "MY Updates",
+  "accountSetting": "Account Setting",
+  "basicInfo": "Basic Info",
+  "profilePicture": "Profile Picture",
+  "upload_new_photo": "Upload a new photo",
+  "click_to_upload": "Click to upload",
+  "name": "Name",
+  "change": "Change",
+  "gender": "Gender",
+  "account_info": "Account Info"
 }

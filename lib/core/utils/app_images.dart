@@ -1,4 +1,5 @@
 // Defines static string constants for image asset paths.
+
 class AppImages {
   // Logo image path.
   static const String logo = "assets/images/logo.png";
@@ -175,4 +176,7 @@ class AppImages {
   // forget password big image
   static const String bigImageForgetPassword =
       "assets/images/forget_password_big_image.png";
+
+  // image picker
+  static const String imagePicker = "assets/images/image_picker.png";
 }

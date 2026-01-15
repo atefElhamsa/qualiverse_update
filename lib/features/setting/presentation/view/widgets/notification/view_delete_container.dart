@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/all_core_imports/all_core_imports.dart';
+import '../../../../../../core/all_core_imports/all_core_imports.dart';
 
 class ViewDeleteContainer extends StatelessWidget {
   const ViewDeleteContainer({super.key, required this.iconData});

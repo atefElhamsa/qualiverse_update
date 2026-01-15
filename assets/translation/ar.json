@@ -206,5 +206,14 @@
   "theme": "الثيم",
   "light": "فاتح",
   "dark": "داكن",
-  "myUpdates": "تحديثاتي"
+  "myUpdates": "تحديثاتي",
+  "accountSetting": "إعدادات الحساب",
+  "basicInfo": "البيانات الأساسية",
+  "profilePicture": "الصورة الشخصية",
+  "upload_new_photo": "رفع صورة جديدة",
+  "click_to_upload": "اضغط للرفع",
+  "name": "الاسم",
+  "change": "تغيير",
+  "gender": "النوع",
+  "account_info": "معلومات الحساب"
 }

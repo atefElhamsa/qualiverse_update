@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
-import '../../../../../core/all_core_imports/all_core_imports.dart';
+import '../../../../../../core/all_core_imports/all_core_imports.dart';
 
 class HelpSecondContainer extends StatelessWidget {
   const HelpSecondContainer({super.key});
