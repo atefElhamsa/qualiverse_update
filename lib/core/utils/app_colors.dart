@@ -81,4 +81,6 @@ class AppColors {
   // Splash Screen Line colors
   static const Color splashLineLight2 = Color(0xFF3B82F6);
   static const Color viewAndDeleteIconColor = Color(0xFF0D99FF);
+  static const Color itemContainerColorEdit1 = Color(0xFF0F8BED);
+  static const Color itemContainerColorEdit2 = Color(0xFF080F24);
 }

@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../routing/all_routes_imports.dart';
 
 class CourseItemWidget extends StatelessWidget {
   final String title;
@@ -11,7 +13,9 @@ class CourseItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.pushNamed(AppRoutes.editFilesScreen);
+      },
       child: SizedBox(
         width: 218.w,
         height: 180.h,

@@ -6,6 +6,7 @@ export 'package:qualiverse/features/indicators/presentation/controller/indicator
 export 'package:qualiverse/features/indicators/presentation/controller/indicators_state.dart';
 export 'package:qualiverse/features/indicators/presentation/view/indicators_screen.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/build_table_row.dart';
+export 'package:qualiverse/features/indicators/presentation/view/widgets/delete_widget.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/empty_indicators_list.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/indicators_body.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/indicators_top.dart';

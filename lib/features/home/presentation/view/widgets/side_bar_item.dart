@@ -29,9 +29,9 @@ class SideBarItem extends StatelessWidget {
             ? AppColors.colorButtonLight
             : AppColors.sideBarItemDark,
       ),
-      title: Text(
-        sideBarItemModel.title.tr(),
-        style: TextStyle(
+      title: CustomText(
+        title: sideBarItemModel.title.tr(),
+        textStyle: TextStyle(
           color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
               ? AppColors.black
               : AppColors.white,

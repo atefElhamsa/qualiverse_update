@@ -14,14 +14,25 @@ class SecondContainer extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ItemTextWidgetForContainer(title: "statistics"),
-              SizedBox(width: 24.w),
-              ItemTextWidgetForContainer(title: "surveys"),
+              Expanded(child: ItemTextWidgetForContainer(title: "statistics")),
+              SizedBox(width: 30.w),
+              Expanded(child: ItemTextWidgetForContainer(title: "surveys")),
             ],
           ),
           SizedBox(height: 24.h),
-          ItemTextWidgetForContainer(title: "documentaryAnalysis"),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: ItemTextWidgetForContainer(title: "documentaryAnalysis"),
+              ),
+              SizedBox(width: 30.w),
+              Expanded(child: SizedBox()),
+            ],
+          ),
         ],
       ),
     );

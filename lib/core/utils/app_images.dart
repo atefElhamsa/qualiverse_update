@@ -179,4 +179,10 @@ class AppImages {
 
   // image picker
   static const String imagePicker = "assets/images/image_picker.png";
+
+  // edit file image
+  static const String editFileImage = "assets/images/edit_file_image.png";
+
+  // logout
+  static const String logOut = "assets/images/logout.png";
 }

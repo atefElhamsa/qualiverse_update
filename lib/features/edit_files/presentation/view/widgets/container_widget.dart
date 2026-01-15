@@ -11,7 +11,7 @@ class ContainerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 23.h, horizontal: 20.w),
+      padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
       decoration: BoxDecoration(
         color: AppColors.progressColor,
         borderRadius: BorderRadius.circular(25.r),

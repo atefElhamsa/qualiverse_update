@@ -78,7 +78,7 @@ class LoginInterceptor extends Interceptor {
     final refreshed = await refreshToken();
     _isRefreshing = false;
 
-    // ❌ فشل refresh = انتهت الجلسة
+    // فشل refresh = انتهت الجلسة
     if (!refreshed) {
       _forceLogout();
       handler.next(err);
@@ -111,7 +111,7 @@ class LoginInterceptor extends Interceptor {
   // REFRESH TOKEN
   // =============================
   Future<bool> refreshToken() async {
-    // ✅ هنا بس نفحص expiration
+    // هنا بس نفحص expiration
     if (LoginStorage.isRefreshTokenExpired) return false;
 
     final token = LoginStorage.token;

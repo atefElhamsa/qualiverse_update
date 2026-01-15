@@ -44,9 +44,17 @@ TableRow buildTableRow({
       Padding(
         padding: const EdgeInsets.all(12.0),
         child: Center(
-          child: UploadFileButtom(
-            indicatorModel: indicator,
-            indicatorsArgs: indicatorsArgs,
+          child: Wrap(
+            spacing: 10.w,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              UploadFileButtom(
+                indicatorModel: indicator,
+                indicatorsArgs: indicatorsArgs,
+              ),
+              DeleteWidget(),
+            ],
           ),
         ),
       ),

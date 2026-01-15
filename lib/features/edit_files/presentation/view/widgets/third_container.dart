@@ -14,19 +14,25 @@ class ThirdContainer extends StatelessWidget {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ItemTextWidgetForContainer(title: "midtermExam"),
-              SizedBox(width: 24.w),
-              ItemTextWidgetForContainer(title: "finalExam"),
+              Expanded(child: ItemTextWidgetForContainer(title: "midtermExam")),
+              SizedBox(width: 30.w),
+              Expanded(child: ItemTextWidgetForContainer(title: "finalExam")),
             ],
           ),
           SizedBox(height: 24.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ItemTextWidgetForContainer(title: "studentWorkCopy"),
-              SizedBox(width: 24.w),
-              ItemTextWidgetForContainer(title: "ExamPaperAnalysis"),
+              Expanded(
+                child: ItemTextWidgetForContainer(title: "studentWorkCopy"),
+              ),
+              SizedBox(width: 30.w),
+              Expanded(
+                child: ItemTextWidgetForContainer(title: "ExamPaperAnalysis"),
+              ),
             ],
           ),
         ],

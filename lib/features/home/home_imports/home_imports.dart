@@ -9,6 +9,7 @@ export 'package:qualiverse/features/home/presentation/view/widgets/home_body_fir
 export 'package:qualiverse/features/home/presentation/view/widgets/home_body_last_part.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/home_body_second_part.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/home_layout.dart';
+export 'package:qualiverse/features/home/presentation/view/widgets/log_out_widget.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/main_wrapper.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_item.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_menu.dart';

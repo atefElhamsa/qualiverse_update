@@ -11,10 +11,11 @@ class FirstContainer extends StatelessWidget {
     return ContainerWidget(
       widget: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ItemTextWidgetForContainer(title: "report"),
-          SizedBox(width: 24.w),
-          ItemTextWidgetForContainer(title: "description"),
+          Expanded(child: ItemTextWidgetForContainer(title: "report")),
+          SizedBox(width: 30.w),
+          Expanded(child: ItemTextWidgetForContainer(title: "description")),
         ],
       ),
     );

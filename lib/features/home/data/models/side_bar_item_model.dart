@@ -29,7 +29,7 @@ final List<SideBarItemModel> sideBarItems = [
     route: AppRoutes.aiMainScreen,
   ),
   const SideBarItemModel(
-    title: "curricula",
+    title: "courseFile",
     image: AppImages.sideBarImageFour,
     route: AppRoutes.coursesMainScreen,
   ),
