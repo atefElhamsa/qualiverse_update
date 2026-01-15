@@ -10,10 +10,9 @@ class NotificationSettingsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w, top: 70.h),
-      child: ListView(
-        padding: EdgeInsets.all(10),
-        physics: BouncingScrollPhysics(),
+      padding: EdgeInsetsDirectional.only(start: 59.w, top: 81.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText(
             title: "accountNotification".tr(),
@@ -24,6 +23,7 @@ class NotificationSettingsContent extends StatelessWidget {
           SizedBox(height: 10),
           ThemeSelector(),
           SizedBox(height: 10),
+          ListNotification(),
         ],
       ),
     );
