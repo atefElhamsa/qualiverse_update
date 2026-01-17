@@ -14,7 +14,7 @@ class ListFileItemWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(3, (index) {
+      children: List.generate(fileItemModels.length, (index) {
         return FileItemWidget(fileItemModel: fileItemModels[index]);
       }),
     );

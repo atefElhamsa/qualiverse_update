@@ -34,7 +34,7 @@ class AiDescriptionTop extends StatelessWidget {
                     ).textTheme.displayLarge!.copyWith(fontSize: 64.sp),
                   ),
                   CustomText(
-                    title: "specification".tr(),
+                    title: "description".tr(),
                     textStyle: Theme.of(
                       context,
                     ).textTheme.bodyMedium!.copyWith(fontSize: 32.sp),

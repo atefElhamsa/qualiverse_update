@@ -50,7 +50,7 @@ class AiMainButtons extends StatelessWidget {
               backgroundColor: AppColors.colorButtonLight,
               radius: 20,
               customText: CustomText(
-                title: "specification".tr(),
+                title: "description".tr(),
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
               ),
             ),

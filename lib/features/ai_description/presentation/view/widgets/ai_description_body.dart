@@ -16,13 +16,13 @@ class AiDescriptionBody extends StatefulWidget {
 class _AiDescriptionBodyState extends State<AiDescriptionBody> {
   // List to store uploaded files.
   List<File?> uploadedFilesSpecification = List<File?>.filled(
-    3,
+    2,
     null,
     growable: false,
   );
 
   // Maximum number of files that can be uploaded.
-  final int maxFiles = 3;
+  final int maxFiles = 2;
 
   // Counter for the number of files that have been uploaded.
   int countUploadedFileDone = 0;
@@ -52,22 +52,16 @@ class _AiDescriptionBodyState extends State<AiDescriptionBody> {
   Widget build(BuildContext context) {
     final List<FileItemModel> fileItemModels = [
       FileItemModel(
-        titleFile: "references",
-        aboutFile: "courseReferences".tr(),
+        titleFile: "equivalentCourses",
+        aboutFile: "courseSynonyms".tr(),
         onTap: () => pickFile(0),
         file: uploadedFilesSpecification[0],
       ),
       FileItemModel(
-        titleFile: "equivalentCourses",
-        aboutFile: "courseSynonyms".tr(),
-        onTap: () => pickFile(1),
-        file: uploadedFilesSpecification[1],
-      ),
-      FileItemModel(
         titleFile: "stampFile",
         aboutFile: "basicSentence".tr(),
-        onTap: () => pickFile(2),
-        file: uploadedFilesSpecification[2],
+        onTap: () => pickFile(1),
+        file: uploadedFilesSpecification[1],
       ),
     ];
     return CustomScaffold(
