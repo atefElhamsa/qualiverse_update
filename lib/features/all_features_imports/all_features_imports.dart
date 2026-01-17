@@ -26,6 +26,8 @@ export 'package:qualiverse/features/indicators/indicators_imports/indicators_imp
 export 'package:qualiverse/features/institutional_accreditation/institutional_accreditation_imports/institutional_accreditation_imports.dart';
 // Login Feature Exports
 export 'package:qualiverse/features/login/login_imports/login_imports.dart';
+// Onboarding Feature Exports
+export 'package:qualiverse/features/onboarding/onboarding_imports/onboarding_imports.dart';
 // Program Accreditation Feature Exports
 export 'package:qualiverse/features/program_accreditation/program_accreditation_imports/program_accreditation_imports.dart';
 // Rapporteur Report First and Second Term Feature Exports

@@ -23,7 +23,18 @@ class ScreensRoutes {
         context: context,
         state: state,
         child: const ResetPasswordScreen(),
-        // type: PageTransitionType.slideRight,
+      ),
+    );
+  }
+
+  static GoRoute onboardingRoute() {
+    return GoRoute(
+      path: AppRoutes.onboardingScreen,
+      name: AppRoutes.onboardingScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const OnboardingScreen(),
       ),
     );
   }
@@ -144,7 +155,7 @@ class ScreensRoutes {
       pageBuilder: (context, state) => buildPageWithTransition(
         context: context,
         state: state,
-        child: LoginStorage.hasToken ? const HomeScreen() : const LoginScreen(),
+        child: const LoginScreen(),
       ),
     );
   }

@@ -185,4 +185,20 @@ class AppImages {
 
   // logout
   static const String logOut = "assets/images/logout.png";
+
+  // project definition onboarding
+  static const String projectDefinitionOnboarding =
+      "assets/images/project_definition_onboarding.jpg";
+
+  // academic image onboarding
+  static const String academicImageOnboarding =
+      "assets/images/academic_image_onboarding.png";
+
+  // course image onboarding
+  static const String courseImageOnboarding =
+      "assets/images/course_image_onboarding.png";
+
+  // performance image onboarding
+  static const String performanceImageOnboarding =
+      "assets/images/performance_image_onboarding.png";
 }

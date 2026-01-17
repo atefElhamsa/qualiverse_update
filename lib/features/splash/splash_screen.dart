@@ -32,7 +32,9 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void navigateToLogin() {
-    context.pushReplacementNamed(AppRoutes.loginScreen);
+    context.pushReplacementNamed(
+      LoginStorage.hasToken ? AppRoutes.homeScreen : AppRoutes.onboardingScreen,
+    );
   }
 
   void initAnimations() {

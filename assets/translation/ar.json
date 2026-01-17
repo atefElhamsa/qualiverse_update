@@ -173,7 +173,7 @@
   "manageEvidenceFiles": "إدارة ملفات الأدلة",
   "newFolder": "مجلد جديد",
   "uploadFolder": "رفع مجلد",
-  "description": "الوصف",
+  "description": "التوصيف",
   "documentaryAnalysis": "التحليل الوثائقي",
   "midtermExam": "امتحان الميدترم",
   "studentWorkCopy": "نسخة من أعمال الطلاب",
@@ -215,5 +215,16 @@
   "name": "الاسم",
   "change": "تغيير",
   "gender": "النوع",
-  "account_info": "معلومات الحساب"
+  "account_info": "معلومات الحساب",
+  "onboarding_page_1_title": "QualiVerse – نظام الاعتماد الأكاديمي",
+  "onboarding_page_1_desc": "نظام جامعي متكامل لإدارة الاعتماد الأكاديمي والمقررات الدراسية بشكل رقمي ومنظم داخل المؤسسة التعليمية.",
+  "onboarding_page_2_title": "الاعتماد الأكاديمي",
+  "onboarding_page_2_desc": "تنظيم معايير الاعتماد والمؤشرات ورفع ومراجعة ملفات الأدلة مع تتبع واضح لحالة كل ملف.",
+  "onboarding_page_3_title": "إدارة المقررات الدراسية",
+  "onboarding_page_3_desc": "إدارة توصيفات وتقارير المقررات وأعمال المقرر والملفات الأكاديمية في هيكل واضح وسهل المتابعة.",
+  "onboarding_page_4_title": "متابعة الأداء واتخاذ القرار",
+  "onboarding_page_4_desc": "متابعة مؤشرات الأداء والتقدم من خلال لوحات تحكم وتقارير واضحة لدعم اتخاذ القرار داخل المؤسسة.",
+  "onboarding_button_title": "التالي",
+  "start_button": "ابدأ",
+  "skip": "تخطى"
 }

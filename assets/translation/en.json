@@ -215,5 +215,16 @@
   "name": "Name",
   "change": "Change",
   "gender": "Gender",
-  "account_info": "Account Info"
+  "account_info": "Account Info",
+  "onboarding_page_1_title": "QualiVerse – Academic Quality System",
+  "onboarding_page_1_desc": "A comprehensive university system for managing academic accreditation and course documentation in a structured digital environment.",
+  "onboarding_page_2_title": "Academic Accreditation",
+  "onboarding_page_2_desc": "Manage accreditation standards and indicators, upload and review evidence files, with clear tracking for every document status.",
+  "onboarding_page_3_title": "Course Management",
+  "onboarding_page_3_desc": "Manage course specifications, reports, and academic documents within a clear and organized structure.",
+  "onboarding_page_4_title": "Performance Tracking & Decision Making",
+  "onboarding_page_4_desc": "Track performance indicators and progress through clear dashboards and reports to support informed decision making.",
+  "onboarding_button_title": "Next",
+  "start_button": "Get Started",
+  "skip": "Skip"
 }

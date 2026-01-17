@@ -72,4 +72,7 @@ class AppRoutes {
 
   // Route for the forget password screen.
   static const String resetPasswordScreen = '/reset_password';
+
+  // Route for the onboarding screen
+  static const String onboardingScreen = '/onboarding';
 }
