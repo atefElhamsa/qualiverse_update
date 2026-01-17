@@ -226,5 +226,7 @@
   "onboarding_page_4_desc": "Track performance indicators and progress through clear dashboards and reports to support informed decision making.",
   "onboarding_button_title": "Next",
   "start_button": "Get Started",
-  "skip": "Skip"
+  "skip": "Skip",
+  "not_confirmed_yet": "Not confirmed yet ?",
+  "resend": "Resend"
 }
