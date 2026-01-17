@@ -20,6 +20,7 @@ class RouterGenerator {
     // Key for the root navigator.
     routes: [
       ScreensRoutes.onboardingRoute(),
+      ScreensRoutes.accountVerificationRoute(),
       ScreensRoutes.forgetPasswordRoute(),
       ScreensRoutes.loginRoute(),
       ScreensRoutes.signUpRoute(),

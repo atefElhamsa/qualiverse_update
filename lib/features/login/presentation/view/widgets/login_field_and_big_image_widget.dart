@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class LoginFieldAndBigImageWidget extends StatelessWidget {
@@ -27,39 +26,20 @@ class LoginFieldAndBigImageWidget extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsetsDirectional.only(start: 46.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      CustomText(
-                        title: "not_confirmed_yet".tr(),
-                        textStyle: GoogleFonts.inter(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.greyLight,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: CustomText(
-                          title: "resend".tr(),
-                          textStyle: GoogleFonts.inter(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.red,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  FieldsWidget(loginCubit: loginCubit),
-                  const SizedBox(height: 10),
-                  KeepLoginWidget(loginCubit: loginCubit),
-                  const SizedBox(height: 20),
-                  LoginButtonWidget(loginCubit: loginCubit),
-                ],
+              child: SizedBox(
+                width: 390.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const NotConfirmedWidget(),
+                    const SizedBox(height: 10),
+                    FieldsWidget(loginCubit: loginCubit),
+                    const SizedBox(height: 10),
+                    KeepLoginWidget(loginCubit: loginCubit),
+                    const SizedBox(height: 20),
+                    LoginButtonWidget(loginCubit: loginCubit),
+                  ],
+                ),
               ),
             ),
             const Spacer(),

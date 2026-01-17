@@ -16,5 +16,6 @@ export 'package:qualiverse/features/login/presentation/view/widgets/login_bottom
 export 'package:qualiverse/features/login/presentation/view/widgets/login_button_widget.dart';
 export 'package:qualiverse/features/login/presentation/view/widgets/login_field_and_big_image_widget.dart';
 export 'package:qualiverse/features/login/presentation/view/widgets/login_title_right.dart';
+export 'package:qualiverse/features/login/presentation/view/widgets/not_confirmed_widget.dart';
 export 'package:qualiverse/features/login/presentation/view/widgets/welcome_back_widget.dart';
 export 'package:qualiverse/features/login/presentation/view/widgets/white_container_widget.dart';

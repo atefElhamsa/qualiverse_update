@@ -44,6 +44,8 @@ class LoginButtonWidget extends StatelessWidget {
               ),
               const SizedBox(height: 13),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomText(
                     title: "dontHaveAccount".tr(),

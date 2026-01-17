@@ -15,6 +15,18 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute accountVerificationRoute() {
+    return GoRoute(
+      path: AppRoutes.accountVerificationScreen,
+      name: AppRoutes.accountVerificationScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AccountVerificationScreen(),
+      ),
+    );
+  }
+
   static GoRoute forgetPasswordRoute() {
     return GoRoute(
       path: AppRoutes.resetPasswordScreen,

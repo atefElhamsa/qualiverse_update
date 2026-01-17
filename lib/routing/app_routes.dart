@@ -75,4 +75,7 @@ class AppRoutes {
 
   // Route for the onboarding screen
   static const String onboardingScreen = '/onboarding';
+
+  // Route for the account verification screen
+  static const String accountVerificationScreen = '/account_verification';
 }
