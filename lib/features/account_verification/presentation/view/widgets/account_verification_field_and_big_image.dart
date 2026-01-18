@@ -13,7 +13,7 @@ class AccountVerificationFieldAndBigImage extends StatelessWidget {
       padding: EdgeInsetsDirectional.only(top: 200.h, start: 45.w),
       child: Row(
         children: [
-          AccountVerificationFieldAndButton(),
+          const AccountVerificationFieldAndButton(),
           const Spacer(),
           Padding(
             padding: EdgeInsets.only(

@@ -227,7 +227,7 @@
   "onboarding_button_title": "التالي",
   "start_button": "ابدأ",
   "skip": "تخطى",
-  "not_confirmed_yet": "غير مؤكد بعد",
+  "not_confirmed_yet": "غير مؤكد بعد ؟",
   "resend": "إعادة الإرسال",
   "evidence_overview": "نظرة عامة على الأدلة",
   "accreditation_structure": "هيكل الاعتماد",
@@ -240,5 +240,6 @@
   "total_evidence": "إجمالي الأدلة",
   "total_indicators": "إجمالي المؤشرات",
   "total_criteria": "إجمالي المعايير",
-  "total_courses": "إجمالي المقررات"
+  "total_courses": "إجمالي المقررات",
+  "account_verification": "التحقق من الحساب"
 }

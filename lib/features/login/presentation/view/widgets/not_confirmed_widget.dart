@@ -11,8 +11,11 @@ class NotConfirmedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: locale == const Locale('ar')
+          ? Alignment.centerLeft
+          : Alignment.centerRight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
