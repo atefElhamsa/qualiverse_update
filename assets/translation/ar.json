@@ -63,6 +63,7 @@
   "report": "التقرير",
   "specification": "التوصيف",
   "youMustUploadThreeFilesInPdfWordTypeOnly": "يجب عليك رفع 3 ملفات بصيغة PDF و Word فقط",
+  "youMustUploadTwoFilesInPdfWordTypeOnly": "يجب عليك رفع 2 ملفات بصيغة PDF و Word فقط",
   "chooseFile": "اختر ملف",
   "uploadHint": "انقر للرفع أو اسحب الملف هنا",
   "stampFile": "ختم الملف",

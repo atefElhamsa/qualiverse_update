@@ -21,7 +21,7 @@ class SideBar extends StatelessWidget {
             Expanded(
               child: ListView(children: [SideBarMenu(controller: controller)]),
             ),
-            LogOutWidget(),
+            const LogOutWidget(),
           ],
         ),
       ),

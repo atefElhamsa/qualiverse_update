@@ -63,6 +63,7 @@
   "report": "Report",
   "specification": "Specification",
   "youMustUploadThreeFilesInPdfWordTypeOnly": "You must upload 3 files in PDF & WORD type only",
+  "youMustUploadTwoFilesInPdfWordTypeOnly": "You must upload 2 files in PDF & WORD type only",
   "chooseFile": "Choose a file",
   "uploadHint": "Click to Upload or Drag file here ",
   "stampFile": "Stamp File",

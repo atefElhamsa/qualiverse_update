@@ -71,7 +71,7 @@ class _AiDescriptionBodyState extends State<AiDescriptionBody> {
         children: [
           const AiDescriptionTop(),
           CustomText(
-            title: "youMustUploadThreeFilesInPdfWordTypeOnly".tr(),
+            title: "youMustUploadTwoFilesInPdfWordTypeOnly".tr(),
             textStyle: Theme.of(context).textTheme.labelSmall!,
           ),
           const SizedBox(height: 10),
