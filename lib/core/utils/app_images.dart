@@ -212,4 +212,19 @@ class AppImages {
 
   // indicators file image onboarding
   static const String indicatorsFile = "assets/images/indicators_file.png";
+
+  // evidence overview image onboarding
+  static const String evidenceOverview = "assets/images/evidence_overview.png";
+
+  // evidence overview 2 image onboarding
+  static const String evidenceOverview2 =
+      "assets/images/evidence_overview_2.png";
+
+  // accreditation structure image onboarding
+  static const String accreditationStructure =
+      "assets/images/accreditation_structure.png";
+
+  // accreditation structure 2 image onboarding
+  static const String accreditationStructure2 =
+      "assets/images/accreditation_structure_2.png";
 }
