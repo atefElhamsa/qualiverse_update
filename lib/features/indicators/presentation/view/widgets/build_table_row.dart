@@ -53,7 +53,7 @@ TableRow buildTableRow({
                 indicatorModel: indicator,
                 indicatorsArgs: indicatorsArgs,
               ),
-              DeleteWidget(),
+              const DeleteWidget(),
             ],
           ),
         ),

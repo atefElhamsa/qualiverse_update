@@ -201,4 +201,15 @@ class AppImages {
   // performance image onboarding
   static const String performanceImageOnboarding =
       "assets/images/performance_image_onboarding.png";
+
+  // evidence upload image onboarding
+  static const String evidenceUploadImage =
+      "assets/images/evidence_upload_image.png";
+
+  // program Institution image onboarding
+  static const String programInstitution =
+      "assets/images/program_institution.png";
+
+  // indicators file image onboarding
+  static const String indicatorsFile = "assets/images/indicators_file.png";
 }

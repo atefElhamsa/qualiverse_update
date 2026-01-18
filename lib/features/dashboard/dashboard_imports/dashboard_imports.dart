@@ -1,5 +1,10 @@
 export 'package:qualiverse/features/dashboard/presentation/view/dashboard_screen.dart';
-export 'package:qualiverse/features/dashboard/presentation/view/widgets/custom_container_dashboard.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/accreditation_structure_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_body.dart';
-export 'package:qualiverse/features/dashboard/presentation/view/widgets/list_data.dart';
-export 'package:qualiverse/features/dashboard/presentation/view/widgets/title_data_widget.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_scaffold.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_tabs.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_top_and_title.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_overview_content.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/evidence_uploads_content.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/indicators_file_content.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/program_institution_content.dart';

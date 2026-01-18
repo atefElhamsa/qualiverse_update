@@ -16,7 +16,7 @@ class TableOfFiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return indicators.isEmpty
-        ? EmptyIndicatorsList()
+        ? const EmptyIndicatorsList()
         : BlocListener<IndicatorsCubit, IndicatorsState>(
             listener: (context, state) {
               if (state is IndicatorUploadLoading) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AccountVerificationScreen extends StatelessWidget {
@@ -6,10 +7,13 @@ class AccountVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.loginBackground2,
-      body: AccountVerificationBody(),
+      body: BlocProvider(
+        create: (context) => AccountVerificationCubit(),
+        child: const AccountVerificationBody(),
+      ),
     );
   }
 }

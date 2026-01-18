@@ -228,5 +228,11 @@
   "start_button": "Get Started",
   "skip": "Skip",
   "not_confirmed_yet": "Not confirmed yet ?",
-  "resend": "Resend"
+  "resend": "Resend",
+  "evidence_overview": "Evidence Overview",
+  "accreditation_structure": "Accreditation Structure",
+  "evidence_uploads": "Evidence Uploads",
+  "program_vs_institution": "Program vs Institution",
+  "indicators_and_files": "Indicators & Files",
+  "verification_email_sent": "A verification email has been sent, Please check your email to activate your account."
 }

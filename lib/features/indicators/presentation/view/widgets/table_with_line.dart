@@ -13,7 +13,7 @@ class TableWithLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -21,7 +21,7 @@ class TableWithLine extends StatelessWidget {
             indicators.isEmpty
                 ? const SizedBox()
                 : Line(indicators: indicators),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             TableOfFiles(
               indicatorsArgs: indicatorsArgs,
               indicators: indicators,

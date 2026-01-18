@@ -15,11 +15,11 @@ class DeleteWidget extends StatelessWidget {
         child: Container(
           height: 35.h,
           width: 35.w,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: AppColors.red,
           ),
-          child: Center(
+          child: const Center(
             child: Icon(Icons.delete_outline_rounded, color: AppColors.black),
           ),
         ),

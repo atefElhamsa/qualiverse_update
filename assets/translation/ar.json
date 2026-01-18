@@ -228,5 +228,11 @@
   "start_button": "ابدأ",
   "skip": "تخطى",
   "not_confirmed_yet": "غير مؤكد بعد",
-  "resend": "إعادة الإرسال"
+  "resend": "إعادة الإرسال",
+  "evidence_overview": "نظرة عامة على الأدلة",
+  "accreditation_structure": "هيكل الاعتماد",
+  "evidence_uploads": "رفع الأدلة",
+  "program_vs_institution": "البرنامج مقابل المؤسسة",
+  "indicators_and_files": "المؤشرات والملفات",
+  "verification_email_sent": "تم إرسال رسالة تأكيد إلى بريدك الإلكتروني, يرجى التحقق من البريد لتفعيل الحساب."
 }
