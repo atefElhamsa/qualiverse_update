@@ -3,19 +3,20 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev
+      - dev  # أو فرعك الرئيسي
 
 permissions:
-  contents: write  # عشان Actions يقدر يعمل push/tag
+  contents: write  # مهم عشان Actions يقدر يعمل push/tag
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone Repo بدون bot الافتراضي
-      - uses: actions/checkout@v3
+      # 1️⃣ Clone Repo كامل (مش shallow)
+      - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       # 2️⃣ Setup Flutter
@@ -32,13 +33,25 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ Zip Release
+      # 5️⃣ Check Release folder
+      - name: Check Release folder
+        shell: pwsh
+        run: |
+          $releasePath = "build\windows\x64\runner\Release"
+          if (-Not (Test-Path $releasePath)) {
+              Write-Error "Release folder not found: $releasePath"
+              exit 1
+          } else {
+              Write-Host "Release folder found ✅"
+          }
+
+      # 6️⃣ Zip Release
       - name: Zip Release
         shell: pwsh
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 6️⃣ Create Git Tag ذكي
+      # 7️⃣ Create Git Tag ذكي (auto patch لو موجود)
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -51,9 +64,8 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
-          # تحقق لو tag موجود على remote
-          $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
-
+          # لو tag موجود على remote → زود patch
+          $tagExists = git ls-remote --tags origin | Select-String $tagName
           if ($tagExists) {
               Write-Host "Tag $tagName exists, incrementing patch version ✅"
               $parts = $baseVersion -split "\."
@@ -65,9 +77,14 @@ jobs:
               Write-Host "Creating new tag $tagName"
           }
 
+          # Commit version.json
           git add version.json
-          git commit -m "Update version.json to $($json.version)" -m "Auto-update patch" || Write-Host "No changes to commit"
+          git commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
 
+          # 🚨 Push commit أولاً
+          git push origin HEAD:dev
+
+          # بعدين tag + push
           git tag $tagName
           git push origin $tagName
 
@@ -75,7 +92,7 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # 7️⃣ Upload Release
+      # 8️⃣ Upload Release
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
@@ -85,11 +102,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Update version.json على Public Repo
+      # 9️⃣ Update version.json على Public Repo
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
-          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git"
+          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
           $branch = "main"
           $folder = "updater_temp"
 
