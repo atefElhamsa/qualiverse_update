@@ -5,13 +5,18 @@ on:
     branches:
       - dev  # أي push على الفرع dev يشغل الـ workflow
 
+permissions:
+  contents: write  # مهم عشان GitHub Actions يقدر يعمل push/tag
+
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone Private Repo (اللي فيه الكود)
+      # 1️⃣ Clone Repo
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # مهم عشان Git يستخدم التوكين
 
       # 2️⃣ Setup Flutter
       - name: Setup Flutter
@@ -27,7 +32,7 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ Check Release folder exists
+      # 5️⃣ Check Release folder
       - name: Check Release folder
         shell: pwsh
         run: |
@@ -45,8 +50,9 @@ jobs:
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag على Public Repo
+      # 7️⃣ Create Git Tag on Public Repo
       - name: Create Git Tag
+        id: create_tag
         shell: pwsh
         run: |
           $json = Get-Content version.json | ConvertFrom-Json
@@ -56,24 +62,26 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           
-          # Switch origin to Public Repo مع التوكين
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git
           
           git tag $tagName
           git push origin $tagName
+
+          Write-Host "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Upload Release على Public Repo
+      # 8️⃣ Upload Release
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_updater
-          tag_name: v${{ github.event.head_commit.message }}
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
           files: build/qualiverse_release.zip
-          token: ${{ secrets.GH_PAT }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # 9️⃣ Update version.json على Public Repo
+      # 9️⃣ Update version.json on Public Repo
       - name: Update version.json
         shell: pwsh
         run: |
@@ -89,7 +97,7 @@ jobs:
           # Read version.json
           $json = Get-Content version.json | ConvertFrom-Json
 
-          # Increase patch number (مثال: 1.0.1 -> 1.0.2)
+          # Increase patch number (1.0.1 -> 1.0.2)
           $parts = $json.version -split "\."
           $parts[2] = ([int]$parts[2] + 1).ToString()
           $json.version = ($parts -join ".")
