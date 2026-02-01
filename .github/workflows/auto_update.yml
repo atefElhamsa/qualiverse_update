@@ -6,7 +6,7 @@ on:
       - dev
 
 permissions:
-  contents: write  # Actions يقدر يعمل push/tag
+  contents: write  # عشان Actions يقدر يعمل push/tag
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag ذكي (auto patch إذا موجود)
+      # 7️⃣ Create Git Tag ذكي (auto patch لو موجود)
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -68,22 +68,21 @@ jobs:
 
           if ($tagExists) {
               Write-Host "Tag $tagName exists, incrementing patch version ✅"
-              # زيادة patch
               $parts = $baseVersion -split "\."
               $parts[2] = ([int]$parts[2] + 1).ToString()
               $json.version = ($parts -join ".")
               $tagName = "v$($json.version)"
-              # تحديث version.json محليًا
+              # حفظ التحديث على version.json محليًا
               $json | ConvertTo-Json -Depth 10 | Set-Content version.json
           } else {
               Write-Host "Creating new tag $tagName"
           }
 
-          # عمل commit للـ version.json قبل tag لو تم تحديثه
+          # Commit التحديث لو حصل
           git add version.json
           git commit -m "Update version.json to $($json.version)" -m "Auto-update patch" || Write-Host "No changes to commit"
 
-          # عمل tag و push
+          # Push tag جديد
           git tag $tagName
           git push origin $tagName
 
