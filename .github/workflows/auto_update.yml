@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone الريبو
+      # 1️⃣ Clone Private Repo
       - uses: actions/checkout@v3
 
       # 2️⃣ Setup Flutter
@@ -27,7 +27,7 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ تأكد من وجود فولدر Release
+      # 5️⃣ Check Release folder exists
       - name: Check Release folder exists
         shell: pwsh
         run: |
@@ -37,30 +37,34 @@ jobs:
               exit 1
           } else {
               Write-Host "Release folder found ✅"
-          }
 
-      # 6️⃣ Zip فولدر Release
+      # 6️⃣ Zip Release
       - name: Zip Release
         shell: pwsh
         run: |
-          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build\qualiverse_release.zip"
+          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag تلقائي من version.json
+      # 7️⃣ Create Git Tag on Public Repo
       - name: Create Git Tag
         shell: pwsh
         run: |
           $json = Get-Content version.json | ConvertFrom-Json
           $tagName = "v$($json.version)"
-          Write-Host "Creating tag $tagName"
+          Write-Host "Creating tag $tagName on Public repo"
+          
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          
+          # Switch origin to Public Repo
+          git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git
+          
           git tag $tagName
           git push origin $tagName
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Upload Release على Public Repo
-      - name: Upload Release to Public Repo
+      # 8️⃣ Upload Release on Public Repo
+      - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_updater
@@ -68,11 +72,11 @@ jobs:
           files: build/qualiverse_release.zip
           token: ${{ secrets.GH_PAT }}
 
-      # 9️⃣ Update version.json تلقائي
-      - name: Update version.json in Public Repo
+      # 9️⃣ Update version.json on Public Repo
+      - name: Update version.json
         shell: pwsh
         run: |
-          $repo = "https://github.com/atefElhamsa/qualiverse_updater.git"
+          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git"
           $branch = "main"
           $folder = "updater_temp"
 
@@ -84,12 +88,12 @@ jobs:
           # Read version.json
           $json = Get-Content version.json | ConvertFrom-Json
 
-          # Increase patch number (مثال 1.0.1 -> 1.0.2)
+          # Increase patch number (1.0.1 -> 1.0.2)
           $parts = $json.version -split "\."
           $parts[2] = ([int]$parts[2] + 1).ToString()
           $json.version = ($parts -join ".")
 
-          # Update URL للـ zip الجديد
+          # Update URL for new release
           $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
 
           # Save JSON
@@ -102,4 +106,4 @@ jobs:
           git commit -m "Update version.json to $($json.version)"
           git push origin $branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.GH_PAT }}
