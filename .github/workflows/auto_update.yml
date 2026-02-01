@@ -3,20 +3,20 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev  # أي push على الفرع dev يشغل الـ workflow
+      - dev
 
 permissions:
-  contents: write  # عشان Actions يقدر يعمل push/tag
+  contents: write  # Actions يقدر يعمل push/tag
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone Repo بدون استخدام bot الافتراضي
+      # 1️⃣ Clone Repo بدون bot الافتراضي
       - uses: actions/checkout@v3
         with:
-          persist-credentials: false  # نستخدم PAT بدل bot
+          persist-credentials: false
 
       # 2️⃣ Setup Flutter
       - name: Setup Flutter
@@ -50,32 +50,42 @@ jobs:
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag على Public Repo باستخدام PAT مع force إذا موجود
+      # 7️⃣ Create Git Tag ذكي (auto patch إذا موجود)
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
         run: |
           $json = Get-Content version.json | ConvertFrom-Json
-          $tagName = "v$($json.version)"
-          Write-Host "Creating tag $tagName on Public repo"
+          $baseVersion = $json.version
+          $tagName = "v$baseVersion"
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git
 
-          # تحقق لو الـ tag موجود مسبقًا على remote
+          # تحقق لو tag موجود على remote
           $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
 
           if ($tagExists) {
-              Write-Host "Tag $tagName exists, force updating ✅"
-              git tag -f $tagName
-              git push origin $tagName --force
+              Write-Host "Tag $tagName exists, incrementing patch version ✅"
+              # زيادة patch
+              $parts = $baseVersion -split "\."
+              $parts[2] = ([int]$parts[2] + 1).ToString()
+              $json.version = ($parts -join ".")
+              $tagName = "v$($json.version)"
+              # تحديث version.json محليًا
+              $json | ConvertTo-Json -Depth 10 | Set-Content version.json
           } else {
-              Write-Host "Creating and pushing new tag $tagName"
-              git tag $tagName
-              git push origin $tagName
+              Write-Host "Creating new tag $tagName"
           }
+
+          # عمل commit للـ version.json قبل tag لو تم تحديثه
+          git add version.json
+          git commit -m "Update version.json to $($json.version)" -m "Auto-update patch" || Write-Host "No changes to commit"
+
+          # عمل tag و push
+          git tag $tagName
+          git push origin $tagName
 
           Write-Host "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
@@ -91,8 +101,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # 9️⃣ Update version.json على Public Repo باستخدام PAT
-      - name: Update version.json
+      # 9️⃣ Update version.json على Public Repo
+      - name: Update version.json on Public Repo
         shell: pwsh
         run: |
           $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git"
@@ -102,29 +112,18 @@ jobs:
           git clone $repo $folder
           cd $folder
           git checkout $branch
-
-          # Read version.json
-          $json = Get-Content version.json | ConvertFrom-Json
-
-          # Increase patch number (مثال: 1.0.1 -> 1.0.2)
-          $parts = $json.version -split "\."
-          $parts[2] = ([int]$parts[2] + 1).ToString()
-          $json.version = ($parts -join ".")
-
-          # Update URL للـ zip الجديد
-          $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
-
-          # Save JSON
-          $json | ConvertTo-Json -Depth 10 | Set-Content version.json
-
-          # Commit & push بأمان بعد pull
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-
           git pull origin $branch --rebase
 
+          $json = Get-Content version.json | ConvertFrom-Json
+          # تحديث URL للـ zip الجديد
+          $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
+
+          $json | ConvertTo-Json -Depth 10 | Set-Content version.json
+
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git add version.json
-          git commit -m "Update version.json to $($json.version)"
+          git commit -m "Update version.json URL to v$($json.version)" || Write-Host "No changes to commit"
           git push origin $branch
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
