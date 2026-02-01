@@ -21,7 +21,7 @@ class SignUpButton extends StatelessWidget {
             child: Container(
               width: 154.w,
               height: 56.h,
-              margin: EdgeInsets.only(top: 25.h),
+              // margin: EdgeInsets.only(top: 25.h),
               decoration: BoxDecoration(
                 color: AppColors.loginButtonColor,
                 borderRadius: BorderRadius.circular(4.r),

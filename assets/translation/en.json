@@ -242,5 +242,7 @@
   "total_indicators": "Total Indicators",
   "total_criteria": "Total Criteria",
   "total_courses": "Total Courses",
-  "account_verification": "Account Verification"
+  "account_verification": "Account Verification",
+  "firstNameTooShort": "First name must be at least 3 characters long",
+  "lastNameTooShort": "Last name must be at least 3 characters long"
 }

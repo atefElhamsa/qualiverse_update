@@ -48,6 +48,16 @@ class SignUpCubit extends Cubit<SignUpState> {
       return;
     }
 
+    if (firstName.length < 3) {
+      emit(SignUpFailure(errorMessage: "firstNameTooShort".tr()));
+      return;
+    }
+
+    if (lastName.length < 3) {
+      emit(SignUpFailure(errorMessage: "lastNameTooShort".tr()));
+      return;
+    }
+
     if (password != confirmPassword) {
       emit(SignUpFailure(errorMessage: "passwordValidation".tr()));
       return;

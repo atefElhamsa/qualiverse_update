@@ -36,6 +36,7 @@ class SignUpFieldsAndButton extends StatelessWidget {
                 EmailAndPasswordAndConfirmPasswordFields(
                   signUpCubit: signUpCubit,
                 ),
+                const SizedBox(height: 25),
                 SignUpButton(signUpCubit: signUpCubit),
               ],
             ),

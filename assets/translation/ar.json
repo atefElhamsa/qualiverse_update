@@ -242,5 +242,7 @@
   "total_indicators": "إجمالي المؤشرات",
   "total_criteria": "إجمالي المعايير",
   "total_courses": "إجمالي المقررات",
-  "account_verification": "التحقق من الحساب"
+  "account_verification": "التحقق من الحساب",
+  "firstNameTooShort": "الاسم الأول يجب أن يكون مكونًا من 3 أحرف على الأقل",
+  "lastNameTooShort": "الاسم الأخير يجب أن يكون مكونًا من 3 أحرف على الأقل"
 }
