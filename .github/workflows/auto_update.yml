@@ -3,30 +3,43 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev
+      - dev   # أي push على الفرع dev هيشغل الـ Workflow
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest   # يشتغل على Windows VM
 
     steps:
+      # 1️⃣ Clone الريبو الخاص بك
       - uses: actions/checkout@v3
 
+      # 2️⃣ Setup Flutter بالنسخة اللي عندك
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.4'
+          flutter-version: '3.35.4'  # Flutter + Dart المطلوبة
 
+      # 3️⃣ تثبيت dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4️⃣ Build نسخة Windows release
       - name: Build Windows Release
         run: flutter build windows --release
 
+      # 5️⃣ Zip فولدر Release
       - name: Zip Release
+        shell: pwsh
         run: |
-          Compress-Archive -Path build\windows\runner\Release\* -DestinationPath build\qualiverse_release.zip
+          $releasePath = "build\windows\runner\Release"
+          if (Test-Path $releasePath) {
+              Compress-Archive -Path "$releasePath\*" -DestinationPath "build\qualiverse_release.zip"
+          } else {
+              Write-Error "Release folder not found: $releasePath"
+              exit 1
+          }
 
+      # 6️⃣ Upload ملف zip على Public Repo
       - name: Upload Release to Public Repo
         uses: softprops/action-gh-release@v1
         with:
@@ -35,6 +48,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # 7️⃣ Update version.json تلقائي
       - name: Update version.json in Public Repo
         shell: pwsh
         run: |
@@ -55,13 +69,13 @@ jobs:
           $parts[2] = ([int]$parts[2] + 1).ToString()
           $json.version = ($parts -join ".")
 
-          # Update URL for new release
+          # Update URL للـ zip الجديد
           $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
 
           # Save JSON
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
-          # Commit & push
+          # Commit & push التعديلات
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add version.json
