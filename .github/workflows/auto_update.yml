@@ -6,44 +6,39 @@ on:
       - dev
 
 permissions:
-  contents: write
+  contents: write  # عشان Actions يقدر يعمل push/tag
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
+      # 1️⃣ Clone Repo بدون bot الافتراضي
       - uses: actions/checkout@v3
         with:
           persist-credentials: false
 
+      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4️⃣ Build Windows Release
       - name: Build Windows Release
         run: flutter build windows --release
 
-      - name: Check Release folder
-        shell: pwsh
-        run: |
-          $releasePath = "build\windows\x64\runner\Release"
-          if (-Not (Test-Path $releasePath)) {
-              Write-Error "Release folder not found: $releasePath"
-              exit 1
-          } else {
-              Write-Host "Release folder found ✅"
-          }
-
+      # 5️⃣ Zip Release
       - name: Zip Release
         shell: pwsh
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
+      # 6️⃣ Create Git Tag ذكي (auto patch لو موجود)
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -54,7 +49,7 @@ jobs:
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
+          git remote set-url origin https://$env:GH_PAT@github.com/${{ github.repository }}.git
 
           $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
 
@@ -72,7 +67,6 @@ jobs:
           git add version.json
           git commit -m "Update version.json to $($json.version)" -m "Auto-update patch" || Write-Host "No changes to commit"
 
-          # Push tag جديد
           git tag $tagName
           git push origin $tagName
 
@@ -80,36 +74,26 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
+      # 7️⃣ Upload Release
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
-          repository: atefElhamsa/qualiverse_update
+          repository: ${{ github.repository }}
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      - name: Update version.json on Public Repo
+      # 8️⃣ Update version.json URL
+      - name: Update version.json
         shell: pwsh
         run: |
-          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
-          $branch = "main"
-          $folder = "updater_temp"
-
-          git clone $repo $folder
-          cd $folder
-          git checkout $branch
-          git pull origin $branch --rebase
-
           $json = Get-Content version.json | ConvertFrom-Json
-          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/v$($json.version)/qualiverse_release.zip"
-
+          $json.url = "https://github.com/${{ github.repository }}/releases/download/v$($json.version)/qualiverse_release.zip"
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
           git add version.json
           git commit -m "Update version.json URL to v$($json.version)" || Write-Host "No changes to commit"
-          git push origin $branch
+          git push origin dev
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
