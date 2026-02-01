@@ -34,3 +34,36 @@ jobs:
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version.json in Public Repo
+        shell: pwsh
+        run: |
+          $repo = "https://github.com/atefElhamsa/qualiverse_updater.git"
+          $branch = "main"
+          $folder = "updater_temp"
+
+          # Clone Public Repo
+          git clone $repo $folder
+          cd $folder
+          git checkout $branch
+
+          # Read version.json
+          $json = Get-Content version.json | ConvertFrom-Json
+
+          # Increase patch number (مثال 1.0.1 -> 1.0.2)
+          $parts = $json.version -split "\."
+          $parts[2] = ([int]$parts[2] + 1).ToString()
+          $json.version = ($parts -join ".")
+
+          # Update URL for new release
+          $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
+
+          # Save JSON
+          $json | ConvertTo-Json -Depth 10 | Set-Content version.json
+
+          # Commit & push
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add version.json
+          git commit -m "Update version.json to $($json.version)"
+          git push origin $branch
