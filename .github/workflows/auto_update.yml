@@ -94,10 +94,11 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_update
-          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}  # <— لازم يكون موجود
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+
 
       # 9️⃣ Update version.json على Public Repo
       - name: Update version.json on Public Repo
