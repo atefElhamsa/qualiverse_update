@@ -3,84 +3,103 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev
+      - dev   # أي push على الفرع dev يشغل الـ workflow
 
 jobs:
   build:
     runs-on: windows-latest
 
-    permissions:
-      contents: write   # 🔥 مهم جدًا
-
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
+      # 1️⃣ Clone الريبو
+      - uses: actions/checkout@v3
 
+      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4️⃣ Build Windows Release
       - name: Build Windows Release
         run: flutter build windows --release
 
-      - name: Zip Release
+      # 5️⃣ تأكد من وجود فولدر Release
+      - name: Check Release folder exists
         shell: pwsh
         run: |
           $releasePath = "build\windows\x64\runner\Release"
           if (-Not (Test-Path $releasePath)) {
-            Write-Error "Release folder not found: $releasePath"
-            exit 1
+              Write-Error "Release folder not found: $releasePath"
+              exit 1
+          } else {
+              Write-Host "Release folder found ✅"
           }
 
-          Compress-Archive `
-            -Path "$releasePath\*" `
-            -DestinationPath "build\qualiverse_release.zip" `
-            -Force
-
-      - name: Clone public updater repo
+      # 6️⃣ Zip فولدر Release
+      - name: Zip Release
         shell: pwsh
         run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/atefElhamsa/qualiverse_updater.git updater
-          cd updater
+          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build\qualiverse_release.zip"
 
+      # 7️⃣ Create Git Tag تلقائي من version.json
+      - name: Create Git Tag
+        shell: pwsh
+        run: |
+          $json = Get-Content version.json | ConvertFrom-Json
+          $tagName = "v$($json.version)"
+          Write-Host "Creating tag $tagName"
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git tag $tagName
+          git push origin $tagName
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      - name: Update version.json
-        shell: pwsh
-        run: |
-          cd updater
-
-          $json = Get-Content version.json | ConvertFrom-Json
-          $parts = $json.version -split "\."
-          $parts[2] = ([int]$parts[2] + 1)
-          $json.version = ($parts -join ".")
-
-          $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
-
-          $json | ConvertTo-Json -Depth 10 | Set-Content version.json
-
-          git add version.json
-          git commit -m "Update version to $($json.version)"
-          git push
-
-          echo "VERSION=$($json.version)" >> $env:GITHUB_ENV
-
-      - name: Create Git tag
-        shell: pwsh
-        run: |
-          cd updater
-          git tag v${{ env.VERSION }}
-          git push origin v${{ env.VERSION }}
-
-      - name: Create GitHub Release
+      # 8️⃣ Upload Release على Public Repo
+      - name: Upload Release to Public Repo
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ env.VERSION }}
+          repository: atefElhamsa/qualiverse_updater
+          tag_name: v${{ github.event.head_commit.message }}
           files: build/qualiverse_release.zip
+          token: ${{ secrets.GH_PAT }}
+
+      # 9️⃣ Update version.json تلقائي
+      - name: Update version.json in Public Repo
+        shell: pwsh
+        run: |
+          $repo = "https://github.com/atefElhamsa/qualiverse_updater.git"
+          $branch = "main"
+          $folder = "updater_temp"
+
+          # Clone Public Repo
+          git clone $repo $folder
+          cd $folder
+          git checkout $branch
+
+          # Read version.json
+          $json = Get-Content version.json | ConvertFrom-Json
+
+          # Increase patch number (مثال 1.0.1 -> 1.0.2)
+          $parts = $json.version -split "\."
+          $parts[2] = ([int]$parts[2] + 1).ToString()
+          $json.version = ($parts -join ".")
+
+          # Update URL للـ zip الجديد
+          $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
+
+          # Save JSON
+          $json | ConvertTo-Json -Depth 10 | Set-Content version.json
+
+          # Commit & push
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add version.json
+          git commit -m "Update version.json to $($json.version)"
+          git push origin $branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
