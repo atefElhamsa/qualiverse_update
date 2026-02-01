@@ -37,6 +37,7 @@ jobs:
               exit 1
           } else {
               Write-Host "Release folder found ✅"
+          }
 
       # 6️⃣ Zip Release
       - name: Zip Release
