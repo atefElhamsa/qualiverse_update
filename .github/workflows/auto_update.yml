@@ -3,14 +3,14 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev   # أي push على الفرع dev يشغل الـ workflow
+      - dev  # أي push على الفرع dev يشغل الـ workflow
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone Private Repo
+      # 1️⃣ Clone Private Repo (اللي فيه الكود)
       - uses: actions/checkout@v3
 
       # 2️⃣ Setup Flutter
@@ -28,7 +28,7 @@ jobs:
         run: flutter build windows --release
 
       # 5️⃣ Check Release folder exists
-      - name: Check Release folder exists
+      - name: Check Release folder
         shell: pwsh
         run: |
           $releasePath = "build\windows\x64\runner\Release"
@@ -37,7 +37,6 @@ jobs:
               exit 1
           } else {
               Write-Host "Release folder found ✅"
-          }
 
       # 6️⃣ Zip Release
       - name: Zip Release
@@ -45,7 +44,7 @@ jobs:
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag on Public Repo
+      # 7️⃣ Create Git Tag على Public Repo
       - name: Create Git Tag
         shell: pwsh
         run: |
@@ -56,7 +55,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           
-          # Switch origin to Public Repo
+          # Switch origin to Public Repo مع التوكين
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_updater.git
           
           git tag $tagName
@@ -64,7 +63,7 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Upload Release on Public Repo
+      # 8️⃣ Upload Release على Public Repo
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
@@ -73,7 +72,7 @@ jobs:
           files: build/qualiverse_release.zip
           token: ${{ secrets.GH_PAT }}
 
-      # 9️⃣ Update version.json on Public Repo
+      # 9️⃣ Update version.json على Public Repo
       - name: Update version.json
         shell: pwsh
         run: |
@@ -89,12 +88,12 @@ jobs:
           # Read version.json
           $json = Get-Content version.json | ConvertFrom-Json
 
-          # Increase patch number (1.0.1 -> 1.0.2)
+          # Increase patch number (مثال: 1.0.1 -> 1.0.2)
           $parts = $json.version -split "\."
           $parts[2] = ([int]$parts[2] + 1).ToString()
           $json.version = ($parts -join ".")
 
-          # Update URL for new release
+          # Update URL للـ zip الجديد
           $json.url = "https://github.com/atefElhamsa/qualiverse_updater/releases/download/v$($json.version)/qualiverse_release.zip"
 
           # Save JSON
