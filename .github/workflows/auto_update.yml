@@ -51,7 +51,7 @@ jobs:
         run: |
           Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
 
-      # 7️⃣ Create Git Tag ذكي (auto patch لو موجود)
+      # 7️⃣ Create Git Tag
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -64,8 +64,9 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
-          # لو tag موجود على remote → زود patch
-          $tagExists = git ls-remote --tags origin | Select-String $tagName
+          # تحقق لو tag موجود
+          $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
+
           if ($tagExists) {
               Write-Host "Tag $tagName exists, incrementing patch version ✅"
               $parts = $baseVersion -split "\."
@@ -73,24 +74,20 @@ jobs:
               $json.version = ($parts -join ".")
               $tagName = "v$($json.version)"
               $json | ConvertTo-Json -Depth 10 | Set-Content version.json
+              git add version.json
+              git commit -m "Auto-update version.json to $($json.version)" || Write-Host "No changes to commit"
           } else {
-              Write-Host "Creating new tag $tagName"
+              git add version.json
+              git commit -m "Add version.json v$baseVersion" || Write-Host "No changes to commit"
           }
 
-          # Commit version.json
-          git add version.json
-          git commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
-
-          # 🚨 Push commit أولاً
-          git push origin HEAD:dev
-
-          # بعدين tag + push
+          # push tag قبل release
           git tag $tagName
           git push origin $tagName
-
           Write-Host "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
 
       # 8️⃣ Upload Release
       - name: Upload Release
