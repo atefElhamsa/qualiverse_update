@@ -27,26 +27,32 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ اعمل List للفولدر عشان نتاكد من المسار
-      - name: List Release folder
+      # 5️⃣ List كل الملفات عشان نتأكد من المسار
+      - name: List Windows build folder
         shell: pwsh
         run: |
           Write-Host "Listing files in build/windows/runner:"
           Get-ChildItem -Recurse build\windows\runner
 
-      # 6️⃣ Zip فولدر Release (مسار مضبوط)
-      - name: Zip Release
+      # 6️⃣ تأكد إن فولدر Release موجود قبل Zip
+      - name: Check Release folder exists
         shell: pwsh
         run: |
           $releasePath = "build\windows\runner\Release"
-          if (Test-Path "$releasePath") {
-              Compress-Archive -Path "$releasePath\*.*" -DestinationPath "build\qualiverse_release.zip"
-          } else {
+          if (-Not (Test-Path $releasePath)) {
               Write-Error "Release folder not found: $releasePath"
               exit 1
+          } else {
+              Write-Host "Release folder found ✅"
           }
 
-      # 7️⃣ Upload ملف zip على Public Repo
+      # 7️⃣ Zip فولدر Release
+      - name: Zip Release
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "build\windows\runner\Release\*" -DestinationPath "build\qualiverse_release.zip"
+
+      # 8️⃣ Upload ملف zip على Public Repo
       - name: Upload Release to Public Repo
         uses: softprops/action-gh-release@v1
         with:
@@ -55,7 +61,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 8️⃣ Update version.json تلقائي
+      # 9️⃣ Update version.json تلقائي
       - name: Update version.json in Public Repo
         shell: pwsh
         run: |
