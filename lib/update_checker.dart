@@ -10,7 +10,7 @@ Future<void> checkForUpdate(BuildContext context) async {
     final currentVersion = packageInfo.version;
 
     final res = await Dio().get(
-      'https://raw.githubusercontent.com/atefElhamsa/qualiverse_updater/refs/heads/main/version.json',
+      'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/refs/heads/main/version.json',
     );
 
     final latest = res.data['version'];
