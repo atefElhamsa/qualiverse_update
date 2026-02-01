@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 import 'bloc_observer.dart';
@@ -12,8 +11,6 @@ void main() async {
   await CashHelper.init();
   await LoginStorage.loadFromCache();
   Bloc.observer = MyBlocObserver();
-  final info = await PackageInfo.fromPlatform();
-  print('APP VERSION = ${info.version}');
   runApp(
     BlocProvider(
       create: (context) => SettingCubit(),
