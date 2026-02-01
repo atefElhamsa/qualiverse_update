@@ -1,6 +1,6 @@
 {
   "version": "1.0.1",
   "force": false,
-  "url": "https://raw.githubusercontent.com/USERNAME/REPO/main/app.exe",
+  "url": "https://github.com/QualiVerse/QualiVerse-qualiverse-frontend/releases/download/v1.0.1/qualiverse.exe",
   "notes": "Bug fixes and performance improvements"
 }
