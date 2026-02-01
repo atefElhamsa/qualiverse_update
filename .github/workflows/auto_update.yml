@@ -27,18 +27,18 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ List كل الملفات عشان نتأكد من المسار
+      # 5️⃣ List كل الملفات عشان نتاكد من المسار
       - name: List Windows build folder
         shell: pwsh
         run: |
-          Write-Host "Listing files in build/windows/runner:"
-          Get-ChildItem -Recurse build\windows\runner
+          Write-Host "Listing files in build/windows/x64/runner:"
+          Get-ChildItem -Recurse build\windows\x64\runner
 
       # 6️⃣ تأكد إن فولدر Release موجود قبل Zip
       - name: Check Release folder exists
         shell: pwsh
         run: |
-          $releasePath = "build\windows\runner\Release"
+          $releasePath = "build\windows\x64\runner\Release"
           if (-Not (Test-Path $releasePath)) {
               Write-Error "Release folder not found: $releasePath"
               exit 1
@@ -50,7 +50,7 @@ jobs:
       - name: Zip Release
         shell: pwsh
         run: |
-          Compress-Archive -Path "build\windows\runner\Release\*" -DestinationPath "build\qualiverse_release.zip"
+          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build\qualiverse_release.zip"
 
       # 8️⃣ Upload ملف zip على Public Repo
       - name: Upload Release to Public Repo
