@@ -1,0 +1,6 @@
+{
+  "version": "1.0.1",
+  "force": false,
+  "url": "https://raw.githubusercontent.com/USERNAME/REPO/main/app.exe",
+  "notes": "Bug fixes and performance improvements"
+}

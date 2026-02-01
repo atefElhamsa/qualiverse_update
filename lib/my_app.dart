@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:qualiverse/update_checker.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -22,6 +23,14 @@ class _MyAppState extends State<MyApp> {
       context.read<SettingCubit>().initSetting(context: context);
       _initialized = true;
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkForUpdate(context);
+    });
   }
 
   @override
