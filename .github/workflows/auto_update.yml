@@ -3,17 +3,18 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev  # أو فرعك الرئيسي
+      - dev  # فرعك الرئيسي
 
 permissions:
-  contents: write  # مهم عشان Actions يقدر يعمل push/tag
+  contents: write
+  workflows: write  # مهم لو هتعدل workflow
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Clone Repo كامل (مش shallow)
+      # 1️⃣ Checkout كامل بدون shallow
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -33,25 +34,21 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ Check Release folder
-      - name: Check Release folder
-        shell: pwsh
-        run: |
-          $releasePath = "build\windows\x64\runner\Release"
-          if (-Not (Test-Path $releasePath)) {
-              Write-Error "Release folder not found: $releasePath"
-              exit 1
-          } else {
-              Write-Host "Release folder found ✅"
-          }
-
-      # 6️⃣ Zip Release
+      # 5️⃣ Zip Release
       - name: Zip Release
         shell: pwsh
         run: |
-          Compress-Archive -Path "build\windows\x64\runner\Release\*" -DestinationPath "build/qualiverse_release.zip"
+          $releasePath = "build\windows\x64\runner\Release\*"
+          $zipPath = "build/qualiverse_release.zip"
+          if (Test-Path $releasePath) {
+              Compress-Archive -Path $releasePath -DestinationPath $zipPath
+              Write-Host "Release zipped ✅"
+          } else {
+              Write-Error "Release folder not found!"
+              exit 1
+          }
 
-      # 7️⃣ Create Git Tag
+      # 6️⃣ Create or increment Git Tag
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -64,7 +61,7 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
-          # تحقق لو tag موجود
+          # تحقق لو tag موجود على remote
           $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
 
           if ($tagExists) {
@@ -81,26 +78,25 @@ jobs:
               git commit -m "Add version.json v$baseVersion" || Write-Host "No changes to commit"
           }
 
-          # push tag قبل release
+          # push commit و tag
+          git push origin dev
           git tag $tagName
           git push origin $tagName
           Write-Host "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-
-      # 8️⃣ Upload Release
+      # 7️⃣ Upload Release
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_update
-          tag_name: ${{ steps.create_tag.outputs.tag_name }}  # <— لازم يكون موجود
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-
-      # 9️⃣ Update version.json على Public Repo
+      # 8️⃣ Update version.json على الريبو العام
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
@@ -125,4 +121,3 @@ jobs:
           git push origin $branch
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-
