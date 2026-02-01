@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  workflows: write  # مهم لو هتعدل workflow
 
 jobs:
   build:
