@@ -112,7 +112,8 @@ jobs:
           $tag = "${{ steps.create_tag.outputs.tag_name }}"
 
           $json = Get-Content version.json | ConvertFrom-Json
-          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/$tag/qualiverse_release.zip"
+          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/latest/download/qualiverse_release.zip"
+
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
