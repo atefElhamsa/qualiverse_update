@@ -1,0 +1,36 @@
+name: Auto Update Build
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.13.0'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows Release
+        run: flutter build windows --release
+
+      - name: Zip Release
+        run: |
+          Compress-Archive -Path build\windows\runner\Release\* -DestinationPath build\qualiverse_release.zip
+
+      - name: Upload Release to Public Repo
+        uses: softprops/action-gh-release@v1
+        with:
+          repository: atefElhamsa/qualiverse_updater
+          files: build/qualiverse_release.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
