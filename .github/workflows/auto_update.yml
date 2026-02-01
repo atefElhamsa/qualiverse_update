@@ -44,7 +44,7 @@ jobs:
               exit 1
           } else {
               Write-Host "Release folder found ✅"
-
+          }
       # 7️⃣ Zip فولدر Release
       - name: Zip Release
         shell: pwsh
