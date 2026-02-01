@@ -81,7 +81,7 @@ jobs:
           git push origin dev
           git tag $tagName
           git push origin $tagName
-          Write-Host "tag_name=$tagName" >> $env:GITHUB_OUTPUT
+          echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
@@ -95,7 +95,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Update version.json على الريبو العام
+      # 8️⃣ Update version.json على الفرع العام main
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
@@ -109,14 +109,14 @@ jobs:
           git pull origin $branch --rebase
 
           $json = Get-Content version.json | ConvertFrom-Json
-          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/v$($json.version)/qualiverse_release.zip"
+          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/$(${{ steps.create_tag.outputs.tag_name }})/qualiverse_release.zip"
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add version.json
-          git commit -m "Update version.json URL to v$($json.version)" || Write-Host "No changes to commit"
+          git commit -m "Update version.json URL to $($json.version)" || Write-Host "No changes to commit"
           git push origin $branch
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
