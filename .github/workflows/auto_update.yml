@@ -16,7 +16,7 @@ jobs:
       # 1️⃣ Clone Repo
       - uses: actions/checkout@v3
         with:
-          persist-credentials: true  # مهم عشان Git يستخدم التوكين
+          persist-credentials: false  # مهم عشان Git يستخدم التوكين
 
       # 2️⃣ Setup Flutter
       - name: Setup Flutter
