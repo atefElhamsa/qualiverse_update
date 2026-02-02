@@ -106,15 +106,16 @@ jobs:
           $tag = "${{ steps.create_tag.outputs.tag_name }}"
 
           $json = Get-Content version.json | ConvertFrom-Json
+          $json.version = $tag
           $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/latest/download/qualiverse_release.zip"
-
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add version.json
-          git commit -m "Update version.json URL to $($json.version)" || Write-Host "No changes to commit"
+          git commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
           git push origin $branch
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
