@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
           designSize: const Size(AppSizes.appWidth, AppSizes.appHeight),
           minTextAdapt: true,
           splitScreenMode: true,
-          builder: (_, __) {
+          builder: (_, _) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               theme: AppThemeData.lightTheme,
