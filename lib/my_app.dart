@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'package:qualiverse/update_checker.dart';
+
+import 'auto_update/update_service.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -28,9 +29,28 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      checkForUpdate(context);
-    });
+    UpdateService.checkAndUpdate(
+      onUpdateAvailable: (notes, force) {
+        showDialog(
+          context: context,
+          barrierDismissible: !force,
+          builder: (_) => AlertDialog(
+            title: const Text('Update Available'),
+            content: Text(
+              notes.isNotEmpty ? notes : 'A new version is available',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  UpdateService.launchUpdater();
+                },
+                child: const Text('Update Now'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
