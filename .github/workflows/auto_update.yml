@@ -78,7 +78,6 @@ jobs:
           }
 
           # push commit و tag
-          git push origin dev
           git tag $tagName
           git push origin $tagName
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
