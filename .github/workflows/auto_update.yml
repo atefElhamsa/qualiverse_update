@@ -53,11 +53,22 @@ jobs:
         shell: pwsh
         run: |
           $json = Get-Content version.json | ConvertFrom-Json
-          $tagName = "v$($json.version)"
+          $version = $json.version
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
+
+          # لو التاج موجود نزود patch
+          $tagExists = git ls-remote --tags origin | Select-String -Pattern "refs/tags/v$version$"
+
+          if ($tagExists) {
+              $parts = $version -split "\."
+              $parts[2] = ([int]$parts[2] + 1)
+              $version = ($parts -join ".")
+          }
+
+          $tagName = "v$version"
 
           git tag $tagName
           git push origin $tagName
@@ -65,6 +76,7 @@ jobs:
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
 
 
       # 7️⃣ Upload Release
