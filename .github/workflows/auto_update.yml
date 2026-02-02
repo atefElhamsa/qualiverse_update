@@ -57,6 +57,7 @@ jobs:
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
           # لو التاج موجود نزود patch
           $tagExists = git ls-remote --tags origin | Select-String -Pattern "refs/tags/v$version$"
