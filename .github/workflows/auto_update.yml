@@ -53,36 +53,19 @@ jobs:
         shell: pwsh
         run: |
           $json = Get-Content version.json | ConvertFrom-Json
-          $baseVersion = $json.version
-          $tagName = "v$baseVersion"
+          $tagName = "v$($json.version)"
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
-          # تحقق لو tag موجود على remote
-          $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
-
-          if ($tagExists) {
-              Write-Host "Tag $tagName exists, incrementing patch version ✅"
-              $parts = $baseVersion -split "\."
-              $parts[2] = ([int]$parts[2] + 1).ToString()
-              $json.version = ($parts -join ".")
-              $tagName = "v$($json.version)"
-              $json | ConvertTo-Json -Depth 10 | Set-Content version.json
-              git add version.json
-              git commit -m "Auto-update version.json to $($json.version)" || Write-Host "No changes to commit"
-          } else {
-              git add version.json
-              git commit -m "Add version.json v$baseVersion" || Write-Host "No changes to commit"
-          }
-
-          # push commit و tag
           git tag $tagName
           git push origin $tagName
+
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
 
       # 7️⃣ Upload Release
       - name: Upload Release
