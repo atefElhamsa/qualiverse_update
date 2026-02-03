@@ -88,31 +88,32 @@ jobs:
           files: build/qualiverse_release.zip
           token: ${{ secrets.GH_PAT }}  # ✅ هنا تم تعديل الطريقة الصحيحة
 
-      # 9️⃣ Update version.json على الفرع العام main
+      # 9️⃣ Update version.json on Public Repo (fixed)
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
-          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
-          $branch = "main"
-          $folder = "updater_temp"
+          # Clone repo باستخدام token
+          git clone https://x-access-token:$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git updater_temp
+          cd updater_temp
+          git checkout main
+          git pull origin main --rebase
 
-          git clone $repo $folder
-          cd $folder
-          git checkout $branch
-          git pull origin $branch --rebase
-
+      # جلب tag من الخطوة السابقة
           $tag = "${{ steps.create_tag.outputs.tag_name }}"
-
+      
+      # تحديث version.json
           $json = Get-Content version.json | ConvertFrom-Json
           $json.version = $tag
           $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/latest/download/qualiverse_release.zip"
-
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
-
+      
+      # إعداد Git
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" add version.json
-          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
-          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $branch
+      
+      # Commit & push باستخدام token
+          git add version.json
+          git commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
+          git push https://x-access-token:$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git main
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
