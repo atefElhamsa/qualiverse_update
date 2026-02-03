@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
     UpdateService.checkAndUpdate(
       onUpdateAvailable: (notes, force) {
         showDialog(
