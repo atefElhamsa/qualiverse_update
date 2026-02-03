@@ -18,7 +18,7 @@ class AppTexts {
   static const String acreditation = "Accreditation";
 
   // side bar texts
-  static const String sideBarHome = "Home";
+  // static const String sideBarHome = "Home";
   static const String sideBarDashboard = "Dashboard";
   static const String sideBarAiModel = "AI Model";
   static const String sideBarCurricula = "Curricula";
