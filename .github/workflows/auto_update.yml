@@ -3,7 +3,7 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev  # فرعك الرئيسي
+      - dev
 
 permissions:
   contents: write
@@ -13,27 +13,27 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Checkout كامل بدون shallow
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4️⃣ Build Windows Release
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # 5️⃣ Zip Release
+      - name: Copy updater.exe
+        shell: pwsh
+        run: |
+          Copy-Item updater.exe build\windows\x64\runner\Release\updater.exe
+
       - name: Zip Release
         shell: pwsh
         run: |
@@ -47,7 +47,6 @@ jobs:
               exit 1
           }
 
-      # 6️⃣ Create or increment Git Tag
       - name: Create Git Tag
         id: create_tag
         shell: pwsh
@@ -59,7 +58,6 @@ jobs:
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
 
-          # لو التاج موجود نزود patch
           $tagExists = git ls-remote --tags origin | Select-String -Pattern "refs/tags/v$version$"
 
           if ($tagExists) {
@@ -79,7 +77,6 @@ jobs:
 
 
 
-      # 7️⃣ Upload Release
       - name: Upload Release
         uses: softprops/action-gh-release@v1
         with:
@@ -89,7 +86,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # 8️⃣ Update version.json على الفرع العام main
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
@@ -102,7 +98,6 @@ jobs:
           git checkout $branch
           git pull origin $branch --rebase
 
-          # خزن الـ tag_name في متغير PowerShell
           $tag = "${{ steps.create_tag.outputs.tag_name }}"
 
           $json = Get-Content version.json | ConvertFrom-Json
