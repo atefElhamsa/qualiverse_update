@@ -47,35 +47,24 @@ jobs:
               exit 1
           }
 
-      - name: Create Git Tag
-        id: create_tag
+      - name: Generate Version Tag
+        id: gen_tag
         shell: pwsh
         run: |
-          $json = Get-Content version.json | ConvertFrom-Json
-          $version = $json.version
-
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
-
-          $tagExists = git ls-remote --tags origin | Select-String -Pattern "refs/tags/v$version$"
-
-          if ($tagExists) {
+          git fetch --tags
+          $lastTag = git tag --sort=-v:refname | Select-Object -First 1
+          if (-not $lastTag) {
+              $version = "1.0.0"
+          } else {
+              $version = $lastTag.Replace("v","")
               $parts = $version -split "\."
-              $parts[2] = ([int]$parts[2] + 1)
+              $parts[2] = ([int]$parts[2] + 1) 
               $version = ($parts -join ".")
           }
-
           $tagName = "v$version"
-
           git tag $tagName
           git push origin $tagName
-
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-
 
       - name: Upload Release
         uses: softprops/action-gh-release@v1
