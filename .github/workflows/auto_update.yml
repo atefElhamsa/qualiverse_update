@@ -3,7 +3,7 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev  # فرعك الرئيسي
+      - dev  # الفرع الرئيسي
 
 permissions:
   contents: write
@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Checkout كامل مع حفظ credentials
+      # 1️⃣ Checkout كامل
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -58,8 +58,6 @@ jobs:
         id: create_tag
         shell: pwsh
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" fetch --tags
           $lastTag = git tag --sort=-v:refname | Select-Object -First 1
           if (-not $lastTag) {
@@ -71,8 +69,12 @@ jobs:
               $version = ($parts -join ".")
           }
           $tagName = "v$version"
+
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" tag $tagName
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $tagName
+
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -84,18 +86,17 @@ jobs:
           repository: atefElhamsa/qualiverse_update
           tag_name: ${{ steps.create_tag.outputs.tag_name }}
           files: build/qualiverse_release.zip
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GH_PAT }}  # ✅ هنا تم تعديل الطريقة الصحيحة
 
-      # 9️⃣ Update version.json on Public Repo
-      - name: Update version.json
+      # 9️⃣ Update version.json على الفرع العام main
+      - name: Update version.json on Public Repo
         shell: pwsh
         run: |
           $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
           $branch = "main"
           $folder = "updater_temp"
 
-          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" clone $repo $folder
+          git clone $repo $folder
           cd $folder
           git checkout $branch
           git pull origin $branch --rebase
