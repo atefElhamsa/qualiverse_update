@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # 1️⃣ Checkout كامل
+      # 1️⃣ Checkout كامل مع حفظ credentials
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -58,6 +58,8 @@ jobs:
         id: create_tag
         shell: pwsh
         run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" fetch --tags
           $lastTag = git tag --sort=-v:refname | Select-Object -First 1
           if (-not $lastTag) {
@@ -69,12 +71,8 @@ jobs:
               $version = ($parts -join ".")
           }
           $tagName = "v$version"
-
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" tag $tagName
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $tagName
-
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
@@ -89,15 +87,15 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      # 9️⃣ Update version.json على الفرع العام main
-      - name: Update version.json on Public Repo
+      # 9️⃣ Update version.json on Public Repo
+      - name: Update version.json
         shell: pwsh
         run: |
           $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
           $branch = "main"
           $folder = "updater_temp"
 
-          git clone $repo $folder
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" clone $repo $folder
           cd $folder
           git checkout $branch
           git pull origin $branch --rebase
