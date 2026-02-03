@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-import 'auto_update/update_service.dart';
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -24,34 +22,6 @@ class _MyAppState extends State<MyApp> {
       context.read<SettingCubit>().initSetting(context: context);
       _initialized = true;
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    UpdateService.checkAndUpdate(
-      onUpdateAvailable: (notes, force) {
-        showDialog(
-          context: context,
-          barrierDismissible: !force,
-          builder: (_) => AlertDialog(
-            title: const Text('Update Available'),
-            content: Text(
-              notes.isNotEmpty ? notes : 'A new version is available',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  UpdateService.launchUpdater();
-                },
-                child: const Text('Update Now'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 
   @override
