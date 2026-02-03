@@ -3,7 +3,7 @@ name: Auto Update Build
 on:
   push:
     branches:
-      - dev
+      - dev  # فرعك الرئيسي
 
 permissions:
   contents: write
@@ -13,27 +13,33 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      # 1️⃣ Checkout كامل
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
+      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4️⃣ Build Windows Release
       - name: Build Windows Release
         run: flutter build windows --release
 
+      # 5️⃣ Copy updater.exe
       - name: Copy updater.exe
         shell: pwsh
         run: |
           Copy-Item updater.exe build\windows\x64\runner\Release\updater.exe
 
+      # 6️⃣ Zip Release
       - name: Zip Release
         shell: pwsh
         run: |
@@ -47,8 +53,9 @@ jobs:
               exit 1
           }
 
+      # 7️⃣ Generate Version Tag
       - name: Generate Version Tag
-        id: gen_tag
+        id: create_tag
         shell: pwsh
         run: |
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" fetch --tags
@@ -62,13 +69,27 @@ jobs:
               $version = ($parts -join ".")
           }
           $tagName = "v$version"
+
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" tag $tagName
           git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $tagName
+
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
+      # 8️⃣ Upload Release
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          repository: atefElhamsa/qualiverse_update
+          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          files: build/qualiverse_release.zip
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
+      # 9️⃣ Update version.json على الفرع العام main
       - name: Update version.json on Public Repo
         shell: pwsh
         run: |
@@ -91,9 +112,8 @@ jobs:
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add version.json
-          git commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
-          git push origin $branch
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" add version.json
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" commit -m "Update version.json to $($json.version)" || Write-Host "No changes to commit"
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $branch
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-
