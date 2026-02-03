@@ -51,29 +51,23 @@ jobs:
         id: gen_tag
         shell: pwsh
         run: |
-          git fetch --tags
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" fetch --tags
           $lastTag = git tag --sort=-v:refname | Select-Object -First 1
           if (-not $lastTag) {
               $version = "1.0.0"
           } else {
               $version = $lastTag.Replace("v","")
               $parts = $version -split "\."
-              $parts[2] = ([int]$parts[2] + 1) 
+              $parts[2] = ([int]$parts[2] + 1)
               $version = ($parts -join ".")
           }
           $tagName = "v$version"
-          git tag $tagName
-          git push origin $tagName
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" tag $tagName
+          git -c http.extraHeader="Authorization: Bearer $env:GH_PAT" push origin $tagName
           echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
-
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
-        with:
-          repository: atefElhamsa/qualiverse_update
-          tag_name: ${{ steps.create_tag.outputs.tag_name }}
-          files: build/qualiverse_release.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+
 
       - name: Update version.json on Public Repo
         shell: pwsh
