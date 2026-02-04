@@ -1,4 +1,4 @@
-name: Auto Update Build
+name: Auto Update Build (Dev)
 
 on:
   push:
@@ -13,7 +13,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -34,79 +35,71 @@ jobs:
         run: |
           $releasePath = "build\windows\x64\runner\Release\*"
           $zipPath = "build/qualiverse_release.zip"
+
           if (Test-Path $releasePath) {
-              Compress-Archive -Path $releasePath -DestinationPath $zipPath
-              Write-Host "Release zipped ✅"
+            Compress-Archive -Path $releasePath -DestinationPath $zipPath -Force
+            Write-Host "Release zipped ✅"
           } else {
-              Write-Error "Release folder not found!"
-              exit 1
+            Write-Error "Release folder not found ❌"
+            exit 1
           }
 
-      - name: Create Git Tag
-        id: create_tag
+      - name: Prepare Git
         shell: pwsh
         run: |
-          $json = Get-Content version.json | ConvertFrom-Json
-          $baseVersion = $json.version
-          $tagName = "v$baseVersion"
-
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
-
-          $tagExists = git ls-remote --tags origin | Select-String -Pattern $tagName
-
-          if ($tagExists) {
-              Write-Host "Tag $tagName exists, incrementing patch version ✅"
-              $parts = $baseVersion -split "\."
-              $parts[2] = ([int]$parts[2] + 1).ToString()
-              $json.version = ($parts -join ".")
-              $tagName = "v$($json.version)"
-              $json | ConvertTo-Json -Depth 10 | Set-Content version.json
-              git add version.json
-              git commit -m "Auto-update version.json to $($json.version)" || Write-Host "No changes to commit"
-          } else {
-              git add version.json
-              git commit -m "Add version.json v$baseVersion" || Write-Host "No changes to commit"
-          }
-
-          git push origin dev
-          git tag $tagName
-          git push origin $tagName
-          echo "tag_name=$tagName" >> $env:GITHUB_OUTPUT
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      - name: Upload Release
+      - name: Reset dev tag
+        shell: pwsh
+        run: |
+          git tag -d dev 2>$null
+          git push origin :refs/tags/dev 2>$null
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: Create dev tag
+        shell: pwsh
+        run: |
+          git tag dev
+          git push origin dev
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+
+      - name: Create / Update Dev Release
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_update
-          tag_name: ${{ steps.create_tag.outputs.tag_name }}
+          tag_name: dev
+          name: Dev Build
+          prerelease: true
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      - name: Update version.json on Public Repo
+      - name: Update version.json on main
         shell: pwsh
         run: |
           $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
-          $branch = "main"
           $folder = "updater_temp"
 
           git clone $repo $folder
           cd $folder
-          git checkout $branch
-          git pull origin $branch --rebase
+          git checkout main
+          git pull origin main --rebase
 
           $json = Get-Content version.json | ConvertFrom-Json
-          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/latest/download/qualiverse_release.zip"
+          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/dev/qualiverse_release.zip"
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add version.json
-          git commit -m "Update version.json URL to latest release" || Write-Host "No changes to commit"
-          git push origin $branch
+          git commit -m "Update dev download URL" || Write-Host "No changes"
+          git push origin main
         env:
           GH_PAT: ${{ secrets.GH_PAT }}

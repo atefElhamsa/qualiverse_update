@@ -9,7 +9,7 @@ class RouterGenerator {
 
   static GoRouter mainRoutingInOurApp = GoRouter(
     errorBuilder: (context, state) => const NotFoundPage(),
-    initialLocation: AppRoutes.splashScreen,
+    initialLocation: AppRoutes.dashboardScreen,
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
     routes: [
