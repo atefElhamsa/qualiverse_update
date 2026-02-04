@@ -65,9 +65,10 @@ jobs:
         shell: pwsh
         run: |
           git tag dev
-          git push origin dev
+          git push origin refs/tags/dev
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+
 
       - name: Create / Update Dev Release
         uses: softprops/action-gh-release@v1
