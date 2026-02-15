@@ -13,7 +13,7 @@ class SettingBody extends StatelessWidget {
           return SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SideBarWidget(),

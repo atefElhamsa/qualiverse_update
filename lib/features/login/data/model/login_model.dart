@@ -1,4 +1,24 @@
+import '../../../../core/all_core_imports/all_core_imports.dart';
+
 class LoginModel {
+  final LoginDataModel? data;
+  final bool isSuccess;
+  final ApiErrorModel? error;
+
+  const LoginModel({this.data, required this.isSuccess, this.error});
+
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
+    return LoginModel(
+      data: json['data'] != null ? LoginDataModel.fromJson(json['data']) : null,
+      isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
+    );
+  }
+}
+
+class LoginDataModel {
   final String userId;
   final String email;
   final String role;
@@ -7,7 +27,7 @@ class LoginModel {
   final DateTime refreshTokenExpiration;
   final bool isActive;
 
-  const LoginModel({
+  const LoginDataModel({
     required this.userId,
     required this.email,
     required this.role,
@@ -17,17 +37,17 @@ class LoginModel {
     this.isActive = true,
   });
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) {
-    return LoginModel(
-      userId: json['userId'] as String,
-      email: json['email'] as String,
-      role: json['role'] as String,
-      token: json['token'] as String,
-      refreshToken: json['refreshToken'] as String,
-      refreshTokenExpiration: DateTime.parse(
-        json['refreshTokenExpiration'] as String,
-      ),
-      isActive: json['isActive'] as bool,
+  factory LoginDataModel.fromJson(Map<String, dynamic> json) {
+    return LoginDataModel(
+      userId: json['userId'] ?? '',
+      email: json['email'] ?? '',
+      role: json['role'] ?? '',
+      token: json['token'] ?? '',
+      refreshToken: json['refreshToken'] ?? '',
+      refreshTokenExpiration:
+          DateTime.tryParse(json['refreshTokenExpiration'] ?? '') ??
+          DateTime.now(),
+      isActive: json['isActive'] ?? true,
     );
   }
 
@@ -43,7 +63,7 @@ class LoginModel {
     };
   }
 
-  LoginModel copyWith({
+  LoginDataModel copyWith({
     String? userId,
     String? email,
     String? role,
@@ -52,7 +72,7 @@ class LoginModel {
     DateTime? refreshTokenExpiration,
     bool? isActive,
   }) {
-    return LoginModel(
+    return LoginDataModel(
       userId: userId ?? this.userId,
       email: email ?? this.email,
       role: role ?? this.role,

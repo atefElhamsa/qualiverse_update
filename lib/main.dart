@@ -12,8 +12,11 @@ void main() async {
   await LoginStorage.loadFromCache();
   Bloc.observer = MyBlocObserver();
   runApp(
-    BlocProvider(
-      create: (context) => SettingCubit(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SettingCubit()),
+        BlocProvider(create: (context) => ChangePasswordCubit()),
+      ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
         path: 'assets/translation',

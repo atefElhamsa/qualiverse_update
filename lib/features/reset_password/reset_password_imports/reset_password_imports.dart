@@ -1,3 +1,4 @@
+export 'package:qualiverse/features/reset_password/data/model/reset_password_model.dart';
 export 'package:qualiverse/features/reset_password/data/service/reset_password_service.dart';
 export 'package:qualiverse/features/reset_password/presentation/controller/reset_password_cubit.dart';
 export 'package:qualiverse/features/reset_password/presentation/controller/reset_password_state.dart';

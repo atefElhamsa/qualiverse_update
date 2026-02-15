@@ -1,7 +1,8 @@
 {
   "notFoundPage": "This Page is not found",
   "accreditationQualitySystem": "Accreditation & Quality System",
-  "userName": "Username",
+  "userName": "User Name",
+  "enterUsername": "Enter your username",
   "userNameValidator": "Display name cannot be empty",
   "checkUserName": "Display name must be between 3 and 20 characters",
   "password": "Password",
@@ -244,5 +245,14 @@
   "total_courses": "Total Courses",
   "account_verification": "Account Verification",
   "firstNameTooShort": "First name must be at least 3 characters long",
-  "lastNameTooShort": "Last name must be at least 3 characters long"
+  "lastNameTooShort": "Last name must be at least 3 characters long",
+  "userNameOrEmail": "User Name Or Email",
+  "enterUserNameOrEmail": "Enter username or email",
+  "changePassword": "Change Password",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "confirmNewPassword": "Confirm New Password",
+  "enterYourCurrentPassword": "Enter your current password",
+  "enterYourNewPassword": "Enter your new password",
+  "reEnterYourNewPassword": "Re-Enter your new password"
 }

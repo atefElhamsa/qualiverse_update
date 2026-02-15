@@ -1,6 +1,7 @@
 export 'package:qualiverse/core/cash/cash_helper_shared_perferences.dart';
 export 'package:qualiverse/core/cash/keys_texts.dart';
 export 'package:qualiverse/core/cubit_field/cubit_field.dart';
+export 'package:qualiverse/core/errors/api_error_model.dart';
 export 'package:qualiverse/core/errors/not_found_page.dart';
 export 'package:qualiverse/core/network/api_client.dart';
 export 'package:qualiverse/core/network/session_dialog.dart';

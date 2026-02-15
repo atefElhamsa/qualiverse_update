@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
-class FirstAndLastNameFields extends StatelessWidget {
-  const FirstAndLastNameFields({super.key, required this.signUpCubit});
+import '../../../../../routing/all_routes_imports.dart';
+
+class UsernameAndEmailField extends StatelessWidget {
+  const UsernameAndEmailField({super.key, required this.signUpCubit});
 
   final SignUpCubit signUpCubit;
 
@@ -19,7 +19,7 @@ class FirstAndLastNameFields extends StatelessWidget {
           child: CustomTextFormField(
             textFieldModel: TextFieldModel(
               customTextLabel: CustomText(
-                title: "firstName".tr(),
+                title: "userName".tr(),
                 textStyle: GoogleFonts.inter(
                   fontSize: 16.sp,
                   color: AppColors.aiModelColor,
@@ -27,23 +27,23 @@ class FirstAndLastNameFields extends StatelessWidget {
                 ),
               ),
               onFieldSubmitted: (submit) {
-                FocusScope.of(context).requestFocus(signUpCubit.lastNameNode);
+                FocusScope.of(context).requestFocus(signUpCubit.emailNode);
               },
-              hintText: "enterFirstName".tr(),
-              focusNode: signUpCubit.firstNameNode,
-              controller: signUpCubit.firstNameController,
+              hintText: "enterUsername".tr(),
+              controller: signUpCubit.userNameController,
+              focusNode: signUpCubit.userNameNode,
               keyboardType: TextInputType.name,
-              validator: (name) => MyValidators.displayNameValidator(name),
+              validator: (email) => MyValidators.displayNameValidator(email),
             ),
           ),
         ),
-        const SizedBox(width: 10),
+        SizedBox(width: 10.w),
         SizedBox(
           width: 200.w,
           child: CustomTextFormField(
             textFieldModel: TextFieldModel(
               customTextLabel: CustomText(
-                title: "lastName".tr(),
+                title: "emailAddress".tr(),
                 textStyle: GoogleFonts.inter(
                   fontSize: 16.sp,
                   color: AppColors.aiModelColor,
@@ -51,13 +51,13 @@ class FirstAndLastNameFields extends StatelessWidget {
                 ),
               ),
               onFieldSubmitted: (submit) {
-                FocusScope.of(context).requestFocus(signUpCubit.userNameNode);
+                FocusScope.of(context).requestFocus(signUpCubit.passwordNode);
               },
-              hintText: "enterLastName".tr(),
-              controller: signUpCubit.lastNameController,
-              focusNode: signUpCubit.lastNameNode,
-              keyboardType: TextInputType.name,
-              validator: (name) => MyValidators.displayNameValidator(name),
+              hintText: "enterEmail".tr(),
+              controller: signUpCubit.emailController,
+              focusNode: signUpCubit.emailNode,
+              keyboardType: TextInputType.emailAddress,
+              validator: (email) => MyValidators.emailValidator(email),
             ),
           ),
         ),

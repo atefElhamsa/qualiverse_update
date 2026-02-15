@@ -7,6 +7,7 @@ class SignUpServices {
   Future<String> signUp({
     required String firstName,
     required String lastName,
+    required String userName,
     required String email,
     required String password,
     required String confirmPassword,
@@ -17,6 +18,7 @@ class SignUpServices {
         data: {
           "firstName": firstName,
           "lastName": lastName,
+          "userName": userName,
           "email": email,
           "password": password,
           "confirmPassword": confirmPassword,
@@ -24,19 +26,23 @@ class SignUpServices {
       );
 
       var data = response.data;
+      print(data);
 
-      if (data is Map && data['isSuccess'] == false) {
-        throw Exception(data['message'] ?? 'Something went wrong');
+      final result = SignUpModel.fromJson(data);
+
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Something went wrong");
       }
 
-      final msg = data['message'] ?? 'Registered successfully';
-      return msg;
+      return result.data ?? "Registered successfully";
     } on DioException catch (e) {
-      final msg =
-          e.response?.data?['message'] ??
-          e.response?.data?['error'] ??
-          "No Internet Connection";
-      throw Exception(msg);
+      if (e.response?.data != null) {
+        final result = SignUpModel.fromJson(e.response!.data);
+
+        throw Exception(result.error?.description ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
     } catch (e) {
       throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
     }

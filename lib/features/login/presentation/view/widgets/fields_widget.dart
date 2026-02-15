@@ -19,7 +19,7 @@ class FieldsWidget extends StatelessWidget {
           child: CustomTextFormField(
             textFieldModel: TextFieldModel(
               customTextLabel: CustomText(
-                title: "emailAddress".tr(),
+                title: "userNameOrEmail".tr(),
                 textStyle: GoogleFonts.inter(
                   fontSize: 16.sp,
                   color: AppColors.aiModelColor,
@@ -29,9 +29,9 @@ class FieldsWidget extends StatelessWidget {
               onFieldSubmitted: (submit) {
                 FocusScope.of(context).requestFocus(loginCubit.passwordNode);
               },
-              hintText: "enterEmail".tr(),
-              controller: loginCubit.emailController,
-              focusNode: loginCubit.emailNode,
+              hintText: "enterUserNameOrEmail".tr(),
+              controller: loginCubit.userNameOrEmailController,
+              focusNode: loginCubit.userNameOrEmailNode,
               keyboardType: TextInputType.emailAddress,
               validator: (email) => MyValidators.emailValidator(email),
             ),

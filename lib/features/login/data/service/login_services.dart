@@ -4,29 +4,33 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class LoginServices {
   final Dio dio = ApiClient.dio;
 
-  Future<LoginModel> login({
-    required String email,
+  Future<LoginDataModel> login({
+    required String userNameOrEmail,
     required String password,
   }) async {
     try {
       final response = await dio.post(
         EndPoints.login,
-        data: {"email": email, "password": password},
+        data: {"userNameOrEmail": userNameOrEmail, "password": password},
       );
 
-      final data = response.data;
+      var data = response.data;
 
-      if (data['isSuccess'] == false) {
-        throw Exception(data['message'] ?? 'Login failed');
+      final result = LoginModel.fromJson(data);
+
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Login failed");
       }
 
-      return LoginModel.fromJson(data);
+      return result.data!;
     } on DioException catch (e) {
-      final msg =
-          e.response?.data?['message'] ??
-          e.response?.data?['error'] ??
-          "No Internet Connection";
-      throw Exception(msg);
+      if (e.response?.data != null) {
+        final result = LoginModel.fromJson(e.response!.data);
+
+        throw Exception(result.error?.description ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
     } catch (e) {
       throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
     }

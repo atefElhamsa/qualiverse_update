@@ -13,8 +13,8 @@ class AccountSettingsContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 50.w, end: 100.w, top: 70.h),
       child: ListView(
-        padding: EdgeInsets.all(10),
-        physics: BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        physics: const BouncingScrollPhysics(),
         children: [
           CustomText(
             title: "accountSetting".tr(),
@@ -22,8 +22,8 @@ class AccountSettingsContent extends StatelessWidget {
               context,
             ).textTheme.headlineLarge!.copyWith(fontSize: 32.sp),
           ),
-          BasicInfoDepartment(),
-          AccountInfoDepartment(),
+          const BasicInfoDepartment(),
+          const AccountInfoDepartment(),
         ],
       ),
     );

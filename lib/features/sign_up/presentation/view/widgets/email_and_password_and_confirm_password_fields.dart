@@ -17,29 +17,7 @@ class EmailAndPasswordAndConfirmPasswordFields extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          width: 410.w,
-          child: CustomTextFormField(
-            textFieldModel: TextFieldModel(
-              customTextLabel: CustomText(
-                title: "emailAddress".tr(),
-                textStyle: GoogleFonts.inter(
-                  fontSize: 16.sp,
-                  color: AppColors.aiModelColor,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              onFieldSubmitted: (submit) {
-                FocusScope.of(context).requestFocus(signUpCubit.passwordNode);
-              },
-              hintText: "enterEmail".tr(),
-              controller: signUpCubit.emailController,
-              focusNode: signUpCubit.emailNode,
-              keyboardType: TextInputType.emailAddress,
-              validator: (email) => MyValidators.emailValidator(email),
-            ),
-          ),
-        ),
+        UsernameAndEmailField(signUpCubit: signUpCubit),
         const SizedBox(height: 25),
         SizedBox(
           width: 410.w,

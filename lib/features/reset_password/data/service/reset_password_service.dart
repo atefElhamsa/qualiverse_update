@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+
+import '../../../../routing/all_routes_imports.dart';
 
 class ResetPasswordService {
   final Dio dio = ApiClient.dio;
@@ -10,18 +11,24 @@ class ResetPasswordService {
         EndPoints.forgotPassword,
         data: {"email": email},
       );
-      final data = response.data;
-      if (data is Map) {
-        final msg = data['message'] ?? 'Check your email';
-        return msg;
+
+      var data = response.data;
+
+      final result = ResetPasswordModel.fromJson(data);
+
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Something went wrong");
       }
-      return 'Check your email';
+
+      return result.data ?? "Check your email";
     } on DioException catch (e) {
-      final msg =
-          e.response?.data?['message'] ??
-          e.response?.data?['error'] ??
-          "No Internet Connection";
-      throw Exception(msg);
+      if (e.response?.data != null) {
+        final result = ResetPasswordModel.fromJson(e.response!.data);
+
+        throw Exception(result.error?.description ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
     } catch (e) {
       throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
     }

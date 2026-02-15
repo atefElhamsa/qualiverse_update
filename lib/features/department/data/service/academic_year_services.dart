@@ -8,15 +8,24 @@ class AcademicYearServices {
     try {
       final response = await dio.get(EndPoints.academicYears);
 
-      final data = response.data;
+      final Map<String, dynamic> body = response.data;
 
-      final List list = data is List ? data : data['data'];
+      if (body['isSuccess'] != true) {
+        throw Exception('Failed to load academic years');
+      }
+
+      final List list = body['data'] ?? [];
 
       return list.map((e) => AcademicYearModel.fromJson(e)).toList();
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');
+      }
+
+      // Not Found
+      if (e.response?.statusCode == 404) {
+        throw Exception('Resource was not found');
       }
 
       // No Internet

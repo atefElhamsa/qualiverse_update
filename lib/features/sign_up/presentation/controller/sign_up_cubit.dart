@@ -13,6 +13,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   // Controllers
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -20,6 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   // FocusNodes
   final firstNameNode = FocusNode();
   final lastNameNode = FocusNode();
+  final userNameNode = FocusNode();
   final emailNode = FocusNode();
   final passwordNode = FocusNode();
   final confirmPasswordNode = FocusNode();
@@ -34,6 +36,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   Future<void> signUpCubit() async {
     final firstName = firstNameController.text.trim();
     final lastName = lastNameController.text.trim();
+    final userName = userNameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
@@ -41,6 +44,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     // Basic validation
     if (firstName.isEmpty ||
         lastName.isEmpty ||
+        userName.isEmpty ||
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
@@ -74,6 +78,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       final result = await signUpServices.signUp(
         firstName: firstName,
         lastName: lastName,
+        userName: userName,
         email: email,
         password: password,
         confirmPassword: confirmPassword,
@@ -93,12 +98,14 @@ class SignUpCubit extends Cubit<SignUpState> {
   Future<void> close() {
     firstNameController.dispose();
     lastNameController.dispose();
+    userNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
 
     firstNameNode.dispose();
     lastNameNode.dispose();
+    userNameNode.dispose();
     emailNode.dispose();
     passwordNode.dispose();
     confirmPasswordNode.dispose();

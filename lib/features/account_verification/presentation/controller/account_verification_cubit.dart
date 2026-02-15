@@ -18,51 +18,28 @@ class AccountVerificationCubit extends Cubit<AccountVerificationState> {
   }
 
   Future<void> verificationAccountCubit(BuildContext context) async {
-    if (emailController.text.isEmpty) {
-      emit(
-        AccountVerificationFailure(
-          accountVerificationModel: const AccountVerificationModel(
-            type: '',
-            title: 'Validation Error',
-            status: 0,
-            errors: ['Email is required'],
-          ),
-        ),
-      );
+    final email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      emit(AccountVerificationFailure(errorMessage: 'Email is required'));
       return;
     }
 
     if (!await checkInternet()) {
-      emit(
-        AccountVerificationFailure(
-          accountVerificationModel: const AccountVerificationModel(
-            type: '',
-            title: 'Network Error',
-            status: 0,
-            errors: ['No Internet Connection'],
-          ),
-        ),
-      );
+      emit(AccountVerificationFailure(errorMessage: 'No Internet Connection'));
       return;
     }
 
     try {
       emit(AccountVerificationLoading());
 
-      await service.verificationAccount(email: emailController.text.trim());
+      await service.verificationAccount(email: email);
 
       emit(AccountVerificationSuccess());
-    } on AccountVerificationModel catch (model) {
-      emit(AccountVerificationFailure(accountVerificationModel: model));
     } catch (e) {
       emit(
         AccountVerificationFailure(
-          accountVerificationModel: AccountVerificationModel(
-            type: '',
-            title: 'Unknown Error',
-            status: 0,
-            errors: [e.toString().replaceFirst('Exception: ', '').trim()],
-          ),
+          errorMessage: e.toString().replaceFirst('Exception: ', '').trim(),
         ),
       );
     }

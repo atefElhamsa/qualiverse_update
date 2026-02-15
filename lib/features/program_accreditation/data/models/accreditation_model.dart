@@ -1,6 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+class AccreditationsResponseModel {
+  final List<AccreditationModel> data;
+  final bool isSuccess;
+
+  AccreditationsResponseModel({required this.data, required this.isSuccess});
+
+  factory AccreditationsResponseModel.fromJson(Map<String, dynamic> json) {
+    return AccreditationsResponseModel(
+      data: (json['data'] as List)
+          .map((e) => AccreditationModel.fromJson(e))
+          .toList(),
+      isSuccess: json['isSuccess'] ?? false,
+    );
+  }
+}
+
 class AccreditationModel {
   final int id;
   final String nameAr;

@@ -2,6 +2,7 @@
   "notFoundPage": "لا توجد هذه الصفحة",
   "accreditationQualitySystem": "نظام الاعتماد والجودة",
   "userName": "اسم المستخدم",
+  "enterUsername": "ادخل اسم المستخدم",
   "userNameValidator": "لا يمكن أن يكون اسم المستخدم فارغًا",
   "checkUserName": "يجب أن يكون اسم المستخدم بين 3 و 20 حرفًا",
   "password": "كلمة المرور",
@@ -244,5 +245,14 @@
   "total_courses": "إجمالي المقررات",
   "account_verification": "التحقق من الحساب",
   "firstNameTooShort": "الاسم الأول يجب أن يكون مكونًا من 3 أحرف على الأقل",
-  "lastNameTooShort": "الاسم الأخير يجب أن يكون مكونًا من 3 أحرف على الأقل"
+  "lastNameTooShort": "الاسم الأخير يجب أن يكون مكونًا من 3 أحرف على الأقل",
+  "userNameOrEmail": "اسم المستخدم أو البريد الإلكتروني",
+  "enterUserNameOrEmail": "أدخل اسم المستخدم أو البريد الإلكتروني",
+  "changePassword": "تغيير كلمة المرور",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+  "enterYourCurrentPassword": "أدخل كلمة المرور الحالية",
+  "enterYourNewPassword": "أدخل كلمة المرور الجديدة",
+  "reEnterYourNewPassword": "أعد إدخال كلمة المرور الجديدة"
 }

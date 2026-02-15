@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -47,6 +48,10 @@ class CustomTextFormField extends StatelessWidget {
                 ),
               ),
               hintText: textFieldModel.hintText,
+              hintStyle: Theme.of(context).textTheme.labelSmall!.copyWith(
+                fontSize: 16.sp,
+                color: AppColors.greyLight,
+              ),
               label: textFieldModel.customTextLabel,
             ),
           );

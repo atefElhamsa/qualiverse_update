@@ -126,11 +126,19 @@ class LoginInterceptor extends Interceptor {
       );
 
       if (res.statusCode == 200) {
+        final responseData = res.data;
+
+        if (responseData['isSuccess'] != true) {
+          return false;
+        }
+
+        final data = responseData['data'];
+
         LoginStorage.setSession(
-          tokenValue: res.data['token'],
-          refreshTokenValue: res.data['refreshToken'],
+          tokenValue: data['token'],
+          refreshTokenValue: data['refreshToken'],
           refreshTokenExpirationValue: DateTime.parse(
-            res.data['refreshTokenExpiration'],
+            data['refreshTokenExpiration'],
           ),
         );
 

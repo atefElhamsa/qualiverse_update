@@ -7,10 +7,10 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  final emailController = TextEditingController();
+  final userNameOrEmailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final emailNode = FocusNode();
+  final userNameOrEmailNode = FocusNode();
   final passwordNode = FocusNode();
   bool rememberMe = false;
 
@@ -32,7 +32,8 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> loginCubit(BuildContext context) async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+    if (userNameOrEmailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
       emit(LoginFailure(errorMessage: "fillAllFields".tr()));
       return;
     }
@@ -45,7 +46,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(LoginLoading());
       final result = await loginServices.login(
-        email: emailController.text.trim(),
+        userNameOrEmail: userNameOrEmailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
@@ -62,15 +63,15 @@ class LoginCubit extends Cubit<LoginState> {
       }
 
       await CashHelper.saveData(
-        key: KeysTexts.userEmail,
-        value: emailController.text.trim(),
+        key: KeysTexts.userNameOrEmail,
+        value: userNameOrEmailController.text.trim(),
       );
       await CashHelper.saveData(
         key: KeysTexts.userPassword,
         value: passwordController.text.trim(),
       );
 
-      emit(LoginSuccess(loginModel: result));
+      emit(LoginSuccess(user: result));
       context.read<SettingCubit>().refreshUserData();
     } catch (e) {
       emit(
@@ -83,9 +84,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   @override
   Future<void> close() {
-    emailController.dispose();
+    userNameOrEmailController.dispose();
     passwordController.dispose();
-    emailNode.dispose();
+    userNameOrEmailNode.dispose();
     passwordNode.dispose();
     return super.close();
   }

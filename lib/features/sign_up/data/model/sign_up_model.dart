@@ -1,13 +1,15 @@
 import '../../../../core/all_core_imports/all_core_imports.dart';
 
-class AccountVerificationModel {
+class SignUpModel {
+  final String? data;
   final bool isSuccess;
   final ApiErrorModel? error;
 
-  const AccountVerificationModel({required this.isSuccess, this.error});
+  SignUpModel({this.data, required this.isSuccess, this.error});
 
-  factory AccountVerificationModel.fromJson(Map<String, dynamic> json) {
-    return AccountVerificationModel(
+  factory SignUpModel.fromJson(Map<String, dynamic> json) {
+    return SignUpModel(
+      data: json['data'],
       isSuccess: json['isSuccess'] ?? false,
       error: json['error'] != null
           ? ApiErrorModel.fromJson(json['error'])

@@ -1,30 +1,32 @@
 import 'package:dio/dio.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+
+import '../../../../core/all_core_imports/all_core_imports.dart';
 
 class AccountVerificationService {
   final Dio dio = ApiClient.dio;
 
-  Future<void> verificationAccount({required String email}) async {
+  Future<bool> verificationAccount({required String email}) async {
     try {
       final response = await dio.post(
         EndPoints.accountVerification,
         data: {"email": email},
       );
 
-      if (response.statusCode == 200 || response.statusCode == 204) {
-        return;
-      }
-    } on DioException catch (e) {
-      if (e.response?.data is Map<String, dynamic>) {
-        throw AccountVerificationModel.fromJson(e.response!.data);
+      final data = response.data;
+
+      if (data['isSuccess'] == true) {
+        return true;
       }
 
-      throw const AccountVerificationModel(
-        type: '',
-        title: 'Network Error',
-        status: 0,
-        errors: ['No Internet Connection'],
-      );
+      throw Exception(data['error']?['description'] ?? "Verification failed");
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        final errorData = e.response!.data;
+
+        throw Exception(errorData['error']?['description'] ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
     }
   }
 }

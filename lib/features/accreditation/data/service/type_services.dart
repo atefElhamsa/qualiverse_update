@@ -8,24 +8,25 @@ class TypesService {
     try {
       final response = await dio.get(EndPoints.accreditationTypes);
 
-      final data = response.data;
+      final Map<String, dynamic> body = response.data;
 
-      final List list = data is List ? data : data['data'];
+      if (body['isSuccess'] != true) {
+        throw Exception('Failed to load types');
+      }
+
+      final List list = body['data'] ?? [];
 
       return list.map((e) => TypeModel.fromJson(e)).toList();
     } on DioException catch (e) {
-      // Unauthorized
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');
       }
 
-      // No Internet
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
 
-      // Server error
       throw Exception(
         e.response?.data?['message'] ??
             e.response?.data?['error'] ??

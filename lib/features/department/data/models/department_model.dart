@@ -1,6 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+class DepartmentsResponseModel {
+  final List<DepartmentModel> data;
+  final bool isSuccess;
+
+  DepartmentsResponseModel({required this.data, required this.isSuccess});
+
+  factory DepartmentsResponseModel.fromJson(Map<String, dynamic> json) {
+    return DepartmentsResponseModel(
+      data: (json['data'] as List)
+          .map((e) => DepartmentModel.fromJson(e))
+          .toList(),
+      isSuccess: json['isSuccess'] ?? false,
+    );
+  }
+}
+
 class DepartmentModel {
   final int id;
   final String nameAr;

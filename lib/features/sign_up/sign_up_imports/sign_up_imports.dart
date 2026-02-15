@@ -1,3 +1,4 @@
+export 'package:qualiverse/features/sign_up/data/model/sign_up_model.dart';
 export 'package:qualiverse/features/sign_up/data/service/sign_up_service.dart';
 export 'package:qualiverse/features/sign_up/presentation/controller/sign_up_cubit.dart';
 export 'package:qualiverse/features/sign_up/presentation/controller/sign_up_state.dart';
@@ -11,3 +12,4 @@ export 'package:qualiverse/features/sign_up/presentation/view/widgets/sign_up_bo
 export 'package:qualiverse/features/sign_up/presentation/view/widgets/sign_up_body_details.dart';
 export 'package:qualiverse/features/sign_up/presentation/view/widgets/sign_up_button.dart';
 export 'package:qualiverse/features/sign_up/presentation/view/widgets/sign_up_fields_and_button.dart';
+export 'package:qualiverse/features/sign_up/presentation/view/widgets/username_and_email_field.dart';

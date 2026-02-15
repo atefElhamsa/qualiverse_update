@@ -64,21 +64,6 @@ class SessionDialog {
               ),
             ),
           ),
-          // TextButton(
-          //   onPressed: () {
-          //     _isShowing = false;
-          //     Navigator.of(context).pop();
-          //     RouterGenerator.mainRoutingInOurApp.go(AppRoutes.loginScreen);
-          //   },
-          //   child: CustomText(
-          //     title: 'login'.tr(),
-          //     textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-          //       fontSize: 20.sp,
-          //       fontWeight: FontWeight.w500,
-          //       color: AppColors.colorButtonLight,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

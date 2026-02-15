@@ -19,17 +19,28 @@ class AccountInfoDepartment extends StatelessWidget {
             fontWeight: FontWeight.w700,
           ),
         ),
-        SizedBox(height: 25),
+        const SizedBox(height: 25),
         InfoItem(
           label: "userName",
-          value: "John_Doe123_578",
+          value: context.read<SettingCubit>().userName ?? "",
           showChange: false,
         ),
         InfoItem(
           label: "password",
           value: maskPassword(context.read<SettingCubit>().password.toString()),
           showChange: true,
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return BlocProvider.value(
+                  value: context.read<ChangePasswordCubit>(),
+                  child: const ChangePasswordDialog(),
+                );
+              },
+            );
+          },
         ),
       ],
     );
