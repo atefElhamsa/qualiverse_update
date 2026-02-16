@@ -5,12 +5,11 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CoursesMainButton extends StatelessWidget {
-  const CoursesMainButton({super.key, required this.locale});
-
-  final Locale locale;
+  const CoursesMainButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.locale;
     return Padding(
       padding: EdgeInsets.only(
         left: locale == const Locale('ar') ? 0 : 18.w,
@@ -23,7 +22,20 @@ class CoursesMainButton extends StatelessWidget {
         child: CustomButton(
           buttonModel: ButtonModel(
             onPressed: () {
-              context.pushNamed(AppRoutes.coursesFirstTermScreen);
+              final year = AcademicYearCubit.get(context).selectedAcademicYear;
+              final department = DepartmentCubit.get(
+                context,
+              ).selectedDepartment;
+              final level = LevelCubit.get(context).selectedLevel;
+              if (year == null || department == null || level == null) {
+                showSnackBar(
+                  context,
+                  "pleaseSelectedYearAndDepartment".tr(),
+                  AppColors.red,
+                );
+              } else {
+                context.pushNamed(AppRoutes.coursesFirstTermScreen);
+              }
             },
             backgroundColor: AppColors.scaffoldLight1,
             radius: 32,

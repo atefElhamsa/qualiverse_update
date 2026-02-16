@@ -3,24 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CoursesMainDetails extends StatelessWidget {
-  CoursesMainDetails({
-    super.key,
-    required this.selectedYear,
-    required this.selectedDepartment,
-    required this.selectedLevel,
-    required this.years,
-    required this.departments,
-    required this.levels,
-    required this.locale,
-  });
-
-  int? selectedYear;
-  String? selectedDepartment;
-  String? selectedLevel;
-  final List<int> years;
-  final List<String> departments;
-  final List<String> levels;
-  final Locale locale;
+  const CoursesMainDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +13,7 @@ class CoursesMainDetails extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 2,
-              child: CoursesMainFields(
-                years: years,
-                departments: departments,
-                levels: levels,
-                locale: locale,
-                selectedYear: selectedYear,
-                selectedDepartment: selectedDepartment,
-                selectedLevel: selectedLevel,
-              ),
-            ),
+            const Expanded(flex: 2, child: CoursesMainFields()),
             Expanded(
               flex: 1,
               child: Align(
@@ -58,7 +30,7 @@ class CoursesMainDetails extends StatelessWidget {
             ),
           ],
         ),
-        CoursesMainButton(locale: locale),
+        CoursesMainButton(),
       ],
     );
   }

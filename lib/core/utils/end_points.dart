@@ -11,6 +11,7 @@ class EndPoints {
   static const String indicator = "Indicator";
   static const String accountVerification = "Account/resend-confirmation-email";
   static const String changePassword = "Account/change-password";
+  static const String levels = "Level";
 
   static String accreditations({
     required int academicYearId,
