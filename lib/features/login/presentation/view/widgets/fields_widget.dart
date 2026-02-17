@@ -33,7 +33,8 @@ class FieldsWidget extends StatelessWidget {
               controller: loginCubit.userNameOrEmailController,
               focusNode: loginCubit.userNameOrEmailNode,
               keyboardType: TextInputType.emailAddress,
-              validator: (email) => MyValidators.emailValidator(email),
+              validator: (emailOrUserName) =>
+                  MyValidators.userNameOrEmailValidator(emailOrUserName),
             ),
           ),
         ),

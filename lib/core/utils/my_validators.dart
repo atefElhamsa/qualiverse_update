@@ -104,4 +104,17 @@ class MyValidators {
     }
     return null;
   }
+
+  static String? userNameOrEmailValidator(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'userNameOrEmailValidator'.tr();
+    }
+    if (val.contains("@")) {
+      return emailValidator(val);
+    }
+    if (val.length < 3 || val.length > 20) {
+      return displayNameValidator(val);
+    }
+    return null;
+  }
 }
