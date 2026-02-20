@@ -12,6 +12,7 @@ class EndPoints {
   static const String accountVerification = "Account/resend-confirmation-email";
   static const String changePassword = "Account/change-password";
   static const String levels = "Level";
+  static const String revoke = "Account/revoke-refresh-token";
 
   static String accreditations({
     required int academicYearId,

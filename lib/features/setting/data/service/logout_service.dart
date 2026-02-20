@@ -1,21 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-class ChangePasswordService {
+class LogoutService {
   final Dio dio = ApiClient.dio;
 
-  Future<String> changePassword({
-    required String currentPassword,
-    required String newPassword,
-    required String confirmNewPassword,
-  }) async {
+  Future<String> logout() async {
     try {
-      final response = await dio.put(
-        EndPoints.changePassword,
+      final response = await dio.post(
+        EndPoints.revoke,
         data: {
-          "currentPassword": currentPassword,
-          "newPassword": newPassword,
-          "confirmNewPassword": confirmNewPassword,
+          "token": LoginStorage.token,
+          "refreshToken": LoginStorage.refreshToken,
         },
       );
 
@@ -25,19 +20,19 @@ class ChangePasswordService {
         throw Exception("Invalid server response");
       }
 
-      final result = ChangePasswordModel.fromJson(data);
+      final result = LogoutResponse.fromJson(data);
 
       if (!result.isSuccess) {
-        throw Exception(result.error?.description ?? "Change password failed");
+        throw Exception(result.error?.description ?? "Logout failed");
       }
 
-      return result.data ?? "Password changed successfully";
+      return result.data ?? "Logged out successfully";
     } on DioException catch (e) {
       if (e.response != null) {
         final statusCode = e.response!.statusCode;
 
-        if (statusCode == 405) {
-          throw Exception("Method not allowed (Check HTTP method)");
+        if (statusCode == 401) {
+          throw Exception("Session expired, please login again");
         }
 
         if (e.response!.data is Map<String, dynamic>) {

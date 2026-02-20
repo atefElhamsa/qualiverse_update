@@ -16,6 +16,7 @@ void main() async {
       providers: [
         BlocProvider(create: (context) => SettingCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
+        BlocProvider(create: (context) => LogoutCubit()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],

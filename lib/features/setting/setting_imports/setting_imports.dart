@@ -1,10 +1,14 @@
 export 'package:qualiverse/features/setting/data/model/app_language.dart';
 export 'package:qualiverse/features/setting/data/model/change_password_model.dart';
 export 'package:qualiverse/features/setting/data/model/info_item_model.dart';
+export 'package:qualiverse/features/setting/data/model/logout_model.dart';
 export 'package:qualiverse/features/setting/data/model/side_item_model.dart';
 export 'package:qualiverse/features/setting/data/service/change_password_service.dart';
+export 'package:qualiverse/features/setting/data/service/logout_service.dart';
 export 'package:qualiverse/features/setting/presentation/controller/change_password_cubit.dart';
 export 'package:qualiverse/features/setting/presentation/controller/change_password_state.dart';
+export 'package:qualiverse/features/setting/presentation/controller/logout_cubit.dart';
+export 'package:qualiverse/features/setting/presentation/controller/logout_state.dart';
 export 'package:qualiverse/features/setting/presentation/controller/setting_cubit.dart';
 export 'package:qualiverse/features/setting/presentation/controller/setting_state.dart';
 export 'package:qualiverse/features/setting/presentation/view/setting_screen.dart';
