@@ -23,15 +23,15 @@ class BasicInfoDepartment extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 25),
-        ProfileImage(),
+        const SizedBox(height: 25),
+        const ProfileImage(),
         InfoItem(
           label: "name",
           value: "DR . John Doe",
           showChange: true,
           onPressed: () {},
         ),
-        InfoItem(label: "gender", value: "Male", showChange: false),
+        const InfoItem(label: "gender", value: "Male", showChange: false),
         InfoItem(
           label: "email",
           value: context.read<SettingCubit>().email.toString(),
