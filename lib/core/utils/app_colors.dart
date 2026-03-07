@@ -61,7 +61,7 @@ class AppColors {
   static const Color customContainerDarkHover = Color.fromARGB(255, 6, 43, 71);
 
   // Hover Button colors
-  static const Color hoverButtonAcreditation = Color(0xFF3B82F6);
+  static const Color hoverButtonAccreditation = Color(0xFF3B82F6);
   static const Color hoverButtonNewButton = Color(0xFF3B82F6);
   static const Color hoverButtonAiModel = Color(0xFF9CA3AF);
 
@@ -83,4 +83,9 @@ class AppColors {
   static const Color viewAndDeleteIconColor = Color(0xFF0D99FF);
   static const Color itemContainerColorEdit1 = Color(0xFF0F8BED);
   static const Color itemContainerColorEdit2 = Color(0xFF080F24);
+
+  static const Color reviewedColor = Color(0xFF42A5F5);
+  static const Color approvedColor = Color(0xFF1A1A2E);
+  static const Color rejectedColor = Color(0xFFEF5350);
+  static const Color pendingColor = Color(0xFF9C27B0);
 }

@@ -14,3 +14,5 @@ export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/evidence_uploads_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/indicators_file_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/program_institution_content.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_status_chart.dart';
+export 'package:qualiverse/features/dashboard/data/models/chart_data_model.dart';

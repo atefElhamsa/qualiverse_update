@@ -18,7 +18,7 @@ class _FirstPartEvidenceOverviewState extends State<FirstPartEvidenceOverview> {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          Image.asset(AppImages.evidenceOverview, fit: BoxFit.cover),
+          const EvidenceStatusChart(),
           SizedBox(width: 28.w),
           const DropButtonList(),
           SizedBox(width: 80.w),
