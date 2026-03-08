@@ -6,18 +6,21 @@ class EvidenceOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const FirstPartEvidenceOverview(),
-            const SizedBox(height: 24),
-            Image.asset(
-              AppImages.evidenceOverview2,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            FirstPartEvidenceOverview(),
+            SizedBox(height: 24),
+            EvidencePerCriterionChart(
+              data: [
+                CriterionDataModel(label: 'Criterion A', value: 5),
+                CriterionDataModel(label: 'Criterion B', value: 3),
+                CriterionDataModel(label: 'Criterion C', value: 8),
+                CriterionDataModel(label: 'Criterion D', value: 2),
+              ],
             ),
           ],
         ),

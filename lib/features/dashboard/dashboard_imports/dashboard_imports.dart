@@ -16,3 +16,13 @@ export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicato
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/program_institution_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_status_chart.dart';
 export 'package:qualiverse/features/dashboard/data/models/chart_data_model.dart';
+export 'package:qualiverse/features/dashboard/data/models/criterion_data_model.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/evidence_status_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/evidence_status_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_pie_chart.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_legend.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_per_criterion_chart.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_per_criterion_view.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_bars.dart';
