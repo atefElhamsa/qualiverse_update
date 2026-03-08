@@ -39,56 +39,53 @@ class DepartmentBarState extends State<DepartmentBar> {
   Widget build(BuildContext context) {
     final barHeight = (widget.item.value / widget.maxValue) * widget.maxHeight;
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Value on top
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 400),
-              opacity: animated ? 1 : 0,
-              child: CustomText(
-                title: widget.item.value.toInt().toString(),
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Value on top
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 400),
+            opacity: animated ? 1 : 0,
+            child: CustomText(
+              title: widget.item.value.toInt().toString(),
+              textStyle: Theme.of(
+                context,
+              ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
             ),
-            const SizedBox(height: 4),
-            // Bar
-            SizedBox(
-              height: widget.maxHeight,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 700),
-                  curve: Curves.easeOutCubic,
-                  width: double.infinity,
-                  height: animated ? barHeight : 0,
-                  decoration: BoxDecoration(
-                    color: AppColors.evidenceColorSlide,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(3.r),
-                      topRight: Radius.circular(3.r),
-                    ),
+          ),
+          const SizedBox(height: 4),
+          // Bar
+          SizedBox(
+            height: widget.maxHeight,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.easeOutCubic,
+                width: 115.w,
+                height: animated ? barHeight : 0,
+                decoration: BoxDecoration(
+                  color: AppColors.evidenceColorSlide,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(3.r),
+                    topRight: Radius.circular(3.r),
                   ),
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            // Label below
-            CustomText(
-              title: widget.item.label,
-              textAlign: TextAlign.center,
-              textStyle: GoogleFonts.inter(
-                fontSize: 10.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textGrey,
-              ),
+          ),
+          const SizedBox(height: 8),
+          // Label below
+          CustomText(
+            title: widget.item.label,
+            textAlign: TextAlign.center,
+            textStyle: GoogleFonts.inter(
+              fontSize: 11.sp,
+              fontWeight: FontWeight.w500,
+              color: AppColors.textGrey,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

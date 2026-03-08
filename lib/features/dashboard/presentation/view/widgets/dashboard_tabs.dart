@@ -27,64 +27,65 @@ class _DashboardTabsState extends State<DashboardTabs> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          child: Row(
-            children: List.generate(titles.length, (index) {
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                child: AnimatedContainer(
-                  constraints: BoxConstraints(minWidth: 214.w, minHeight: 87.h),
-                  duration: const Duration(milliseconds: 200),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.mainBlack.withOpacity(0.25),
-                        offset: const Offset(0, 4),
-                        spreadRadius: 0,
-                        blurRadius: 4,
-                      ),
-                    ],
-                    color: selectedIndex == index
-                        ? AppColors.viewAndDeleteIconColor
-                        : AppColors.grey,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Center(
-                    child: CustomText(
-                      title: titles[index].tr(),
-                      textAlign: TextAlign.center,
-                      textStyle: Theme.of(context).textTheme.bodyMedium!
-                          .copyWith(
-                            color: selectedIndex == index
-                                ? AppColors.white
-                                : AppColors.black,
-                          ),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: titles.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.8,
+          ),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              child: AnimatedContainer(
+                constraints: BoxConstraints(minWidth: 214.w, minHeight: 87.h),
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.mainBlack.withOpacity(0.25),
+                      offset: const Offset(0, 4),
+                      spreadRadius: 0,
+                      blurRadius: 4,
                     ),
+                  ],
+                  color: selectedIndex == index
+                      ? AppColors.viewAndDeleteIconColor
+                      : AppColors.grey,
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Center(
+                  child: CustomText(
+                    title: titles[index].tr(),
+                    textAlign: TextAlign.center,
+                    textStyle: Theme.of(context).textTheme.bodyMedium!
+                        .copyWith(
+                          color: selectedIndex == index
+                              ? AppColors.white
+                              : AppColors.black,
+                        ),
                   ),
                 ),
-              );
-            }),
-          ),
+              ),
+            );
+          },
         ),
         const SizedBox(height: 24),
-        IndexedStack(
-          index: selectedIndex,
-          children: [
-            const EvidenceOverviewContent(),
-            const AccreditationStructureContent(),
-            const EvidenceUploadsContent(),
-            const ProgramInstitutionContent(),
-            const IndicatorsFileContent(),
-          ],
-        ),
+        [
+          const EvidenceOverviewContent(),
+          const AccreditationStructureContent(),
+          const EvidenceUploadsContent(),
+          const ProgramInstitutionContent(),
+          const IndicatorsFileContent(),
+        ][selectedIndex],
+        const SizedBox(height: 24),
       ],
     );
   }
