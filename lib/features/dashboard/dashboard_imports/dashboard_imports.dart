@@ -26,3 +26,9 @@ export 'package:qualiverse/features/dashboard/presentation/controller/evidence_p
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_per_criterion_chart.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_per_criterion_view.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_bars.dart';
+export 'package:qualiverse/features/dashboard/data/models/department_data_model.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/department_bars.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/courses_per_department_view.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/courses_per_department_chart.dart';

@@ -14,14 +14,7 @@ class EvidenceOverviewContent extends StatelessWidget {
           children: [
             FirstPartEvidenceOverview(),
             SizedBox(height: 24),
-            EvidencePerCriterionChart(
-              data: [
-                CriterionDataModel(label: 'Criterion A', value: 5),
-                CriterionDataModel(label: 'Criterion B', value: 3),
-                CriterionDataModel(label: 'Criterion C', value: 8),
-                CriterionDataModel(label: 'Criterion D', value: 2),
-              ],
-            ),
+            EvidencePerCriterionChart(),
           ],
         ),
       ),

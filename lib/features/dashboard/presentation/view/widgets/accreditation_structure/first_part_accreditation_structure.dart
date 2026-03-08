@@ -11,7 +11,7 @@ class FirstPartAccreditationStructure extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          Image.asset(AppImages.accreditationStructure, fit: BoxFit.cover),
+          const CoursesPerDepartmentChart(),
           SizedBox(width: 150.w),
           const ThreeContainersRightAccreditationStructure(),
         ],
