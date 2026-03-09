@@ -32,3 +32,8 @@ export 'package:qualiverse/features/dashboard/presentation/controller/courses_pe
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/department_bars.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/courses_per_department_view.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/courses_per_department_chart.dart';
+export 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/monthly_line_chart.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/chart_page.dart';

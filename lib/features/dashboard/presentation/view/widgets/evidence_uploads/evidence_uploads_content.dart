@@ -6,14 +6,10 @@ class EvidenceUploadsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Image.asset(
-          AppImages.evidenceUploadImage,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: ChartPage(),
       ),
     );
   }
