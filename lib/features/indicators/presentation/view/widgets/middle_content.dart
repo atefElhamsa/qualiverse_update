@@ -27,7 +27,7 @@ class MiddleContent extends StatelessWidget {
                 fontSize: 28.sp,
               ),
             ),
-            Text(' - '),
+            const Text(' - '),
             CustomText(
               title: context.standardTitle(indicatorsArgs.index),
               textStyle: TextStyle(
@@ -37,9 +37,9 @@ class MiddleContent extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         indicators.isEmpty
-            ? SizedBox()
+            ? const SizedBox()
             : Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -50,10 +50,13 @@ class MiddleContent extends StatelessWidget {
                       fontSize: 28.sp,
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     '${indicators.where((element) => element.filePath != null).length} / ${indicators.length}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                    ),
                   ),
                 ],
               ),

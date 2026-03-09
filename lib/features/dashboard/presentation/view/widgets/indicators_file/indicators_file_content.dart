@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../routing/all_routes_imports.dart';
 
 class IndicatorsFileContent extends StatelessWidget {
   const IndicatorsFileContent({super.key});
@@ -7,13 +9,9 @@ class IndicatorsFileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Image.asset(
-          AppImages.indicatorsFile,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        ),
+      child: BlocProvider(
+        create: (_) => DocumentsCubit()..loadDocuments(),
+        child: const DocumentsPage(),
       ),
     );
   }

@@ -95,4 +95,8 @@ class AppColors {
   static const Color evidenceColorSlide2 = Color(0xFF4472C4);
   static const Color evidenceColorSlide3 = Color(0xFFE84545);
   static const Color evidenceColorSlide4 = Color(0xFF7B2FBE);
+  static const Color approvedColorIndicator = Color(0xFF22C55E);
+  static const Color pendingColorIndicator = Color(0xFFF59E0B);
+  static const Color rejectedColorIndicator = Color(0xFFEF4444);
+  static const Color textGreyIndicator = Color(0xFF1F2937);
 }

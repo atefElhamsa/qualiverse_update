@@ -8,16 +8,13 @@ class AccreditationStructureContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FirstPartAccreditationStructure(),
-            SizedBox(height: 24),
-            EvidencePerCriterionChart(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FirstPartAccreditationStructure(),
+          SizedBox(height: 24),
+          EvidencePerCriterionChart(),
+        ],
       ),
     );
   }

@@ -1,10 +1,13 @@
 export 'package:qualiverse/features/dashboard/data/models/chart_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/criterion_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/department_data_model.dart';
+export 'package:qualiverse/features/dashboard/data/models/doc_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_cubit.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_cubit.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion/evidence_per_criterion_cubit.dart';
@@ -38,6 +41,9 @@ export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/chart_page.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/evidence_uploads_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/monthly_line_chart.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/animated_doc_row.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/documents_header_row.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/documents_page.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/indicators_file_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/evidence_chart_page_program.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/evidence_chart_program.dart';
