@@ -102,9 +102,10 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                 maximumLabels: 12,
                 labelIntersectAction: AxisLabelIntersectAction.none,
                 labelAlignment: LabelAlignment.center,
-                labelStyle: Theme.of(
-                  context,
-                ).textTheme.headlineLarge!.copyWith(fontSize: 14.sp),
+                labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  fontSize: 14.sp,
+                  color: AppColors.textGrey,
+                ),
               ),
               primaryYAxis: const NumericAxis(
                 isVisible: false,
@@ -122,11 +123,9 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                   dataLabelSettings: DataLabelSettings(
                     isVisible: true,
                     labelAlignment: ChartDataLabelAlignment.top,
-                    textStyle: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.mainBlack,
-                    ),
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
                   ),
                   markerSettings: const MarkerSettings(isVisible: false),
                 ),

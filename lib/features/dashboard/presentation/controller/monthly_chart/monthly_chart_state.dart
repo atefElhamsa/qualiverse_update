@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../routing/all_routes_imports.dart';
+import '../../../../../routing/all_routes_imports.dart';
 
 abstract class MonthlyChartState extends Equatable {
   @override
@@ -13,6 +13,7 @@ class MonthlyChartLoading extends MonthlyChartState {}
 
 class MonthlyChartLoaded extends MonthlyChartState {
   final List<MonthlyChartDataModel> data;
+
   MonthlyChartLoaded(this.data);
 
   @override
@@ -21,6 +22,7 @@ class MonthlyChartLoaded extends MonthlyChartState {
 
 class MonthlyChartError extends MonthlyChartState {
   final String message;
+
   MonthlyChartError(this.message);
 
   @override

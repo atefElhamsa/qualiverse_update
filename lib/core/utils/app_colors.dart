@@ -6,6 +6,7 @@ class AppColors {
   static const Color red = Colors.red;
   static const Color mainBlack = Colors.black;
   static const Color black26 = Colors.black26;
+  static const Color black87 = Colors.black87;
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
   static const Color green = Colors.green;
@@ -91,4 +92,7 @@ class AppColors {
   static const Color textGrey = Color(0xFF666666);
   static const Color textBlack = Color(0xFF444444);
   static const Color evidenceColorSlide = Color(0xFF7EB6F0);
+  static const Color evidenceColorSlide2 = Color(0xFF4472C4);
+  static const Color evidenceColorSlide3 = Color(0xFFE84545);
+  static const Color evidenceColorSlide4 = Color(0xFF7B2FBE);
 }

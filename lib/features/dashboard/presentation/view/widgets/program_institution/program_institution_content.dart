@@ -23,11 +23,7 @@ class ProgramInstitutionContent extends StatelessWidget {
                 color: AppColors.mainBlack,
               ),
             ),
-            Image.asset(
-              AppImages.programInstitution,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+            const EvidenceChartPageProgram(),
           ],
         ),
       ),
