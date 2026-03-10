@@ -37,7 +37,7 @@ class ProgramButton extends StatelessWidget {
                   : AppColors.colorButtonDark,
               radius: 20,
               customText: CustomText(
-                title: types[1].localizedType(context),
+                title: types[1].name,
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
               ),
             ),

@@ -63,14 +63,9 @@ class LoginCubit extends Cubit<LoginState> {
       }
 
       await CashHelper.saveData(
-        key: KeysTexts.userNameOrEmail,
-        value: userNameOrEmailController.text.trim(),
-      );
-      await CashHelper.saveData(
         key: KeysTexts.userPassword,
         value: passwordController.text.trim(),
       );
-      await CashHelper.saveData(key: KeysTexts.email, value: result.email);
 
       emit(LoginSuccess(user: result));
       context.read<SettingCubit>().refreshUserData();

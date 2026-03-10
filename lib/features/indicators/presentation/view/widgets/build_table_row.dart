@@ -21,7 +21,7 @@ TableRow buildTableRow({
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             CustomText(
-              title: "${indicator.localizedName(context)}:",
+              title: "${indicator.name}:",
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w600,
                 color: indicator.filePath == null
@@ -30,7 +30,7 @@ TableRow buildTableRow({
               ),
             ),
             CustomText(
-              title: indicator.localizedDescription(context),
+              title: indicator.description,
               textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                 height: 1.4,
                 color: indicator.filePath == null

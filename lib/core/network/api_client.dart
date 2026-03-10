@@ -27,5 +27,5 @@ class ApiClient {
         "Content-Type": "application/json",
       },
     ),
-  )..interceptors.add(LoginInterceptor());
+  )..interceptors.addAll([LoginInterceptor(), LanguageInterceptor()]);
 }

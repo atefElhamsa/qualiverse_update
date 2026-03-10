@@ -16,9 +16,7 @@ class SettingCubit extends Cubit<SettingState> {
   int selectedIndex = 0;
   List<AppLanguage> preferredLanguages = [];
 
-  String? email;
   String? password;
-  String? userName;
 
   // INIT
   Future<void> initSetting({required BuildContext context}) async {
@@ -41,9 +39,7 @@ class SettingCubit extends Cubit<SettingState> {
         : MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     // ===== USER DATA =====
-    email = CashHelper.getData(key: KeysTexts.email);
     password = CashHelper.getData(key: KeysTexts.userPassword);
-    userName = CashHelper.getData(key: KeysTexts.userName);
 
     // PREFERRED LANGUAGES
     preferredLanguages.clear();
@@ -99,10 +95,6 @@ class SettingCubit extends Cubit<SettingState> {
 
   // REFRESH USER DATA
   void refreshUserData() {
-    email = CashHelper.getData(key: KeysTexts.email);
-    password = CashHelper.getData(key: KeysTexts.userPassword);
-    userName = CashHelper.getData(key: KeysTexts.userName);
-
     emit(SettingInitial());
   }
 

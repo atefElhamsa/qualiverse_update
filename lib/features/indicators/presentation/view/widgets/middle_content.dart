@@ -21,7 +21,7 @@ class MiddleContent extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             CustomText(
-              title: indicatorsArgs.accreditationModel.localizedName(context),
+              title: indicatorsArgs.accreditationModel.name,
               textStyle: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 28.sp,
@@ -51,9 +51,10 @@ class MiddleContent extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    '${indicators.where((element) => element.filePath != null).length} / ${indicators.length}',
-                    style: const TextStyle(
+                  CustomText(
+                    title:
+                        '${indicators.where((element) => element.filePath != null).length} / ${indicators.length}',
+                    textStyle: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
                     ),

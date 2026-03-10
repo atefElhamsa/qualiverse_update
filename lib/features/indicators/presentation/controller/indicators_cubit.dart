@@ -42,7 +42,7 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
         ),
       );
     } catch (e) {
-      _handleError(e);
+      handleError(e);
     }
   }
 
@@ -69,17 +69,17 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       );
       await fetchIndicators(criterionId: criterionId);
     } catch (e) {
-      _handleError(e);
+      handleError(e);
     }
   }
 
-  String _buildFileUrl(String filePath) {
+  String buildFileUrl(String filePath) {
     return "${EndPoints.baseUrlToOpenFile}/$filePath";
   }
 
   Future<void> openIndicatorFile(String filePath) async {
     try {
-      final url = Uri.parse(_buildFileUrl(filePath));
+      final url = Uri.parse(buildFileUrl(filePath));
 
       if (!await canLaunchUrl(url)) {
         throw Exception('Cannot open file');
@@ -97,7 +97,7 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     emit(IndicatorsInitial());
   }
 
-  void _handleError(dynamic e) async {
+  void handleError(dynamic e) async {
     final msg = e.toString();
 
     if (msg.contains('No Internet')) {
@@ -107,6 +107,7 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       reset();
       emit(IndicatorsError(message: 'Session expired, please login again'));
     } else {
+      print(e);
       emit(IndicatorsError(message: 'Something went wrong'));
     }
   }

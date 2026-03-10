@@ -36,7 +36,7 @@ class InstitutionalButton extends StatelessWidget {
                   : AppColors.colorButtonDark,
               radius: 20,
               customText: CustomText(
-                title: types[0].localizedType(context),
+                title: types[0].name,
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
               ),
             ),

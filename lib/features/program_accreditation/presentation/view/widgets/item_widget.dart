@@ -40,7 +40,7 @@ class ItemWidget extends StatelessWidget {
 
                 Expanded(
                   child: Text(
-                    accreditationModel.localizedName(context),
+                    accreditationModel.name,
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(

@@ -201,30 +201,4 @@ class AppImages {
   // performance image onboarding
   static const String performanceImageOnboarding =
       "assets/images/performance_image_onboarding.png";
-
-  // evidence upload image onboarding
-  static const String evidenceUploadImage =
-      "assets/images/evidence_upload_image.png";
-
-  // program Institution image onboarding
-  static const String programInstitution =
-      "assets/images/program_institution.png";
-
-  // indicators file image onboarding
-  static const String indicatorsFile = "assets/images/indicators_file.png";
-
-  // evidence overview image onboarding
-  static const String evidenceOverview = "assets/images/evidence_overview.png";
-
-  // evidence overview 2 image onboarding
-  static const String evidenceOverview2 =
-      "assets/images/evidence_overview_2.png";
-
-  // accreditation structure image onboarding
-  static const String accreditationStructure =
-      "assets/images/accreditation_structure.png";
-
-  // accreditation structure 2 image onboarding
-  static const String accreditationStructure2 =
-      "assets/images/accreditation_structure_2.png";
 }

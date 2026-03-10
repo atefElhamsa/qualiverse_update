@@ -5,10 +5,10 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 TableRow tableHeader(BuildContext context) {
   return TableRow(
-    decoration: BoxDecoration(color: AppColors.tableColor),
+    decoration: const BoxDecoration(color: AppColors.tableColor),
     children: [
       Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: CustomText(
           title: "indicator".tr(),
           textStyle: Theme.of(
@@ -17,7 +17,7 @@ TableRow tableHeader(BuildContext context) {
         ),
       ),
       Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: CustomText(
           title: "uploadFile".tr(),
           textAlign: TextAlign.center,
@@ -27,7 +27,7 @@ TableRow tableHeader(BuildContext context) {
         ),
       ),
       Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: CustomText(
           title: "uploadedFiles".tr(),
           textAlign: TextAlign.center,

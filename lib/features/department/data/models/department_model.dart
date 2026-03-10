@@ -1,6 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-
 class DepartmentsResponseModel {
   final List<DepartmentModel> data;
   final bool isSuccess;
@@ -19,26 +16,16 @@ class DepartmentsResponseModel {
 
 class DepartmentModel {
   final int id;
-  final String nameAr;
-  final String nameEn;
+  final String code;
+  final String name;
 
-  DepartmentModel({
-    required this.id,
-    required this.nameAr,
-    required this.nameEn,
-  });
+  DepartmentModel({required this.id, required this.code, required this.name});
 
   factory DepartmentModel.fromJson(Map<String, dynamic> json) {
     return DepartmentModel(
       id: json['id'],
-      nameAr: json['nameAr'],
-      nameEn: json['nameEn'],
+      code: json['code'],
+      name: json['name'],
     );
-  }
-}
-
-extension DepartmentLocaleX on DepartmentModel {
-  String localizedName(BuildContext context) {
-    return context.locale.languageCode == 'ar' ? nameAr : nameEn;
   }
 }

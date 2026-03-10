@@ -13,6 +13,7 @@ class EndPoints {
   static const String changePassword = "Account/change-password";
   static const String levels = "Level";
   static const String revoke = "Account/revoke-refresh-token";
+  static const String me = "User/me";
 
   static String accreditations({
     required int academicYearId,
