@@ -185,15 +185,18 @@ class ScreensRoutes {
     );
   }
 
-  static GoRoute coursesFirstTermRoute() {
+  static GoRoute coursesFirstAndSecondTermRoute() {
     return GoRoute(
-      path: AppRoutes.coursesFirstTermScreen,
-      name: AppRoutes.coursesFirstTermScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const CoursesFirstTermScreen(),
-      ),
+      path: AppRoutes.coursesFirstAndSecondTermScreen,
+      name: AppRoutes.coursesFirstAndSecondTermScreen,
+      pageBuilder: (context, state) {
+        final args = state.extra as CourseArgs;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: CoursesFirstAndSecondTermScreen(courseArgs: args),
+        );
+      },
     );
   }
 
@@ -284,18 +287,6 @@ class ScreensRoutes {
         context: context,
         state: state,
         child: const EditFilesScreen(),
-      ),
-    );
-  }
-
-  static GoRoute coursesSecondTermRoute() {
-    return GoRoute(
-      path: AppRoutes.coursesSecondTermScreen,
-      name: AppRoutes.coursesSecondTermScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const CoursesSecondTermScreen(),
       ),
     );
   }

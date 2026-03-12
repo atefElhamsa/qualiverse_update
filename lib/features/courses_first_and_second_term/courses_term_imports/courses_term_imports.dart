@@ -1,0 +1,14 @@
+export 'package:qualiverse/features/courses_first_and_second_term/data/models/course_args.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/data/models/course_model.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/data/service/course_service.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/controller/course_cubit.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/controller/course_state.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/courses_first_and_second_term_screen.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/course_item_widget.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_buttons_bottom.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_buttons_report_description_widget.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_first_and_second_term_body.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_list.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/first_and_second_term_top.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/first_and_second_term_top_and_title.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/second_term_button.dart';

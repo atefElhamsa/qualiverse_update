@@ -255,5 +255,7 @@
   "enterYourCurrentPassword": "Enter your current password",
   "enterYourNewPassword": "Enter your new password",
   "reEnterYourNewPassword": "Re-Enter your new password",
-  "userNameOrEmailValidator": "Please enter your username or email"
+  "userNameOrEmailValidator": "Please enter your username or email",
+  "semester": "Semester",
+  "chooseSemester": "Select The Semester"
 }

@@ -14,6 +14,7 @@ class EndPoints {
   static const String levels = "Level";
   static const String revoke = "Account/revoke-refresh-token";
   static const String me = "User/me";
+  static const String semesters = "Semester";
 
   static String accreditations({
     required int academicYearId,
@@ -30,5 +31,22 @@ class EndPoints {
 
   static String indicatorsByCriterionId({required int criterionId}) {
     return "Indicator/$criterionId";
+  }
+
+  static String courses({
+    required int yearId,
+    required int levelId,
+    required int semesterId,
+    int? departmentId,
+  }) {
+    final buffer = StringBuffer(
+      "Course?yearId=$yearId&levelId=$levelId&semesterId=$semesterId",
+    );
+
+    if (departmentId != null) {
+      buffer.write("&departmentId=$departmentId");
+    }
+
+    return buffer.toString();
   }
 }

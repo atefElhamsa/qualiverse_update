@@ -95,6 +95,7 @@ class SettingCubit extends Cubit<SettingState> {
 
   // REFRESH USER DATA
   void refreshUserData() {
+    password = CashHelper.getData(key: KeysTexts.userPassword);
     emit(SettingInitial());
   }
 

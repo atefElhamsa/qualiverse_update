@@ -1,13 +1,19 @@
-class LevelResponseModel {
-  final List<LevelModel> data;
-  final bool isSuccess;
+import '../../../../core/all_core_imports/all_core_imports.dart';
 
-  LevelResponseModel({required this.data, required this.isSuccess});
+class LevelResponseModel {
+  final List<LevelModel>? data;
+  final bool isSuccess;
+  final ApiErrorModel? error;
+
+  LevelResponseModel({required this.isSuccess, this.data, this.error});
 
   factory LevelResponseModel.fromJson(Map<String, dynamic> json) {
     return LevelResponseModel(
       data: (json['data'] as List).map((e) => LevelModel.fromJson(e)).toList(),
       isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
     );
   }
 }

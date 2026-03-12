@@ -255,5 +255,7 @@
   "enterYourCurrentPassword": "أدخل كلمة المرور الحالية",
   "enterYourNewPassword": "أدخل كلمة المرور الجديدة",
   "reEnterYourNewPassword": "أعد إدخال كلمة المرور الجديدة",
-  "userNameOrEmailValidator": "من فضلك أدخل اسم المستخدم أو البريد الإلكتروني"
+  "userNameOrEmailValidator": "من فضلك أدخل اسم المستخدم أو البريد الإلكتروني",
+  "semester": "الفصل الدراسى",
+  "chooseSemester": "اختر الفصل الدراسى"
 }

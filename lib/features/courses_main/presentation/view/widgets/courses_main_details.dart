@@ -30,7 +30,8 @@ class CoursesMainDetails extends StatelessWidget {
             ),
           ],
         ),
-        CoursesMainButton(),
+        const CoursesMainButton(),
+        const SizedBox(height: 20),
       ],
     );
   }

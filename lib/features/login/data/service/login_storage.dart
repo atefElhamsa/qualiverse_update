@@ -90,4 +90,13 @@ class LoginStorage {
     CashHelper.removeData(key: KeysTexts.refreshToken);
     CashHelper.removeData(key: KeysTexts.refreshTokenExpiration);
   }
+
+  // Returns true if the token will expire in the next `duration` seconds
+  static bool get tokenExpiresSoon {
+    if (refreshTokenExpiration == null) return false;
+    final now = DateTime.now();
+    return refreshTokenExpiration!.isBefore(
+      now.add(const Duration(seconds: 60)),
+    );
+  }
 }

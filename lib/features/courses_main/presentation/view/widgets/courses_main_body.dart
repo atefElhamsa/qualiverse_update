@@ -22,6 +22,8 @@ class CoursesMainBody extends StatelessWidget {
           create: (context) => AcademicYearCubit()..fetchAcademicYears(),
         ),
         BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
+        BlocProvider(create: (context) => SemesterCubit()..fetchSemesters()),
+        BlocProvider(create: (context) => CourseCubit()),
       ],
       child: CustomScaffold(
         widget: Column(

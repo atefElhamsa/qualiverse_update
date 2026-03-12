@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -7,13 +6,16 @@ import '../../../../../routing/all_routes_imports.dart';
 
 class CourseItemWidget extends StatelessWidget {
   final String title;
+  final CourseSuccess state;
 
-  const CourseItemWidget({super.key, required this.title});
+  const CourseItemWidget({super.key, required this.title, required this.state});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        final selectedModel = state.courses.firstWhere((d) => d.name == title);
+        CourseCubit.get(context).selectCourse(course: selectedModel);
         context.pushNamed(AppRoutes.editFilesScreen);
       },
       child: SizedBox(
@@ -37,7 +39,7 @@ class CourseItemWidget extends StatelessWidget {
               child: SizedBox(
                 width: 218.w,
                 child: CustomText(
-                  title: title.tr(),
+                  title: title,
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,

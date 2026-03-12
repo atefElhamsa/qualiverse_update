@@ -11,7 +11,7 @@ export 'package:qualiverse/features/ai_report/ai_report_imports/ai_report_import
 // Course Specification First and Second Term Feature Exports
 export 'package:qualiverse/features/course_specification_first_term/course_specification_imports/course_specification_imports.dart';
 // Courses First and Second Term Feature Exports
-export 'package:qualiverse/features/courses_first_term/courses_term_imports/courses_term_imports.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/courses_term_imports/courses_term_imports.dart';
 // Course Main Features Exports
 export 'package:qualiverse/features/courses_main/courses_main_imports/courses_main_imports.dart';
 // Dashboard Feature Exports

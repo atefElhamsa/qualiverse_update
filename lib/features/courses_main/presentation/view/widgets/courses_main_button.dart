@@ -27,14 +27,26 @@ class CoursesMainButton extends StatelessWidget {
                 context,
               ).selectedDepartment;
               final level = LevelCubit.get(context).selectedLevel;
-              if (year == null || department == null || level == null) {
+              final semester = SemesterCubit.get(context).selectedSemester;
+              if (year == null ||
+                  department == null ||
+                  level == null ||
+                  semester == null) {
                 showSnackBar(
                   context,
                   "pleaseSelectedYearAndDepartment".tr(),
                   AppColors.red,
                 );
               } else {
-                context.pushNamed(AppRoutes.coursesFirstTermScreen);
+                context.pushNamed(
+                  AppRoutes.coursesFirstAndSecondTermScreen,
+                  extra: CourseArgs(
+                    yearId: year.id,
+                    levelId: level.id,
+                    semesterModel: semester,
+                    departmentId: department.id,
+                  ),
+                );
               }
             },
             backgroundColor: AppColors.scaffoldLight1,

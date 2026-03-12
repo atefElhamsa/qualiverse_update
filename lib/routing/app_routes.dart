@@ -37,10 +37,8 @@ class AppRoutes {
   static const String aiDescriptionScreen = '/ai_description';
 
   // Route for the courses first term screen.
-  static const String coursesFirstTermScreen = '/courses_first_term';
-
-  // Route for the courses second term screen.
-  static const String coursesSecondTermScreen = '/courses_second_term';
+  static const String coursesFirstAndSecondTermScreen =
+      '/courses_first_and_second_term';
 
   // ..... Route for the edit files screen.
   static const String editFilesScreen = '/edit_files';

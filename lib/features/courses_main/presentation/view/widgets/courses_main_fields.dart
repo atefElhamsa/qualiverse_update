@@ -13,6 +13,7 @@ class CoursesMainFields extends StatelessWidget {
         SelectedAcademicYearWidget(),
         SelectedLevelWidget(),
         SelectedDepartmentWidget(),
+        SelectedSemesterWidget(),
       ],
     );
   }

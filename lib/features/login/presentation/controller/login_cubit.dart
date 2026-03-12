@@ -56,7 +56,7 @@ class LoginCubit extends Cubit<LoginState> {
         refreshTokenExpirationValue: result.refreshTokenExpiration,
       );
 
-      LoginInterceptor().reset();
+      // LoginInterceptor().reset();
 
       if (rememberMe) {
         await LoginStorage.savePersistent();
