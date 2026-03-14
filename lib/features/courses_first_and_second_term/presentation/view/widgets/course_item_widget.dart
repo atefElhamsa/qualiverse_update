@@ -38,12 +38,14 @@ class CourseItemWidget extends StatelessWidget {
             Expanded(
               child: SizedBox(
                 width: 218.w,
-                child: CustomText(
-                  title: title,
-                  textAlign: TextAlign.center,
-                  textStyle: Theme.of(
-                    context,
-                  ).textTheme.bodySmall!.copyWith(fontSize: 24.sp),
+                child: SingleChildScrollView(
+                  child: CustomText(
+                    title: title,
+                    textAlign: TextAlign.center,
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.bodySmall!.copyWith(fontSize: 24.sp),
+                  ),
                 ),
               ),
             ),

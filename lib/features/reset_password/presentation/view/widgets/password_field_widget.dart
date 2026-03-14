@@ -27,6 +27,7 @@ class PasswordFieldWidget extends StatelessWidget {
           onFieldSubmitted: (submit) {
             resetPasswordCubit.resetPasswordCubit();
           },
+          isObscured: true,
           hintText: "enterYourNewPassword".tr(),
           controller: resetPasswordCubit.passwordController,
           focusNode: resetPasswordCubit.passwordNode,
