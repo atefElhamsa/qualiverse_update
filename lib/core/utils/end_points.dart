@@ -5,6 +5,7 @@ class EndPoints {
   static const String refreshToken = "Account/refresh";
   static const String register = "Account/register";
   static const String forgotPassword = "Account/forgot-password";
+  static const String resetPassword = "Account/reset-password";
   static const String accreditationTypes = "Accreditation";
   static const String department = "Department";
   static const String academicYears = "AcademicYear";

@@ -6,37 +6,46 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class SendButtonWidget extends StatelessWidget {
-  const SendButtonWidget({super.key, required this.resetPasswordCubit});
+  const SendButtonWidget({
+    super.key,
+    required this.resetPasswordCubit,
+    required this.resetPasswordState,
+  });
 
   final ResetPasswordCubit resetPasswordCubit;
+  final ResetPasswordState resetPasswordState;
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: AlignmentDirectional.centerEnd,
+      alignment: resetPasswordState is ResetPasswordOtpLoading
+          ? AlignmentDirectional.center
+          : AlignmentDirectional.centerEnd,
       child: Padding(
         padding: EdgeInsetsDirectional.only(end: 110.w),
-        child: SizedBox(
-          width: 154.w,
-          height: 56.h,
-          child: CustomButton(
-            buttonModel: ButtonModel(
-              onPressed: () {
-                resetPasswordCubit.forgetPasswordCubit();
-              },
-              backgroundColor: AppColors.loginButtonColor,
-              radius: 25,
-              customText: CustomText(
-                title: "send".tr(),
-                textStyle: GoogleFonts.inter(
-                  fontSize: 16.sp,
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w900,
+        child: resetPasswordState is ResetPasswordOtpLoading
+            ? const CustomLoading()
+            : SizedBox(
+                width: 154.w,
+                height: 56.h,
+                child: CustomButton(
+                  buttonModel: ButtonModel(
+                    onPressed: () {
+                      resetPasswordCubit.resetPasswordCubit();
+                    },
+                    backgroundColor: AppColors.loginButtonColor,
+                    radius: 25,
+                    customText: CustomText(
+                      title: "send".tr(),
+                      textStyle: GoogleFonts.inter(
+                        fontSize: 16.sp,
+                        color: AppColors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

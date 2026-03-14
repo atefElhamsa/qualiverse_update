@@ -12,8 +12,12 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       BlocProvider.of<ResetPasswordCubit>(context);
 
   final emailController = TextEditingController();
+  final otpController = TextEditingController();
+  final passwordController = TextEditingController();
 
   final emailNode = FocusNode();
+  final otpNode = FocusNode();
+  final passwordNode = FocusNode();
 
   final ResetPasswordService resetPasswordService = ResetPasswordService();
 
@@ -50,10 +54,47 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     }
   }
 
+  Future<void> resetPasswordCubit() async {
+    final email = emailController.text.trim();
+    final otp = otpController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (email.isEmpty || otp.isEmpty || password.isEmpty) {
+      emit(ResetPasswordFailure(errorMessage: "fillAllFields".tr()));
+      return;
+    }
+    if (!await _checkInternet()) {
+      emit(ResetPasswordFailure(errorMessage: "checkInternet".tr()));
+      return;
+    }
+
+    try {
+      emit(ResetPasswordOtpLoading());
+
+      final result = await resetPasswordService.resetPasswordOtp(
+        email: email,
+        otp: otp,
+        newPassword: password,
+      );
+
+      emit(ResetPasswordOtpSuccess(message: result));
+    } catch (e) {
+      emit(
+        ResetPasswordFailure(
+          errorMessage: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
+
   @override
   Future<void> close() {
     emailController.dispose();
+    otpController.dispose();
+    passwordController.dispose();
     emailNode.dispose();
+    otpNode.dispose();
+    passwordNode.dispose();
     return super.close();
   }
 }

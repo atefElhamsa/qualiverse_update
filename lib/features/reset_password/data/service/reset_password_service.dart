@@ -33,4 +33,36 @@ class ResetPasswordService {
       throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
     }
   }
+
+  Future<String> resetPasswordOtp({
+    required String email,
+    required String otp,
+    required String newPassword,
+  }) async {
+    try {
+      final response = await dio.put(
+        EndPoints.resetPassword,
+        data: {"email": email, "otp": otp, "newPassword": newPassword},
+      );
+      var data = response.data;
+
+      final result = ResetPasswordModel.fromJson(data);
+
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Something went wrong");
+      }
+
+      return result.data ?? "Check your email";
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        final result = ResetPasswordModel.fromJson(e.response!.data);
+
+        throw Exception(result.error?.description ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
+    }
+  }
 }

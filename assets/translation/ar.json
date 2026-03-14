@@ -257,5 +257,7 @@
   "reEnterYourNewPassword": "أعد إدخال كلمة المرور الجديدة",
   "userNameOrEmailValidator": "من فضلك أدخل اسم المستخدم أو البريد الإلكتروني",
   "semester": "الفصل الدراسى",
-  "chooseSemester": "اختر الفصل الدراسى"
+  "chooseSemester": "اختر الفصل الدراسى",
+  "otp": "الرمز",
+  "enterOtp": "أدخل الرمز الذي أرسلناه إلى بريدك الالكترونى"
 }

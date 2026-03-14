@@ -257,5 +257,7 @@
   "reEnterYourNewPassword": "Re-Enter your new password",
   "userNameOrEmailValidator": "Please enter your username or email",
   "semester": "Semester",
-  "chooseSemester": "Select The Semester"
+  "chooseSemester": "Select The Semester",
+  "otp": "OTP",
+  "enterOtp": "Enter the code we sent to your email"
 }

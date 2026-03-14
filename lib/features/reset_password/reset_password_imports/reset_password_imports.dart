@@ -6,6 +6,8 @@ export 'package:qualiverse/features/reset_password/presentation/view/reset_passw
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/back_login_widget.dart';
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/big_image_widget.dart';
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/email_field_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/otp_field_widget.dart';
+export 'package:qualiverse/features/reset_password/presentation/view/widgets/password_field_widget.dart';
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_and_description_text_widget.dart';
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_password_body.dart';
 export 'package:qualiverse/features/reset_password/presentation/view/widgets/reset_password_body_details.dart';

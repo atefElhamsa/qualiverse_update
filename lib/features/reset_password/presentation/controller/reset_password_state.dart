@@ -15,3 +15,11 @@ final class ResetPasswordFailure extends ResetPasswordState {
 
   ResetPasswordFailure({required this.errorMessage});
 }
+
+final class ResetPasswordOtpLoading extends ResetPasswordState {}
+
+final class ResetPasswordOtpSuccess extends ResetPasswordState {
+  final String message;
+
+  ResetPasswordOtpSuccess({required this.message});
+}
