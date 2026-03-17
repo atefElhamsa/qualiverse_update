@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../routing/all_routes_imports.dart';
@@ -7,7 +8,7 @@ class InstitutionalAccreditationCubit
   InstitutionalAccreditationCubit()
     : super(InstitutionalAccreditationInitial());
 
-  static InstitutionalAccreditationCubit get(context) =>
+  static InstitutionalAccreditationCubit get(BuildContext context) =>
       BlocProvider.of(context);
 
   List<AccreditationModel> institutionalAccreditations = [];

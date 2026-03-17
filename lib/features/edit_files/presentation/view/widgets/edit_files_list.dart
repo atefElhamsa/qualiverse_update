@@ -8,20 +8,9 @@ class EditFilesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Expanded(
-          child: Column(
-            children: [
-              FirstContainer(),
-              SizedBox(height: 17.h),
-              SecondContainer(),
-              SizedBox(height: 17.h),
-              ThirdContainer(),
-              SizedBox(height: 17.h),
-            ],
-          ),
-        ),
+        const Expanded(child: FirstContainer()),
         SizedBox(width: 35.w),
         Image.asset(AppImages.editFileImage),
       ],

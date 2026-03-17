@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
@@ -5,7 +6,7 @@ import '../../../../../routing/all_routes_imports.dart';
 class LevelCubit extends Cubit<LevelState> {
   LevelCubit() : super(LevelInitial());
 
-  static LevelCubit get(context) => BlocProvider.of(context);
+  static LevelCubit get(BuildContext context) => BlocProvider.of(context);
 
   List<LevelModel> levels = [];
   LevelModel? selectedLevel;

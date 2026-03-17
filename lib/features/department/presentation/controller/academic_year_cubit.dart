@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../routing/all_routes_imports.dart';
@@ -5,7 +6,8 @@ import '../../../../routing/all_routes_imports.dart';
 class AcademicYearCubit extends Cubit<AcademicYearState> {
   AcademicYearCubit() : super(AcademicYearInitial());
 
-  static AcademicYearCubit get(context) => BlocProvider.of(context);
+  static AcademicYearCubit get(BuildContext context) =>
+      BlocProvider.of(context);
 
   List<AcademicYearModel> academicYears = [];
   AcademicYearModel? selectedAcademicYear;

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../routing/all_routes_imports.dart';
@@ -5,7 +6,7 @@ import '../../../../routing/all_routes_imports.dart';
 class CourseCubit extends Cubit<CourseState> {
   CourseCubit() : super(CourseInitial());
 
-  static CourseCubit get(context) => BlocProvider.of(context);
+  static CourseCubit get(BuildContext context) => BlocProvider.of(context);
 
   List<CourseModel> courses = [];
   CourseModel? selectedCourse;

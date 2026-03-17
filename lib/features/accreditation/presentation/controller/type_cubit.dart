@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../routing/all_routes_imports.dart';
@@ -7,7 +8,7 @@ import '../../../../routing/all_routes_imports.dart';
 class TypesCubit extends Cubit<TypesState> {
   TypesCubit() : super(TypesInitial());
 
-  static TypesCubit get(context) => BlocProvider.of(context);
+  static TypesCubit get(BuildContext context) => BlocProvider.of(context);
 
   int selectedIndex = 0;
   List<TypeModel> types = [];

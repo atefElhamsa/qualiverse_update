@@ -16,6 +16,7 @@ class EndPoints {
   static const String revoke = "Account/revoke-refresh-token";
   static const String me = "User/me";
   static const String semesters = "Semester";
+  static const String updateAndCreateCourseFolder = "CourseFolder";
 
   static String accreditations({
     required int academicYearId,
@@ -49,5 +50,9 @@ class EndPoints {
     }
 
     return buffer.toString();
+  }
+
+  static String getCourseFolders({required int courseId}) {
+    return "CourseFolder/$courseId";
   }
 }

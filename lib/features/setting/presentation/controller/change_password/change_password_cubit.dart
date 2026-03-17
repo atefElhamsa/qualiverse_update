@@ -15,7 +15,8 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
   final newPasswordNode = FocusNode();
   final confirmPasswordNode = FocusNode();
 
-  static ChangePasswordCubit get(context) => BlocProvider.of(context);
+  static ChangePasswordCubit get(BuildContext context) =>
+      BlocProvider.of(context);
 
   ChangePasswordService changePasswordService = ChangePasswordService();
 

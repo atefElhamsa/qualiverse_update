@@ -7,6 +7,9 @@ import '../../../../routing/all_routes_imports.dart';
 class AccountVerificationCubit extends Cubit<AccountVerificationState> {
   AccountVerificationCubit() : super(AccountVerificationInitial());
 
+  static AccountVerificationCubit of(BuildContext context) =>
+      BlocProvider.of<AccountVerificationCubit>(context);
+
   final emailController = TextEditingController();
   final emailNode = FocusNode();
 

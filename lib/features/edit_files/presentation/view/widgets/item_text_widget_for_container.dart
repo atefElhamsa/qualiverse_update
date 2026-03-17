@@ -6,8 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../../routing/all_routes_imports.dart';
 
 class ItemTextWidgetForContainer extends StatelessWidget {
-  const ItemTextWidgetForContainer({super.key, required this.title});
-  final String title;
+  const ItemTextWidgetForContainer({
+    super.key,
+    required this.courseFolderModel,
+  });
+
+  final CourseFolderModel courseFolderModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class ItemTextWidgetForContainer extends StatelessWidget {
             width: 38.w,
             height: 38.h,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
                   AppColors.itemContainerColorEdit1,
                   AppColors.itemContainerColorEdit2,
@@ -47,7 +51,7 @@ class ItemTextWidgetForContainer extends StatelessWidget {
           const SizedBox(width: 30),
           Expanded(
             child: Text(
-              title.tr(),
+              courseFolderModel.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.cairo(
@@ -58,51 +62,15 @@ class ItemTextWidgetForContainer extends StatelessWidget {
               ),
             ),
           ),
-          EditDeleteDownloadList(),
+          EditDeleteDownloadList(
+            onTap: () {
+              CourseFolderCubit.get(
+                context,
+              ).selectCourseFolder(courseFolder: courseFolderModel);
+            },
+          ),
         ],
       ),
     );
   }
 }
-
-// Row(
-// children: [
-// Container(
-// width: 38.w,
-// height: 38.h,
-// decoration: BoxDecoration(
-// gradient: LinearGradient(
-// colors: [
-// AppColors.itemContainerColorEdit1,
-// AppColors.itemContainerColorEdit2,
-// ],
-// begin: Alignment.centerLeft,
-// end: Alignment.centerRight,
-// ),
-// borderRadius: BorderRadius.circular(8.r),
-// ),
-// child: Center(
-// child: Icon(
-// Icons.folder_open_rounded,
-// color: AppColors.white,
-// size: 30.sp,
-// ),
-// ),
-// ),
-// const SizedBox(width: 8),
-// Expanded(
-// child: Text(
-// title.tr(),
-// maxLines: 2,
-// overflow: TextOverflow.ellipsis,
-// style: GoogleFonts.cairo(
-// fontSize: 18.sp,
-// fontWeight: FontWeight.w500,
-// color: AppColors.mainBlack,
-// height: 1.25,
-// ),
-// ),
-// ),
-// EditDeleteDownloadList(),
-// ],
-// )

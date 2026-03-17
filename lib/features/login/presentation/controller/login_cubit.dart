@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
   final passwordNode = FocusNode();
   bool rememberMe = false;
 
-  static LoginCubit get(context) => BlocProvider.of(context);
+  static LoginCubit get(BuildContext context) => BlocProvider.of(context);
 
   LoginServices loginServices = LoginServices();
 
@@ -55,8 +55,6 @@ class LoginCubit extends Cubit<LoginState> {
         refreshTokenValue: result.refreshToken,
         refreshTokenExpirationValue: result.refreshTokenExpiration,
       );
-
-      // LoginInterceptor().reset();
 
       if (rememberMe) {
         await LoginStorage.savePersistent();

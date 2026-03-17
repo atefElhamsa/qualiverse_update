@@ -15,6 +15,7 @@ class EditFilesBody extends StatelessWidget {
           EditFilesNewButton(),
           SizedBox(height: 20),
           EditFilesList(),
+          SizedBox(height: 20),
         ],
       ),
     );

@@ -51,7 +51,20 @@ class _EditFilesNewButtonState extends State<EditFilesNewButton> {
 
     switch (value) {
       case 'new_folder':
-        debugPrint('New Folder');
+        final courseId = CourseFolderCubit.get(context).currentCourseId;
+        if (courseId == null) return;
+
+        final courseFolderCubit = CourseFolderCubit.get(context);
+        final createFolderCubit = CreateFolderCubit.get(context);
+
+        showDialog(
+          context: context,
+          builder: (context) => ShowCreateFolderDialog(
+            courseFolderCubit: courseFolderCubit,
+            courseId: courseId,
+            createFolderCubit: createFolderCubit,
+          ),
+        );
         break;
       case 'upload_folder':
         debugPrint('Upload Folder');

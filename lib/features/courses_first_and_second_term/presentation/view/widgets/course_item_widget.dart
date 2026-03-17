@@ -16,7 +16,10 @@ class CourseItemWidget extends StatelessWidget {
       onTap: () {
         final selectedModel = state.courses.firstWhere((d) => d.name == title);
         CourseCubit.get(context).selectCourse(course: selectedModel);
-        context.pushNamed(AppRoutes.editFilesScreen);
+        context.pushNamed(
+          AppRoutes.editFilesScreen,
+          extra: CourseFolderArgs(courseModel: selectedModel),
+        );
       },
       child: SizedBox(
         width: 218.w,

@@ -1,46 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../core/all_core_imports/all_core_imports.dart';
+import '../../../../../routing/all_routes_imports.dart';
 
 class EditDeleteDownloadList extends StatelessWidget {
-  const EditDeleteDownloadList({super.key});
+  const EditDeleteDownloadList({super.key, required this.onTap});
+
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      icon: Icon(Icons.more_vert, size: 20.sp, color: AppColors.mainBlack),
-      color: AppColors.colorButtonLight,
-      offset: Offset(0, 50),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-      onSelected: (value) {
-        switch (value) {
-          case 'delete':
-            debugPrint("Delete");
-            break;
-          case 'download':
-            debugPrint("Download");
-            break;
-          case 'edit':
-            debugPrint("Edit");
-            break;
+    return BlocConsumer<UpdateFolderCubit, UpdateFolderState>(
+      listener: (context, state) {
+        if (state is UpdateFolderFailure) {
+          showSnackBar(context, state.errorMessage, AppColors.red);
         }
       },
-      itemBuilder: (context) => [
-        buildMenuItem(
-          value: 'delete',
-          icon: Icons.delete_outline,
-          text: 'delete',
-        ),
-        buildMenuItem(
-          value: 'download',
-          icon: Icons.download,
-          text: 'download',
-        ),
-        buildMenuItem(value: 'edit', icon: Icons.edit, text: 'edit'),
-      ],
+      builder: (context, state) {
+        final updateFolderCubit = UpdateFolderCubit.get(context);
+        return PopMenuSuccessEditDeleteDownloadWidget(
+          onTap: onTap,
+          updateFolderCubit: updateFolderCubit,
+        );
+      },
     );
   }
 }

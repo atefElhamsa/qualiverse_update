@@ -259,5 +259,11 @@
   "semester": "Semester",
   "chooseSemester": "Select The Semester",
   "otp": "OTP",
-  "enterOtp": "Enter the code we sent to your email"
+  "enterOtp": "Enter the code we sent to your email",
+  "updateFolder": "Update Folder",
+  "folderName": "Folder Name",
+  "enterFolderName": "Enter Folder Name",
+  "update": "Update",
+  "createFolder": "Create Folder",
+  "create": "Create"
 }

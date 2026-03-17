@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
@@ -5,7 +6,7 @@ import '../../../../../routing/all_routes_imports.dart';
 class SemesterCubit extends Cubit<SemesterState> {
   SemesterCubit() : super(SemesterInitial());
 
-  static SemesterCubit get(context) => BlocProvider.of(context);
+  static SemesterCubit get(BuildContext context) => BlocProvider.of(context);
 
   List<SemesterModel> semesters = [];
   SemesterModel? selectedSemester;

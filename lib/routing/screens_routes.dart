@@ -283,11 +283,14 @@ class ScreensRoutes {
     return GoRoute(
       path: AppRoutes.editFilesScreen,
       name: AppRoutes.editFilesScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const EditFilesScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final args = state.extra as CourseFolderArgs;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: EditFilesScreen(courseFolderArgs: args),
+        );
+      },
     );
   }
 }

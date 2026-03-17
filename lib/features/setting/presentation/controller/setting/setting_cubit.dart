@@ -9,7 +9,7 @@ import 'package:qualiverse/features/all_features_imports/all_features_imports.da
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit() : super(SettingInitial());
 
-  static SettingCubit get(context) => BlocProvider.of(context);
+  static SettingCubit get(BuildContext context) => BlocProvider.of(context);
 
   String languageCode = 'en';
   bool isDark = false;
