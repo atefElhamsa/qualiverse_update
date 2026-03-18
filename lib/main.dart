@@ -21,6 +21,7 @@ void main() async {
         BlocProvider(create: (context) => CourseFolderCubit()),
         BlocProvider(create: (context) => UpdateFolderCubit()),
         BlocProvider(create: (context) => CreateFolderCubit()),
+        BlocProvider(create: (context) => DeleteFolderCubit()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],

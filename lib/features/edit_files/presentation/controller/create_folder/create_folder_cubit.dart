@@ -20,7 +20,7 @@ class CreateFolderCubit extends Cubit<CreateFolderState> {
     }
     try {
       emit(CreateFolderLoading());
-      final result = await UpdateAndCreateFolderService.createFolder(
+      final result = await UpdateAndCreateAndDeleteFolderService.createFolder(
         courseId: courseId,
         name: folderName,
       );

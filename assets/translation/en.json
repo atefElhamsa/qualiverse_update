@@ -265,5 +265,7 @@
   "enterFolderName": "Enter Folder Name",
   "update": "Update",
   "createFolder": "Create Folder",
-  "create": "Create"
+  "create": "Create",
+  "deleteFolder": "Delete Folder",
+  "deleteFolderMessage": "Are you sure you deleted this folder?"
 }

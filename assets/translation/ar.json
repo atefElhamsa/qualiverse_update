@@ -265,5 +265,7 @@
   "enterFolderName": "ادخل اسم المجلد",
   "update": "تحديث",
   "createFolder": "إنشاء مجلد",
-  "create": "إنشاء"
+  "create": "إنشاء",
+  "deleteFolder": "حذف المجلد",
+  "deleteFolderMessage": "هل أنت متأكد من حذف هذا المجلد؟"
 }

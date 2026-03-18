@@ -1,14 +1,20 @@
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-class UpdateAndCreateFolderModel {
+class UpdateAndCreateAndDeleteFolderModel {
   final String? data;
   final bool isSuccess;
   final ApiErrorModel? error;
 
-  UpdateAndCreateFolderModel({this.data, required this.isSuccess, this.error});
+  UpdateAndCreateAndDeleteFolderModel({
+    this.data,
+    required this.isSuccess,
+    this.error,
+  });
 
-  factory UpdateAndCreateFolderModel.fromJson(Map<String, dynamic> json) {
-    return UpdateAndCreateFolderModel(
+  factory UpdateAndCreateAndDeleteFolderModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    return UpdateAndCreateAndDeleteFolderModel(
       data: json['data'],
       isSuccess: json['isSuccess'] ?? false,
       error: json['error'] != null

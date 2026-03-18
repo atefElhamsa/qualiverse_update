@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-class UpdateAndCreateFolderService {
+class UpdateAndCreateAndDeleteFolderService {
   static final Dio dio = ApiClient.dio;
 
   static Future<String> updateFolder({
@@ -15,14 +15,16 @@ class UpdateAndCreateFolderService {
       );
       var data = response.data;
 
-      final result = UpdateAndCreateFolderModel.fromJson(data);
+      final result = UpdateAndCreateAndDeleteFolderModel.fromJson(data);
       if (!result.isSuccess) {
         throw Exception(result.error?.description ?? "Something went wrong");
       }
       return result.data ?? "Please try again later";
     } on DioException catch (e) {
       if (e.response?.data != null) {
-        final result = UpdateAndCreateFolderModel.fromJson(e.response!.data);
+        final result = UpdateAndCreateAndDeleteFolderModel.fromJson(
+          e.response!.data,
+        );
 
         throw Exception(result.error?.description ?? "Server error");
       }
@@ -44,14 +46,43 @@ class UpdateAndCreateFolderService {
       );
       var data = response.data;
 
-      final result = UpdateAndCreateFolderModel.fromJson(data);
+      final result = UpdateAndCreateAndDeleteFolderModel.fromJson(data);
       if (!result.isSuccess) {
         throw Exception(result.error?.description ?? "Something went wrong");
       }
       return result.data ?? "Please try again later";
     } on DioException catch (e) {
       if (e.response?.data != null) {
-        final result = UpdateAndCreateFolderModel.fromJson(e.response!.data);
+        final result = UpdateAndCreateAndDeleteFolderModel.fromJson(
+          e.response!.data,
+        );
+
+        throw Exception(result.error?.description ?? "Server error");
+      }
+
+      throw Exception("No Internet Connection");
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst("Exception: ", "").trim());
+    }
+  }
+
+  static Future<String> deleteFolder({required int folderId}) async {
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteCourseFolder(folderId: folderId),
+      );
+      var data = response.data;
+
+      final result = UpdateAndCreateAndDeleteFolderModel.fromJson(data);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Something went wrong");
+      }
+      return result.data ?? "Please try again later";
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        final result = UpdateAndCreateAndDeleteFolderModel.fromJson(
+          e.response!.data,
+        );
 
         throw Exception(result.error?.description ?? "Server error");
       }

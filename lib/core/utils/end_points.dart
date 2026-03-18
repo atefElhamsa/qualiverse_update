@@ -55,4 +55,8 @@ class EndPoints {
   static String getCourseFolders({required int courseId}) {
     return "CourseFolder/$courseId";
   }
+
+  static String deleteCourseFolder({required int folderId}) {
+    return "CourseFolder/$folderId";
+  }
 }

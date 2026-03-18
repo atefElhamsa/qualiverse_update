@@ -21,9 +21,15 @@ class EditDeleteDownloadList extends StatelessWidget {
       },
       builder: (context, state) {
         final updateFolderCubit = UpdateFolderCubit.get(context);
-        return PopMenuSuccessEditDeleteDownloadWidget(
-          onTap: onTap,
-          updateFolderCubit: updateFolderCubit,
+        return BlocBuilder<DeleteFolderCubit, DeleteFolderState>(
+          builder: (context, state) {
+            final deleteFolderCubit = DeleteFolderCubit.get(context);
+            return PopMenuSuccessEditDeleteDownloadWidget(
+              onTap: onTap,
+              updateFolderCubit: updateFolderCubit,
+              deleteFolderCubit: deleteFolderCubit,
+            );
+          },
         );
       },
     );

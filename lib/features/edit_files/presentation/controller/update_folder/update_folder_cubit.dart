@@ -20,7 +20,7 @@ class UpdateFolderCubit extends Cubit<UpdateFolderState> {
     }
     try {
       emit(UpdateFolderLoading());
-      final result = await UpdateAndCreateFolderService.updateFolder(
+      final result = await UpdateAndCreateAndDeleteFolderService.updateFolder(
         folderId: folderId,
         name: folderName,
       );
