@@ -19,7 +19,7 @@ class LogOutWidget extends StatelessWidget {
         if (state is LogoutSuccess) {
           showSnackBar(context, state.message, AppColors.green);
           await LoginStorage.clear();
-          context.pushReplacementNamed(AppRoutes.splashScreen);
+          context.pushReplacementNamed(AppRoutes.loginScreen);
         }
       },
       builder: (context, state) {

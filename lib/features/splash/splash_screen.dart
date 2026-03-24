@@ -31,10 +31,21 @@ class _SplashScreenState extends State<SplashScreen>
     ).then((value) => navigateToLogin());
   }
 
-  void navigateToLogin() {
-    context.pushReplacementNamed(
-      LoginStorage.hasToken ? AppRoutes.homeScreen : AppRoutes.onboardingScreen,
-    );
+  Future<void> navigateToLogin() async {
+    if (!LoginStorage.hasToken) {
+      context.pushReplacementNamed(AppRoutes.onboardingScreen);
+      return;
+    }
+
+    try {
+      await MeService().myInfo();
+      if (!mounted) return;
+      context.pushReplacementNamed(AppRoutes.homeScreen);
+    } catch (e) {
+      await LoginStorage.clear();
+      if (!mounted) return;
+      context.pushReplacementNamed(AppRoutes.onboardingScreen);
+    }
   }
 
   void initAnimations() {
