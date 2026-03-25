@@ -1,7 +1,9 @@
 export 'package:qualiverse/features/edit_files/data/models/course_folder_args.dart';
 export 'package:qualiverse/features/edit_files/data/models/course_folder_model.dart';
+export 'package:qualiverse/features/edit_files/data/models/file_model.dart';
 export 'package:qualiverse/features/edit_files/data/models/update_and_create_and_delete_folder_model.dart';
 export 'package:qualiverse/features/edit_files/data/service/course_folder_service.dart';
+export 'package:qualiverse/features/edit_files/data/service/file_service.dart';
 export 'package:qualiverse/features/edit_files/data/service/update_and_create_and_delete_folder_service.dart';
 export 'package:qualiverse/features/edit_files/presentation/controller/course_folder/course_folder_cubit.dart';
 export 'package:qualiverse/features/edit_files/presentation/controller/course_folder/course_folder_state.dart';
@@ -22,7 +24,6 @@ export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_fi
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_new_button.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top_and_title.dart';
-export 'package:qualiverse/features/edit_files/presentation/view/widgets/first_container.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/item_text_widget_for_container.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/menu_item.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/menu_overlay.dart';

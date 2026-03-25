@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
     initAnimations();
     startAnimations();
     Future.delayed(
-      const Duration(milliseconds: 3400),
+      const Duration(milliseconds: 3000),
     ).then((value) => navigateToLogin());
   }
 
