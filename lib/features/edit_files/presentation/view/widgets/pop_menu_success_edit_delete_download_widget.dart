@@ -82,8 +82,9 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
                     ),
                     actions: [
                       DeleteAndCancelButtons(
-                        deleteFolderCubit: deleteFolderCubit,
-                        folderId: folderId,
+                        onPressed: () {
+                          deleteFolderCubit.deleteFolder(folderId: folderId);
+                        },
                       ),
                     ],
                   ),

@@ -1,3 +1,4 @@
+export 'package:qualiverse/features/indicators/data/model/delete_file_indicator_model.dart';
 export 'package:qualiverse/features/indicators/data/model/indicator_args.dart';
 export 'package:qualiverse/features/indicators/data/model/indicator_model.dart';
 export 'package:qualiverse/features/indicators/data/model/indicator_pdf_file.dart';
@@ -18,4 +19,4 @@ export 'package:qualiverse/features/indicators/presentation/view/widgets/table_h
 export 'package:qualiverse/features/indicators/presentation/view/widgets/table_of_files.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/table_space_bottom_header.dart';
 export 'package:qualiverse/features/indicators/presentation/view/widgets/table_with_line.dart';
-export 'package:qualiverse/features/indicators/presentation/view/widgets/upload_file_buttom.dart';
+export 'package:qualiverse/features/indicators/presentation/view/widgets/upload_file_button.dart';

@@ -13,6 +13,10 @@ class IndicatorsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       widget: BlocBuilder<IndicatorsCubit, IndicatorsState>(
+        buildWhen: (previous, current) =>
+            current is IndicatorsSuccess ||
+            current is IndicatorsError ||
+            current is IndicatorsLoading,
         builder: (context, state) {
           if (state is IndicatorsLoading) {
             return Padding(

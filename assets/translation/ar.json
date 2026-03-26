@@ -267,5 +267,7 @@
   "createFolder": "إنشاء مجلد",
   "create": "إنشاء",
   "deleteFolder": "حذف المجلد",
-  "deleteFolderMessage": "هل أنت متأكد من حذف هذا المجلد؟"
+  "deleteFolderMessage": "هل أنت متأكد من حذف هذا المجلد؟",
+  "deleteFile": "حذف الملف",
+  "deleteFileMessage": "هل أنت متأكد من حذف"
 }

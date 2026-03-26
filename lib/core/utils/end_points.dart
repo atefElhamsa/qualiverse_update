@@ -35,6 +35,10 @@ class EndPoints {
     return "Indicator/$criterionId";
   }
 
+  static String deleteIndicatorFile({required int indicatorId}) {
+    return "Indicator/File/$indicatorId";
+  }
+
   static String courses({
     required int yearId,
     required int levelId,

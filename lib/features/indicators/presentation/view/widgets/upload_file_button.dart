@@ -4,20 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
-class UploadFileButtom extends StatefulWidget {
-  const UploadFileButtom({
+class UploadFileButton extends StatefulWidget {
+  const UploadFileButton({
     super.key,
     required this.indicatorModel,
     required this.indicatorsArgs,
   });
+
   final IndicatorModel indicatorModel;
   final IndicatorsArgs indicatorsArgs;
 
   @override
-  State<UploadFileButtom> createState() => _UploadFileButtomState();
+  State<UploadFileButton> createState() => _UploadFileButtonState();
 }
 
-class _UploadFileButtomState extends State<UploadFileButtom> {
+class _UploadFileButtonState extends State<UploadFileButton> {
   bool _isHovered = false;
 
   @override

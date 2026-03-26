@@ -267,5 +267,7 @@
   "createFolder": "Create Folder",
   "create": "Create",
   "deleteFolder": "Delete Folder",
-  "deleteFolderMessage": "Are you sure you deleted this folder?"
+  "deleteFolderMessage": "Are you sure you deleted this folder?",
+  "deleteFile": "Delete File",
+  "deleteFileMessage": "Are you sure you want to delete"
 }

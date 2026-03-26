@@ -84,4 +84,38 @@ class IndicatorServices {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
+
+  static Future<String> deleteIndicatorFile({required int indicatorId}) async {
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteIndicatorFile(indicatorId: indicatorId),
+      );
+      var data = response.data;
+      final result = DeleteFileIndicatorModel.fromJson(data);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Something went wrong");
+      }
+      return result.data ?? "File deleted successfully";
+    } on DioException catch (e) {
+      // Unauthorized
+      if (e.response?.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+
+      // No Internet
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+
+      // Server / Validation error
+      throw Exception(
+        e.response?.data?['message'] ??
+            e.response?.data?['error'] ??
+            'Upload Failed',
+      );
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
 }

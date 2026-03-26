@@ -24,5 +24,12 @@ final class IndicatorsError extends IndicatorsState {
 
 class IndicatorUploadLoading extends IndicatorsState {
   final int indicatorId;
+
   IndicatorUploadLoading({required this.indicatorId});
+}
+
+class FileIndicatorDeleteSuccess extends IndicatorsState {
+  final String message;
+
+  FileIndicatorDeleteSuccess({required this.message});
 }

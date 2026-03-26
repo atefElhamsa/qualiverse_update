@@ -92,6 +92,24 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     }
   }
 
+  Future<void> deleteIndicatorFile({
+    required int indicatorId,
+    required int criterionId,
+  }) async {
+    try {
+      emit(IndicatorsLoading());
+
+      final result = await IndicatorServices.deleteIndicatorFile(
+        indicatorId: indicatorId,
+      );
+
+      emit(FileIndicatorDeleteSuccess(message: result));
+      await fetchIndicators(criterionId: criterionId);
+    } catch (e) {
+      handleError(e);
+    }
+  }
+
   void reset() {
     indicators = [];
     selectedIndicator = null;
