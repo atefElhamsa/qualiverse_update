@@ -17,10 +17,12 @@ class ContainerLanguageTopAndButton extends StatelessWidget {
           textStyle: GoogleFonts.inter(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
-            color: AppColors.black,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.black
+                : AppColors.white,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
@@ -33,14 +35,27 @@ class ContainerLanguageTopAndButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.transparent,
                 borderRadius: BorderRadius.circular(20.r),
-                border: Border.all(width: 1, color: AppColors.black),
+                border: Border.all(
+                  width: 1,
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.black
+                      : AppColors.white,
+                ),
               ),
               child: Center(
                 child: CustomText(
                   title: "addLanguages".tr(),
-                  textStyle: Theme.of(
-                    context,
-                  ).textTheme.headlineLarge!.copyWith(fontSize: 14.sp),
+                  textStyle: Theme.of(context).textTheme.headlineLarge!
+                      .copyWith(
+                        fontSize: 14.sp,
+                        color:
+                            Theme.of(context).scaffoldBackgroundColor ==
+                                AppColors.white
+                            ? AppColors.black
+                            : AppColors.white,
+                      ),
                 ),
               ),
             ),

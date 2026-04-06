@@ -15,7 +15,9 @@ class EvidenceChartProgram extends StatelessWidget {
         if (state is! EvidenceLoaded) return const SizedBox.shrink();
         return Container(
           decoration: BoxDecoration(
-            color: AppColors.grey,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
@@ -34,7 +36,10 @@ class EvidenceChartProgram extends StatelessWidget {
               ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
             ),
             plotAreaBorderWidth: 0,
-            backgroundColor: AppColors.grey,
+            backgroundColor:
+                Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
             primaryXAxis: CategoryAxis(
               title: AxisTitle(
                 text: 'Criterion Name',

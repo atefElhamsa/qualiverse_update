@@ -7,6 +7,7 @@ import 'package:qualiverse/features/setting/data/model/side_item_model.dart';
 
 class SideItem extends StatelessWidget {
   const SideItem({super.key, required this.sideItemModel});
+
   final SideItemModel sideItemModel;
 
   @override
@@ -53,7 +54,11 @@ class SideItem extends StatelessWidget {
                 textStyle: GoogleFonts.inter(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w400,
-                  color: AppColors.black,
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.mainBlack
+                      : AppColors.white,
                 ),
               ),
             ],

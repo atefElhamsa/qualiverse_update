@@ -7,6 +7,6 @@ class SideBarDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [SideBarTop(), SideBarList()]);
+    return ListView(children: [const SideBarTop(), const SideBarList()]);
   }
 }

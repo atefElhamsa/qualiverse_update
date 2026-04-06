@@ -90,7 +90,9 @@ class _AnimatedDocRowState extends State<AnimatedDocRow>
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 4),
           decoration: BoxDecoration(
-            color: AppColors.grey,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: Padding(
@@ -129,7 +131,7 @@ class _AnimatedDocRowState extends State<AnimatedDocRow>
                           style: GoogleFonts.inter(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.textGreyIndicator,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),
                 );

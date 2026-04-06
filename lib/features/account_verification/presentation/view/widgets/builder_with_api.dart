@@ -34,6 +34,7 @@ class BuilderWithApi extends StatelessWidget {
               },
               keyboardType: TextInputType.emailAddress,
               validator: (email) => MyValidators.emailValidator(email),
+              hintText: "enterEmail".tr(),
               customTextLabel: CustomText(
                 title: "emailAddress".tr(),
                 textStyle: GoogleFonts.inter(

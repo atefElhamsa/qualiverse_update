@@ -11,7 +11,9 @@ class DocumentsHeaderRow extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
-        color: AppColors.grey,
+        color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+            ? AppColors.grey
+            : AppColors.mainBlack,
         borderRadius: BorderRadius.circular(12.r),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 22),
@@ -28,7 +30,7 @@ class DocumentsHeaderRow extends StatelessWidget {
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w800,
                 fontSize: 14.sp,
-                color: AppColors.mainBlack,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
           ),

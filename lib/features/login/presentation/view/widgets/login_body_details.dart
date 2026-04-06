@@ -15,7 +15,9 @@ class LoginBodyDetails extends StatelessWidget {
         width: screenWidth / 1.28,
         height: screenHeight / 1.24,
         decoration: BoxDecoration(
-          color: AppColors.white.withOpacity(0.75),
+          color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppColors.white.withOpacity(0.75)
+              : AppColors.mainBlack,
           borderRadius: BorderRadius.circular(22.r),
         ),
         child: const SingleChildScrollView(

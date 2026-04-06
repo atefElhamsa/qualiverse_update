@@ -30,9 +30,13 @@ class InfoItem extends StatelessWidget {
               width: 230.w,
               child: CustomText(
                 title: label.tr(),
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+                textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.mainBlack
+                      : AppColors.white,
+                ),
               ),
             ),
             Expanded(
@@ -43,7 +47,11 @@ class InfoItem extends StatelessWidget {
                 style: GoogleFonts.inter(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.drColor,
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.mainBlack
+                      : AppColors.white.withOpacity(0.75),
                 ),
               ),
             ),
@@ -57,7 +65,11 @@ class InfoItem extends StatelessWidget {
                     textStyle: GoogleFonts.inter(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.drColor,
+                      color:
+                          Theme.of(context).scaffoldBackgroundColor ==
+                              AppColors.white
+                          ? AppColors.drColor
+                          : AppColors.white,
                     ),
                   ),
                 ),

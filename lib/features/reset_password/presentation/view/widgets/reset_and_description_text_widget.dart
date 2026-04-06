@@ -16,7 +16,9 @@ class ResetAndDescriptionTextWidget extends StatelessWidget {
           title: "resetYourPassword".tr(),
           textStyle: GoogleFonts.inter(
             fontSize: 36.sp,
-            color: AppColors.mainBlack,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.mainBlack
+                : AppColors.white,
             fontWeight: FontWeight.w600,
           ),
         ),

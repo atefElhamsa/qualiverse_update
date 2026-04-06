@@ -20,7 +20,9 @@ class EvidencePerCriterionView extends StatelessWidget {
         return Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: AppColors.grey,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
             boxShadow: [
               BoxShadow(
                 color: AppColors.mainBlack.withOpacity(0.25),

@@ -21,9 +21,12 @@ class HelpSecondContainer extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 10),
             child: CustomText(
               title: "contactSupportMessage".tr(),
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w500),
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSecondary.withOpacity(0.75),
+              ),
             ),
           ),
           CustomText(
@@ -34,9 +37,12 @@ class HelpSecondContainer extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 10),
             child: CustomText(
               title: "support@aqs-system.edu",
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w500),
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSecondary.withOpacity(0.75),
+              ),
             ),
           ),
           CustomText(
@@ -47,9 +53,12 @@ class HelpSecondContainer extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 10),
             child: CustomText(
               title: "+20 100 000 0000",
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w500),
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSecondary.withOpacity(0.75),
+              ),
             ),
           ),
           CustomText(
@@ -60,9 +69,12 @@ class HelpSecondContainer extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(start: 10),
             child: CustomText(
               title: "https://workspace.google.com/products/forms/",
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineLarge!.copyWith(fontWeight: FontWeight.w500),
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSecondary.withOpacity(0.75),
+              ),
             ),
           ),
         ],

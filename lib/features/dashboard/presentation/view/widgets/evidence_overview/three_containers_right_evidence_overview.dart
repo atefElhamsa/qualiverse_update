@@ -26,14 +26,17 @@ class ThreeContainersRightEvidenceOverview extends StatelessWidget {
             child: CustomButton(
               buttonModel: ButtonModel(
                 onPressed: () {},
-                backgroundColor: AppColors.tableColor,
+                backgroundColor:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.tableColor
+                    : AppColors.mainBlack,
                 radius: 10,
                 customText: CustomText(
                   title: titles[index].tr(),
                   textStyle: GoogleFonts.inter(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w800,
-                    color: AppColors.mainBlack,
+                    color: Theme.of(context).colorScheme.onSecondary,
                   ),
                 ),
               ),

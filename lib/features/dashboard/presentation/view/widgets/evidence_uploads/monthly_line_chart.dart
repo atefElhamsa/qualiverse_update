@@ -91,8 +91,14 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
             ),
             child: SfCartesianChart(
               plotAreaBorderWidth: 0,
-              backgroundColor: AppColors.grey,
-              plotAreaBackgroundColor: AppColors.grey,
+              backgroundColor:
+                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                  ? AppColors.grey
+                  : AppColors.mainBlack,
+              plotAreaBackgroundColor:
+                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                  ? AppColors.grey
+                  : AppColors.mainBlack,
               primaryXAxis: CategoryAxis(
                 isVisible: true,
                 axisLine: const AxisLine(width: 0),
@@ -104,7 +110,11 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                 labelAlignment: LabelAlignment.center,
                 labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                   fontSize: 14.sp,
-                  color: AppColors.textGrey,
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.textGrey
+                      : AppColors.white,
                 ),
               ),
               primaryYAxis: const NumericAxis(
@@ -117,7 +127,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                   xValueMapper: (d, _) => d.month,
                   yValueMapper: (d, _) => d.value,
                   splineType: SplineType.natural,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondary,
                   width: 2.5,
                   animationDuration: 2000,
                   dataLabelSettings: DataLabelSettings(

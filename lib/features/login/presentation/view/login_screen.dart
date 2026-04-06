@@ -10,10 +10,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(),
-      child: const Scaffold(
+      child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: AppColors.loginBackground2,
-        body: LoginBody(),
+        backgroundColor:
+            Theme.of(context).scaffoldBackgroundColor == AppColors.white
+            ? AppColors.loginBackground2
+            : AppColors.mainBlack,
+        body: const LoginBody(),
       ),
     );
   }

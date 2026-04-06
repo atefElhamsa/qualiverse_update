@@ -22,10 +22,10 @@ class CustomScaffold extends StatelessWidget {
     return Container(
       width: screenWidth,
       height: screenHeight,
+      padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
       decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
           ? const BoxDecoration(
               gradient: LinearGradient(
-                // Define gradient for light theme.
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [AppColors.scaffoldLight1, AppColors.colorButtonLight],
@@ -36,21 +36,15 @@ class CustomScaffold extends StatelessWidget {
         width: screenWidth,
         height: screenHeight,
         padding: EdgeInsets.only(
-          // Adjust padding based on locale (for LTR/RTL support).
           left: locale == const Locale('ar') ? 0 : 27.w,
           right: locale == const Locale('ar') ? 0 : 27.w,
         ),
-        margin: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-            // Apply margin only for light theme.
-            ? EdgeInsets.only(top: 25.h, bottom: 25.h, left: 25.w, right: 25.w)
-            : null,
-        decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-            // Apply background color and border radius for light theme.
-            ? BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(23.r),
-              )
-            : null,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppColors.white
+              : AppColors.mainBlack,
+          borderRadius: BorderRadius.circular(23.r),
+        ),
         // Make the content scrollable.
         child: SingleChildScrollView(child: widget),
       ),

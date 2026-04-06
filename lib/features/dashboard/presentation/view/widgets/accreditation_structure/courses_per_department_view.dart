@@ -23,7 +23,9 @@ class CoursesPerDepartmentView extends StatelessWidget {
           width: double.infinity,
           constraints: const BoxConstraints(maxWidth: 800),
           decoration: BoxDecoration(
-            color: AppColors.grey,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),

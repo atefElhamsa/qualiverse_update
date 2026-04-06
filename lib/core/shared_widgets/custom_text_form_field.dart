@@ -19,6 +19,9 @@ class CustomTextFormField extends StatelessWidget {
           return TextFormField(
             controller: textFieldModel.controller,
             onTap: textFieldModel.onTap,
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: textFieldModel.keyboardType,
             obscureText: isPasswordField ? isObscured : false,
@@ -33,6 +36,8 @@ class CustomTextFormField extends StatelessWidget {
             focusNode: textFieldModel.focusNode,
             onFieldSubmitted: textFieldModel.onFieldSubmitted,
             decoration: InputDecoration(
+              fillColor: AppColors.transparent,
+              filled: true,
               suffixIcon: GestureDetector(
                 onTap: () {
                   if (isPasswordField) {
@@ -45,6 +50,7 @@ class CustomTextFormField extends StatelessWidget {
                   isPasswordField
                       ? (isObscured ? Icons.visibility : Icons.visibility_off)
                       : Icons.clear,
+                  color: AppColors.greyLight,
                 ),
               ),
               hintText: textFieldModel.hintText,

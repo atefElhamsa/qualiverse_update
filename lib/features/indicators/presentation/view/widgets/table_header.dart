@@ -5,15 +5,20 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 TableRow tableHeader(BuildContext context) {
   return TableRow(
-    decoration: const BoxDecoration(color: AppColors.tableColor),
+    decoration: BoxDecoration(
+      color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+          ? AppColors.tableColor
+          : AppColors.mainBlack,
+    ),
     children: [
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: CustomText(
           title: "indicator".tr(),
-          textStyle: Theme.of(
-            context,
-          ).textTheme.headlineLarge!.copyWith(fontSize: 25.sp),
+          textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+            fontSize: 25.sp,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
         ),
       ),
       Padding(
@@ -21,9 +26,10 @@ TableRow tableHeader(BuildContext context) {
         child: CustomText(
           title: "uploadFile".tr(),
           textAlign: TextAlign.center,
-          textStyle: Theme.of(
-            context,
-          ).textTheme.headlineLarge!.copyWith(fontSize: 25.sp),
+          textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+            fontSize: 25.sp,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
         ),
       ),
       Padding(
@@ -31,9 +37,10 @@ TableRow tableHeader(BuildContext context) {
         child: CustomText(
           title: "uploadedFiles".tr(),
           textAlign: TextAlign.center,
-          textStyle: Theme.of(
-            context,
-          ).textTheme.headlineLarge!.copyWith(fontSize: 25.sp),
+          textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+            fontSize: 25.sp,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
         ),
       ),
     ],

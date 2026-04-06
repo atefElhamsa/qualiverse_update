@@ -12,7 +12,11 @@ TableRow buildTableRow({
   required IndicatorsArgs indicatorsArgs,
 }) {
   return TableRow(
-    decoration: const BoxDecoration(color: AppColors.tableColor),
+    decoration: BoxDecoration(
+      color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+          ? AppColors.tableColor
+          : AppColors.mainBlack,
+    ),
     children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
@@ -26,7 +30,7 @@ TableRow buildTableRow({
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontWeight: FontWeight.w600,
                 color: indicator.filePath == null
-                    ? AppColors.mainBlack
+                    ? Theme.of(context).colorScheme.onSecondary
                     : AppColors.noFileColor,
               ),
             ),
@@ -35,7 +39,7 @@ TableRow buildTableRow({
               textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                 height: 1.4,
                 color: indicator.filePath == null
-                    ? AppColors.mainBlack
+                    ? Theme.of(context).colorScheme.onSecondary
                     : AppColors.noFileColor,
               ),
             ),
@@ -77,7 +81,7 @@ TableRow buildTableRow({
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                     color: indicator.filePath == null
-                        ? AppColors.mainBlack
+                        ? Theme.of(context).colorScheme.onSecondary
                         : AppColors.noFileColor,
                     fontSize: 20,
                     fontWeight: FontWeight.w100,
@@ -141,7 +145,9 @@ void showDeleteDialog({
           ),
           content: CustomText(
             title: "${"deleteFileMessage".tr()} \"${indicator.fileName}\"?",
-            textStyle: Theme.of(context).textTheme.headlineLarge!,
+            textStyle: Theme.of(
+              context,
+            ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
           ),
           actions: [
             DeleteAndCancelButtons(

@@ -12,8 +12,8 @@ class HelpSettingsContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w, top: 70.h),
       child: ListView(
-        padding: EdgeInsets.all(10),
-        physics: BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        physics: const BouncingScrollPhysics(),
         children: [
           CustomText(
             title: "accountSupport".tr(),
@@ -29,9 +29,9 @@ class HelpSettingsContent extends StatelessWidget {
             ).textTheme.headlineLarge!.copyWith(fontSize: 40.sp),
           ),
           const SizedBox(height: 30),
-          HelpFirstContainer(),
+          const HelpFirstContainer(),
           const SizedBox(height: 15),
-          HelpSecondContainer(),
+          const HelpSecondContainer(),
         ],
       ),
     );

@@ -17,23 +17,34 @@ class ProfileImage extends StatelessWidget {
               width: 230.w,
               child: CustomText(
                 title: "profilePicture".tr(),
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+                textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  color:
+                      Theme.of(context).scaffoldBackgroundColor ==
+                          AppColors.white
+                      ? AppColors.mainBlack
+                      : AppColors.white,
+                ),
               ),
             ),
             Expanded(
               child: Row(
                 children: [
                   Image.asset(AppImages.imagePicker),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
                         title: "upload_new_photo".tr(),
                         textStyle: Theme.of(context).textTheme.labelSmall!
-                            .copyWith(fontSize: 16.sp, color: AppColors.black),
+                            .copyWith(
+                              fontSize: 16.sp,
+                              color:
+                                  Theme.of(context).scaffoldBackgroundColor ==
+                                      AppColors.white
+                                  ? AppColors.mainBlack
+                                  : AppColors.white.withOpacity(0.75),
+                            ),
                       ),
                       CustomText(
                         title: "click_to_upload".tr(),

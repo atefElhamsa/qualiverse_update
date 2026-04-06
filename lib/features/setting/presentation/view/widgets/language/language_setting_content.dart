@@ -13,8 +13,8 @@ class LanguageSettingsContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 50.w, end: 10.w, top: 70.h),
       child: ListView(
-        padding: EdgeInsets.all(10),
-        physics: BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(10),
+        physics: const BouncingScrollPhysics(),
         children: [
           CustomText(
             title: "accountLanguage".tr(),
@@ -29,8 +29,8 @@ class LanguageSettingsContent extends StatelessWidget {
               textStyle: Theme.of(context).textTheme.headlineLarge!,
             ),
           ),
-          SizedBox(height: 20),
-          ContainerLanguage(),
+          const SizedBox(height: 20),
+          const ContainerLanguage(),
         ],
       ),
     );

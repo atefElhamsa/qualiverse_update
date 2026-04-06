@@ -40,7 +40,7 @@ class StandardButton extends StatelessWidget {
               }
             },
             // Set the button's background color.
-            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            backgroundColor: AppColors.colorButtonLight,
             // Set the button's corner radius.
             radius: 20,
             customText: CustomText(

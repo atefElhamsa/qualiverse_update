@@ -8,10 +8,13 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.loginBackground2,
-      body: ResetPasswordBody(),
+      backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor == AppColors.white
+          ? AppColors.loginBackground2
+          : AppColors.mainBlack,
+      body: const ResetPasswordBody(),
     );
   }
 }

@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
-class UploadFileButton extends StatefulWidget {
+class UploadFileButton extends StatelessWidget {
   const UploadFileButton({
     super.key,
     required this.indicatorModel,
@@ -15,13 +16,6 @@ class UploadFileButton extends StatefulWidget {
   final IndicatorsArgs indicatorsArgs;
 
   @override
-  State<UploadFileButton> createState() => _UploadFileButtonState();
-}
-
-class _UploadFileButtonState extends State<UploadFileButton> {
-  bool _isHovered = false;
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 128,
@@ -29,32 +23,21 @@ class _UploadFileButtonState extends State<UploadFileButton> {
       child: ElevatedButton(
         onPressed: () {
           context.read<IndicatorsCubit>().pickAndUploadIndicatorFile(
-            indicatorId: widget.indicatorModel.id,
-            criterionId: widget.indicatorsArgs.accreditationModel.id,
+            indicatorId: indicatorModel.id,
+            criterionId: indicatorsArgs.accreditationModel.id,
           );
         },
 
-        onHover: (isHovered) {
-          setState(() {
-            _isHovered = isHovered;
-          });
-        },
         style: ElevatedButton.styleFrom(
-          backgroundColor: _isHovered
-              ? Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                    ? AppColors.buttonUploadFileHovered
-                    : AppColors.white
-              : AppColors.colorButtonLight,
+          backgroundColor: AppColors.colorButtonLight,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
           ),
         ),
         child: Text(
           "uploadFile".tr(),
-          style: TextStyle(
-            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                ? AppColors.white
-                : AppColors.black,
+          style: const TextStyle(
+            color: AppColors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),

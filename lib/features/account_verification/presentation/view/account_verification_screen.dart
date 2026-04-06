@@ -9,7 +9,10 @@ class AccountVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.loginBackground2,
+      backgroundColor:
+          Theme.of(context).scaffoldBackgroundColor == AppColors.white
+          ? AppColors.loginBackground2
+          : AppColors.mainBlack,
       body: BlocProvider(
         create: (context) => AccountVerificationCubit(),
         child: const AccountVerificationBody(),

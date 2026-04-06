@@ -15,7 +15,9 @@ class ListNotification extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 34.w, vertical: 19.h),
         decoration: BoxDecoration(
-          color: AppColors.customContainerSettingColor,
+          color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppColors.customContainerSettingColor
+              : AppColors.mainBlack,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(45.r),
             bottomRight: Radius.circular(23.r),
@@ -34,7 +36,7 @@ class ListNotification extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return NotificationItemWidget();
+                  return const NotificationItemWidget();
                 },
                 separatorBuilder: (context, index) => SizedBox(height: 32.h),
                 itemCount: 10,

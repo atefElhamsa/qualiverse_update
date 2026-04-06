@@ -78,7 +78,8 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
                     ),
                     content: CustomText(
                       title: "deleteFolderMessage".tr(),
-                      textStyle: Theme.of(context).textTheme.headlineLarge!,
+                      textStyle: Theme.of(context).textTheme.headlineLarge!
+                          .copyWith(color: AppColors.mainBlack),
                     ),
                     actions: [
                       DeleteAndCancelButtons(

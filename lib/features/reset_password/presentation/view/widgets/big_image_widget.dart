@@ -13,10 +13,13 @@ class BigImageWidget extends StatelessWidget {
         width: 450.w,
         height: 600.h,
         alignment: Alignment.bottomCenter,
-        child: Image.asset(
-          AppImages.bigImageForgetPassword,
-          fit: BoxFit.cover,
-          height: 500.h,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.r),
+          child: Image.asset(
+            AppImages.bigImageForgetPassword,
+            fit: BoxFit.cover,
+            height: 500.h,
+          ),
         ),
       ),
     );

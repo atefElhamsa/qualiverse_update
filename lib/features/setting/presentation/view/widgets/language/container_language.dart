@@ -6,7 +6,7 @@ class ContainerLanguage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainerSetting(
+    return const CustomContainerSetting(
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

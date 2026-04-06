@@ -52,7 +52,11 @@ class LoginButtonWidget extends StatelessWidget {
                     textStyle: GoogleFonts.inter(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.colorButtonLight,
+                      color:
+                          Theme.of(context).scaffoldBackgroundColor ==
+                              AppColors.white
+                          ? AppColors.colorButtonLight
+                          : AppColors.white,
                     ),
                   ),
                   TextButton(
@@ -64,7 +68,11 @@ class LoginButtonWidget extends StatelessWidget {
                       textStyle: GoogleFonts.inter(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
-                        color: AppColors.colorButtonLight,
+                        color:
+                            Theme.of(context).scaffoldBackgroundColor ==
+                                AppColors.white
+                            ? AppColors.colorButtonLight
+                            : AppColors.white,
                       ),
                     ),
                   ),

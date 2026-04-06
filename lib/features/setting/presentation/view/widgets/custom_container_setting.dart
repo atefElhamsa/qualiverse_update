@@ -5,6 +5,7 @@ import '../../../../../core/all_core_imports/all_core_imports.dart';
 
 class CustomContainerSetting extends StatelessWidget {
   const CustomContainerSetting({super.key, required this.widget});
+
   final Widget widget;
 
   @override
@@ -13,7 +14,9 @@ class CustomContainerSetting extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(20.r),
       decoration: BoxDecoration(
-        color: AppColors.customContainerSettingColor,
+        color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+            ? AppColors.customContainerSettingColor
+            : AppColors.mainBlack,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: widget,

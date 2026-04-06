@@ -31,7 +31,7 @@ class LanguageItem extends StatelessWidget {
                 textStyle: GoogleFonts.inter(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.mainBlack,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               title: CustomText(
@@ -39,7 +39,7 @@ class LanguageItem extends StatelessWidget {
                 textStyle: GoogleFonts.inter(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.mainBlack,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               subtitle: isAppLanguage
@@ -48,7 +48,7 @@ class LanguageItem extends StatelessWidget {
                       textStyle: GoogleFonts.inter(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.mainBlack,
+                        color: Theme.of(context).colorScheme.onSecondary,
                       ),
                     )
                   : null,
@@ -66,7 +66,8 @@ class LanguageItem extends StatelessWidget {
                         value: LanguageAction.change,
                         child: CustomText(
                           title: "use_as_app_language".tr(),
-                          textStyle: Theme.of(context).textTheme.bodySmall!,
+                          textStyle: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(color: AppColors.mainBlack),
                         ),
                       ),
                     if (!isAppLanguage)
@@ -74,7 +75,8 @@ class LanguageItem extends StatelessWidget {
                         value: LanguageAction.remove,
                         child: CustomText(
                           title: "remove".tr(),
-                          textStyle: Theme.of(context).textTheme.bodySmall!,
+                          textStyle: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(color: AppColors.mainBlack),
                         ),
                       ),
                   ];
@@ -97,7 +99,11 @@ class LanguageItem extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.grey,
+                      color:
+                          Theme.of(context).scaffoldBackgroundColor ==
+                              AppColors.white
+                          ? AppColors.grey
+                          : AppColors.black,
                     ),
                     child: const Icon(Icons.more_vert),
                   ),

@@ -21,7 +21,9 @@ void showAddLanguageBottomSheet(BuildContext context) {
           ListTile(
             title: CustomText(
               title: "arabic".tr(),
-              textStyle: Theme.of(context).textTheme.bodyLarge!,
+              textStyle: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(color: AppColors.mainBlack),
             ),
             onTap: () {
               cubit.addPreferredLanguage(
@@ -33,7 +35,9 @@ void showAddLanguageBottomSheet(BuildContext context) {
           ListTile(
             title: CustomText(
               title: "english_us".tr(),
-              textStyle: Theme.of(context).textTheme.bodyLarge!,
+              textStyle: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.copyWith(color: AppColors.mainBlack),
             ),
             onTap: () {
               cubit.addPreferredLanguage(

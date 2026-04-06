@@ -5,6 +5,7 @@ import '../../../../../routing/all_routes_imports.dart';
 
 class CustomScaffoldSetting extends StatelessWidget {
   const CustomScaffoldSetting({super.key, required this.widget});
+
   final Widget widget;
 
   @override
@@ -14,6 +15,7 @@ class CustomScaffoldSetting extends StatelessWidget {
     return Container(
       width: screenWidth,
       height: screenHeight,
+      padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
       decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
           ? const BoxDecoration(
               gradient: LinearGradient(
@@ -26,17 +28,12 @@ class CustomScaffoldSetting extends StatelessWidget {
       child: Container(
         width: screenWidth,
         height: screenHeight,
-        margin: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-            // Apply margin only for light theme.
-            ? EdgeInsets.only(top: 25.h, bottom: 25.h, left: 25.w, right: 25.w)
-            : null,
-        decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-            // Apply background color and border radius for light theme.
-            ? BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(23.r),
-              )
-            : null,
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppColors.white
+              : AppColors.mainBlack,
+          borderRadius: BorderRadius.circular(23.r),
+        ),
         child: widget,
       ),
     );

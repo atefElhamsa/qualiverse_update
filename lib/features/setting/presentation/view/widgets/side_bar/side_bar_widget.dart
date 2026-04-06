@@ -11,21 +11,21 @@ class SideBarWidget extends StatelessWidget {
     return Container(
       width: 360.w,
       decoration: BoxDecoration(
-        color: AppColors.grey,
+        color: Theme.of(context).colorScheme.onPrimary,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(23.r),
           bottomLeft: Radius.circular(23.r),
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.mainBlack.withOpacity(0.25), // 25%
-            offset: const Offset(5, 2), // X, Y
+            color: AppColors.mainBlack.withOpacity(0.25),
+            offset: const Offset(5, 2),
             blurRadius: 10,
             spreadRadius: 0,
           ),
         ],
       ),
-      child: SideBarDetails(),
+      child: const SideBarDetails(),
     );
   }
 }

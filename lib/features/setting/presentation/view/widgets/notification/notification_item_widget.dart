@@ -14,7 +14,9 @@ class NotificationItemWidget extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+            ? AppColors.white
+            : AppColors.mainBlack,
         borderRadius: BorderRadius.circular(25.r),
       ),
       child: Row(
@@ -25,7 +27,10 @@ class NotificationItemWidget extends StatelessWidget {
               textStyle: GoogleFonts.inter(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w400,
-                color: AppColors.drColor,
+                color:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.drColor
+                    : AppColors.white,
               ),
             ),
           ),
@@ -35,13 +40,16 @@ class NotificationItemWidget extends StatelessWidget {
               textStyle: GoogleFonts.inter(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w400,
-                color: AppColors.drColor,
+                color:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.drColor
+                    : AppColors.white,
               ),
             ),
           ),
-          ViewDeleteContainer(iconData: Icons.remove_red_eye),
-          SizedBox(width: 10),
-          ViewDeleteContainer(iconData: Icons.delete_rounded),
+          const ViewDeleteContainer(iconData: Icons.remove_red_eye),
+          const SizedBox(width: 10),
+          const ViewDeleteContainer(iconData: Icons.delete_rounded),
         ],
       ),
     );

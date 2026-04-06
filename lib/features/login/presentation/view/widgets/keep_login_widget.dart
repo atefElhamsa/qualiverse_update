@@ -18,7 +18,10 @@ class KeepLoginWidget extends StatelessWidget {
         children: [
           Checkbox(
             value: loginCubit.rememberMe,
-            activeColor: AppColors.colorButtonLight,
+            activeColor:
+                Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.colorButtonLight
+                : AppColors.white,
             shape: const RoundedRectangleBorder(
               side: BorderSide(color: AppColors.colorButtonLight, width: 1.67),
             ),
@@ -30,7 +33,10 @@ class KeepLoginWidget extends StatelessWidget {
             title: "keepMeLoggedIn".tr(),
             textStyle: GoogleFonts.inter(
               fontSize: 12.sp,
-              color: AppColors.colorButtonLight,
+              color:
+                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                  ? AppColors.colorButtonLight
+                  : AppColors.white,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -43,7 +49,10 @@ class KeepLoginWidget extends StatelessWidget {
               title: "forgetPassword".tr(),
               textStyle: GoogleFonts.inter(
                 fontSize: 12.sp,
-                color: AppColors.colorButtonLight,
+                color:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.colorButtonLight
+                    : AppColors.white,
                 fontWeight: FontWeight.w400,
               ),
             ),

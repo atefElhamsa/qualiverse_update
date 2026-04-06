@@ -103,8 +103,8 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
         indicatorId: indicatorId,
       );
 
-      emit(FileIndicatorDeleteSuccess(message: result));
       await fetchIndicators(criterionId: criterionId);
+      emit(FileIndicatorDeleteSuccess(message: result));
     } catch (e) {
       handleError(e);
     }

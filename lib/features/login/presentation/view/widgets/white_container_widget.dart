@@ -11,7 +11,11 @@ class WhiteContainerWidget extends StatelessWidget {
     return Container(
       width: screenWidth / 2.06,
       height: screenHeight,
-      decoration: BoxDecoration(color: AppColors.whiteGrey.withOpacity(0.90)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+            ? AppColors.whiteGrey.withOpacity(0.90)
+            : AppColors.mainBlack,
+      ),
     );
   }
 }

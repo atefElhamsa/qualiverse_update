@@ -30,7 +30,10 @@ class CustomDropButtonAndTitle extends StatelessWidget {
             textStyle: GoogleFonts.inter(
               fontSize: 20.sp,
               fontWeight: FontWeight.w500,
-              color: AppColors.mainBlack,
+              color:
+                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                  ? AppColors.mainBlack
+                  : AppColors.white,
             ),
           ),
         ),

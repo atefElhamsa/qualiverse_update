@@ -58,19 +58,21 @@ class _DashboardTabsState extends State<DashboardTabs> {
                   ],
                   color: selectedIndex == index
                       ? AppColors.viewAndDeleteIconColor
-                      : AppColors.grey,
+                      : Theme.of(context).scaffoldBackgroundColor ==
+                            AppColors.white
+                      ? AppColors.grey
+                      : AppColors.mainBlack,
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Center(
                   child: CustomText(
                     title: titles[index].tr(),
                     textAlign: TextAlign.center,
-                    textStyle: Theme.of(context).textTheme.bodyMedium!
-                        .copyWith(
-                          color: selectedIndex == index
-                              ? AppColors.white
-                              : AppColors.black,
-                        ),
+                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: selectedIndex == index
+                          ? AppColors.white
+                          : Theme.of(context).colorScheme.onSecondary,
+                    ),
                   ),
                 ),
               ),

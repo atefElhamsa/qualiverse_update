@@ -41,7 +41,11 @@ class LegendFilterChip extends StatelessWidget {
             title: label,
             textStyle: GoogleFonts.inter(
               fontSize: 12,
-              color: isSelected ? Colors.black87 : Colors.grey,
+              color: isSelected
+                  ? (Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black87)
+                  : AppColors.grey,
               decoration: isSelected ? null : TextDecoration.lineThrough,
             ),
           ),
