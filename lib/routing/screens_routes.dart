@@ -248,6 +248,21 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute archiverAnalysisRoute() {
+    return GoRoute(
+      path: AppRoutes.archiverAnalysisScreen,
+      name: AppRoutes.archiverAnalysisScreen,
+      pageBuilder: (context, state) {
+        final args = state.extra as CourseArgs;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: ArchiverAnalysisMainScreen(courseArgs: args),
+        );
+      },
+    );
+  }
+
   static GoRoute dashboardRoute() {
     return GoRoute(
       path: AppRoutes.dashboardScreen,

@@ -76,4 +76,7 @@ class AppRoutes {
 
   // Route for the account verification screen
   static const String accountVerificationScreen = '/account_verification';
+
+  // Route for the archiver and analysis screen
+  static const String archiverAnalysisScreen = '/archiver_analysis_main';
 }

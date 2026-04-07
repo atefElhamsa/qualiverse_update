@@ -39,7 +39,7 @@ class CoursesMainButton extends StatelessWidget {
                 );
               } else {
                 context.pushNamed(
-                  AppRoutes.coursesFirstAndSecondTermScreen,
+                  AppRoutes.archiverAnalysisScreen,
                   extra: CourseArgs(
                     yearId: year.id,
                     levelId: level.id,

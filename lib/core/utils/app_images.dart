@@ -201,4 +201,7 @@ class AppImages {
   // performance image onboarding
   static const String performanceImageOnboarding =
       "assets/images/performance_image_onboarding.png";
+
+  static const String archiver = "assets/images/archiver.png";
+  static const String analysis = "assets/images/analysis.png";
 }

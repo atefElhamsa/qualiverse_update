@@ -269,5 +269,7 @@
   "deleteFolder": "Delete Folder",
   "deleteFolderMessage": "Are you sure you deleted this folder?",
   "deleteFile": "Delete File",
-  "deleteFileMessage": "Are you sure you want to delete"
+  "deleteFileMessage": "Are you sure you want to delete",
+  "archiver": "Archiver",
+  "analysis": "Analysis"
 }
