@@ -17,6 +17,7 @@ class EndPoints {
   static const String me = "User/me";
   static const String semesters = "Semester";
   static const String updateAndCreateCourseFolder = "CourseFolder";
+  static const String evidenceFolders = "EvidenceFolder";
 
   static String accreditations({
     required int academicYearId,

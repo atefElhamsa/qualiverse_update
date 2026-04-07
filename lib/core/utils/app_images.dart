@@ -204,4 +204,8 @@ class AppImages {
 
   static const String archiver = "assets/images/archiver.png";
   static const String analysis = "assets/images/analysis.png";
+  static const String statistics = "assets/images/statistics.png";
+  static const String survey = "assets/images/survey.png";
+  static const String documentaryAnalysis =
+      "assets/images/documentaryAnalysis.png";
 }

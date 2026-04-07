@@ -3,6 +3,7 @@ export 'package:qualiverse/features/accreditation/accreditation_imports/accredit
 export 'package:qualiverse/features/ai_description/ai_description_imports/ai_description_imports.dart';
 export 'package:qualiverse/features/ai_main/ai_main_imports/ai_main_imports.dart';
 export 'package:qualiverse/features/ai_report/ai_report_imports/ai_report_imports.dart';
+export 'package:qualiverse/features/analysis_files/analysis_files_imports/analysis_files_imports.dart';
 export 'package:qualiverse/features/archiver_analysis_main/archiver_analysis_main_imports/archiver_analysis_main_imports.dart';
 export 'package:qualiverse/features/course_specification_first_term/course_specification_imports/course_specification_imports.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/courses_term_imports/courses_term_imports.dart';

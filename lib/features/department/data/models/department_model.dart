@@ -1,8 +1,11 @@
-class DepartmentsResponseModel {
-  final List<DepartmentModel> data;
-  final bool isSuccess;
+import '../../../../core/all_core_imports/all_core_imports.dart';
 
-  DepartmentsResponseModel({required this.data, required this.isSuccess});
+class DepartmentsResponseModel {
+  final List<DepartmentModel>? data;
+  final bool isSuccess;
+  final ApiErrorModel? error;
+
+  DepartmentsResponseModel({this.data, required this.isSuccess, this.error});
 
   factory DepartmentsResponseModel.fromJson(Map<String, dynamic> json) {
     return DepartmentsResponseModel(
@@ -10,6 +13,9 @@ class DepartmentsResponseModel {
           .map((e) => DepartmentModel.fromJson(e))
           .toList(),
       isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
     );
   }
 }

@@ -1,8 +1,11 @@
-class AccreditationsResponseModel {
-  final List<AccreditationModel> data;
-  final bool isSuccess;
+import '../../../../core/all_core_imports/all_core_imports.dart';
 
-  AccreditationsResponseModel({required this.data, required this.isSuccess});
+class AccreditationsResponseModel {
+  final List<AccreditationModel>? data;
+  final bool isSuccess;
+  final ApiErrorModel? error;
+
+  AccreditationsResponseModel({this.data, required this.isSuccess, this.error});
 
   factory AccreditationsResponseModel.fromJson(Map<String, dynamic> json) {
     return AccreditationsResponseModel(
@@ -10,6 +13,9 @@ class AccreditationsResponseModel {
           .map((e) => AccreditationModel.fromJson(e))
           .toList(),
       isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
     );
   }
 }

@@ -1,8 +1,11 @@
-class YearsResponseModel {
-  final List<AcademicYearModel> data;
-  final bool isSuccess;
+import '../../../../core/all_core_imports/all_core_imports.dart';
 
-  YearsResponseModel({required this.data, required this.isSuccess});
+class YearsResponseModel {
+  final List<AcademicYearModel>? data;
+  final bool isSuccess;
+  final ApiErrorModel? error;
+
+  YearsResponseModel({this.data, required this.isSuccess, this.error});
 
   factory YearsResponseModel.fromJson(Map<String, dynamic> json) {
     return YearsResponseModel(
@@ -10,6 +13,9 @@ class YearsResponseModel {
           .map((e) => AcademicYearModel.fromJson(e))
           .toList(),
       isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
     );
   }
 }
