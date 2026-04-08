@@ -7,8 +7,9 @@ import '../../../../../core/all_core_imports/all_core_imports.dart';
 
 class NewButton extends StatelessWidget {
   final VoidCallback onTap;
+  final String title;
 
-  const NewButton({super.key, required this.onTap});
+  const NewButton({super.key, required this.onTap, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class NewButton extends StatelessWidget {
             const Icon(Icons.add, color: Colors.white),
             const SizedBox(width: 6),
             CustomText(
-              title: 'new'.tr(),
+              title: title.tr(),
               textStyle: GoogleFonts.cairo(
                 color: Colors.white,
                 fontSize: 16.sp,

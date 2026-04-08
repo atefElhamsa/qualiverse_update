@@ -271,5 +271,7 @@
   "deleteFile": "Delete File",
   "deleteFileMessage": "Are you sure you want to delete",
   "archiver": "Archiver",
-  "analysis": "Analysis"
+  "analysis": "Analysis",
+  "analysisFiles": "Analysis Files",
+  "uploadEvidence": "Upload Evidence"
 }

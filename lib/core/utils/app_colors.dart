@@ -16,6 +16,7 @@ class AppColors {
   static const Color loginBackground1 = Color(0XFFBDCAE5);
   static const Color loginBackground2 = Color(0XFF76AAFF);
   static const Color whiteGrey = Color(0XFFF3F4F6);
+  static const Color greyIcon = Color(0XFF646773);
 
   // Theme specific colors
   static const Color black = Color(0XFF111827);

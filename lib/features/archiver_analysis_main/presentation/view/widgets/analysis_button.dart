@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:go_router/go_router.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AnalysisButton extends StatelessWidget {
   const AnalysisButton({super.key});
@@ -24,7 +24,9 @@ class AnalysisButton extends StatelessWidget {
           width: 198.w,
           child: CustomButton(
             buttonModel: ButtonModel(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(AppRoutes.analysisFilesScreen);
+              },
               backgroundColor:
                   Theme.of(context).scaffoldBackgroundColor == AppColors.white
                   ? AppColors.colorButtonLight

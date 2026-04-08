@@ -79,4 +79,7 @@ class AppRoutes {
 
   // Route for the archiver and analysis screen
   static const String archiverAnalysisScreen = '/archiver_analysis_main';
+
+  // Route for the analysis files screen
+  static const String analysisFilesScreen = '/analysis_files';
 }

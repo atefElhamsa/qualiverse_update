@@ -17,7 +17,6 @@ class EditFilesTop extends StatelessWidget {
               ? CustomScaffoldTop(controller: inherited.controller)
               : const SizedBox(height: 150),
         ),
-        // const CoursesButtonsReportDescriptionWidget(),
       ],
     );
   }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
-class EditFilesNewButton extends StatefulWidget {
-  const EditFilesNewButton({super.key});
+class AnalysisFilesNewButton extends StatefulWidget {
+  const AnalysisFilesNewButton({super.key});
 
   @override
-  State<EditFilesNewButton> createState() => _EditFilesNewButtonState();
+  State<AnalysisFilesNewButton> createState() => _AnalysisFilesNewButtonState();
 }
 
-class _EditFilesNewButtonState extends State<EditFilesNewButton> {
+class _AnalysisFilesNewButtonState extends State<AnalysisFilesNewButton> {
   OverlayEntry? menuOverlay;
   final LayerLink layerLink = LayerLink();
 
@@ -51,20 +51,7 @@ class _EditFilesNewButtonState extends State<EditFilesNewButton> {
 
     switch (value) {
       case 'new_folder':
-        final courseId = CourseFolderCubit.get(context).currentCourseId;
-        if (courseId == null) return;
-
-        final courseFolderCubit = CourseFolderCubit.get(context);
-        final createFolderCubit = CreateFolderCubit.get(context);
-
-        showDialog(
-          context: context,
-          builder: (context) => ShowCreateFolderDialog(
-            courseFolderCubit: courseFolderCubit,
-            courseId: courseId,
-            createFolderCubit: createFolderCubit,
-          ),
-        );
+        debugPrint('New Folder');
         break;
       case 'upload_folder':
         debugPrint('Upload Folder');
@@ -79,7 +66,7 @@ class _EditFilesNewButtonState extends State<EditFilesNewButton> {
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: layerLink,
-      child: NewButton(onTap: toggleMenu, title: "new"),
+      child: NewButton(onTap: toggleMenu, title: "uploadEvidence"),
     );
   }
 }

@@ -15,6 +15,18 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute analysisFilesRoute() {
+    return GoRoute(
+      path: AppRoutes.analysisFilesScreen,
+      name: AppRoutes.analysisFilesScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AnalysisFilesScreen(),
+      ),
+    );
+  }
+
   static GoRoute accountVerificationRoute() {
     return GoRoute(
       path: AppRoutes.accountVerificationScreen,

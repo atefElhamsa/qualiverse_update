@@ -1,5 +1,11 @@
 export 'package:qualiverse/features/analysis_files/data/model/evidence_folder_model.dart';
+export 'package:qualiverse/features/analysis_files/data/model/item_folder_model.dart';
 export 'package:qualiverse/features/analysis_files/data/service/analysis_files_services.dart';
 export 'package:qualiverse/features/analysis_files/presentation/controller/evidence_folder_cubit.dart';
 export 'package:qualiverse/features/analysis_files/presentation/controller/evidence_folder_state.dart';
 export 'package:qualiverse/features/analysis_files/presentation/view/analysis_files_screen.dart';
+export 'package:qualiverse/features/analysis_files/presentation/view/widgets/analysis_files_body.dart';
+export 'package:qualiverse/features/analysis_files/presentation/view/widgets/analysis_files_new_button.dart';
+export 'package:qualiverse/features/analysis_files/presentation/view/widgets/analysis_files_top_and_title.dart';
+export 'package:qualiverse/features/analysis_files/presentation/view/widgets/evidence_folders_list.dart';
+export 'package:qualiverse/features/analysis_files/presentation/view/widgets/item_evidence_folder_widget.dart';
