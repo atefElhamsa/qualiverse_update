@@ -60,6 +60,11 @@ class IndicatorServices {
         data: formData,
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
+      var data = response.data;
+      final result = IndicatorResponseModel.fromJson(data);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description);
+      }
 
       return IndicatorPdfFile.fromJson(response.data);
     } on DioException catch (e) {
@@ -93,7 +98,7 @@ class IndicatorServices {
       var data = response.data;
       final result = DeleteFileIndicatorModel.fromJson(data);
       if (!result.isSuccess) {
-        throw Exception(result.error?.description ?? "Something went wrong");
+        throw Exception(result.error?.description);
       }
       return result.data ?? "File deleted successfully";
     } on DioException catch (e) {

@@ -52,6 +52,9 @@ class AppRoutes {
   // Route for the dashboard screen.
   static const String dashboardScreen = '/dashboard';
 
+  // Route for the admin dashboard screen.
+  static const String adminDashboardScreen = '/admin_dashboard';
+
   // Route for the course specification first term screen.
   static const String courseSpecificationFirstTermScreen =
       '/course_specification_imports';

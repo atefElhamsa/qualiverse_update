@@ -135,12 +135,19 @@ class AppImages {
   static const String iconUpload = "assets/images/icon_upload.png";
 
   //side bar image path
-  static const String sideBarImageOne = "assets/images/side_bar_image_1.png";
-  static const String sideBarImageTwo = "assets/images/side_bar_image_2.png";
-  static const String sideBarImageThree = "assets/images/side_bar_image_3.png";
-  static const String sideBarImageFour = "assets/images/side_bar_image_4.png";
-  static const String sideBarImageFive = "assets/images/side_bar_image_5.png";
-  static const String sideBarImageSix = "assets/images/side_bar_image_6.png";
+  static const String sideBarHomeImage =
+      "assets/images/side_bar_home_image.png";
+  static const String sideBarAdminDashboardImage =
+      "assets/images/side_bar_admin_dashboard_image.png";
+  static const String sideBarDashboardImage =
+      "assets/images/side_bar_dashboard_image.png";
+  static const String sideBarAiImage = "assets/images/side_bar_ai_image.png";
+  static const String sideBarCoursesImage =
+      "assets/images/side_bar_courses_image.png";
+  static const String sideBarAccreditationImage =
+      "assets/images/side_bar_accreditation_image.png";
+  static const String sideBarSettingImage =
+      "assets/images/side_bar_setting_image.png";
 
   // home body second part image path
   static const String homeBodySecondPartImage = "assets/images/rating.jpg";

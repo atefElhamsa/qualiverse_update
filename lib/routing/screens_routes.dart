@@ -283,6 +283,14 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute adminDashboardRoute() {
+    return GoRoute(
+      path: AppRoutes.adminDashboardScreen,
+      name: AppRoutes.adminDashboardScreen,
+      builder: (context, state) => const AdminDashboardScreen(),
+    );
+  }
+
   static GoRoute splashRoute() {
     return GoRoute(
       path: AppRoutes.splashScreen,

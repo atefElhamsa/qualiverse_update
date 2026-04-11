@@ -15,6 +15,7 @@ class EndPoints {
   static const String levels = "Level";
   static const String revoke = "Account/revoke-refresh-token";
   static const String me = "User/me";
+  static const String user = "User";
   static const String semesters = "Semester";
   static const String updateAndCreateCourseFolder = "CourseFolder";
   static const String evidenceFolders = "EvidenceFolder";
@@ -67,5 +68,13 @@ class EndPoints {
 
   static String getFolderFiles({required int folderId}) {
     return "CourseFolder/File?folderId=$folderId";
+  }
+
+  static String activateUser({required String id}) {
+    return "User/$id/activate";
+  }
+
+  static String deactivateUser({required String id}) {
+    return "User/$id/deactivate";
   }
 }

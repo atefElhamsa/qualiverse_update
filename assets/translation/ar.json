@@ -273,5 +273,17 @@
   "archiver": "مؤرشف",
   "analysis": "تحليل",
   "analysisFiles": "تحليل البيانات",
-  "uploadEvidence": "رفع الأدلة"
+  "uploadEvidence": "رفع الأدلة",
+  "adminDashboard": "لوحة تحكم المدير",
+  "users": "المستخدمون",
+  "cycles": "الدورات",
+  "auditLog": "سجل المراجعة",
+  "adminPanel": "لوحة الإدارة",
+  "evidenceUploaded": "الأدلة المرفوعة",
+  "completion": "نسبة الإنجاز %",
+  "activeUsers": "المستخدمون النشطون",
+  "openCycles": "الدورات المفتوحة",
+  "completionChart": "مخطط الإنجاز",
+  "status": "الحالة",
+  "role": "الدور"
 }

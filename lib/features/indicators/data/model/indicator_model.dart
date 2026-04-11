@@ -1,5 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
+
+class IndicatorResponseModel {
+  final bool isSuccess;
+  final ApiErrorModel? error;
+  final List<IndicatorModel>? data;
+
+  IndicatorResponseModel({required this.isSuccess, this.error, this.data});
+
+  factory IndicatorResponseModel.fromJson(Map<String, dynamic> json) {
+    return IndicatorResponseModel(
+      isSuccess: json['isSuccess'],
+      data: (json['data'] as List)
+          .map((e) => IndicatorModel.fromJson(e))
+          .toList(),
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
+    );
+  }
+}
 
 class IndicatorModel {
   final int id;

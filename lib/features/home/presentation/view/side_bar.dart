@@ -4,10 +4,21 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
 import '../../../../routing/all_routes_imports.dart';
 
-class SideBar extends StatelessWidget {
+class SideBar extends StatefulWidget {
   final AdvancedDrawerController? controller;
 
   const SideBar({super.key, this.controller});
+
+  @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  @override
+  void initState() {
+    super.initState();
+    MeCubit.get(context).getMyInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +30,9 @@ class SideBar extends StatelessWidget {
           children: [
             const CustomSidebarDrawer(),
             Expanded(
-              child: ListView(children: [SideBarMenu(controller: controller)]),
+              child: ListView(
+                children: [SideBarMenu(controller: widget.controller)],
+              ),
             ),
             const LogOutWidget(),
           ],

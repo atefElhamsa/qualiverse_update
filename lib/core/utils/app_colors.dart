@@ -17,6 +17,13 @@ class AppColors {
   static const Color loginBackground2 = Color(0XFF76AAFF);
   static const Color whiteGrey = Color(0XFFF3F4F6);
   static const Color greyIcon = Color(0XFF646773);
+  static const Color colorTapAdminDashboard = Color(0XFFF1F5FF);
+  static const Color blue = Color(0XFF2F6FED);
+  static const Color plotAreaBackgroundColor = Color(0xFFF0F4FA);
+  static const Color plotAreaBorderColor = Color(0xFFCCCCCC);
+  static const Color minorGridLines = Color(0xFFE8E8E8);
+  static const Color tooltipBehavior = Color(0xFF1a3a6b);
+  static const Color gradiant = Color(0xFF2d6bcf);
 
   // Theme specific colors
   static const Color black = Color(0XFF111827);

@@ -273,5 +273,17 @@
   "archiver": "Archiver",
   "analysis": "Analysis",
   "analysisFiles": "Analysis Files",
-  "uploadEvidence": "Upload Evidence"
+  "uploadEvidence": "Upload Evidence",
+  "adminDashboard": "Admin Dashboard",
+  "users": "Users",
+  "cycles": "Cycles",
+  "auditLog": "Audit Log",
+  "adminPanel": "Admin Panel",
+  "evidenceUploaded": "Evidence Uploaded",
+  "completion": "Completion %",
+  "activeUsers": "Active Users",
+  "openCycles": "Open Cycles",
+  "completionChart": "Completion Chart",
+  "status": "Status",
+  "role": "Role"
 }

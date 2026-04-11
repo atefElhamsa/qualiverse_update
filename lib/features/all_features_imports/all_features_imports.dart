@@ -1,5 +1,6 @@
 export 'package:qualiverse/features/account_verification/account_verification_imports/account_verification_imports.dart';
 export 'package:qualiverse/features/accreditation/accreditation_imports/accreditation_imports.dart';
+export 'package:qualiverse/features/admin_dashboard/admin_dashboard_imports/admin_dashboard_imports.dart';
 export 'package:qualiverse/features/ai_description/ai_description_imports/ai_description_imports.dart';
 export 'package:qualiverse/features/ai_main/ai_main_imports/ai_main_imports.dart';
 export 'package:qualiverse/features/ai_report/ai_report_imports/ai_report_imports.dart';

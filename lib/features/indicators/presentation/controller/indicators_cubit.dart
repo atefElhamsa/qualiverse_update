@@ -119,15 +119,27 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
   void handleError(dynamic e) async {
     final msg = e.toString();
 
+    final match = RegExp(r'description:\s*(.*?),\s*statusCode').firstMatch(msg);
+
+    final description = match?.group(1);
+
+    if (description != null) {
+      emit(IndicatorsError(message: description));
+      return;
+    }
+
     if (msg.contains('No Internet')) {
       emit(IndicatorsError(message: "checkInternet".tr()));
-    } else if (msg.contains('Unauthorized')) {
+      return;
+    }
+
+    if (msg.contains('Unauthorized')) {
       await LoginStorage.clear();
       reset();
       emit(IndicatorsError(message: 'Session expired, please login again'));
-    } else {
-      print(e);
-      emit(IndicatorsError(message: 'Something went wrong'));
+      return;
     }
+
+    emit(IndicatorsError(message: 'Something went wrong'));
   }
 }

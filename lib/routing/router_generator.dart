@@ -39,6 +39,7 @@ class RouterGenerator {
       ScreensRoutes.rapporteurReportSecondTermRoute(),
       ScreensRoutes.archiverAnalysisRoute(),
       ScreensRoutes.analysisFilesRoute(),
+      ScreensRoutes.adminDashboardRoute(),
     ],
   );
 }

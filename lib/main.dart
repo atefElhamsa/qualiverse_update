@@ -15,6 +15,8 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SettingCubit()),
+        BlocProvider(create: (context) => AdminDashboardCubit()),
+        BlocProvider(create: (context) => MeCubit()..getMyInfo()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => LogoutCubit()),
         BlocProvider(create: (context) => CourseCubit()),
@@ -23,6 +25,7 @@ void main() async {
         BlocProvider(create: (context) => CreateFolderCubit()),
         BlocProvider(create: (context) => DeleteFolderCubit()),
         BlocProvider(create: (context) => IndicatorsCubit()),
+        BlocProvider(create: (context) => UsersCubit()..fetchUsers()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],
