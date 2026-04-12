@@ -11,6 +11,7 @@ class AppColors {
   static const Color white = Colors.white;
   static const Color green = Colors.green;
   static const Color redAccent = Colors.redAccent;
+  static const Color orange = Colors.orange;
 
   // Login screen specific colors
   static const Color loginBackground1 = Color(0XFFBDCAE5);
@@ -107,4 +108,10 @@ class AppColors {
   static const Color pendingColorIndicator = Color(0xFFF59E0B);
   static const Color rejectedColorIndicator = Color(0xFFEF4444);
   static const Color textGreyIndicator = Color(0xFF1F2937);
+  static const Color bgColor = Color(0xFFD6E4F0);
+  static const Color headerBgColor = Color(0xFFB0BEC5);
+  static const Color borderColor = Color(0xFFBBBBBB);
+  static const Color dividerColor = Color(0xFFEEEEEE);
+  static const Color completedColor = Color(0xFF2ECC71);
+  static const Color inProgressColor = Color(0xFFF0A500);
 }

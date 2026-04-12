@@ -20,8 +20,6 @@ class UsersFailure extends UsersState {
 
 class ActivateDeactivateUserState extends UsersState {}
 
-// class ActivateDeactivateUserInitial extends ActivateDeactivateUserState {}
-
 class ActivateDeactivateUserLoading extends ActivateDeactivateUserState {}
 
 class ActivateDeactivateUserSuccess extends ActivateDeactivateUserState {
@@ -34,4 +32,20 @@ class ActivateDeactivateUserFailure extends ActivateDeactivateUserState {
   final String error;
 
   ActivateDeactivateUserFailure({required this.error});
+}
+
+class DeleteUserState extends UsersState {}
+
+class DeleteUserLoading extends DeleteUserState {}
+
+class DeleteUserSuccess extends DeleteUserState {
+  final String message;
+
+  DeleteUserSuccess({required this.message});
+}
+
+class DeleteUserFailure extends DeleteUserState {
+  final String error;
+
+  DeleteUserFailure({required this.error});
 }

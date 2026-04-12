@@ -20,7 +20,12 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/si
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/side_bar/side_bar_admin_list.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/side_bar/side_bar_admin_top.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/side_bar/side_bar_admin_widget.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/build_header.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/build_row.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/build_status_badge.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/build_table.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/standards_content.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/standards/standards_indicator_screen.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/add_user_button.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_management_screen.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_status_badge.dart';

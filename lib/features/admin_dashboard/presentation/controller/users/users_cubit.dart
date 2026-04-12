@@ -71,6 +71,24 @@ class UsersCubit extends Cubit<UsersState> {
     }
   }
 
+  Future<void> deleteUser({required String id}) async {
+    emit(DeleteUserLoading());
+    try {
+      final data = await UsersService.deleteUser(id: id);
+      emit(DeleteUserSuccess(message: data));
+    } catch (e) {
+      final msg = e.toString();
+      if (msg.contains('No Internet')) {
+        emit(DeleteUserFailure(error: 'Check your internet connection'));
+      }
+      if (msg.contains('Unauthorized')) {
+        reset();
+      } else {
+        emit(DeleteUserFailure(error: 'Something went wrong'));
+      }
+    }
+  }
+
   void reset() {
     users = [];
     emit(UsersInitial());

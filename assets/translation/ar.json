@@ -285,5 +285,7 @@
   "openCycles": "الدورات المفتوحة",
   "completionChart": "مخطط الإنجاز",
   "status": "الحالة",
-  "role": "الدور"
+  "role": "الدور",
+  "deleteUser": "مسح المستخدم",
+  "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟"
 }

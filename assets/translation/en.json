@@ -285,5 +285,7 @@
   "openCycles": "Open Cycles",
   "completionChart": "Completion Chart",
   "status": "Status",
-  "role": "Role"
+  "role": "Role",
+  "deleteUser": "Delete User",
+  "deleteUserMessage": "Are you sure you deleted this user?"
 }

@@ -77,4 +77,8 @@ class EndPoints {
   static String deactivateUser({required String id}) {
     return "User/$id/deactivate";
   }
+
+  static String deleteUser({required String id}) {
+    return "User/$id";
+  }
 }
