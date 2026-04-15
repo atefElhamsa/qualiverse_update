@@ -287,5 +287,6 @@
   "status": "Status",
   "role": "Role",
   "deleteUser": "Delete User",
-  "deleteUserMessage": "Are you sure you deleted this user?"
+  "deleteUserMessage": "Are you sure you deleted this user?",
+  "action": "Action"
 }

@@ -11,10 +11,7 @@ class BuildTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: AppColors.borderColor),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

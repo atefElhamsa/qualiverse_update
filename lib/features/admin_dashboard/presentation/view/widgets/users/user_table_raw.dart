@@ -52,21 +52,6 @@ class UserTableRow extends StatelessWidget {
                   ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
                 ),
               ),
-              // Expanded(
-              //   child: Center(
-              //     child: GestureDetector(
-              //       onTap: () {
-              //         final cubit = UsersCubit.get(context);
-              //         if (user.isActive) {
-              //           cubit.deactivateUser(id: user.id);
-              //         } else {
-              //           cubit.activateUser(id: user.id);
-              //         }
-              //       },
-              //       child: UserStatusBadge(status: user.status),
-              //     ),
-              //   ),
-              // ),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

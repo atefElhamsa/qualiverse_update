@@ -287,5 +287,6 @@
   "status": "الحالة",
   "role": "الدور",
   "deleteUser": "مسح المستخدم",
-  "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟"
+  "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟",
+  "action": "الإجراء"
 }

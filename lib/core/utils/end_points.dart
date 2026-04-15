@@ -81,4 +81,8 @@ class EndPoints {
   static String deleteUser({required String id}) {
     return "User/$id";
   }
+
+  static String academicYearAdded({required int yearNumber}) {
+    return "AcademicYear?yearNumber=$yearNumber";
+  }
 }

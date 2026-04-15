@@ -15,17 +15,20 @@ class CustomIconBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Use GestureDetector to handle tap events.
-    return GestureDetector(
-      onTap: () {
-        // Navigate back to the previous screen using GoRouter.
-        context.pop();
-      },
-      // Display an image that changes based on the theme (light/dark).
-      child: Image.asset(
-        Theme.of(context).scaffoldBackgroundColor == AppColors.white
-            ? AppImages.iconBackLight
-            : AppImages.iconBackDark,
-        fit: BoxFit.cover,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          // Navigate back to the previous screen using GoRouter.
+          context.pop();
+        },
+        // Display an image that changes based on the theme (light/dark).
+        child: Image.asset(
+          Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppImages.iconBackLight
+              : AppImages.iconBackDark,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

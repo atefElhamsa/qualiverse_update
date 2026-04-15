@@ -12,12 +12,10 @@ class UserManagementScreen extends StatefulWidget {
 
 class _UserManagementScreenState extends State<UserManagementScreen> {
   final TextEditingController searchController = TextEditingController();
-  String selectedRole = 'Role';
+  String selectedRole = 'All';
   String searchQuery = '';
 
-  static const roles = ['Role', 'admin', 'user', 'manager', 'reviewer'];
-  static const primaryColor = Color(0xFF1a3a6b);
-  static const borderColor = Color(0xFFE0E0E0);
+  static const roles = ['All', 'admin', 'user', 'doctor'];
 
   @override
   void initState() {
@@ -31,14 +29,14 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     super.dispose();
   }
 
-  List<UserManagementModel> _filteredUsers(List<UserManagementModel> users) =>
+  List<UserManagementModel> filteredUsers(List<UserManagementModel> users) =>
       users.where((user) {
         final query = searchQuery.toLowerCase();
         final matchSearch =
             user.fullName.toLowerCase().contains(query) ||
             user.email.toLowerCase().contains(query);
         final matchRole =
-            selectedRole == 'Role' || user.roles.contains(selectedRole);
+            selectedRole == 'All' || user.roles.contains(selectedRole);
         return matchSearch && matchRole;
       }).toList();
 
@@ -67,37 +65,31 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'User Management',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1a1a2e),
-              ),
+            CustomText(
+              title: 'User Management',
+              textStyle: Theme.of(
+                context,
+              ).textTheme.titleLarge!.copyWith(fontSize: 25.sp),
             ),
             const SizedBox(height: 16),
-            _buildToolbar(),
+            buildToolbar(),
             const SizedBox(height: 16),
-            _buildContent(state),
+            buildContent(state),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildToolbar() {
+  Widget buildToolbar() {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
-      children: [
-        _buildSearchField(),
-        _buildRoleDropdown(),
-        AddUserButton(onPressed: () {}),
-      ],
+      children: [buildSearchField(), buildRoleDropdown()],
     );
   }
 
-  Widget _buildSearchField() {
+  Widget buildSearchField() {
     return SizedBox(
       width: 180,
       height: 40,
@@ -108,15 +100,15 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           hintText: 'Search user',
           hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-          border: _outlineBorder(),
-          enabledBorder: _outlineBorder(),
-          focusedBorder: _outlineBorder(color: primaryColor),
+          border: outlineBorder(),
+          enabledBorder: outlineBorder(),
+          focusedBorder: outlineBorder(color: AppColors.tooltipBehavior),
         ),
       ),
     );
   }
 
-  Widget _buildRoleDropdown() {
+  Widget buildRoleDropdown() {
     return Container(
       height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -138,7 +130,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     );
   }
 
-  Widget _buildContent(UsersState state) {
+  Widget buildContent(UsersState state) {
     return BlocListener<UsersCubit, UsersState>(
       listener: (context, state) {
         if (state is ActivateDeactivateUserSuccess) {
@@ -163,7 +155,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
             );
           }
           if (state is UsersSuccess) {
-            return _buildTable(_filteredUsers(state.users));
+            return buildTable(filteredUsers(state.users));
           }
           return const SizedBox();
         },
@@ -171,11 +163,11 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     );
   }
 
-  Widget _buildTable(List<UserManagementModel> users) {
+  Widget buildTable(List<UserManagementModel> users) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: borderColor),
+        borderRadius: BorderRadius.circular(12),
+        // border: Border.all(color: AppColors.borderColor),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -202,7 +194,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     );
   }
 
-  OutlineInputBorder _outlineBorder({Color color = const Color(0xFFCCCCCC)}) {
+  OutlineInputBorder outlineBorder({Color color = const Color(0xFFCCCCCC)}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(color: color),

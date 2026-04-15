@@ -7,9 +7,15 @@ class CyclesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [AdminDashboardTopContentWidget(title: "cycles")],
+    return const SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AdminDashboardTopContentWidget(title: "cycles"),
+          SizedBox(height: 10),
+          CyclesManagementScreen(),
+        ],
+      ),
     );
   }
 }

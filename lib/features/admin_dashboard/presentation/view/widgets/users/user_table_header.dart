@@ -12,7 +12,7 @@ class UserTableHeader extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: const BoxDecoration(
-        color: Color(0xFFB0BEC5),
+        color: AppColors.headerBgColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
       child: Row(

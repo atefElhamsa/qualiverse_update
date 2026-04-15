@@ -45,7 +45,7 @@ class ItemEvidenceFolderWidget extends StatelessWidget {
           subtitle: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: CustomText(
-              title: "Upload and manage statistical data",
+              title: evidenceFolderModel.description,
               textStyle: Theme.of(
                 context,
               ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),

@@ -30,3 +30,21 @@ class AcademicYearModel {
     return AcademicYearModel(id: json['id'], yearNumber: json['yearNumber']);
   }
 }
+
+class AddedYearModel {
+  final bool isSuccess;
+  final int? yearNumber;
+  final ApiErrorModel? error;
+
+  AddedYearModel({required this.isSuccess, this.error, this.yearNumber});
+
+  factory AddedYearModel.fromJson(Map<String, dynamic> json) {
+    return AddedYearModel(
+      isSuccess: json['isSuccess'] ?? false,
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
+      yearNumber: json['data'],
+    );
+  }
+}
