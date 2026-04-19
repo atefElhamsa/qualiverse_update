@@ -21,24 +21,27 @@ class CreateCycleButton extends StatelessWidget {
       },
       child: Align(
         alignment: AlignmentDirectional.centerEnd,
-        child: FilledButton.icon(
-          onPressed: () {
-            onNewCycle(context, BlocProvider.of<AcademicYearCubit>(context));
-          },
-          style: FilledButton.styleFrom(
-            backgroundColor: AppColors.blue,
-            foregroundColor: AppColors.white,
-            padding: const EdgeInsets.all(5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.r),
+        child: SizedBox(
+          height: 45.h,
+          child: FilledButton.icon(
+            onPressed: () {
+              onNewCycle(context, BlocProvider.of<AcademicYearCubit>(context));
+            },
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.blue,
+              foregroundColor: AppColors.white,
+              padding: const EdgeInsets.all(5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.r),
+              ),
             ),
-          ),
-          icon: const Icon(Icons.add, size: 25),
-          label: CustomText(
-            title: 'New Cycle',
-            textStyle: Theme.of(
-              context,
-            ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+            icon: const Icon(Icons.add, size: 25),
+            label: CustomText(
+              title: 'New Cycle',
+              textStyle: Theme.of(
+                context,
+              ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+            ),
           ),
         ),
       ),

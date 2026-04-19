@@ -12,7 +12,7 @@ class SettingContent extends StatelessWidget {
       builder: (context, selectedIndex) {
         final settingCubit = SettingCubit.get(context);
         return IndexedStack(
-          index: settingCubit.selectedIndex,
+          index: settingCubit.selectedPage.index,
           children: const [
             AccountSettingsContent(),
             NotificationSettingsContent(),

@@ -15,58 +15,58 @@ class SideBarAdminList extends StatelessWidget {
         final List<SideItemModel> sideAdminItems = [
           SideItemModel(
             title: 'dashboard',
-            index: 0,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.dashboard,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(0);
+              adminDashboardCubit.changePage(page: AdminPage.dashboard);
             },
           ),
           SideItemModel(
             title: 'users',
-            index: 1,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.users,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(1);
+              adminDashboardCubit.changePage(page: AdminPage.users);
             },
           ),
           SideItemModel(
             title: 'cycles',
-            index: 2,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.cycles,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(2);
+              adminDashboardCubit.changePage(page: AdminPage.cycles);
             },
           ),
           SideItemModel(
             title: 'standards',
-            index: 3,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.standards,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(3);
+              adminDashboardCubit.changePage(page: AdminPage.standards);
             },
           ),
           SideItemModel(
             title: 'accreditation',
-            index: 4,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.accreditation,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(4);
+              adminDashboardCubit.changePage(page: AdminPage.accreditation);
             },
           ),
           SideItemModel(
             title: 'auditLog',
-            index: 5,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.auditLog,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(5);
+              adminDashboardCubit.changePage(page: AdminPage.auditLog);
             },
           ),
           SideItemModel(
             title: 'settings',
-            index: 6,
-            selectedIndex: adminDashboardCubit.selectedIndex,
+            page: AdminPage.settings,
+            selectedPage: adminDashboardCubit.selectedSidebarItem,
             onTap: () {
-              adminDashboardCubit.changeIndex(6);
+              adminDashboardCubit.changePage(page: AdminPage.settings);
             },
           ),
         ];

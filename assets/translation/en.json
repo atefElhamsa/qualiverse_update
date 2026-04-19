@@ -288,5 +288,6 @@
   "role": "Role",
   "deleteUser": "Delete User",
   "deleteUserMessage": "Are you sure you deleted this user?",
-  "action": "Action"
+  "action": "Action",
+  "selectTheCriterion": "Select The Criterion"
 }

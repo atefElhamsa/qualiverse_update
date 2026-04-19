@@ -21,7 +21,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   void dispose() {
     super.dispose();
-    cubit.changeIndex(0);
+    cubit.changePage(page: AdminPage.dashboard);
   }
 
   @override

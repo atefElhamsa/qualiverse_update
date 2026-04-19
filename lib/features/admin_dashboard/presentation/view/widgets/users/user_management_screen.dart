@@ -167,7 +167,6 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        // border: Border.all(color: AppColors.borderColor),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

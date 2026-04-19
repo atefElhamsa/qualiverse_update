@@ -8,17 +8,34 @@ class AdminDashboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AdminDashboardCubit, AdminDashboardState>(
-      builder: (context, selectedIndex) {
-        final adminDashboardCubit = AdminDashboardCubit.get(context);
-        return [
-          const DashboardContent(),
-          const UsersContent(),
-          const CyclesContent(),
-          const StandardsContent(),
-          const AccreditationContent(),
-          const AuditLogContent(),
-          const SettingsContent(),
-        ][adminDashboardCubit.selectedIndex];
+      builder: (context, state) {
+        final cubit = AdminDashboardCubit.get(context);
+
+        switch (cubit.currentPage) {
+          case AdminPage.dashboard:
+            return const DashboardContent();
+
+          case AdminPage.users:
+            return const UsersContent();
+
+          case AdminPage.cycles:
+            return const CyclesContent();
+
+          case AdminPage.standards:
+            return const StandardsContent();
+
+          case AdminPage.accreditation:
+            return const AccreditationContent();
+
+          case AdminPage.auditLog:
+            return const AuditLogContent();
+
+          case AdminPage.settings:
+            return const SettingsContent();
+
+          case AdminPage.cycleDetails:
+            return const CyclesDetailsScreen();
+        }
       },
     );
   }

@@ -52,6 +52,6 @@ class DepartmentCubit extends Cubit<DepartmentState> {
   void reset() {
     departments = [];
     selectedDepartment = null;
-    emit(DepartmentInitial());
+    emit(DepartmentSuccess(departments: departments));
   }
 }

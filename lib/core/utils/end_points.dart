@@ -19,6 +19,7 @@ class EndPoints {
   static const String semesters = "Semester";
   static const String updateAndCreateCourseFolder = "CourseFolder";
   static const String evidenceFolders = "EvidenceFolder";
+  static const String assign = "Indicator/assign";
 
   static String accreditations({
     required int academicYearId,
@@ -84,5 +85,20 @@ class EndPoints {
 
   static String academicYearAdded({required int yearNumber}) {
     return "AcademicYear?yearNumber=$yearNumber";
+  }
+
+  static String getCycleIndicators({
+    required int yearId,
+    int? departmentId,
+    int? criterionId,
+  }) {
+    final buffer = StringBuffer("Indicator?AcademicYearId=$yearId");
+    if (departmentId != null) {
+      buffer.write("&DepartmentId=$departmentId");
+    }
+    if (criterionId != null) {
+      buffer.write("&CriterionId=$criterionId");
+    }
+    return buffer.toString();
   }
 }

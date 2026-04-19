@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
@@ -34,7 +35,18 @@ class CyclesItemWidget extends StatelessWidget {
                 height: 40.h,
                 width: 62.w,
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<AdminDashboardCubit>().openCycleDetails(
+                      cycleId: academicYear.id,
+                    );
+                    context.read<AcademicYearCubit>().selectAcademicYear(
+                      academicYear: academicYear,
+                    );
+                    context.read<DepartmentCubit>().fetchDepartments();
+                    context.read<CycleIndicatorCubit>().fetchCycleIndicators(
+                      yearId: academicYear.id,
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF2C2C3E),
                     side: const BorderSide(color: Color(0xFFBBBBCC), width: 1),

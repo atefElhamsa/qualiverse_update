@@ -12,7 +12,7 @@ class SideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSelected = sideItemModel.selectedIndex == sideItemModel.index;
+    final isSelected = sideItemModel.isSelected;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,

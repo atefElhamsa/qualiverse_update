@@ -12,6 +12,8 @@ class AppColors {
   static const Color green = Colors.green;
   static const Color redAccent = Colors.redAccent;
   static const Color orange = Colors.orange;
+  static const Color mainGrey = Colors.grey;
+  static const Color yellow = Colors.yellow;
 
   // Login screen specific colors
   static const Color loginBackground1 = Color(0XFFBDCAE5);

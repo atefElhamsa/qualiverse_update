@@ -21,7 +21,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   void dispose() {
     super.dispose();
-    cubit.changeIndex(0);
+    cubit.changePage(SettingsPage.account);
   }
 
   @override

@@ -288,5 +288,6 @@
   "role": "الدور",
   "deleteUser": "مسح المستخدم",
   "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟",
-  "action": "الإجراء"
+  "action": "الإجراء",
+  "selectTheCriterion": "اختر المعايير"
 }

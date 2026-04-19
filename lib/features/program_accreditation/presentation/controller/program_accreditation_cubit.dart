@@ -28,7 +28,6 @@ class ProgramAccreditationCubit extends Cubit<ProgramAccreditationState> {
     int? departmentId,
   }) async {
     emit(ProgramAccreditationLoading());
-
     try {
       final data = await AccreditationServices.getAccreditations(
         academicYearId: academicYearId,

@@ -15,34 +15,34 @@ class SideBarList extends StatelessWidget {
         final List<SideItemModel> sidesItem = [
           SideItemModel(
             title: 'account',
-            index: 0,
-            selectedIndex: settingCubit.selectedIndex,
+            page: SettingsPage.account,
+            selectedPage: settingCubit.selectedPage,
             onTap: () {
-              settingCubit.changeIndex(0);
+              settingCubit.changePage(SettingsPage.account);
             },
           ),
           SideItemModel(
             title: 'notifications',
-            index: 1,
-            selectedIndex: settingCubit.selectedIndex,
+            page: SettingsPage.notifications,
+            selectedPage: settingCubit.selectedPage,
             onTap: () {
-              settingCubit.changeIndex(1);
+              settingCubit.changePage(SettingsPage.notifications);
             },
           ),
           SideItemModel(
             title: 'language',
-            index: 2,
-            selectedIndex: settingCubit.selectedIndex,
+            page: SettingsPage.language,
+            selectedPage: settingCubit.selectedPage,
             onTap: () {
-              settingCubit.changeIndex(2);
+              settingCubit.changePage(SettingsPage.language);
             },
           ),
           SideItemModel(
             title: 'help',
-            index: 3,
-            selectedIndex: settingCubit.selectedIndex,
+            page: SettingsPage.help,
+            selectedPage: settingCubit.selectedPage,
             onTap: () {
-              settingCubit.changeIndex(3);
+              settingCubit.changePage(SettingsPage.help);
             },
           ),
         ];

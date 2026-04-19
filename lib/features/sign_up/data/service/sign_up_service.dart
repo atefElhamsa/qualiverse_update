@@ -26,7 +26,6 @@ class SignUpServices {
       );
 
       var data = response.data;
-      print(data);
 
       final result = SignUpModel.fromJson(data);
 

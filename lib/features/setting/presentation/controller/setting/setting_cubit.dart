@@ -13,7 +13,7 @@ class SettingCubit extends Cubit<SettingState> {
 
   String languageCode = 'en';
   bool isDark = false;
-  int selectedIndex = 0;
+  SettingsPage selectedPage = SettingsPage.account;
   List<AppLanguage> preferredLanguages = [];
 
   String? password;
@@ -100,8 +100,8 @@ class SettingCubit extends Cubit<SettingState> {
   }
 
   // Change Index
-  void changeIndex(int index) {
-    selectedIndex = index;
+  void changePage(SettingsPage page) {
+    selectedPage = page;
     emit(SettingInitial());
   }
 
@@ -140,3 +140,5 @@ class SettingCubit extends Cubit<SettingState> {
     });
   }
 }
+
+enum SettingsPage { account, notifications, language, help }

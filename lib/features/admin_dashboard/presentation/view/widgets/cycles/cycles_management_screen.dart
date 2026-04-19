@@ -8,7 +8,7 @@ class CyclesManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsetsDirectional.only(start: 50.w, end: 30.w, bottom: 20.h),
+      margin: EdgeInsetsDirectional.only(start: 40.w, end: 30.w, bottom: 20.h),
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
