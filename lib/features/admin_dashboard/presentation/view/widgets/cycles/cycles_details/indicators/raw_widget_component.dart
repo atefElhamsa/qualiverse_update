@@ -142,6 +142,8 @@ Widget statusBadge(BuildContext context, String? status, Color? statusColor) {
 
 Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
   final bool isAssigned = cycleIndicator.doctorId != null;
+  final bool isSubmitted = cycleIndicator.status?.toLowerCase() == "submitted";
+  final bool showDelete = isAssigned && !isSubmitted;
 
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -164,27 +166,26 @@ Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
           ),
         ),
       ),
-
-      SizedBox(width: 5.w),
-      Container(
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: AppColors.red,
-          borderRadius: BorderRadius.circular(10.r),
+      if (showDelete) ...[
+        SizedBox(width: 5.w),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => showAssignDeleteDialog(
+              context: context,
+              cycleIndicator: cycleIndicator,
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: AppColors.red,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: const Icon(Icons.delete_outline, color: AppColors.white),
+            ),
+          ),
         ),
-        child: const Icon(Icons.delete_outline, color: AppColors.white),
-      ),
+      ],
     ],
-  );
-}
-
-void showAssignDialog(
-  BuildContext context,
-  CycleIndicatorModel cycleIndicator,
-) {
-  showDialog(
-    context: context,
-    builder: (dialogContext) =>
-        AssignIndicatorDialog(cycleIndicator: cycleIndicator),
   );
 }

@@ -4,6 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
 
+void showAssignDialog(
+  BuildContext context,
+  CycleIndicatorModel cycleIndicator,
+) {
+  showDialog(
+    context: context,
+    builder: (dialogContext) =>
+        AssignIndicatorDialog(cycleIndicator: cycleIndicator),
+  );
+}
+
 class AssignIndicatorDialog extends StatefulWidget {
   const AssignIndicatorDialog({super.key, required this.cycleIndicator});
 

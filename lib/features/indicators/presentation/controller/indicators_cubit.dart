@@ -118,6 +118,7 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
 
   void handleError(dynamic e) async {
     final msg = e.toString();
+    print(msg);
 
     final match = RegExp(r'description:\s*(.*?),\s*statusCode').firstMatch(msg);
 
@@ -139,7 +140,6 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       emit(IndicatorsError(message: 'Session expired, please login again'));
       return;
     }
-
     emit(IndicatorsError(message: 'Something went wrong'));
   }
 }

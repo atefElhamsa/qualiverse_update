@@ -14,10 +14,11 @@ class IndicatorServices {
         EndPoints.indicatorsByCriterionId(criterionId: criterionId),
       );
 
-      final data = response.data;
-
-      final List list = data is List ? data : data['data'];
-
+      final Map<String, dynamic> body = response.data;
+      if (body['isSuccess'] != true) {
+        throw Exception('Failed to load indicators');
+      }
+      final List list = body['data'] ?? [];
       return list.map((e) => IndicatorModel.fromJson(e)).toList();
     } on DioException catch (e) {
       // Unauthorized
@@ -61,12 +62,7 @@ class IndicatorServices {
         options: Options(headers: {'Content-Type': 'multipart/form-data'}),
       );
       var data = response.data;
-      final result = IndicatorResponseModel.fromJson(data);
-      if (!result.isSuccess) {
-        throw Exception(result.error?.description);
-      }
-
-      return IndicatorPdfFile.fromJson(response.data);
+      return IndicatorPdfFile.fromJson(data);
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {

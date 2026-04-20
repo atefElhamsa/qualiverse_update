@@ -87,6 +87,10 @@ class EndPoints {
     return "AcademicYear?yearNumber=$yearNumber";
   }
 
+  static String removeAssign({required int indicatorId}) {
+    return "Indicator/$indicatorId/delete-assign";
+  }
+
   static String getCycleIndicators({
     required int yearId,
     int? departmentId,

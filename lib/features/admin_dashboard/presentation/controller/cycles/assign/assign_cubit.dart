@@ -39,4 +39,22 @@ class AssignCubit extends Cubit<AssignState> {
       );
     }
   }
+
+  Future<void> removeAssign({required int indicatorId}) async {
+    if (!await checkInternet()) {
+      emit(AssignFailure(error: "checkInternet".tr()));
+      return;
+    }
+    emit(DeleteAssignLoading());
+    try {
+      final result = await AssignService.removeAssign(indicatorId: indicatorId);
+      emit(DeleteAssignSuccess(message: result));
+    } catch (e) {
+      emit(
+        AssignFailure(
+          error: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
 }

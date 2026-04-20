@@ -15,3 +15,11 @@ final class AssignFailure extends AssignState {
 
   AssignFailure({required this.error});
 }
+
+final class DeleteAssignLoading extends AssignState {}
+
+final class DeleteAssignSuccess extends AssignState {
+  final String message;
+
+  DeleteAssignSuccess({required this.message});
+}
