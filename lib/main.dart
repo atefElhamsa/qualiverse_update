@@ -36,6 +36,8 @@ void main() async {
         BlocProvider(create: (context) => ProgramAccreditationCubit()),
         BlocProvider(create: (context) => CycleIndicatorCubit()),
         BlocProvider(create: (context) => AssignCubit()),
+        BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
+        BlocProvider(create: (context) => SemesterCubit()..fetchSemesters()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],

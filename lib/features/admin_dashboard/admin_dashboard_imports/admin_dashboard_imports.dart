@@ -25,6 +25,16 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cy
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/assignments/assignments_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/courses_content.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/assign_course_dialog.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/delete_course_dialog.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/courses_table_builder_widget.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/create_course_dialog.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/models/course_item_model.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/courses_top_bar.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/level_drop_down_widget.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/semester_drop_down_widget.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/courses_table.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/department_drop_down_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/criterions_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/cycle_details_taps_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/cycles_details_screen.dart';

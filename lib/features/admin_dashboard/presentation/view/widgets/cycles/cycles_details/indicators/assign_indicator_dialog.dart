@@ -51,15 +51,26 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: AppColors.blue,
+            onPrimary: AppColors.white,
+            onSurface: AppColors.mainBlack,
+          ),
           datePickerTheme: DatePickerThemeData(
-            headerHeadlineStyle: Theme.of(context).textTheme.titleMedium!,
-            headerHelpStyle: Theme.of(
-              context,
-            ).textTheme.bodyMedium!.copyWith(color: AppColors.grey),
+            headerHeadlineStyle: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.white,
+            ),
+            headerHelpStyle: TextStyle(
+              fontSize: 14.sp,
+              color: AppColors.white.withOpacity(0.8),
+            ),
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.bodyMedium!,
+              foregroundColor: AppColors.blue,
+              textStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
             ),
           ),
         ),

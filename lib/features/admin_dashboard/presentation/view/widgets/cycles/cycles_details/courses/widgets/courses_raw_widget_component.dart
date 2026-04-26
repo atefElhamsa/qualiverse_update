@@ -1,0 +1,148 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
+
+Widget buildCourseRow(
+  BuildContext context,
+  CourseItemModel course,
+) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+    child: Row(
+      children: [
+        _cell(context, course.name, flex: 2),
+        _cell(context, course.code),
+        _cell(context, course.department, centered: true),
+        _cell(context, course.level, centered: true),
+        _cell(context, course.semester, centered: true),
+        _cell(context, course.doctor, centered: true, flex: 2),
+        Expanded(child: _courseActions(context, course)),
+      ],
+    ),
+  );
+}
+
+Widget buildCourseCard(
+  BuildContext context,
+  CourseItemModel course,
+) {
+  return Card(
+    margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+    elevation: 2,
+    child: Padding(
+      padding: EdgeInsets.all(16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            title: course.name,
+            textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          SizedBox(height: 8.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _infoChip(Icons.code, course.code),
+              _infoChip(Icons.business, course.department),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _infoChip(Icons.layers, course.level),
+              _infoChip(Icons.calendar_today, course.semester),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          _infoChip(Icons.person_outline, course.doctor),
+          SizedBox(height: 12.h),
+          _courseActions(context, course),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _infoChip(IconData icon, String text) {
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: 16, color: AppColors.grey),
+      SizedBox(width: 4.w),
+      CustomText(
+        title: text,
+        textStyle: TextStyle(fontSize: 12.sp, color: AppColors.mainBlack),
+      ),
+    ],
+  );
+}
+
+Widget _cell(
+  BuildContext context,
+  String text, {
+  int flex = 1,
+  bool centered = false,
+}) {
+  return Expanded(
+    flex: flex,
+    child: CustomText(
+      title: text,
+      textAlign: centered ? TextAlign.center : TextAlign.start,
+      textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+    ),
+  );
+}
+
+Widget _courseActions(BuildContext context, CourseItemModel course) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Flexible(
+        child: CustomButton(
+          buttonModel: ButtonModel(
+            onPressed: () {
+              final apiCourse = CourseCubit.get(context).courses.firstWhere(
+                    (c) => c.id == course.courseId,
+                  );
+              showAssignCourseDialog(context, apiCourse);
+            },
+            backgroundColor: course.isAssigned ? AppColors.blue : AppColors.green,
+            radius: 10,
+            customText: CustomText(
+              title: course.isAssigned ? "Reassign" : "Assign",
+              textAlign: TextAlign.center,
+              textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+            ),
+          ),
+        ),
+      ),
+      if (course.isAssigned) ...[
+        SizedBox(width: 5.w),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              final apiCourse = CourseCubit.get(context).courses.firstWhere(
+                    (c) => c.id == course.courseId,
+                  );
+              showDeleteCourseAssignDialog(context: context, course: apiCourse);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: AppColors.red,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: const Icon(Icons.delete_outline, color: AppColors.white),
+            ),
+          ),
+        ),
+      ],
+    ],
+  );
+}

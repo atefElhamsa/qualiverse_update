@@ -29,6 +29,8 @@ class CourseModel {
   final int semesterId;
   final int academicYearId;
   final int? departmentId;
+  final String? doctorName;
+  final String? doctorId;
 
   CourseModel({
     required this.id,
@@ -39,6 +41,8 @@ class CourseModel {
     required this.semesterId,
     required this.academicYearId,
     this.departmentId,
+    this.doctorName,
+    this.doctorId,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +55,8 @@ class CourseModel {
       semesterId: json['semesterId'] as int,
       academicYearId: json['academicYearId'] as int,
       departmentId: json['departmentId'] as int?,
+      doctorName: json['doctorName'] as String?,
+      doctorId: json['doctorId']?.toString(),
     );
   }
 }
