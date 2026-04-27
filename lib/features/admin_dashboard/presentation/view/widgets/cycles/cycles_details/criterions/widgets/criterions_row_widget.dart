@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'add_indicator_dialog.dart';
 
 class CriterionsRowWidget extends StatefulWidget {
   final CriterionItemModel criterion;
@@ -142,7 +143,9 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                       ? SystemMouseCursors.click
                       : SystemMouseCursors.basic,
                   child: GestureDetector(
-                    onTap: _isEnabled ? () {} : null,
+                    onTap: _isEnabled
+                        ? () => showAddIndicatorDialog(context, widget.criterion)
+                        : null,
                     child: Container(
                       width: 24.w,
                       height: 24.w,

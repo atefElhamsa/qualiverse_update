@@ -25,6 +25,7 @@ class EndPoints {
   static const String courseFromTemplate = "Course/from-template";
   static const String newCourse = "Course/new";
   static const String newCriterion = "Criterion/new";
+  static const String createNewIndicator = "Indicator";
   static const String newCriterionFromExistingTemplate =
       "Criterion/from-existing";
 

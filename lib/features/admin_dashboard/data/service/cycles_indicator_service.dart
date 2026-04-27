@@ -72,4 +72,49 @@ class CyclesIndicatorService {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
+
+  static Future<String> createNewIndicator({
+    required int criterionId,
+    required String nameAr,
+    required String descriptionAr,
+    required String nameEn,
+    required String descriptionEn,
+  }) async {
+    try {
+      final response = await dio.post(
+        EndPoints.createNewIndicator,
+        data: {
+          "criterionId": criterionId,
+          "translations": [
+            {
+              "languageCode": "ar",
+              "name": nameAr,
+              "description": descriptionAr,
+            },
+            {
+              "languageCode": "en",
+              "name": nameEn,
+              "description": descriptionEn,
+            },
+          ],
+        },
+      );
+      final Map<String, dynamic> body = response.data;
+      if (body['isSuccess'] != true) {
+        throw Exception('Failed to create indicator');
+      }
+      return body['message'] ?? 'Indicator Created Successfully';
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+      throw Exception(
+        e.response?.data?['message'] ??
+            e.response?.data?['error'] ??
+            'Server Error',
+      );
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
 }

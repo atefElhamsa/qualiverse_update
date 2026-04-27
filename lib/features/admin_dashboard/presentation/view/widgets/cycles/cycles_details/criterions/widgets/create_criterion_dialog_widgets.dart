@@ -87,6 +87,8 @@ Widget buildFormField({
   required String label,
   required String hint,
   required TextEditingController controller,
+  int maxLines = 1,
+  double? height,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,8 +96,8 @@ Widget buildFormField({
       buildLabelWithAsterisk(label),
       SizedBox(height: 8.h),
       Container(
-        height: 45.h,
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        height: height ?? 45.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: maxLines > 1 ? 8.h : 0),
         decoration: BoxDecoration(
           color: const Color(0xFFF3F4F6),
           border: Border.all(color: const Color(0xFFE5E7EB)),
@@ -104,6 +106,7 @@ Widget buildFormField({
         child: Center(
           child: TextField(
             controller: controller,
+            maxLines: maxLines,
             style: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack),
             decoration: InputDecoration(
               enabledBorder: InputBorder.none,

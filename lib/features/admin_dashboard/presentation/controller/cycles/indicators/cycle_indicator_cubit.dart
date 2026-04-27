@@ -56,6 +56,35 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
     }
   }
 
+  Future<void> createNewIndicator({
+    required int criterionId,
+    required String nameAr,
+    required String descriptionAr,
+    required String nameEn,
+    required String descriptionEn,
+  }) async {
+    emit(CycleIndicatorActionLoading());
+    try {
+      final message = await CyclesIndicatorService.createNewIndicator(
+        criterionId: criterionId,
+        nameAr: nameAr,
+        descriptionAr: descriptionAr,
+        nameEn: nameEn,
+        descriptionEn: descriptionEn,
+      );
+      emit(CycleIndicatorCreateSuccess(message: message));
+    } catch (e) {
+      final msg = e.toString();
+      if (msg.contains('No Internet')) {
+        emit(CycleIndicatorActionError(error: 'Check your internet connection'));
+      } else if (msg.contains('Unauthorized')) {
+        reset();
+      } else {
+        emit(CycleIndicatorActionError(error: msg));
+      }
+    }
+  }
+
   void reset() {
     cycleIndicators = [];
     emit(CycleIndicatorInitial());

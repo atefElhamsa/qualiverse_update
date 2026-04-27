@@ -31,3 +31,9 @@ final class CycleIndicatorActionError extends CycleIndicatorState {
 
   CycleIndicatorActionError({required this.error});
 }
+
+final class CycleIndicatorCreateSuccess extends CycleIndicatorState {
+  final String message;
+
+  CycleIndicatorCreateSuccess({required this.message});
+}
