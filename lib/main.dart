@@ -39,6 +39,7 @@ void main() async {
         BlocProvider(create: (context) => AssignCubit()),
         BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
         BlocProvider(create: (context) => SemesterCubit()..fetchSemesters()),
+        BlocProvider(create: (context) => TemplateCubit()),
       ],
       child: EasyLocalization(
         supportedLocales: const [Locale('en'), Locale('ar')],

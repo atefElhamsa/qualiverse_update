@@ -25,7 +25,6 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/ad
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/audit_log/audit_log_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/create_cycle_button.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_content.dart';
-export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/assignments/assignments_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/courses_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/assign_course_dialog.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/delete_course_dialog.dart';
@@ -62,7 +61,6 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cy
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/indicators_top_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/raw_widget_component.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/section_label.dart';
-export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/overview/overview_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_header.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_item_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_list_items.dart';
@@ -87,3 +85,7 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/us
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_table_header.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_table_raw.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/users_content.dart';
+export 'package:qualiverse/features/admin_dashboard/data/model/template_model.dart';
+export 'package:qualiverse/features/admin_dashboard/data/service/templates_service.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/templates/template_cubit.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/templates/template_state.dart';

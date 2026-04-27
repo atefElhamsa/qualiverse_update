@@ -7,7 +7,7 @@ import '../../../../../../routing/all_routes_imports.dart';
 class CycleTabsCubit extends Cubit<CycleTabsState> {
   CycleTabsCubit() : super(CycleTabsInitial());
 
-  CycleTab currentTab = CycleTab.overview;
+  CycleTab currentTab = CycleTab.courses;
 
   void changeTab(CycleTab tab) {
     currentTab = tab;
@@ -15,7 +15,7 @@ class CycleTabsCubit extends Cubit<CycleTabsState> {
   }
 }
 
-enum CycleTab { overview, courses, criterions, indicators, assignments }
+enum CycleTab { courses, criterions, indicators }
 
 extension StringCasingExtension on String {
   String capitalizeFirst() {

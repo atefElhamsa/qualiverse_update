@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
 
-// ─── Show Dialog Helper ───────────────────────────────────────────────────────
-
 void showDeleteCourseAssignDialog({
   required BuildContext context,
   required CourseItemModel course,
@@ -23,18 +21,18 @@ void showDeleteCourseAssignDialog({
             showSnackBar(ctx, state.error, AppColors.red);
           }
           if (state is DeleteAssignSuccess) {
-            showSnackBar(ctx, state.message, AppColors.green);
             Navigator.of(dialogContext).pop();
-            _refreshCourses(context);
+            showSnackBar(context, state.message, AppColors.green);
+            refreshCourses(context);
           }
         },
-        child: _DeleteCourseDialog(course: course, cubit: cubit),
+        child: DeleteCourseDialog(course: course, cubit: cubit),
       ),
     ),
   );
 }
 
-void _refreshCourses(BuildContext context) {
+void refreshCourses(BuildContext context) {
   final year = AcademicYearCubit.get(context).selectedAcademicYear;
   final department = DepartmentCubit.get(context).selectedDepartment;
   final level = LevelCubit.get(context).selectedLevel;
@@ -50,13 +48,15 @@ void _refreshCourses(BuildContext context) {
   }
 }
 
-// ─── Dialog Widget ────────────────────────────────────────────────────────────
-
-class _DeleteCourseDialog extends StatelessWidget {
+class DeleteCourseDialog extends StatelessWidget {
   final CourseItemModel course;
   final AssignCubit cubit;
 
-  const _DeleteCourseDialog({required this.course, required this.cubit});
+  const DeleteCourseDialog({
+    super.key,
+    required this.course,
+    required this.cubit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +83,91 @@ class _DeleteCourseDialog extends StatelessWidget {
         ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
       ),
       actions: [
-        DeleteAndCancelButtons(
-          onPressed: () => cubit.removeAssignCourse(courseId: course.courseId),
+        BlocBuilder<AssignCubit, AssignState>(
+          builder: (context, state) {
+            if (state is DeleteAssignLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return DeleteAndCancelButtons(
+              onPressed: () => cubit.removeAssignCourse(courseId: course.courseId),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
+
+void showDeleteCourseEntirelyDialog({
+  required BuildContext context,
+  required CourseItemModel course,
+}) {
+  final cubit = CoursesCubit.get(context);
+
+  showDialog(
+    context: context,
+    builder: (dialogContext) => BlocProvider.value(
+      value: cubit,
+      child: BlocListener<CoursesCubit, CoursesState>(
+        listener: (ctx, state) {
+          if (state is DeleteCourseFailure) {
+            showSnackBar(ctx, state.error, AppColors.red);
+          }
+          if (state is DeleteCourseSuccess) {
+            Navigator.of(dialogContext).pop();
+            showSnackBar(context, state.message, AppColors.green);
+            refreshCourses(context);
+          }
+        },
+        child: DeleteCourseEntirelyDialog(course: course, cubit: cubit),
+      ),
+    ),
+  );
+}
+
+class DeleteCourseEntirelyDialog extends StatelessWidget {
+  final CourseItemModel course;
+  final CoursesCubit cubit;
+
+  const DeleteCourseEntirelyDialog({
+    super.key,
+    required this.course,
+    required this.cubit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppColors.white,
+      actionsPadding: EdgeInsets.all(16.h),
+      actionsAlignment: MainAxisAlignment.center,
+      alignment: Alignment.center,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+      title: CustomText(
+        title: 'Delete Course',
+        textAlign: TextAlign.center,
+        textStyle: GoogleFonts.inter(
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w700,
+          color: AppColors.red,
+        ),
+      ),
+      content: CustomText(
+        title: 'Are you sure you want to completely delete "${course.name}"?',
+        textStyle: Theme.of(
+          context,
+        ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
+      ),
+      actions: [
+        BlocBuilder<CoursesCubit, CoursesState>(
+          builder: (context, state) {
+            if (state is DeleteCourseLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return DeleteAndCancelButtons(
+              onPressed: () => cubit.deleteCourseEntirely(courseId: course.courseId),
+            );
+          },
         ),
       ],
     );

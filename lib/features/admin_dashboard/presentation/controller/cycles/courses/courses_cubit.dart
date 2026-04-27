@@ -42,4 +42,22 @@ class CoursesCubit extends Cubit<CoursesState> {
       );
     }
   }
+
+  Future<void> deleteCourseEntirely({required int courseId}) async {
+    if (!await checkInternet()) {
+      emit(DeleteCourseFailure(error: "checkInternet".tr()));
+      return;
+    }
+    emit(DeleteCourseLoading());
+    try {
+      final result = await CyclesCoursesService.deleteCourse(courseId: courseId);
+      emit(DeleteCourseSuccess(message: result));
+    } catch (e) {
+      emit(
+        DeleteCourseFailure(
+          error: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
 }

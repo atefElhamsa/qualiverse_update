@@ -13,9 +13,6 @@ class CycleDetailsTapsContent extends StatelessWidget {
         final cubit = context.read<CycleTabsCubit>();
 
         switch (cubit.currentTab) {
-          case CycleTab.overview:
-            return const OverviewContent();
-
           case CycleTab.courses:
             return const CoursesContent();
 
@@ -24,9 +21,6 @@ class CycleDetailsTapsContent extends StatelessWidget {
 
           case CycleTab.indicators:
             return const IndicatorsContent();
-
-          case CycleTab.assignments:
-            return const AssignmentsContent();
         }
       },
     );

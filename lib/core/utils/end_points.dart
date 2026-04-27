@@ -21,6 +21,9 @@ class EndPoints {
   static const String evidenceFolders = "EvidenceFolder";
   static const String assignIndicator = "Indicator/assign";
   static const String assignCourse = "Course/assign";
+  static const String templates = "Course/templates";
+  static const String courseFromTemplate = "Course/from-template";
+  static const String newCourse = "Course/new";
 
   static String accreditations({
     required int academicYearId,
@@ -82,6 +85,10 @@ class EndPoints {
 
   static String deleteUser({required String id}) {
     return "User/$id";
+  }
+
+  static String deleteCourse({required int courseId}) {
+    return "Course/$courseId";
   }
 
   static String academicYearAdded({required int yearNumber}) {

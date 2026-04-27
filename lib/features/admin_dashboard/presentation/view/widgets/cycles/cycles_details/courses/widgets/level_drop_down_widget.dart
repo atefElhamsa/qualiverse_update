@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets/custom_base_drop_down.dart';
+
 import '../../../../../../../../../routing/all_routes_imports.dart';
 
 class LevelDropDownWidget extends StatefulWidget {
@@ -11,6 +11,7 @@ class LevelDropDownWidget extends StatefulWidget {
   final ValueChanged<int>? onChanged;
   final int? selectedId;
   final bool useCubitSelection;
+
   const LevelDropDownWidget({
     super.key,
     this.height,
@@ -47,8 +48,14 @@ class _LevelDropDownWidgetState extends State<LevelDropDownWidget> {
         if (state is LevelSuccess) {
           final levels = state.levels;
           final isValid = levels.any((e) => e.id == state.selectedLevel?.id);
-          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedLevel?.id : null);
-          final selectedItem = levels.where((l) => l.id == selectedValue).firstOrNull;
+          final selectedValue =
+              widget.selectedId ??
+              (widget.useCubitSelection && isValid
+                  ? state.selectedLevel?.id
+                  : null);
+          final selectedItem = levels
+              .where((l) => l.id == selectedValue)
+              .firstOrNull;
 
           return CustomBaseDropDown<LevelModel>(
             items: levels,

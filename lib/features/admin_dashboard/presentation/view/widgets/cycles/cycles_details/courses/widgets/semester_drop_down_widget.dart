@@ -10,6 +10,7 @@ class SemesterDropDownWidget extends StatefulWidget {
   final ValueChanged<int>? onChanged;
   final int? selectedId;
   final bool useCubitSelection;
+
   const SemesterDropDownWidget({
     super.key,
     this.height,
@@ -45,9 +46,17 @@ class _SemesterDropDownWidgetState extends State<SemesterDropDownWidget> {
         }
         if (state is SemesterSuccess) {
           final semesters = state.semesters;
-          final isValid = semesters.any((e) => e.id == state.selectedSemester?.id);
-          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedSemester?.id : null);
-          final selectedItem = semesters.where((s) => s.id == selectedValue).firstOrNull;
+          final isValid = semesters.any(
+            (e) => e.id == state.selectedSemester?.id,
+          );
+          final selectedValue =
+              widget.selectedId ??
+              (widget.useCubitSelection && isValid
+                  ? state.selectedSemester?.id
+                  : null);
+          final selectedItem = semesters
+              .where((s) => s.id == selectedValue)
+              .firstOrNull;
 
           return CustomBaseDropDown<SemesterModel>(
             items: semesters,
@@ -64,7 +73,9 @@ class _SemesterDropDownWidgetState extends State<SemesterDropDownWidget> {
                 return;
               }
               final selectedModel = semesters.firstWhere((s) => s.id == value);
-              SemesterCubit.get(context).selectSemester(semester: selectedModel);
+              SemesterCubit.get(
+                context,
+              ).selectSemester(semester: selectedModel);
             },
           );
         }

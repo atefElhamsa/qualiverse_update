@@ -44,4 +44,35 @@ class CyclesCoursesService {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
+
+  static Future<String> deleteCourse({required int courseId}) async {
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteCourse(courseId: courseId),
+      );
+      var data = response.data;
+      final result = AssignModel.fromJson(data);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to delete course");
+      }
+      return result.data ?? 'Course deleted successfully';
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+
+      throw Exception(
+        e.response?.data?['message'] ??
+            e.response?.data?['error'] ??
+            'Server Error',
+      );
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
 }

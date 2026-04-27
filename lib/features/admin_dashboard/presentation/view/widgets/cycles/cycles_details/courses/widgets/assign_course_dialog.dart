@@ -22,35 +22,34 @@ class AssignCourseDialog extends StatefulWidget {
 }
 
 class _AssignCourseDialogState extends State<AssignCourseDialog> {
-  UserManagementModel? _selectedDoctor;
-  bool _dropdownOpen = false;
+  UserManagementModel? selectedDoctor;
+  bool dropdownOpen = false;
 
-  void _toggleDropdown() => setState(() => _dropdownOpen = !_dropdownOpen);
+  void toggleDropdown() => setState(() => dropdownOpen = !dropdownOpen);
 
-  void _onDoctorSelected(UserManagementModel doctor) => setState(() {
-    _selectedDoctor = doctor;
-    _dropdownOpen = false;
+  void onDoctorSelected(UserManagementModel doctor) => setState(() {
+    selectedDoctor = doctor;
+    dropdownOpen = false;
   });
 
-
-  void _onSave(BuildContext context) {
-    if (_selectedDoctor == null) {
+  void onSave(BuildContext context) {
+    if (selectedDoctor == null) {
       showSnackBar(context, 'Please Select Doctor', AppColors.red);
       return;
     }
     AssignCubit.get(context).assignCourse(
       courseId: widget.course.courseId,
-      doctorId: _selectedDoctor!.id,
+      doctorId: selectedDoctor!.id,
     );
   }
 
-  void _onAssignSuccess(BuildContext context, AssignSuccess state) {
+  void onAssignSuccess(BuildContext context, AssignSuccess state) {
     showSnackBar(context, state.message, AppColors.green);
     Navigator.pop(context);
-    _refreshCourses(context);
+    refreshCourses(context);
   }
 
-  void _refreshCourses(BuildContext context) {
+  void refreshCourses(BuildContext context) {
     final year = AcademicYearCubit.get(context).selectedAcademicYear;
     final department = DepartmentCubit.get(context).selectedDepartment;
     final level = LevelCubit.get(context).selectedLevel;
@@ -73,9 +72,10 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
   Widget build(BuildContext context) {
     return BlocConsumer<AssignCubit, AssignState>(
       listener: (context, state) {
-        if (state is AssignSuccess) _onAssignSuccess(context, state);
-        if (state is AssignFailure)
+        if (state is AssignSuccess) onAssignSuccess(context, state);
+        if (state is AssignFailure) {
           showSnackBar(context, state.error, AppColors.red);
+        }
       },
       builder: (context, assignState) {
         return CustomDialog(
@@ -94,25 +94,25 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
               ),
               SizedBox(height: 20.h),
               DoctorSection(
-                selectedDoctor: _selectedDoctor,
-                dropdownOpen: _dropdownOpen,
-                onToggle: _toggleDropdown,
-                onSelect: _onDoctorSelected,
+                selectedDoctor: selectedDoctor,
+                dropdownOpen: dropdownOpen,
+                onToggle: toggleDropdown,
+                onSelect: onDoctorSelected,
               ),
             ],
           ),
           actions: [
-            _buildButton(
+            buildButton(
               title: 'Cancel',
               onPressed: () => Navigator.pop(context),
               backgroundColor: AppColors.grey.withOpacity(0.1),
               textColor: AppColors.mainBlack,
             ),
-            _buildButton(
+            buildButton(
               title: assignState is AssignLoading ? 'Saving...' : 'Save',
               onPressed: assignState is AssignLoading
                   ? () {}
-                  : () => _onSave(context),
+                  : () => onSave(context),
               backgroundColor: AppColors.blue,
               textColor: AppColors.white,
               isBold: true,
@@ -123,7 +123,7 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
     );
   }
 
-  Widget _buildButton({
+  Widget buildButton({
     required String title,
     required VoidCallback onPressed,
     required Color backgroundColor,
