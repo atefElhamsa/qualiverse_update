@@ -24,6 +24,9 @@ class EndPoints {
   static const String templates = "Course/templates";
   static const String courseFromTemplate = "Course/from-template";
   static const String newCourse = "Course/new";
+  static const String newCriterion = "Criterion/new";
+  static const String newCriterionFromExistingTemplate =
+      "Criterion/from-existing";
 
   static String accreditations({
     required int academicYearId,
@@ -125,5 +128,28 @@ class EndPoints {
     required int semesterId,
   }) {
     return "Course/all?AcademicYearId=$academicYearId&DepartmentId=$departmentId&LevelId=$levelId&SemesterId=$semesterId";
+  }
+
+  static String getAllCriterions({
+    required int academicYearId,
+    int? accreditationTypeId,
+    int? departmentId,
+  }) {
+    final buffer = StringBuffer("Criterion/all?AcademicYearId=$academicYearId");
+    if (departmentId != null) {
+      buffer.write("&DepartmentId=$departmentId");
+    }
+    if (accreditationTypeId != null) {
+      buffer.write("&AccreditationTypeId=$accreditationTypeId");
+    }
+    return buffer.toString();
+  }
+
+  static String getTemplateCriteria({required int accreditationTypeId}) {
+    return "Criterion/templates?AccreditationTypeId=$accreditationTypeId";
+  }
+
+  static String toggleCriterionStatus({required int criterionId}) {
+    return "Criterion/$criterionId/toggle-status";
   }
 }

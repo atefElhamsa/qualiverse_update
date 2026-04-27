@@ -89,3 +89,10 @@ export 'package:qualiverse/features/admin_dashboard/data/model/template_model.da
 export 'package:qualiverse/features/admin_dashboard/data/service/templates_service.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/templates/template_cubit.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/templates/template_state.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/criterions_top_bar.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/criterions_table.dart';
+export 'package:qualiverse/features/admin_dashboard/data/model/criterion_item_model.dart';
+export 'package:qualiverse/features/admin_dashboard/data/service/criterions_service.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/criterions/criterions_cubit.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/criterions/criterions_state.dart';
+export 'package:qualiverse/features/admin_dashboard/data/model/criterion_template_model.dart';

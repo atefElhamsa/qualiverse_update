@@ -51,7 +51,7 @@ class SelectYear extends StatelessWidget {
                       academicYearId: selectedModel.id,
                     );
                 context
-                        .watch<InstitutionalAccreditationCubit>()
+                        .read<InstitutionalAccreditationCubit>()
                         .selectedYearId =
                     selectedModel.id;
               },
