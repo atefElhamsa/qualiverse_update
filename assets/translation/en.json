@@ -290,5 +290,7 @@
   "deleteUserMessage": "Are you sure you deleted this user?",
   "action": "Action",
   "selectTheCriterion": "Select The Criterion",
-  "deleteIndicator": "Delete Indicator"
+  "deleteIndicator": "Delete Indicator",
+  "removeAssign": "Remove Assignment",
+  "removeAssignMessage": "Are you sure you want to remove the assignment for this indicator?"
 }

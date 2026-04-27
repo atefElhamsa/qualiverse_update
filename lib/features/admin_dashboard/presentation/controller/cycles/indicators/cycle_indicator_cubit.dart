@@ -37,6 +37,25 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
     }
   }
 
+  Future<void> deleteCycleIndicator({required int indicatorId}) async {
+    emit(CycleIndicatorActionLoading());
+    try {
+      final msg = await CyclesIndicatorService.deleteCycleIndicator(
+        indicatorId: indicatorId,
+      );
+      emit(CycleIndicatorDeleteSuccess(msg: msg));
+    } catch (e) {
+      final msg = e.toString();
+      if (msg.contains('No Internet')) {
+        emit(CycleIndicatorActionError(error: 'Check your internet connection'));
+      } else if (msg.contains('Unauthorized')) {
+        reset();
+      } else {
+        emit(CycleIndicatorActionError(error: 'Something went wrong'));
+      }
+    }
+  }
+
   void reset() {
     cycleIndicators = [];
     emit(CycleIndicatorInitial());

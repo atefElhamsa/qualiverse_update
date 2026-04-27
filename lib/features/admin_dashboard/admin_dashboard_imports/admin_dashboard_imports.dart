@@ -46,7 +46,8 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cy
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/criterions_drop_down_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/custom_dropdown_indicator.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/deadline_section.dart';
-export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/delete_assign_indicator_dialog.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/remove_assign_indicator_dialog.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/delete_indicator_dialog.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/department_drop_down_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/dialog_actions.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/dialog_header.dart';

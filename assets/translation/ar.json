@@ -290,5 +290,7 @@
   "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟",
   "action": "الإجراء",
   "selectTheCriterion": "اختر المعايير",
-  "deleteIndicator": "حذف المؤشر"
+  "deleteIndicator": "حذف المؤشر",
+  "removeAssign": "إلغاء التكليف",
+  "removeAssignMessage": "هل أنت متأكد من إلغاء تكليف هذا المؤشر؟"
 }

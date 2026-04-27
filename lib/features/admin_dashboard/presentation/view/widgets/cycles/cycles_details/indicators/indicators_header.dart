@@ -63,6 +63,7 @@ class IndicatorsHeader extends StatelessWidget {
             ),
           ),
           Expanded(
+            flex: 2,
             child: CustomText(
               title: 'Action',
               textAlign: TextAlign.center,

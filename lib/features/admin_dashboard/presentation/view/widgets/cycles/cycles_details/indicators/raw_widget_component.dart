@@ -26,7 +26,10 @@ Widget buildRow(
         Expanded(
           child: statusBadge(context, cycleIndicator.status, statusColor),
         ),
-        Expanded(child: actions(context, cycleIndicator)),
+        Expanded(
+          flex: 2,
+          child: actions(context, cycleIndicator),
+        ),
       ],
     ),
   );
@@ -143,7 +146,6 @@ Widget statusBadge(BuildContext context, String? status, Color? statusColor) {
 Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
   final bool isAssigned = cycleIndicator.doctorId != null;
   final bool isSubmitted = cycleIndicator.status?.toLowerCase() == "submitted";
-  final bool showDelete = isAssigned && !isSubmitted;
 
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -161,31 +163,64 @@ Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,
-              ).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+              ).textTheme.titleMedium!.copyWith(
+                fontSize: 12.sp,
+                color: AppColors.white,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
       ),
-      if (showDelete) ...[
+      if (isAssigned && !isSubmitted) ...[
         SizedBox(width: 5.w),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => showAssignDeleteDialog(
-              context: context,
-              cycleIndicator: cycleIndicator,
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: AppColors.red,
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: const Icon(Icons.delete_outline, color: AppColors.white),
-            ),
+        actionIcon(
+          icon: Icons.close,
+          color: AppColors.grey.withOpacity(0.8),
+          onTap: () => showRemoveAssignIndicatorDialog(
+            context: context,
+            cycleIndicator: cycleIndicator,
           ),
+          tooltip: "removeAssign".tr(),
+        ),
+      ],
+      if (!isSubmitted) ...[
+        SizedBox(width: 5.w),
+        actionIcon(
+          icon: Icons.delete_outline,
+          color: AppColors.red,
+          onTap: () => showDeleteIndicatorDialog(
+            context: context,
+            cycleIndicator: cycleIndicator,
+          ),
+          tooltip: "deleteIndicator".tr(),
         ),
       ],
     ],
+  );
+}
+
+Widget actionIcon({
+  required IconData icon,
+  required Color color,
+  required VoidCallback onTap,
+  required String tooltip,
+}) {
+  return MouseRegion(
+    cursor: SystemMouseCursors.click,
+    child: GestureDetector(
+      onTap: onTap,
+      child: Tooltip(
+        message: tooltip,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Icon(icon, color: AppColors.white, size: 16.sp),
+        ),
+      ),
+    ),
   );
 }

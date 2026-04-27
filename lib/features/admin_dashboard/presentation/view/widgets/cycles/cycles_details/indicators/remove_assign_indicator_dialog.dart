@@ -6,14 +6,19 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
 
-void showAssignDeleteDialog({
+void showRemoveAssignIndicatorDialog({
   required BuildContext context,
   required CycleIndicatorModel cycleIndicator,
-}) {
+}) async {
   final cubit = context.read<AssignCubit>();
+  final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
+  final departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
+  final criterionId =
+      ProgramAccreditationCubit.get(context).selectedProgramAccreditation?.id;
 
-  showDialog(
+  final result = await showDialog<bool>(
     context: context,
+    barrierDismissible: false,
     builder: (dialogContext) {
       return BlocProvider.value(
         value: cubit,
@@ -22,22 +27,12 @@ void showAssignDeleteDialog({
             if (state is AssignFailure) {
               showSnackBar(ctx, state.error, AppColors.red);
             }
-
             if (state is DeleteAssignSuccess) {
-              showSnackBar(ctx, state.message, AppColors.green);
-              Navigator.of(dialogContext).pop();
-              CycleIndicatorCubit.get(context).fetchCycleIndicators(
-                yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-                departmentId: DepartmentCubit.get(
-                  context,
-                ).selectedDepartment!.id,
-                criterionId: ProgramAccreditationCubit.get(
-                  context,
-                ).selectedProgramAccreditation!.id,
-              );
+              // Pop with true to indicate success
+              Navigator.of(dialogContext).pop(true);
             }
           },
-          child: DeleteIndicatorDialog(
+          child: RemoveAssignIndicatorDialog(
             cycleIndicator: cycleIndicator,
             cubit: cubit,
           ),
@@ -45,13 +40,28 @@ void showAssignDeleteDialog({
       );
     },
   );
+
+  // If the result is true, it means removal was successful
+  if (result == true) {
+    // Show success message on the main screen context
+    showSnackBar(context, "doneSuccessfully".tr(), AppColors.green);
+
+    // Refresh the indicators list
+    if (yearId != null && departmentId != null && criterionId != null) {
+      CycleIndicatorCubit.get(context).fetchCycleIndicators(
+        yearId: yearId,
+        departmentId: departmentId,
+        criterionId: criterionId,
+      );
+    }
+  }
 }
 
-class DeleteIndicatorDialog extends StatelessWidget {
+class RemoveAssignIndicatorDialog extends StatelessWidget {
   final CycleIndicatorModel cycleIndicator;
   final AssignCubit cubit;
 
-  const DeleteIndicatorDialog({
+  const RemoveAssignIndicatorDialog({
     super.key,
     required this.cycleIndicator,
     required this.cubit,
@@ -66,7 +76,7 @@ class DeleteIndicatorDialog extends StatelessWidget {
       alignment: Alignment.center,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       title: CustomText(
-        title: 'deleteIndicator'.tr(),
+        title: 'removeAssign'.tr(),
         textAlign: TextAlign.center,
         textStyle: GoogleFonts.inter(
           fontSize: 24.sp,
@@ -76,15 +86,22 @@ class DeleteIndicatorDialog extends StatelessWidget {
       ),
       content: CustomText(
         title:
-            "${"deleteFileMessage".tr()} \"${cycleIndicator.indicatorName}\"?",
+            "${"removeAssignMessage".tr()} \"${cycleIndicator.indicatorName}\"?",
         textStyle: Theme.of(
           context,
         ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
       ),
       actions: [
-        DeleteAndCancelButtons(
-          onPressed: () {
-            cubit.removeAssignIndicator(indicatorId: cycleIndicator.id);
+        BlocBuilder<AssignCubit, AssignState>(
+          builder: (context, state) {
+            if (state is DeleteAssignLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return DeleteAndCancelButtons(
+              onPressed: () {
+                cubit.removeAssignIndicator(indicatorId: cycleIndicator.id);
+              },
+            );
           },
         ),
       ],

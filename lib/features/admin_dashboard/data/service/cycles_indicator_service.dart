@@ -42,4 +42,34 @@ class CyclesIndicatorService {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
+
+  static Future<String> deleteCycleIndicator({required int indicatorId}) async {
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteIndicator(id: indicatorId),
+      );
+      final Map<String, dynamic> body = response.data;
+      if (body['isSuccess'] != true) {
+        throw Exception('Failed to delete cycle indicator');
+      }
+      return body['data'];
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+
+      throw Exception(
+        e.response?.data?['message'] ??
+            e.response?.data?['error'] ??
+            'Server Error',
+      );
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
 }
