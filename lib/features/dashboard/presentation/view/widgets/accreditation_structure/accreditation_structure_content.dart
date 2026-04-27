@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_per_criterion_chart.dart';
+import 'first_part_accreditation_structure.dart';
 
 class AccreditationStructureContent extends StatelessWidget {
   const AccreditationStructureContent({super.key});

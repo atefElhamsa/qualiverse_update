@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart/monthly_chart_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart/monthly_chart_state.dart';
+import 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class MonthlyLineChart extends StatefulWidget {
   const MonthlyLineChart({super.key});
@@ -76,74 +79,104 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
       opacity: fadeAnimation,
       child: SlideTransition(
         position: slideAnimation,
-        child: SizedBox.expand(
-          child: Container(
-            decoration: BoxDecoration(
-              color: AppColors.grey,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.mainBlack.withOpacity(0.25),
-                  offset: const Offset(0, 4),
-                  spreadRadius: 0,
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: SfCartesianChart(
-              plotAreaBorderWidth: 0,
-              backgroundColor:
-                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                  ? AppColors.grey
-                  : AppColors.mainBlack,
-              plotAreaBackgroundColor:
-                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                  ? AppColors.grey
-                  : AppColors.mainBlack,
-              primaryXAxis: CategoryAxis(
-                isVisible: true,
-                axisLine: const AxisLine(width: 0),
-                majorTickLines: const MajorTickLines(size: 0),
-                majorGridLines: const MajorGridLines(width: 0),
-                interval: 1,
-                maximumLabels: 12,
-                labelIntersectAction: AxisLabelIntersectAction.none,
-                labelAlignment: LabelAlignment.center,
-                labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  fontSize: 14.sp,
-                  color:
-                      Theme.of(context).scaffoldBackgroundColor ==
-                          AppColors.white
-                      ? AppColors.textGrey
-                      : AppColors.white,
-                ),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.grey
+                : AppColors.mainBlack,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.mainBlack.withOpacity(0.25),
+                offset: const Offset(0, 4),
+                spreadRadius: 0,
+                blurRadius: 4,
               ),
-              primaryYAxis: const NumericAxis(
-                isVisible: false,
-                rangePadding: ChartRangePadding.additional,
-              ),
-              series: <CartesianSeries>[
-                SplineSeries<MonthlyChartDataModel, String>(
-                  dataSource: data,
-                  xValueMapper: (d, _) => d.month,
-                  yValueMapper: (d, _) => d.value,
-                  splineType: SplineType.natural,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                  width: 2.5,
-                  animationDuration: 2000,
-                  dataLabelSettings: DataLabelSettings(
-                    isVisible: true,
-                    labelAlignment: ChartDataLabelAlignment.top,
-                    textStyle: Theme.of(
-                      context,
-                    ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+            ],
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              SfCartesianChart(
+                plotAreaBorderWidth: 0,
+                backgroundColor:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                        ? AppColors.grey
+                        : AppColors.mainBlack,
+                plotAreaBackgroundColor:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                        ? AppColors.grey
+                        : AppColors.mainBlack,
+                primaryXAxis: CategoryAxis(
+                  isVisible: true,
+                  axisLine: const AxisLine(width: 0),
+                  majorTickLines: const MajorTickLines(size: 0),
+                  majorGridLines: const MajorGridLines(width: 0),
+                  interval: 1,
+                  maximumLabels: 12,
+                  labelIntersectAction: AxisLabelIntersectAction.none,
+                  labelAlignment: LabelAlignment.center,
+                  labelStyle:
+                      Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 14.sp,
+                    color:
+                        Theme.of(context).scaffoldBackgroundColor ==
+                                AppColors.white
+                            ? AppColors.textGrey
+                            : AppColors.white,
                   ),
-                  markerSettings: const MarkerSettings(isVisible: false),
                 ),
-              ],
-            ),
+                primaryYAxis: const NumericAxis(
+                  isVisible: false,
+                  rangePadding: ChartRangePadding.additional,
+                ),
+                series: <CartesianSeries>[
+                  SplineSeries<MonthlyChartDataModel, String>(
+                    dataSource: data,
+                    xValueMapper: (d, _) => d.month,
+                    yValueMapper: (d, _) => d.value,
+                    splineType: SplineType.natural,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    width: 2.5,
+                    animationDuration: 2000,
+                    dataLabelSettings: DataLabelSettings(
+                      isVisible: true,
+                      labelAlignment: ChartDataLabelAlignment.top,
+                      textStyle: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                    ),
+                    markerSettings: const MarkerSettings(isVisible: false),
+                  ),
+                ],
+              ),
+              if (data.isEmpty || data.every((d) => d.value == 0))
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomText(
+                      title: '0',
+                      textStyle: GoogleFonts.inter(
+                        fontSize: 40.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textGrey.withOpacity(0.3),
+                      ),
+                    ),
+                    CustomText(
+                      title: 'Total Uploads',
+                      textStyle: GoogleFonts.inter(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.textGrey.withOpacity(0.2),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

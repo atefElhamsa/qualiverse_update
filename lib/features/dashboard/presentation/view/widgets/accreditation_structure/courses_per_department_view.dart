@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'department_bars.dart';
 
 class CoursesPerDepartmentView extends StatelessWidget {
   const CoursesPerDepartmentView({super.key});
@@ -15,9 +18,8 @@ class CoursesPerDepartmentView extends StatelessWidget {
           return const SizedBox.shrink();
         }
         final data = state.data;
-        final maxValue = data
-            .map((d) => d.value)
-            .reduce((a, b) => a > b ? a : b);
+        final maxValue = data.isEmpty ? 1.0 : data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
+        final displayMaxValue = maxValue == 0 ? 1.0 : maxValue;
 
         return Container(
           width: double.infinity,
@@ -64,15 +66,17 @@ class CoursesPerDepartmentView extends StatelessWidget {
                   // Bars
                   Expanded(
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: List.generate(data.length, (i) {
-                        return DepartmentBar(
-                          item: data[i],
-                          maxValue: maxValue,
-                          maxHeight: 180,
-                          delay: Duration(milliseconds: i * 120),
-                        );
-                      }),
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: data.isEmpty
+                          ? List.generate(5, (i) => _buildSkeletonBar(context))
+                          : List.generate(data.length, (i) {
+                              return DepartmentBar(
+                                item: data[i],
+                                maxValue: displayMaxValue,
+                                maxHeight: 180.h,
+                                delay: Duration(milliseconds: i * 100),
+                              );
+                            }),
                     ),
                   ),
                 ],
@@ -81,6 +85,32 @@ class CoursesPerDepartmentView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+  Widget _buildSkeletonBar(BuildContext context) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            width: 40.w,
+            height: 100.h,
+            decoration: BoxDecoration(
+              color: AppColors.textGrey.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(3.r),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Container(
+            width: 30.w,
+            height: 10.h,
+            decoration: BoxDecoration(
+              color: AppColors.textGrey.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

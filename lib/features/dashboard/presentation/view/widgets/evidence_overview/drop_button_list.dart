@@ -1,89 +1,129 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_filters_cubit.dart';
+import 'package:qualiverse/features/department/presentation/controller/academic_year_cubit.dart';
+import 'package:qualiverse/features/department/presentation/controller/academic_year_state.dart';
+import 'package:qualiverse/features/department/presentation/controller/department_cubit.dart';
+import 'package:qualiverse/features/department/presentation/controller/department_state.dart';
+import 'package:qualiverse/features/courses_main/presentation/controller/level/level_cubit.dart';
+import 'package:qualiverse/features/courses_main/presentation/controller/level/level_state.dart';
+import 'package:qualiverse/features/accreditation/presentation/controller/type_cubit.dart';
+import 'package:qualiverse/features/accreditation/presentation/controller/type_state.dart';
+import 'custom_filter_dropdown.dart';
 
-import '../../../../../../routing/all_routes_imports.dart';
-
-class DropButtonList extends StatefulWidget {
+class DropButtonList extends StatelessWidget {
   const DropButtonList({super.key});
 
   @override
-  State<DropButtonList> createState() => _DropButtonListState();
-}
-
-class _DropButtonListState extends State<DropButtonList> {
-  String? accreditationValue;
-  String? levelValue;
-  String? yearValue;
-  String? departmentValue;
-  @override
   Widget build(BuildContext context) {
+    final filtersCubit = context.read<DashboardFiltersCubit>();
+    final dashboardCubit = context.read<DashboardCubit>();
+
     return SizedBox(
       width: 200.w,
       child: Column(
-        spacing: 13.h,
         children: [
-          CustomFilterDropdown<String>(
-            hint: 'Accreditation',
-            value: accreditationValue,
-            items: const [
-              DropdownMenuItem(value: 'a', child: Text('Accreditation A')),
-              DropdownMenuItem(value: 'b', child: Text('Accreditation B')),
-            ],
-            onChanged: (v) {
-              setState(() {
-                accreditationValue = v;
-              });
+          // Accreditation Type
+          BlocBuilder<TypesCubit, TypesState>(
+            builder: (context, state) {
+              List<DropdownMenuItem<int>> items = [];
+              if (state is TypesSuccess) {
+                items = state.types.map((e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.name ?? ''),
+                )).toList();
+              }
+              return CustomFilterDropdown<int>(
+                hint: 'Accreditation',
+                value: filtersCubit.accreditationTypeId,
+                items: items,
+                onChanged: (v) {
+                  filtersCubit.updateFilters(
+                    accreditationTypeId: v,
+                    dashboardCubit: dashboardCubit,
+                  );
+                },
+              );
             },
           ),
 
           const SizedBox(height: 12),
 
-          CustomFilterDropdown<String>(
-            hint: 'Level',
-            value: levelValue,
-            items: const [
-              DropdownMenuItem(value: '1', child: Text('Level 1')),
-              DropdownMenuItem(value: '2', child: Text('Level 2')),
-            ],
-            onChanged: (v) {
-              setState(() {
-                levelValue = v;
-              });
+          // Level
+          BlocBuilder<LevelCubit, LevelState>(
+            builder: (context, state) {
+              List<DropdownMenuItem<int>> items = [];
+              if (state is LevelSuccess) {
+                items = state.levels.map((e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.name ?? ''),
+                )).toList();
+              }
+              return CustomFilterDropdown<int>(
+                hint: 'Level',
+                value: filtersCubit.levelId,
+                items: items,
+                onChanged: (v) {
+                  filtersCubit.updateFilters(
+                    levelId: v,
+                    dashboardCubit: dashboardCubit,
+                  );
+                },
+              );
             },
           ),
 
           const SizedBox(height: 12),
 
-          CustomFilterDropdown<String>(
-            hint: 'Year',
-            value: yearValue,
-            items: const [
-              DropdownMenuItem(value: '2024', child: Text('2024')),
-              DropdownMenuItem(value: '2025', child: Text('2025')),
-            ],
-            onChanged: (v) {
-              setState(() {
-                yearValue = v;
-              });
+          // Year
+          BlocBuilder<AcademicYearCubit, AcademicYearState>(
+            builder: (context, state) {
+              List<DropdownMenuItem<int>> items = [];
+              if (state is AcademicYearSuccess) {
+                items = state.academicYears.map((e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.yearNumber.toString()),
+                )).toList();
+              }
+              return CustomFilterDropdown<int>(
+                hint: 'Year',
+                value: filtersCubit.yearId,
+                items: items,
+                onChanged: (v) {
+                  filtersCubit.updateFilters(
+                    yearId: v,
+                    dashboardCubit: dashboardCubit,
+                  );
+                },
+              );
             },
           ),
 
           const SizedBox(height: 12),
 
-          CustomFilterDropdown<String>(
-            hint: 'Department Name',
-            value: departmentValue,
-            items: const [
-              DropdownMenuItem(value: 'cs', child: Text('Computer Science')),
-              DropdownMenuItem(
-                value: 'it',
-                child: Text('Information Technology'),
-              ),
-            ],
-            onChanged: (v) {
-              setState(() {
-                departmentValue = v;
-              });
+          // Department
+          BlocBuilder<DepartmentCubit, DepartmentState>(
+            builder: (context, state) {
+              List<DropdownMenuItem<int>> items = [];
+              if (state is DepartmentSuccess) {
+                items = state.departments.map((e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.name ?? ''),
+                )).toList();
+              }
+              return CustomFilterDropdown<int>(
+                hint: 'Department Name',
+                value: filtersCubit.departmentId,
+                items: items,
+                onChanged: (v) {
+                  filtersCubit.updateFilters(
+                    departmentId: v,
+                    dashboardCubit: dashboardCubit,
+                  );
+                },
+              );
             },
           ),
         ],

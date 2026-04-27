@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/features/dashboard/data/models/department_data_model.dart';
 
 class DepartmentBar extends StatefulWidget {
   final DepartmentDataModel item;
@@ -36,8 +36,20 @@ class DepartmentBarState extends State<DepartmentBar> {
   }
 
   @override
+  void didUpdateWidget(covariant DepartmentBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.item.value != widget.item.value) {
+      setState(() => animated = false);
+      Future.delayed(const Duration(milliseconds: 50), () {
+        if (mounted) setState(() => animated = true);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final barHeight = (widget.item.value / widget.maxValue) * widget.maxHeight;
+    final displayHeight = barHeight < 2 ? 2.0 : barHeight;
     return Expanded(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -63,9 +75,11 @@ class DepartmentBarState extends State<DepartmentBar> {
                 duration: const Duration(milliseconds: 700),
                 curve: Curves.easeOutCubic,
                 width: 115.w,
-                height: animated ? barHeight : 0,
+                height: animated ? displayHeight : 0,
                 decoration: BoxDecoration(
-                  color: AppColors.evidenceColorSlide,
+                  color: widget.item.value == 0
+                      ? AppColors.textGrey.withOpacity(0.1)
+                      : AppColors.evidenceColorSlide,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(3.r),
                     topRight: Radius.circular(3.r),

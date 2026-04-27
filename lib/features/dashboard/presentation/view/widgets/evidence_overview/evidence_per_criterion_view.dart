@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion/evidence_per_criterion_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion/evidence_per_criterion_state.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'evidence_bars.dart';
 
 class EvidencePerCriterionView extends StatelessWidget {
   const EvidencePerCriterionView({super.key});
@@ -14,9 +18,8 @@ class EvidencePerCriterionView extends StatelessWidget {
           return const SizedBox.shrink();
         }
         final data = state.data;
-        final maxValue = data
-            .map((d) => d.value)
-            .reduce((a, b) => a > b ? a : b);
+        final maxValue = data.isEmpty ? 1.0 : data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
+        final displayMaxValue = maxValue == 0 ? 1.0 : maxValue;
         return Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -57,7 +60,7 @@ class EvidencePerCriterionView extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: EvidenceBars(data: data, maxValue: maxValue),
+                    child: EvidenceBars(data: data, maxValue: displayMaxValue),
                   ),
                 ],
               ),

@@ -2,16 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EvidenceStatusCubit extends Cubit<EvidenceStatusState> {
-  EvidenceStatusCubit() : super(EvidenceStatusInitial());
-
-  static EvidenceStatusCubit get(context) => BlocProvider.of(context);
-
-  final List<ChartDataModel> data = const [
-    ChartDataModel(label: 'Reviewed', value: 1, color: AppColors.reviewedColor),
-    ChartDataModel(label: 'Approved', value: 1, color: AppColors.approvedColor),
-    ChartDataModel(label: 'Rejected', value: 1, color: AppColors.rejectedColor),
-    ChartDataModel(label: 'Pending', value: 1, color: AppColors.pendingColor),
-  ];
+  final List<ChartDataModel> data;
+  EvidenceStatusCubit({required this.data}) : super(EvidenceStatusInitial());
 
   int get activeIndex => state is EvidenceStatusActiveIndex
       ? (state as EvidenceStatusActiveIndex).activeIndex

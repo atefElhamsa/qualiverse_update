@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/features/dashboard/data/models/criterion_data_model.dart';
 
 class EvidenceBars extends StatefulWidget {
   final List<CriterionDataModel> data;
@@ -25,6 +26,18 @@ class _EvidenceBarsState extends State<EvidenceBars>
     super.initState();
     initAnimations();
     startAnimations();
+  }
+
+  @override
+  void didUpdateWidget(covariant EvidenceBars oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.data != widget.data) {
+      for (final c in controllers) {
+        c.dispose();
+      }
+      initAnimations();
+      startAnimations();
+    }
   }
 
   void initAnimations() {
@@ -73,6 +86,12 @@ class _EvidenceBarsState extends State<EvidenceBars>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.data.isEmpty) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(5, (i) => _buildSkeletonRow(context)),
+      );
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(widget.data.length, (i) {
@@ -123,10 +142,12 @@ class _EvidenceBarsState extends State<EvidenceBars>
                                   ),
                                 ),
                                 Container(
-                                  width: barWidth,
+                                  width: barWidth < 2 ? 2 : barWidth,
                                   height: 28,
                                   decoration: BoxDecoration(
-                                    color: AppColors.evidenceColorSlide,
+                                    color: d.value == 0
+                                        ? AppColors.textGrey.withOpacity(0.1)
+                                        : AppColors.evidenceColorSlide,
                                     borderRadius: BorderRadius.circular(3.r),
                                   ),
                                 ),
@@ -157,6 +178,42 @@ class _EvidenceBarsState extends State<EvidenceBars>
           ),
         );
       }),
+    );
+  }
+  Widget _buildSkeletonRow(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Container(
+            width: 90,
+            height: 10,
+            decoration: BoxDecoration(
+              color: AppColors.textGrey.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Container(
+              height: 28,
+              decoration: BoxDecoration(
+                color: AppColors.textGrey.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(3.r),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            width: 20,
+            height: 10,
+            decoration: BoxDecoration(
+              color: AppColors.textGrey.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

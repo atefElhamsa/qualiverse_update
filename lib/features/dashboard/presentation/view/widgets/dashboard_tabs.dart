@@ -1,9 +1,12 @@
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_overview_content.dart';
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/accreditation_structure_content.dart';
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/evidence_uploads_content.dart';
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/program_institution_content.dart';
+import 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/indicators_file_content.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-
-import '../../../../../core/all_core_imports/all_core_imports.dart';
 
 class DashboardTabs extends StatefulWidget {
   const DashboardTabs({super.key});

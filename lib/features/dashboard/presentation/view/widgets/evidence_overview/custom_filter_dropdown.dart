@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class CustomFilterDropdown<T> extends StatelessWidget {
   const CustomFilterDropdown({

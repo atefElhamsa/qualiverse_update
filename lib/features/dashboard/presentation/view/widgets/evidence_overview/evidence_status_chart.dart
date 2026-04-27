@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/data/models/chart_data_model.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_state.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_cubit.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'evidence_pie_chart.dart';
+import 'evidence_legend.dart';
 
 class EvidenceStatusChart extends StatelessWidget {
   const EvidenceStatusChart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => EvidenceStatusCubit(),
-      child: const EvidenceStatusChartView(),
-    );
+    return const EvidenceStatusChartView();
   }
 }
 

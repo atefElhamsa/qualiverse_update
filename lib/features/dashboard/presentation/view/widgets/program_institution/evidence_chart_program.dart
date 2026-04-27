@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_state.dart';
+import 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class EvidenceChartProgram extends StatelessWidget {
   const EvidenceChartProgram({super.key});

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_state.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'legend_filter_chip.dart';
 
 class EvidenceLegendProgram extends StatelessWidget {
   const EvidenceLegendProgram({super.key});

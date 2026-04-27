@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../routing/all_routes_imports.dart';
 
 class MonthlyChartCubit extends Cubit<MonthlyChartState> {
-  MonthlyChartCubit() : super(MonthlyChartInitial()) {
+  final List<MonthlyChartDataModel> data;
+
+  MonthlyChartCubit({required this.data}) : super(MonthlyChartInitial()) {
     loadData();
   }
 
@@ -29,13 +31,6 @@ class MonthlyChartCubit extends Cubit<MonthlyChartState> {
   void loadData() {
     emit(MonthlyChartLoading());
     try {
-      final data = List.generate(
-        values.length,
-        (i) => MonthlyChartDataModel(
-          month: months[i],
-          value: values[i].toDouble(),
-        ),
-      );
       emit(MonthlyChartLoaded(data));
     } catch (e) {
       emit(MonthlyChartError(e.toString()));

@@ -1,4 +1,4 @@
-import '../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/dashboard/data/models/doc_model.dart';
 
 abstract class DocumentsState {}
 

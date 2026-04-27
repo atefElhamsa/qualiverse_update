@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/first_and_second_term_top.dart';
 
 class DashboardTopAndTitle extends StatelessWidget {
   const DashboardTopAndTitle({super.key});

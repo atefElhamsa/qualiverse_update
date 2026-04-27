@@ -4,6 +4,8 @@ export 'package:qualiverse/features/dashboard/data/models/department_data_model.
 export 'package:qualiverse/features/dashboard/data/models/doc_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
+export 'package:qualiverse/features/dashboard/data/models/dashboard_response_model.dart';
+export 'package:qualiverse/features/dashboard/data/dashboard_services.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_cubit.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_cubit.dart';
@@ -16,6 +18,8 @@ export 'package:qualiverse/features/dashboard/presentation/controller/evidence_s
 export 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart/monthly_chart_cubit.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart/monthly_chart_state.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_cubit.dart';
+export 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/dashboard_screen.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/accreditation_structure_content.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/courses_per_department_chart.dart';

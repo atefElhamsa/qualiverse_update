@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_cubit.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_state.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'documents_header_row.dart';
+import 'animated_doc_row.dart';
 
 class DocumentsPage extends StatelessWidget {
   const DocumentsPage({super.key});
@@ -11,6 +15,20 @@ class DocumentsPage extends StatelessWidget {
     return BlocBuilder<DocumentsCubit, DocumentsState>(
       builder: (context, state) {
         if (state is DocumentsLoaded) {
+          if (state.docs.isEmpty) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: CustomText(
+                  title: 'No Indicators Found',
+                  textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 16.sp,
+                    color: AppColors.textGrey.withOpacity(0.5),
+                  ),
+                ),
+              ),
+            );
+          }
           return Column(
             children: [
               const DocumentsHeaderRow(),

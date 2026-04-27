@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'first_part_evidence_overview.dart';
+import 'evidence_per_criterion_chart.dart';
 
 class EvidenceOverviewContent extends StatelessWidget {
   const EvidenceOverviewContent({super.key});

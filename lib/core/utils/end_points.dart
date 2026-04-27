@@ -111,6 +111,21 @@ class EndPoints {
     return "Course/$courseId/assign";
   }
 
+  static String getDashboard({
+    int? yearId,
+    int? departmentId,
+    int? levelId,
+    int? accreditationTypeId,
+  }) {
+    final List<String> params = [];
+    if (yearId != null) params.add("AcademicYearId=$yearId");
+    if (departmentId != null) params.add("DepartmentId=$departmentId");
+    if (levelId != null) params.add("LevelId=$levelId");
+    if (accreditationTypeId != null) params.add("AccreditationTypeId=$accreditationTypeId");
+
+    return "Dashboard${params.isEmpty ? "" : "?${params.join("&")}"}";
+  }
+
   static String getCycleIndicators({
     required int yearId,
     int? departmentId,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'courses_per_department_chart.dart';
+import 'three_containers_right_accreditation_structure.dart';
 
 class FirstPartAccreditationStructure extends StatelessWidget {
   const FirstPartAccreditationStructure({super.key});
