@@ -70,7 +70,10 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
               foregroundColor: AppColors.blue,
-              textStyle: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              textStyle: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -89,7 +92,7 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
       showSnackBar(context, 'Please Select Deadline', AppColors.red);
       return;
     }
-    AssignCubit.get(context).assign(
+    AssignCubit.get(context).assignIndicator(
       indicatorId: widget.cycleIndicator.indicatorId,
       doctorId: selectedDoctor!.id,
       deadline: selectedDeadline!.toIso8601String(),

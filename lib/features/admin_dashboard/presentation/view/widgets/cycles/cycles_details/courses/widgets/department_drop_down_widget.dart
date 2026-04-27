@@ -9,12 +9,14 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
   final bool isExpanded;
   final ValueChanged<int>? onChanged;
   final int? selectedId;
+  final bool useCubitSelection;
   const CoursesDepartmentDropDownWidget({
     super.key,
     this.height,
     this.isExpanded = true,
     this.onChanged,
     this.selectedId,
+    this.useCubitSelection = true,
   });
 
   @override
@@ -46,7 +48,7 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
         if (state is DepartmentSuccess) {
           final departments = state.departments;
           final isValid = departments.any((e) => e.id == state.selectedDepartment?.id);
-          final selectedValue = widget.selectedId ?? (isValid ? state.selectedDepartment?.id : null);
+          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedDepartment?.id : null);
           final selectedItem = departments.where((d) => d.id == selectedValue).firstOrNull;
 
           return CustomBaseDropDown<DepartmentModel>(

@@ -19,7 +19,8 @@ class EndPoints {
   static const String semesters = "Semester";
   static const String updateAndCreateCourseFolder = "CourseFolder";
   static const String evidenceFolders = "EvidenceFolder";
-  static const String assign = "Indicator/assign";
+  static const String assignIndicator = "Indicator/assign";
+  static const String assignCourse = "Course/assign";
 
   static String accreditations({
     required int academicYearId,
@@ -87,8 +88,12 @@ class EndPoints {
     return "AcademicYear?yearNumber=$yearNumber";
   }
 
-  static String removeAssign({required int indicatorId}) {
+  static String removeAssignIndicator({required int indicatorId}) {
     return "Indicator/$indicatorId/delete-assign";
+  }
+
+  static String removeAssignCourse({required int courseId}) {
+    return "Course/$courseId/assign";
   }
 
   static String getCycleIndicators({
@@ -104,5 +109,14 @@ class EndPoints {
       buffer.write("&CriterionId=$criterionId");
     }
     return buffer.toString();
+  }
+
+  static String coursesByDepartment({
+    required int academicYearId,
+    required int departmentId,
+    required int levelId,
+    required int semesterId,
+  }) {
+    return "Course/all?AcademicYearId=$academicYearId&DepartmentId=$departmentId&LevelId=$levelId&SemesterId=$semesterId";
   }
 }

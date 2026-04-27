@@ -20,40 +20,13 @@ class CoursesTableBuilderWidget extends StatelessWidget {
     final semester = SemesterCubit.get(context).selectedSemester;
 
     if (year != null && department != null && level != null && semester != null) {
-      CourseCubit.get(context).fetchCourses(
-        yearId: year.id,
+      CoursesCubit.get(context).getCourses(
+        academicYearId: year.id,
         departmentId: department.id,
         levelId: level.id,
         semesterId: semester.id,
       );
     }
-  }
-
-  // ── Mapping ───────────────────────────────────────────────────────────────
-
-  List<CourseItemModel> _mapCourses(BuildContext context, List<CourseModel> apiCourses) {
-    final departments = DepartmentCubit.get(context).departments;
-    final levels = LevelCubit.get(context).levels;
-    final semesters = SemesterCubit.get(context).semesters;
-
-    return apiCourses.map((course) {
-      final deptName = course.departmentId != null
-          ? (departments.where((d) => d.id == course.departmentId).firstOrNull?.name ?? '-')
-          : '-';
-
-      final levelName = levels.where((l) => l.id == course.levelId).firstOrNull?.name ?? '-';
-      final semesterName = semesters.where((s) => s.id == course.semesterId).firstOrNull?.name ?? '-';
-
-      return CourseItemModel(
-        courseId: course.id,
-        name: course.name,
-        code: course.code,
-        department: deptName,
-        level: levelName,
-        semester: semesterName,
-        doctor: course.doctorName ?? '-',
-      );
-    }).toList();
   }
 
   // ── Filtering ─────────────────────────────────────────────────────────────
@@ -85,12 +58,12 @@ class CoursesTableBuilderWidget extends StatelessWidget {
           listener: (ctx, _) => _checkAndFetch(ctx),
         ),
       ],
-      child: BlocBuilder<CourseCubit, CourseState>(
+      child: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) {
-          if (state is CourseLoading) return const _LoadingView();
-          if (state is CourseError) return _ErrorView(message: state.message);
-          if (state is CourseSuccess) {
-            final filtered = _applySearch(_mapCourses(context, state.courses));
+          if (state is CoursesLoading) return const _LoadingView();
+          if (state is CoursesFailure) return _ErrorView(message: state.error);
+          if (state is CoursesSuccess) {
+            final filtered = _applySearch(state.courses);
             if (filtered.isEmpty) return const _EmptyView(message: 'No courses found');
             return CoursesTable(courses: filtered);
           }

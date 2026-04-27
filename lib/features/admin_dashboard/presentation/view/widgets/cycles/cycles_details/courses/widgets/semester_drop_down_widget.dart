@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets/custom_base_drop_down.dart';
 import '../../../../../../../../../routing/all_routes_imports.dart';
 
@@ -10,12 +9,14 @@ class SemesterDropDownWidget extends StatefulWidget {
   final bool isExpanded;
   final ValueChanged<int>? onChanged;
   final int? selectedId;
+  final bool useCubitSelection;
   const SemesterDropDownWidget({
     super.key,
     this.height,
     this.isExpanded = true,
     this.onChanged,
     this.selectedId,
+    this.useCubitSelection = true,
   });
 
   @override
@@ -45,7 +46,7 @@ class _SemesterDropDownWidgetState extends State<SemesterDropDownWidget> {
         if (state is SemesterSuccess) {
           final semesters = state.semesters;
           final isValid = semesters.any((e) => e.id == state.selectedSemester?.id);
-          final selectedValue = widget.selectedId ?? (isValid ? state.selectedSemester?.id : null);
+          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedSemester?.id : null);
           final selectedItem = semesters.where((s) => s.id == selectedValue).firstOrNull;
 
           return CustomBaseDropDown<SemesterModel>(

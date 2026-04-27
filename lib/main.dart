@@ -20,6 +20,7 @@ void main() async {
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => LogoutCubit()),
         BlocProvider(create: (context) => CourseCubit()),
+        BlocProvider(create: (context) => CoursesCubit()),
         BlocProvider(create: (context) => CourseFolderCubit()),
         BlocProvider(create: (context) => UpdateFolderCubit()),
         BlocProvider(create: (context) => CreateFolderCubit()),

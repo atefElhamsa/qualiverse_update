@@ -120,6 +120,7 @@ class _CreateCourseDialogState extends State<CreateCourseDialog>
             height: 45.h,
             isExpanded: true,
             selectedId: _selectedDeptId,
+            useCubitSelection: false,
             onChanged: (id) => setState(() {
               _selectedDeptId = id;
               _fetchCourses();
@@ -132,6 +133,7 @@ class _CreateCourseDialogState extends State<CreateCourseDialog>
             height: 45.h,
             isExpanded: true,
             selectedId: _selectedLevelId,
+            useCubitSelection: false,
             onChanged: (id) => setState(() {
               _selectedLevelId = id;
               _fetchCourses();
@@ -144,6 +146,7 @@ class _CreateCourseDialogState extends State<CreateCourseDialog>
             height: 45.h,
             isExpanded: true,
             selectedId: _selectedSemesterId,
+            useCubitSelection: false,
             onChanged: (id) => setState(() {
               _selectedSemesterId = id;
               _fetchCourses();

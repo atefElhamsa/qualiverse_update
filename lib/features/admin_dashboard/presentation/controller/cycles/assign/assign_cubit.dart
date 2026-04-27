@@ -14,7 +14,7 @@ class AssignCubit extends Cubit<AssignState> {
     return conn != ConnectivityResult.none;
   }
 
-  Future<void> assign({
+  Future<void> assignIndicator({
     required int indicatorId,
     required String doctorId,
     required String deadline,
@@ -25,7 +25,7 @@ class AssignCubit extends Cubit<AssignState> {
     }
     emit(AssignLoading());
     try {
-      final result = await AssignService.assign(
+      final result = await AssignService.assignIndicator(
         indicatorId: indicatorId,
         doctorId: doctorId,
         deadline: deadline,
@@ -40,14 +40,58 @@ class AssignCubit extends Cubit<AssignState> {
     }
   }
 
-  Future<void> removeAssign({required int indicatorId}) async {
+  Future<void> removeAssignIndicator({required int indicatorId}) async {
     if (!await checkInternet()) {
       emit(AssignFailure(error: "checkInternet".tr()));
       return;
     }
     emit(DeleteAssignLoading());
     try {
-      final result = await AssignService.removeAssign(indicatorId: indicatorId);
+      final result = await AssignService.removeAssignIndicator(
+        indicatorId: indicatorId,
+      );
+      emit(DeleteAssignSuccess(message: result));
+    } catch (e) {
+      emit(
+        AssignFailure(
+          error: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
+
+  Future<void> assignCourse({
+    required int courseId,
+    required String doctorId,
+  }) async {
+    if (!await checkInternet()) {
+      emit(AssignFailure(error: "checkInternet".tr()));
+      return;
+    }
+    emit(AssignLoading());
+    try {
+      final result = await AssignService.assignCourse(
+        courseId: courseId,
+        doctorId: doctorId,
+      );
+      emit(AssignSuccess(message: result));
+    } catch (e) {
+      emit(
+        AssignFailure(
+          error: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
+
+  Future<void> removeAssignCourse({required int courseId}) async {
+    if (!await checkInternet()) {
+      emit(AssignFailure(error: "checkInternet".tr()));
+      return;
+    }
+    emit(DeleteAssignLoading());
+    try {
+      final result = await AssignService.removeAssignCourse(courseId: courseId);
       emit(DeleteAssignSuccess(message: result));
     } catch (e) {
       emit(

@@ -9,7 +9,7 @@ import '../../../../../../../../../routing/all_routes_imports.dart';
 
 void showDeleteCourseAssignDialog({
   required BuildContext context,
-  required CourseModel course,
+  required CourseItemModel course,
 }) {
   final cubit = context.read<AssignCubit>();
 
@@ -41,8 +41,8 @@ void _refreshCourses(BuildContext context) {
   final semester = SemesterCubit.get(context).selectedSemester;
 
   if (year != null && department != null && level != null && semester != null) {
-    CourseCubit.get(context).fetchCourses(
-      yearId: year.id,
+    CoursesCubit.get(context).getCourses(
+      academicYearId: year.id,
       departmentId: department.id,
       levelId: level.id,
       semesterId: semester.id,
@@ -53,7 +53,7 @@ void _refreshCourses(BuildContext context) {
 // ─── Dialog Widget ────────────────────────────────────────────────────────────
 
 class _DeleteCourseDialog extends StatelessWidget {
-  final CourseModel course;
+  final CourseItemModel course;
   final AssignCubit cubit;
 
   const _DeleteCourseDialog({required this.course, required this.cubit});
@@ -76,14 +76,15 @@ class _DeleteCourseDialog extends StatelessWidget {
         ),
       ),
       content: CustomText(
-        title: 'Are you sure you want to remove the assignment from "${course.name}"?',
-        textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-              color: AppColors.mainBlack,
-            ),
+        title:
+            'Are you sure you want to remove the assignment from "${course.name}"?',
+        textStyle: Theme.of(
+          context,
+        ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
       ),
       actions: [
         DeleteAndCancelButtons(
-          onPressed: () => cubit.removeAssign(indicatorId: course.id),
+          onPressed: () => cubit.removeAssignCourse(courseId: course.courseId),
         ),
       ],
     );

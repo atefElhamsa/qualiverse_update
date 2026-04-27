@@ -12,9 +12,9 @@ Widget buildCourseRow(
       children: [
         _cell(context, course.name, flex: 2),
         _cell(context, course.code),
-        _cell(context, course.department, centered: true),
-        _cell(context, course.level, centered: true),
-        _cell(context, course.semester, centered: true),
+        _cell(context, course.department.name, centered: true),
+        _cell(context, course.level.name, centered: true),
+        _cell(context, course.semester.name, centered: true),
         _cell(context, course.doctor, centered: true, flex: 2),
         Expanded(child: _courseActions(context, course)),
       ],
@@ -47,15 +47,15 @@ Widget buildCourseCard(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _infoChip(Icons.code, course.code),
-              _infoChip(Icons.business, course.department),
+              _infoChip(Icons.business, course.department.name),
             ],
           ),
           SizedBox(height: 8.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _infoChip(Icons.layers, course.level),
-              _infoChip(Icons.calendar_today, course.semester),
+              _infoChip(Icons.layers, course.level.name),
+              _infoChip(Icons.calendar_today, course.semester.name),
             ],
           ),
           SizedBox(height: 8.h),
@@ -102,35 +102,29 @@ Widget _courseActions(BuildContext context, CourseItemModel course) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Flexible(
-        child: CustomButton(
-          buttonModel: ButtonModel(
-            onPressed: () {
-              final apiCourse = CourseCubit.get(context).courses.firstWhere(
-                    (c) => c.id == course.courseId,
-                  );
-              showAssignCourseDialog(context, apiCourse);
-            },
-            backgroundColor: course.isAssigned ? AppColors.blue : AppColors.green,
-            radius: 10,
-            customText: CustomText(
-              title: course.isAssigned ? "Reassign" : "Assign",
-              textAlign: TextAlign.center,
-              textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+      if (!course.isAssigned)
+        Flexible(
+          child: CustomButton(
+            buttonModel: ButtonModel(
+              onPressed: () {
+                showAssignCourseDialog(context, course);
+              },
+              backgroundColor: AppColors.green,
+              radius: 10,
+              customText: CustomText(
+                title: "Assign",
+                textAlign: TextAlign.center,
+                textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+              ),
             ),
           ),
         ),
-      ),
-      if (course.isAssigned) ...[
-        SizedBox(width: 5.w),
+      if (course.isAssigned)
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () {
-              final apiCourse = CourseCubit.get(context).courses.firstWhere(
-                    (c) => c.id == course.courseId,
-                  );
-              showDeleteCourseAssignDialog(context: context, course: apiCourse);
+              showDeleteCourseAssignDialog(context: context, course: course);
             },
             child: Container(
               padding: const EdgeInsets.all(5),
@@ -142,7 +136,6 @@ Widget _courseActions(BuildContext context, CourseItemModel course) {
             ),
           ),
         ),
-      ],
     ],
   );
 }

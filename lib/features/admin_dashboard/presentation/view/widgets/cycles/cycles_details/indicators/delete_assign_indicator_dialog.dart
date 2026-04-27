@@ -84,7 +84,7 @@ class DeleteIndicatorDialog extends StatelessWidget {
       actions: [
         DeleteAndCancelButtons(
           onPressed: () {
-            cubit.removeAssign(indicatorId: cycleIndicator.id);
+            cubit.removeAssignIndicator(indicatorId: cycleIndicator.id);
           },
         ),
       ],

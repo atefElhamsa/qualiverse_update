@@ -15,6 +15,8 @@ export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycl
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/tabs/cycles_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/users/users_cubit.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/users/users_state.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/courses_cubit.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/courses_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/admin_dashboard_screen.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/accreditation/accreditation_content.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/admin_dashboard_body.dart';
@@ -29,7 +31,7 @@ export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cy
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/delete_course_dialog.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/courses_table_builder_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/create_course_dialog.dart';
-export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/models/course_item_model.dart';
+export 'package:qualiverse/features/admin_dashboard/data/model/course_item_model.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/courses_top_bar.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/level_drop_down_widget.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/semester_drop_down_widget.dart';

@@ -10,12 +10,14 @@ class LevelDropDownWidget extends StatefulWidget {
   final bool isExpanded;
   final ValueChanged<int>? onChanged;
   final int? selectedId;
+  final bool useCubitSelection;
   const LevelDropDownWidget({
     super.key,
     this.height,
     this.isExpanded = true,
     this.onChanged,
     this.selectedId,
+    this.useCubitSelection = true,
   });
 
   @override
@@ -45,7 +47,7 @@ class _LevelDropDownWidgetState extends State<LevelDropDownWidget> {
         if (state is LevelSuccess) {
           final levels = state.levels;
           final isValid = levels.any((e) => e.id == state.selectedLevel?.id);
-          final selectedValue = widget.selectedId ?? (isValid ? state.selectedLevel?.id : null);
+          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedLevel?.id : null);
           final selectedItem = levels.where((l) => l.id == selectedValue).firstOrNull;
 
           return CustomBaseDropDown<LevelModel>(

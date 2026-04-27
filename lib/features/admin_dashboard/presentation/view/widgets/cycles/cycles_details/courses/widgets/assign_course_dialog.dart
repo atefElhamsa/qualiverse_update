@@ -5,7 +5,7 @@ import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
 
-void showAssignCourseDialog(BuildContext context, CourseModel course) {
+void showAssignCourseDialog(BuildContext context, CourseItemModel course) {
   showDialog(
     context: context,
     builder: (_) => AssignCourseDialog(course: course),
@@ -13,7 +13,7 @@ void showAssignCourseDialog(BuildContext context, CourseModel course) {
 }
 
 class AssignCourseDialog extends StatefulWidget {
-  final CourseModel course;
+  final CourseItemModel course;
 
   const AssignCourseDialog({super.key, required this.course});
 
@@ -23,7 +23,6 @@ class AssignCourseDialog extends StatefulWidget {
 
 class _AssignCourseDialogState extends State<AssignCourseDialog> {
   UserManagementModel? _selectedDoctor;
-  DateTime? _selectedDeadline;
   bool _dropdownOpen = false;
 
   void _toggleDropdown() => setState(() => _dropdownOpen = !_dropdownOpen);
@@ -33,60 +32,15 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
     _dropdownOpen = false;
   });
 
-  Future<void> _pickDate() async {
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDeadline ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      builder: (context, child) => Theme(
-        data: Theme.of(context).copyWith(
-          colorScheme: const ColorScheme.light(
-            primary: AppColors.blue,
-            onPrimary: AppColors.white,
-            onSurface: AppColors.mainBlack,
-          ),
-          datePickerTheme: DatePickerThemeData(
-            headerHeadlineStyle: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.white,
-            ),
-            headerHelpStyle: TextStyle(
-              fontSize: 14.sp,
-              color: AppColors.white.withOpacity(0.8),
-            ),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: AppColors.blue,
-              textStyle: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        child: child!,
-      ),
-    );
-    if (picked != null) setState(() => _selectedDeadline = picked);
-  }
 
   void _onSave(BuildContext context) {
     if (_selectedDoctor == null) {
       showSnackBar(context, 'Please Select Doctor', AppColors.red);
       return;
     }
-    if (_selectedDeadline == null) {
-      showSnackBar(context, 'Please Select Deadline', AppColors.red);
-      return;
-    }
-    AssignCubit.get(context).assign(
-      indicatorId: widget.course.id,
+    AssignCubit.get(context).assignCourse(
+      courseId: widget.course.courseId,
       doctorId: _selectedDoctor!.id,
-      deadline: _selectedDeadline!.toIso8601String(),
     );
   }
 
@@ -106,8 +60,8 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
         department != null &&
         level != null &&
         semester != null) {
-      CourseCubit.get(context).fetchCourses(
-        yearId: year.id,
+      CoursesCubit.get(context).getCourses(
+        academicYearId: year.id,
         departmentId: department.id,
         levelId: level.id,
         semesterId: semester.id,
@@ -144,11 +98,6 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
                 dropdownOpen: _dropdownOpen,
                 onToggle: _toggleDropdown,
                 onSelect: _onDoctorSelected,
-              ),
-              SizedBox(height: 16.h),
-              DeadlineSection(
-                selectedDeadline: _selectedDeadline,
-                onTap: _pickDate,
               ),
             ],
           ),
