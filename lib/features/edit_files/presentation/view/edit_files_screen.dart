@@ -9,10 +9,16 @@ class EditFilesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          CourseFolderCubit()
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CourseFolderCubit()
             ..fetchCourseFolders(courseId: courseFolderArgs.courseModel.id),
+        ),
+        BlocProvider(
+          create: (context) => EvidenceFolderCubit()..fetchEvidenceFolders(),
+        ),
+      ],
       child: const MainWrapper(child: EditFilesBody()),
     );
   }

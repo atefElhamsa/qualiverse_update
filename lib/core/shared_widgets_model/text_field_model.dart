@@ -29,6 +29,9 @@ class TextFieldModel {
   // Validator function for the text field.
   final String? Function(String?)? validator;
 
+  // Callback for when the text field content changes.
+  final void Function(String)? onChanged;
+
   // Constructor for TextFieldModel.
   // All parameters except onTap, focusNode, and onFieldSubmitted are required.
   const TextFieldModel({
@@ -41,5 +44,6 @@ class TextFieldModel {
     this.focusNode,
     this.onFieldSubmitted,
     this.isObscured,
+    this.onChanged,
   });
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CreateCycleButton extends StatelessWidget {
   const CreateCycleButton({super.key});
@@ -37,7 +38,7 @@ class CreateCycleButton extends StatelessWidget {
             ),
             icon: const Icon(Icons.add, size: 25),
             label: CustomText(
-              title: 'New Cycle',
+              title: 'newCycle'.tr(),
               textStyle: Theme.of(
                 context,
               ).textTheme.headlineLarge!.copyWith(color: AppColors.white),

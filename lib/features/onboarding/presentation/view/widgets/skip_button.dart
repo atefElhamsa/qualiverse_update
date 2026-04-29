@@ -16,6 +16,9 @@ class SkipButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (currentIndex == onboardingList.length - 1) {
+      return const SizedBox.shrink();
+    }
     return Positioned(
       top: 15.h,
       right: 20.w,
@@ -28,7 +31,7 @@ class SkipButton extends StatelessWidget {
           );
         },
         child: CustomText(
-          title: currentIndex != onboardingList.length - 1 ? "skip".tr() : "",
+          title: "skip".tr(),
           textStyle: Theme.of(
             context,
           ).textTheme.titleSmall!.copyWith(color: AppColors.greyLight),

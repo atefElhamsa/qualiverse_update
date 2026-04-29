@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/utils/app_colors.dart';
 import 'package:qualiverse/core/shared_widgets/custom_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class TableColumnConfig {
   final String label;
@@ -64,7 +65,7 @@ class CustomBaseTable<T> extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 40.h),
               child: CustomText(
-                title: 'No Data Available',
+                title: 'noDataAvailable'.tr(),
                 textStyle: Theme.of(context).textTheme.headlineLarge!,
               ),
             ),

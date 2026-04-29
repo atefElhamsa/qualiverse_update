@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Widget buildAcademicYearInfo(String year) {
   return Flexible(
@@ -10,7 +11,7 @@ Widget buildAcademicYearInfo(String year) {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomText(
-          title: 'Academic Year',
+          title: 'academicYear'.tr(),
           textStyle: TextStyle(fontSize: 11.sp, color: AppColors.greyLight),
         ),
         CustomText(
@@ -44,9 +45,9 @@ Widget buildTabBar(TabController tabController) {
         fontSize: 13.sp,
         fontWeight: FontWeight.normal,
       ),
-      tabs: const [
-        Tab(text: 'From Exists'),
-        Tab(text: 'New Course'),
+      tabs: [
+        Tab(text: 'fromExists'.tr()),
+        Tab(text: 'newCourse'.tr()),
       ],
     ),
   );
@@ -152,7 +153,7 @@ Widget buildNewCourseTab(
           children: [
             Expanded(
               child: buildFormField(
-                label: 'Code',
+                label: 'code'.tr(),
                 hint: 'e.g., CS101',
                 controller: codeController,
               ),
@@ -160,8 +161,8 @@ Widget buildNewCourseTab(
             SizedBox(width: 15.w),
             Expanded(
               child: buildFormField(
-                label: 'Course Name (Arabic)',
-                hint: 'e.g., Advanced Database',
+                label: 'courseNameArabic'.tr(),
+                hint: 'courseNameExample'.tr(),
                 controller: arabicNameController,
               ),
             ),
@@ -169,8 +170,8 @@ Widget buildNewCourseTab(
         ),
         SizedBox(height: 16.h),
         buildFormField(
-          label: 'Course Name (English)',
-          hint: 'e.g., Advanced Database',
+          label: 'courseNameEnglish'.tr(),
+          hint: 'courseNameExample'.tr(),
           controller: englishNameController,
         ),
       ],

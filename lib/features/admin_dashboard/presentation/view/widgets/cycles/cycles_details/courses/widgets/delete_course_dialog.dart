@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void showDeleteCourseAssignDialog({
   required BuildContext context,
@@ -67,7 +68,7 @@ class DeleteCourseDialog extends StatelessWidget {
       alignment: Alignment.center,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       title: CustomText(
-        title: 'Remove Assignment',
+        title: 'removeAssignment'.tr(),
         textAlign: TextAlign.center,
         textStyle: GoogleFonts.inter(
           fontSize: 22.sp,
@@ -76,8 +77,7 @@ class DeleteCourseDialog extends StatelessWidget {
         ),
       ),
       content: CustomText(
-        title:
-            'Are you sure you want to remove the assignment from "${course.name}"?',
+        title: 'removeAssignmentMessage'.tr(args: [course.name]),
         textStyle: Theme.of(
           context,
         ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
@@ -144,7 +144,7 @@ class DeleteCourseEntirelyDialog extends StatelessWidget {
       alignment: Alignment.center,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
       title: CustomText(
-        title: 'Delete Course',
+        title: 'deleteCourse'.tr(),
         textAlign: TextAlign.center,
         textStyle: GoogleFonts.inter(
           fontSize: 22.sp,
@@ -153,7 +153,7 @@ class DeleteCourseEntirelyDialog extends StatelessWidget {
         ),
       ),
       content: CustomText(
-        title: 'Are you sure you want to completely delete "${course.name}"?',
+        title: 'deleteCourseMessage'.tr(args: [course.name]),
         textStyle: Theme.of(
           context,
         ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),

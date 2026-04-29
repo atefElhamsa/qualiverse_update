@@ -6,6 +6,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/documents/
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'documents_header_row.dart';
 import 'animated_doc_row.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DocumentsPage extends StatelessWidget {
   const DocumentsPage({super.key});
@@ -20,7 +21,7 @@ class DocumentsPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40),
                 child: CustomText(
-                  title: 'No Indicators Found',
+                  title: 'noIndicatorsFound'.tr(),
                   textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                     fontSize: 16.sp,
                     color: AppColors.textGrey.withOpacity(0.5),

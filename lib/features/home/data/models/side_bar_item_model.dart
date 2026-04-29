@@ -1,4 +1,5 @@
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SideBarItemModel {
   final String title;
@@ -15,38 +16,38 @@ class SideBarItemModel {
 }
 
 final List<SideBarItemModel> sideBarItems = [
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "home",
     image: AppImages.sideBarHomeImage,
     route: AppRoutes.homeScreen,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "adminDashboard",
     image: AppImages.sideBarAdminDashboardImage,
     route: AppRoutes.adminDashboardScreen,
     isAdmin: true,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "dashboard",
     image: AppImages.sideBarDashboardImage,
     route: AppRoutes.dashboardScreen,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "aiModel",
     image: AppImages.sideBarAiImage,
     route: AppRoutes.aiMainScreen,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "courseFile",
     image: AppImages.sideBarCoursesImage,
     route: AppRoutes.coursesMainScreen,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "accreditation",
     image: AppImages.sideBarAccreditationImage,
     route: AppRoutes.accreditationScreen,
   ),
-  const SideBarItemModel(
+  SideBarItemModel(
     title: "settings",
     image: AppImages.sideBarSettingImage,
     route: AppRoutes.settingScreen,

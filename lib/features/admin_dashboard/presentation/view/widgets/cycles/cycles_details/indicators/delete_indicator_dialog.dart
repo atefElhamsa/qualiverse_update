@@ -11,10 +11,6 @@ void showDeleteIndicatorDialog({
   required CycleIndicatorModel cycleIndicator,
 }) {
   final cubit = context.read<CycleIndicatorCubit>();
-  final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
-  final departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
-  final criterionId = ProgramAccreditationCubit.get(context)
-      .selectedProgramAccreditation?.id;
 
   showDialog(
     context: context,
@@ -29,24 +25,13 @@ void showDeleteIndicatorDialog({
             }
 
             if (state is CycleIndicatorDeleteSuccess) {
-              // ✅ Pop the dialog first
               Navigator.of(dialogContext).pop();
-
-              // ✅ Defer all post-pop actions to next frame
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 if (context.mounted) {
                   showSnackBar(context, state.msg, AppColors.green);
                 }
-
-                if (yearId != null &&
-                    departmentId != null &&
-                    criterionId != null) {
-                  cubit.fetchCycleIndicators(
-                    yearId: yearId,
-                    departmentId: departmentId,
-                    criterionId: criterionId,
-                  );
-                }
+                // ✅ Simple refresh
+                cubit.refresh();
               });
             }
           },

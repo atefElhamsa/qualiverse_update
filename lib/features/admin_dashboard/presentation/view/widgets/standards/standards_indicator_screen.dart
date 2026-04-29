@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,7 +35,7 @@ class StandardsIndicatorScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomText(
-            title: 'Standards & Indicators',
+            title: 'standardsAndIndicators'.tr(),
             textStyle: Theme.of(
               context,
             ).textTheme.titleLarge!.copyWith(fontSize: 25.sp),

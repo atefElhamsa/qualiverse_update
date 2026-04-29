@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NewCycleDialog extends StatelessWidget {
   final TextEditingController yearController;
@@ -32,7 +33,7 @@ class NewCycleDialog extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CustomText(
-                      title: 'Create New Cycle',
+                      title: 'createNewCycle'.tr(),
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleLarge!.copyWith(fontSize: 18.sp),
@@ -50,7 +51,7 @@ class NewCycleDialog extends StatelessWidget {
               const SizedBox(height: 20),
 
               CustomText(
-                title: 'Year :',
+                title: 'yearLabel'.tr(),
                 textStyle: Theme.of(
                   context,
                 ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
@@ -79,10 +80,9 @@ class NewCycleDialog extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 6),
-              const CustomText(
-                title:
-                    'Enter the academic year for the new accreditation cycle (e.g., 2026)',
-                textStyle: TextStyle(fontSize: 12, color: Color(0xFF9999AA)),
+              CustomText(
+                title: 'newCycleHelper'.tr(),
+                textStyle: const TextStyle(fontSize: 12, color: Color(0xFF9999AA)),
               ),
               const SizedBox(height: 24),
               Row(
@@ -102,7 +102,7 @@ class NewCycleDialog extends StatelessWidget {
                       ),
                     ),
                     child: CustomText(
-                      title: 'Cancel',
+                      title: 'cancel'.tr(),
                       textStyle: Theme.of(context).textTheme.titleMedium!,
                     ),
                   ),
@@ -120,7 +120,7 @@ class NewCycleDialog extends StatelessWidget {
                       ),
                     ),
                     child: CustomText(
-                      title: 'Create Cycle',
+                      title: 'createCycle'.tr(),
                       textStyle: Theme.of(
                         context,
                       ).textTheme.titleMedium!.copyWith(color: AppColors.white),

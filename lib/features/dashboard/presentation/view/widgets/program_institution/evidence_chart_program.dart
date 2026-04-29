@@ -6,6 +6,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/evidence/e
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_state.dart';
 import 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidenceChartProgram extends StatelessWidget {
   const EvidenceChartProgram({super.key});
@@ -32,7 +33,7 @@ class EvidenceChartProgram extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: SfCartesianChart(
             title: ChartTitle(
-              text: 'Evidence Per Criterion',
+              text: 'evidencePerCriterion'.tr(),
               textStyle: Theme.of(
                 context,
               ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
@@ -44,7 +45,7 @@ class EvidenceChartProgram extends StatelessWidget {
                 : AppColors.mainBlack,
             primaryXAxis: CategoryAxis(
               title: AxisTitle(
-                text: 'Criterion Name',
+                text: 'criterionName'.tr(),
                 textStyle: Theme.of(
                   context,
                 ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
@@ -91,7 +92,7 @@ class EvidenceChartProgram extends StatelessWidget {
     if (state.showPending) {
       series.add(
         StackedBarSeries<EvidenceDataModel, String>(
-          name: 'Pending Evidence',
+          name: 'pendingEvidence'.tr(),
           dataSource: state.data,
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.pending,
@@ -104,7 +105,7 @@ class EvidenceChartProgram extends StatelessWidget {
     if (state.showReviewed) {
       series.add(
         StackedBarSeries<EvidenceDataModel, String>(
-          name: 'Reviewed Evidence',
+          name: 'reviewedEvidence'.tr(),
           dataSource: state.data,
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.reviewed,
@@ -117,7 +118,7 @@ class EvidenceChartProgram extends StatelessWidget {
     if (state.showRejected) {
       series.add(
         StackedBarSeries<EvidenceDataModel, String>(
-          name: 'Rejected Evidence',
+          name: 'rejectedEvidence'.tr(),
           dataSource: state.data,
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.rejected,

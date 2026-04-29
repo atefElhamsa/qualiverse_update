@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildHeader extends StatelessWidget {
   const BuildHeader({super.key});
@@ -17,20 +18,20 @@ class BuildHeader extends StatelessWidget {
         children: [
           Expanded(
             child: CustomText(
-              title: 'Standard',
+              title: 'standard'.tr(),
               textStyle: Theme.of(context).textTheme.titleMedium!,
             ),
           ),
           Expanded(
             child: CustomText(
-              title: 'Indicator',
+              title: 'indicator'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(context).textTheme.titleMedium!,
             ),
           ),
           Expanded(
             child: CustomText(
-              title: 'Statues',
+              title: 'statues'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(context).textTheme.titleMedium!,
             ),

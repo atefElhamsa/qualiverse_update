@@ -11,6 +11,7 @@ class CreateFolderCubit extends Cubit<CreateFolderState> {
       BlocProvider.of<CreateFolderCubit>(context);
 
   final newFolderNameController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   Future<void> createFolder({required int courseId}) async {
     final folderName = newFolderNameController.text.trim();

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/all_core_imports/all_core_imports.dart';
@@ -19,7 +20,7 @@ class BuildStatusBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: CustomText(
-        title: status,
+        title: status.tr(),
         textStyle: const TextStyle(
           color: Colors.white,
           fontSize: 12,

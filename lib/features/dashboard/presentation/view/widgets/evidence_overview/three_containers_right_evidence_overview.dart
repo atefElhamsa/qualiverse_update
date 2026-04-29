@@ -22,14 +22,14 @@ class ThreeContainersRightEvidenceOverview extends StatelessWidget {
 
         final data = [
           {
-            "title": "reviewed_evidence",
+            "title": "reviewedEvidence",
             "count": overview?.approvedIndicators ?? 0,
           },
           {
-            "title": "pending_evidence",
+            "title": "pendingEvidence",
             "count": overview?.pendingIndicators ?? 0,
           },
-          {"title": "total_evidence", "count": overview?.totalIndicators ?? 0},
+          {"title": "totalEvidence", "count": overview?.totalIndicators ?? 0},
         ];
 
         return Column(

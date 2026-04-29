@@ -85,4 +85,7 @@ class AppRoutes {
 
   // Route for the analysis files screen
   static const String analysisFilesScreen = '/analysis_files';
+
+  // Route for the evidence folder files screen
+  static const String evidenceFolderFilesScreen = '/evidence_folder_files';
 }

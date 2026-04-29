@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class UserManagementScreen extends StatefulWidget {
   const UserManagementScreen({super.key});
@@ -66,7 +67,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomText(
-              title: 'User Management',
+              title: 'userManagement'.tr(),
               textStyle: Theme.of(
                 context,
               ).textTheme.titleLarge!.copyWith(fontSize: 25.sp),
@@ -97,7 +98,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
         controller: searchController,
         onChanged: (val) => setState(() => searchQuery = val),
         decoration: InputDecoration(
-          hintText: 'Search user',
+          hintText: 'searchUser'.tr(),
           hintStyle: const TextStyle(fontSize: 13, color: Colors.grey),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
           border: outlineBorder(),
@@ -122,7 +123,12 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           icon: const Icon(Icons.keyboard_arrow_down, size: 18),
           style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
           items: roles
-              .map((role) => DropdownMenuItem(value: role, child: Text(role)))
+              .map((role) => DropdownMenuItem(
+                    value: role,
+                    child: Text(
+                      role == 'All' ? 'all'.tr() : (role + "Role").tr(),
+                    ),
+                  ))
               .toList(),
           onChanged: (val) => setState(() => selectedRole = val!),
         ),
@@ -173,11 +179,11 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
         children: [
           const UserTableHeader(),
           if (users.isEmpty)
-            const Padding(
-              padding: EdgeInsets.all(24),
+            Padding(
+              padding: const EdgeInsets.all(24),
               child: Text(
-                'No users found',
-                style: TextStyle(color: Colors.grey),
+                'noUsersFound'.tr(),
+                style: const TextStyle(color: Colors.grey),
               ),
             )
           else

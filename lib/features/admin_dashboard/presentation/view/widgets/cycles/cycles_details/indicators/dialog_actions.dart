@@ -35,7 +35,7 @@ class DialogActions extends StatelessWidget {
             backgroundColor: AppColors.blue,
             radius: 10,
             customText: CustomText(
-              title: isLoading ? 'Saving...' : 'Save',
+              title: isLoading ? 'saving'.tr() : 'save'.tr(),
               textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontSize: 15.sp,
                 color: AppColors.white,

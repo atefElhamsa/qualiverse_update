@@ -14,23 +14,23 @@ class OnboardingModel {
 
 List<OnboardingModel> onboardingList = [
   OnboardingModel(
-    title: "onboarding_page_1_title",
-    description: "onboarding_page_1_desc",
+    title: "onboardingPage1Title",
+    description: "onboardingPage1Desc",
     image: AppImages.projectDefinitionOnboarding,
   ),
   OnboardingModel(
-    title: "onboarding_page_2_title",
-    description: "onboarding_page_2_desc",
+    title: "onboardingPage2Title",
+    description: "onboardingPage2Desc",
     image: AppImages.academicImageOnboarding,
   ),
   OnboardingModel(
-    title: "onboarding_page_3_title",
-    description: "onboarding_page_3_desc",
+    title: "onboardingPage3Title",
+    description: "onboardingPage3Desc",
     image: AppImages.courseImageOnboarding,
   ),
   OnboardingModel(
-    title: "onboarding_page_4_title",
-    description: "onboarding_page_4_desc",
+    title: "onboardingPage4Title",
+    description: "onboardingPage4Desc",
     image: AppImages.performanceImageOnboarding,
   ),
 ];

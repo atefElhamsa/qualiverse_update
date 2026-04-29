@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CyclesItemWidget extends StatelessWidget {
   const CyclesItemWidget({
@@ -60,7 +61,7 @@ class CyclesItemWidget extends StatelessWidget {
                     ),
                   ),
                   child: CustomText(
-                    title: 'View',
+                    title: 'view'.tr(),
                     textStyle: Theme.of(
                       context,
                     ).textTheme.titleMedium!.copyWith(fontSize: 13.sp),

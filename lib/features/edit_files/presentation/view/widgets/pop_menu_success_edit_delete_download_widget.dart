@@ -93,9 +93,6 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
               ),
             );
             break;
-          case 'download':
-            debugPrint("Download");
-            break;
           case 'edit':
             final folderId = CourseFolderCubit.get(
               context,
@@ -165,11 +162,6 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
           value: 'delete',
           icon: Icons.delete_outline,
           text: 'delete',
-        ),
-        buildMenuItem(
-          value: 'download',
-          icon: Icons.download,
-          text: 'download',
         ),
         buildMenuItem(value: 'edit', icon: Icons.edit, text: 'edit'),
       ],

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_cubit.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidenceLegend extends StatelessWidget {
   const EvidenceLegend({super.key});
@@ -20,7 +21,7 @@ class EvidenceLegend extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CustomText(
-              title: 'Status',
+              title: 'status'.tr(),
               textStyle: GoogleFonts.inter(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,

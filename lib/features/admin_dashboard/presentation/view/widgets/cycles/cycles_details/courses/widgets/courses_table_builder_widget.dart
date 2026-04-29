@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,12 +68,12 @@ class CoursesTableBuilderWidget extends StatelessWidget {
           if (state is CoursesSuccess) {
             final filtered = applySearch(state.courses);
             if (filtered.isEmpty) {
-              return const EmptyView(message: 'No courses found');
+              return EmptyView(message: 'noCoursesFound'.tr());
             }
             return CoursesTable(courses: filtered);
           }
-          return const EmptyView(
-            message: 'Select department, level, and semester to view courses',
+          return EmptyView(
+            message: 'selectCourseFilters'.tr(),
           );
         },
       ),

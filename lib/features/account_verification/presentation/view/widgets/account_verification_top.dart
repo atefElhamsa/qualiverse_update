@@ -18,7 +18,7 @@ class AccountVerificationTop extends StatelessWidget {
       child: Row(
         children: [
           CustomText(
-            title: "account_verification".tr(),
+            title: "accountVerification".tr(),
             textStyle: Theme.of(
               context,
             ).textTheme.headlineLarge!.copyWith(fontSize: 36.sp),

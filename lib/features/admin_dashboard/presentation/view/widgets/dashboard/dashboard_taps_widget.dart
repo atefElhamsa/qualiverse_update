@@ -48,7 +48,7 @@ class DashboardTapsWidget extends StatelessWidget {
                 ),
               ),
               CustomText(
-                title: "350",
+                title: "350".tr(),
                 textAlign: TextAlign.center,
                 textStyle: Theme.of(context).textTheme.bodyMedium!,
               ),

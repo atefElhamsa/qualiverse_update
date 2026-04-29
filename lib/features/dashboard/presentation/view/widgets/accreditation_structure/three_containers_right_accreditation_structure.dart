@@ -22,11 +22,11 @@ class ThreeContainersRightAccreditationStructure extends StatelessWidget {
 
         final data = [
           {
-            "title": "total_indicators",
+            "title": "totalIndicators",
             "count": structure?.totalIndicators ?? 0,
           },
-          {"title": "total_criteria", "count": structure?.totalCriteria ?? 0},
-          {"title": "total_courses", "count": structure?.totalCourses ?? 0},
+          {"title": "totalCriteria", "count": structure?.totalCriteria ?? 0},
+          {"title": "totalCourses", "count": structure?.totalCourses ?? 0},
         ];
 
         return Column(

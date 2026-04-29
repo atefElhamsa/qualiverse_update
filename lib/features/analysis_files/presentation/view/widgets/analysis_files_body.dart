@@ -12,8 +12,6 @@ class AnalysisFilesBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AnalysisFilesTopAndTitle(),
-          AnalysisFilesNewButton(),
-          SizedBox(height: 20),
           EvidenceFoldersList(),
           SizedBox(height: 20),
         ],

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 import 'package:qualiverse/routing/app_routes.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CourseSpecificationFirstTermBody extends StatelessWidget {
   const CourseSpecificationFirstTermBody({super.key});
@@ -22,7 +23,7 @@ class CourseSpecificationFirstTermBody extends StatelessWidget {
             padding: EdgeInsets.only(top: 50.h, bottom: 10.w),
             child: FirstAndSecondTermButton(
               mainAxisAlignment: MainAxisAlignment.end,
-              title: "secondTerm",
+              title: "secondterm".tr(),
               onPressed: () {
                 context.pushNamed(
                   AppRoutes.courseSpecificationSecondTermScreen,

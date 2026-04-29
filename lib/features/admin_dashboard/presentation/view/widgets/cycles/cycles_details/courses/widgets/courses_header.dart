@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
@@ -16,13 +17,13 @@ class CoursesHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _cell(context, 'Course Name', flex: 2),
-          _cell(context, 'Code'),
-          _cell(context, 'Dept', centered: true),
-          _cell(context, 'Level', centered: true),
-          _cell(context, 'Semester', centered: true),
-          _cell(context, 'Assigned Doctor', centered: true, flex: 2),
-          _cell(context, 'Action', centered: true),
+          _cell(context, 'courseName'.tr(), flex: 2),
+          _cell(context, 'courseCode'.tr()),
+          _cell(context, 'dept'.tr(), centered: true),
+          _cell(context, 'level'.tr(), centered: true),
+          _cell(context, 'semester'.tr(), centered: true),
+          _cell(context, 'assignedDoctor'.tr(), centered: true, flex: 2),
+          _cell(context, 'action'.tr(), centered: true),
         ],
       ),
     );

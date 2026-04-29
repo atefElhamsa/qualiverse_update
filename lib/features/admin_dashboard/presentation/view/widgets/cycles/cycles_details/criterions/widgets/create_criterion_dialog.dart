@@ -6,6 +6,7 @@ import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/create_criterion_dialog_widgets.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import '../../courses/widgets/department_drop_down_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void showCreateCriterionDialog(BuildContext context) {
   showDialog(
@@ -116,7 +117,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
         '2025';
 
     return CustomDialog(
-      title: 'Create New Criterion',
+      title: 'createNewCriterion'.tr(),
       maxWidth: 600.w,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -128,7 +129,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildLabelWithAsterisk('Accreditation Type'),
+                    buildLabelWithAsterisk('accreditationType'.tr()),
                     SizedBox(height: 8.h),
                     BlocBuilder<TypesCubit, TypesState>(
                       builder: (context, state) {
@@ -144,7 +145,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
                               types
                                   .where((t) => t.id == selectedTypeId)
                                   .firstOrNull,
-                          hint: 'Select Type',
+                          hint: 'selectType'.tr(),
                           height: 45.h,
                           onChanged: (val) => _onTypeChanged(val as int?),
                         );
@@ -158,7 +159,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildLabel('Department'),
+                    buildLabel('department'.tr()),
                     SizedBox(height: 8.h),
                     CoursesDepartmentDropDownWidget(
                       height: 45.h,
@@ -174,7 +175,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
           ),
           SizedBox(height: 16.h),
           CustomText(
-            title: 'Academic Year: $academicYear',
+            title: '${'academicYear'.tr()}: $academicYear',
             textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontSize: 14.sp,
               fontWeight: FontWeight.w500,
@@ -201,7 +202,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
       ),
       actions: [
         buildActionButton(
-          title: 'Cancel',
+          title: 'cancel'.tr(),
           onPressed: () => Navigator.pop(context),
           backgroundColor: const Color(0xFFE5E7EB),
           textColor: AppColors.mainBlack,
@@ -223,7 +224,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
             }
           },
           child: buildActionButton(
-            title: 'Create Criterion',
+            title: 'createCriterion'.tr(),
             onPressed: () => handleCreateCriterion(context),
             backgroundColor: const Color(0xFF2C3E8A),
             textColor: AppColors.white,
@@ -238,7 +239,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildLabelWithAsterisk('Select Criterion'),
+        buildLabelWithAsterisk('selectCriterion'.tr()),
         SizedBox(height: 8.h),
         BlocBuilder<CriterionsCubit, CriterionsState>(
           builder: (context, state) {
@@ -254,7 +255,7 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
               itemLabelBuilder: (c) => c.name,
               itemValueBuilder: (c) => c,
               value: selectedTemplate,
-              hint: 'Select Criterion',
+              hint: 'selectCriterion'.tr(),
               isLoading: isLoadingTemplates,
               height: 45.h,
               onChanged: (val) => setState(

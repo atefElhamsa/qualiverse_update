@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,7 +27,7 @@ class BuildRow extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomText(
-                  title: item.standard,
+                  title: item.standard.tr(),
                   textStyle: Theme.of(
                     context,
                   ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
@@ -34,7 +35,7 @@ class BuildRow extends StatelessWidget {
               ),
               Expanded(
                 child: CustomText(
-                  title: item.indicator,
+                  title: item.indicator.tr(),
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SettingsContent extends StatelessWidget {
   const SettingsContent({super.key});

@@ -11,11 +11,20 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
 
   List<CycleIndicatorModel> cycleIndicators = [];
 
+  int? _lastYearId;
+  int? _lastDepartmentId;
+  int? _lastCriterionId;
+
   Future<void> fetchCycleIndicators({
     required int yearId,
     int? departmentId,
     int? criterionId,
   }) async {
+    // ✅ Cache params for later refresh
+    _lastYearId = yearId;
+    _lastDepartmentId = departmentId;
+    _lastCriterionId = criterionId;
+
     emit(CycleIndicatorLoading());
     try {
       final data = await CyclesIndicatorService.getCycleIndicators(
@@ -35,6 +44,16 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
         emit(CycleIndicatorError(error: 'Something went wrong'));
       }
     }
+  }
+
+  /// Re-fetches using the last used params — call this after any mutation.
+  Future<void> refresh() async {
+    if (_lastYearId == null) return;
+    await fetchCycleIndicators(
+      yearId: _lastYearId!,
+      departmentId: _lastDepartmentId,
+      criterionId: _lastCriterionId,
+    );
   }
 
   Future<void> deleteCycleIndicator({required int indicatorId}) async {

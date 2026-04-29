@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,7 +28,7 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: CustomText(
-                          title: tab.name.capitalizeFirst(),
+                          title: tab.name.tr(),
                           textStyle: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: isSelected
@@ -44,9 +45,7 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeInOut,
                         height: 3,
-                        width: isSelected
-                            ? getTextWidth(tab.name.capitalizeFirst())
-                            : 0,
+                        width: isSelected ? getTextWidth(tab.name.tr()) : 0,
                         decoration: BoxDecoration(
                           color: AppColors.blue,
                           borderRadius: BorderRadius.circular(10.r),

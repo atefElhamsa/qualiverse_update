@@ -6,6 +6,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/courses_pe
 import 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'department_bars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CoursesPerDepartmentView extends StatelessWidget {
   const CoursesPerDepartmentView({super.key});
@@ -43,7 +44,7 @@ class CoursesPerDepartmentView extends StatelessWidget {
             children: [
               // Title
               CustomText(
-                title: 'Courses per Department',
+                title: 'coursesPerDepartment'.tr(),
                 textStyle: Theme.of(
                   context,
                 ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
@@ -56,7 +57,7 @@ class CoursesPerDepartmentView extends StatelessWidget {
                   RotatedBox(
                     quarterTurns: 3,
                     child: CustomText(
-                      title: 'Count of Courses Name',
+                      title: 'countOfCoursesName'.tr(),
                       textStyle: Theme.of(
                         context,
                       ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),

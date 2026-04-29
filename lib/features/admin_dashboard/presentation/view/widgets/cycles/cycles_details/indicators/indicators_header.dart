@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class IndicatorsHeader extends StatelessWidget {
   const IndicatorsHeader({super.key});
@@ -19,7 +20,7 @@ class IndicatorsHeader extends StatelessWidget {
         children: [
           Expanded(
             child: CustomText(
-              title: 'Indicators Name',
+              title: 'indicatorsName'.tr(),
               textStyle: Theme.of(
                 context,
               ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
@@ -28,7 +29,7 @@ class IndicatorsHeader extends StatelessWidget {
           Expanded(
             flex: 2,
             child: CustomText(
-              title: 'Description',
+              title: 'description'.tr(),
               textStyle: Theme.of(
                 context,
               ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
@@ -37,7 +38,7 @@ class IndicatorsHeader extends StatelessWidget {
           ),
           Expanded(
             child: CustomText(
-              title: 'Assigned Doctor',
+              title: 'assignedDoctor'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,
@@ -46,7 +47,7 @@ class IndicatorsHeader extends StatelessWidget {
           ),
           Expanded(
             child: CustomText(
-              title: 'Dead line',
+              title: 'deadline'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,
@@ -55,7 +56,7 @@ class IndicatorsHeader extends StatelessWidget {
           ),
           Expanded(
             child: CustomText(
-              title: 'Status',
+              title: 'status'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,
@@ -65,7 +66,7 @@ class IndicatorsHeader extends StatelessWidget {
           Expanded(
             flex: 2,
             child: CustomText(
-              title: 'Action',
+              title: 'action'.tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RapporteurReportSecondTermBody extends StatelessWidget {
   const RapporteurReportSecondTermBody({super.key});
@@ -20,7 +21,7 @@ class RapporteurReportSecondTermBody extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 50.h, bottom: 10.w),
             child: FirstAndSecondTermButton(
-              title: "firstTerm",
+              title: "firstTerm".tr(),
               mainAxisAlignment: MainAxisAlignment.end,
               onPressed: () {
                 context.pop();

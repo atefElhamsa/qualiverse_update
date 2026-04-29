@@ -5,6 +5,7 @@ import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/create_criterion_dialog_widgets.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/indicators/cycle_indicator_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void showAddIndicatorDialog(BuildContext context, CriterionItemModel criterion) {
   showDialog(
@@ -41,7 +42,7 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
         descArController.text.isEmpty ||
         nameEnController.text.isEmpty ||
         descEnController.text.isEmpty) {
-      showSnackBar(context, 'Please fill all fields', AppColors.red);
+      showSnackBar(context, 'pleaseFillAllFields'.tr(), AppColors.red);
       return;
     }
 
@@ -61,33 +62,33 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
         '2025';
 
     return CustomDialog(
-      title: 'Add Indicator',
+      title: 'addIndicator'.tr(),
       maxWidth: 700.w,
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildReadonlyInfo('Academic Year', academicYear),
-            _buildReadonlyInfo('Accreditation Type', widget.criterion.accreditation),
-            _buildReadonlyInfo('Department', widget.criterion.department.isEmpty ? '--' : widget.criterion.department),
-            _buildReadonlyInfo('Criterion Name', widget.criterion.name),
+            _buildReadonlyInfo('academicYear'.tr(), academicYear),
+            _buildReadonlyInfo('accreditationType'.tr(), widget.criterion.accreditation),
+            _buildReadonlyInfo('department'.tr(), widget.criterion.department.isEmpty ? '--' : widget.criterion.department),
+            _buildReadonlyInfo('criterionName'.tr(), widget.criterion.name),
             Divider(height: 32.h, color: AppColors.grey.withOpacity(0.2)),
             
             Row(
               children: [
                 Expanded(
                   child: buildFormField(
-                    label: 'Indicator Name (Arabic)',
-                    hint: 'اسم المؤشر بالعربية',
+                    label: 'indicatorNameArabic'.tr(),
+                    hint: 'indicatorNameArabicHint'.tr(),
                     controller: nameArController,
                   ),
                 ),
                 SizedBox(width: 16.w),
                 Expanded(
                   child: buildFormField(
-                    label: 'Indicator Name (English)',
-                    hint: 'Indicator Name in English',
+                    label: 'indicatorNameEnglish'.tr(),
+                    hint: 'indicatorNameEnglishHint'.tr(),
                     controller: nameEnController,
                   ),
                 ),
@@ -98,8 +99,8 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
               children: [
                 Expanded(
                   child: buildFormField(
-                    label: 'Description (Arabic)',
-                    hint: 'وصف المؤشر بالعربية',
+                    label: 'descriptionArabic'.tr(),
+                    hint: 'descriptionArabicHint'.tr(),
                     controller: descArController,
                     maxLines: 3,
                     height: 100.h,
@@ -108,8 +109,8 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
                 SizedBox(width: 16.w),
                 Expanded(
                   child: buildFormField(
-                    label: 'Description (English)',
-                    hint: 'Indicator Description in English',
+                    label: 'descriptionEnglish'.tr(),
+                    hint: 'descriptionEnglishHint'.tr(),
                     controller: descEnController,
                     maxLines: 3,
                     height: 100.h,
@@ -122,7 +123,7 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
       ),
       actions: [
         buildActionButton(
-          title: 'Cancel',
+          title: 'cancel'.tr(),
           onPressed: () => Navigator.pop(context),
           backgroundColor: const Color(0xFFE5E7EB),
           textColor: AppColors.mainBlack,
@@ -138,7 +139,7 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
             }
           },
           child: buildActionButton(
-            title: 'Add Indicator',
+            title: 'addIndicator'.tr(),
             onPressed: handleAddIndicator,
             backgroundColor: const Color(0xFF2C3E8A),
             textColor: AppColors.white,

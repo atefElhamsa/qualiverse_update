@@ -13,10 +13,10 @@ class CompletionChart extends StatefulWidget {
 
 class _CompletionChartState extends State<CompletionChart> {
   final List<ChartData> data = [
-    ChartData('IS', 50),
-    ChartData('IT', 65),
-    ChartData('CS', 70),
-    ChartData('AI', 80),
+    ChartData('informationSystems', 50),
+    ChartData('informationTechnology', 65),
+    ChartData('computerScience', 70),
+    ChartData('artificialIntelligence', 80),
   ];
 
   @override
@@ -84,7 +84,7 @@ class _CompletionChartState extends State<CompletionChart> {
           series: <CartesianSeries>[
             ColumnSeries<ChartData, String>(
               dataSource: data,
-              xValueMapper: (ChartData d, _) => d.label,
+              xValueMapper: (ChartData d, _) => d.label.tr(),
               yValueMapper: (ChartData d, _) => d.value,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(6),

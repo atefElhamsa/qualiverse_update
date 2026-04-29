@@ -68,7 +68,7 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
                       (department) => DropdownMenuItem<int>(
                         value: department.id,
                         child: Text(
-                          department.name,
+                          department.name.tr(),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

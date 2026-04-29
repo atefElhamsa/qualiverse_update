@@ -26,7 +26,9 @@ class UpdateAndCancelButtons extends StatelessWidget {
               CustomButton(
                 buttonModel: ButtonModel(
                   onPressed: () {
-                    updateFolderCubit.updateFolder(folderId: folderId);
+                    if (updateFolderCubit.formKey.currentState!.validate()) {
+                      updateFolderCubit.updateFolder(folderId: folderId);
+                    }
                   },
                   backgroundColor: AppColors.green,
                   radius: 20,

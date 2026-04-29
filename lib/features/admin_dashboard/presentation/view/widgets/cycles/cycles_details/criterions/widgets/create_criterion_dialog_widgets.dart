@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Widget buildLabelWithAsterisk(String label) {
   return RichText(
@@ -50,9 +51,9 @@ Widget buildTabBar(TabController tabController) {
         fontSize: 14.sp,
         fontWeight: FontWeight.normal,
       ),
-      tabs: const [
-        Tab(text: 'From Exists'),
-        Tab(text: 'new'),
+      tabs: [
+        Tab(text: 'fromExists'.tr()),
+        Tab(text: 'new1'.tr()),
       ],
     ),
   );
@@ -131,14 +132,14 @@ Widget buildNewCriterionTab(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       buildFormField(
-        label: 'Criterion Name (Arabic)',
-        hint: 'مثل: تصميم المناهج',
+        label: 'criterionNameArabic'.tr(),
+        hint: 'criterionNameArabicExample'.tr(),
         controller: arabicNameController,
       ),
       SizedBox(height: 16.h),
       buildFormField(
-        label: 'Criterion Name (English)',
-        hint: 'e.g., Curriculum Design',
+        label: 'criterionNameEnglish'.tr(),
+        hint: 'criterionNameEnglishExample'.tr(),
         controller: englishNameController,
       ),
     ],

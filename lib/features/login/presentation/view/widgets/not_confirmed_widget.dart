@@ -21,7 +21,7 @@ class NotConfirmedWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomText(
-            title: "not_confirmed_yet".tr(),
+            title: "notConfirmedYet".tr(),
             textStyle: GoogleFonts.inter(
               fontSize: 16.sp,
               fontWeight: FontWeight.w400,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'evidence_folders_section.dart';
 
 class EditFilesBody extends StatelessWidget {
   const EditFilesBody({super.key});
@@ -14,6 +15,7 @@ class EditFilesBody extends StatelessWidget {
           EditFilesTopAndTitle(),
           EditFilesNewButton(),
           SizedBox(height: 20),
+          EvidenceFoldersSection(),
           EditFilesList(),
           SizedBox(height: 20),
         ],

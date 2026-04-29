@@ -6,6 +6,7 @@ import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
 import 'create_course_dialog_widgets.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void showCreateCourseDialog(BuildContext context) {
   showDialog(
@@ -132,7 +133,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   @override
   Widget build(BuildContext context) {
     return CustomDialog(
-      title: 'Create Course',
+      title: 'createCourse'.tr(),
       maxWidth: 700.w,
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -160,7 +161,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
       ),
       actions: [
         buildActionButton(
-          title: 'Cancel',
+          title: 'cancel'.tr(),
           onPressed: () => Navigator.pop(context),
           backgroundColor: AppColors.grey.withOpacity(0.1),
           textColor: AppColors.mainBlack,
@@ -178,7 +179,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
             }
           },
           child: buildActionButton(
-            title: 'Create Course',
+            title: 'createCourse'.tr(),
             onPressed: () => handleCreateCourse(context),
             backgroundColor: AppColors.blue,
             textColor: AppColors.white,
@@ -246,7 +247,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildLabel('Select Course'),
+        buildLabel('selectCourse'.tr()),
         SizedBox(height: 10.h),
         BlocBuilder<TemplateCubit, TemplateState>(
           builder: (context, state) {
@@ -265,7 +266,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
               itemLabelBuilder: (template) => template.name,
               itemValueBuilder: (template) => template,
               value: selectedTemplate,
-              hint: 'Select Template',
+              hint: 'selectTemplate'.tr(),
               isLoading: isLoading,
               prefixIcon: Icon(
                 Icons.search,

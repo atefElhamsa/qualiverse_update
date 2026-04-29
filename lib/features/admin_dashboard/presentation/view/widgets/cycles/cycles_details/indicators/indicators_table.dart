@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // class IndicatorsTable extends StatefulWidget {
 //   const IndicatorsTable({super.key});
@@ -48,7 +49,7 @@ import '../../../../../../../../routing/all_routes_imports.dart';
 //           return cycleIndicators.isEmpty
 //               ? Center(
 //                   child: CustomText(
-//                     title: 'No Indicators',
+//                     title: 'noIndicators'.tr(),
 //                     textStyle: Theme.of(context).textTheme.headlineLarge!,
 //                   ),
 //                 )
@@ -120,7 +121,7 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
           return cycleIndicators.isEmpty
               ? Center(
                   child: CustomText(
-                    title: 'No Indicators',
+                    title: 'noIndicators'.tr(),
                     textStyle: Theme.of(context).textTheme.headlineLarge!,
                   ),
                 )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CreateIndicatorsButton extends StatelessWidget {
   const CreateIndicatorsButton({super.key});
@@ -24,7 +25,7 @@ class CreateIndicatorsButton extends StatelessWidget {
           ),
           icon: const Icon(Icons.add, size: 25),
           label: CustomText(
-            title: 'Create Indicators',
+            title: 'createIndicators'.tr(),
             textStyle: Theme.of(
               context,
             ).textTheme.headlineLarge!.copyWith(color: AppColors.white),

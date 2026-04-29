@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NotificationItemWidget extends StatelessWidget {
   const NotificationItemWidget({super.key});
@@ -23,7 +24,7 @@ class NotificationItemWidget extends StatelessWidget {
         children: [
           Expanded(
             child: CustomText(
-              title: "John Doe",
+              title: "johnDoe".tr(),
               textStyle: GoogleFonts.inter(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w400,

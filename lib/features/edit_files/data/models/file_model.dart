@@ -1,4 +1,4 @@
-import '../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FileResponse {
   final List<FileModel>? files;

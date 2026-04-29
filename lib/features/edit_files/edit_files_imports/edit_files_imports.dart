@@ -32,3 +32,7 @@ export 'package:qualiverse/features/edit_files/presentation/view/widgets/pop_men
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/show_create_folder_dialog.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/update_and_cancel_buttons.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/update_folder_field.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/folder_files/folder_files_screen.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/folder_files/folder_files_parts.dart';
+export 'package:qualiverse/features/edit_files/presentation/controller/folder_files/folder_files_cubit.dart';
+export 'package:qualiverse/features/edit_files/presentation/controller/folder_files/folder_files_state.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DialogHeader extends StatelessWidget {
   const DialogHeader({super.key, required this.onClose});
@@ -14,7 +15,7 @@ class DialogHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomText(
-          title: 'Assign Indicator',
+          title: 'assignIndicator'.tr(),
           textStyle: Theme.of(
             context,
           ).textTheme.titleLarge!.copyWith(fontSize: 18.sp),

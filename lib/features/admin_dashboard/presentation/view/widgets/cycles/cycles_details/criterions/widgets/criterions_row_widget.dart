@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'add_indicator_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CriterionsRowWidget extends StatefulWidget {
   final CriterionItemModel criterion;
@@ -181,7 +182,7 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                   borderRadius: BorderRadius.circular(15.r),
                 ),
                 child: CustomText(
-                  title: _isEnabled ? 'Enabled' : 'Disabled',
+                  title: _isEnabled ? 'enabled'.tr() : 'disabled'.tr(),
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 12.sp,
                     color: AppColors.white,
@@ -196,28 +197,6 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12.w,
-                        vertical: 6.h,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF2C3E8A),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                      child: CustomText(
-                        title: 'Edit',
-                        textStyle: Theme.of(context).textTheme.titleMedium!
-                            .copyWith(fontSize: 12.sp, color: AppColors.white),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8.w),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: SizedBox(

@@ -19,7 +19,7 @@ class DeadlineSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionLabel(title: 'Deadline'),
+        SectionLabel(title: 'deadline'.tr()),
         SizedBox(height: 8.h),
         GestureDetector(
           onTap: onTap,
@@ -35,7 +35,7 @@ class DeadlineSection extends StatelessWidget {
                 CustomText(
                   title: selectedDeadline != null
                       ? DateFormat('d-MM-yyyy').format(selectedDeadline!)
-                      : 'Select Deadline',
+                      : 'selectDeadline'.tr(),
                   textStyle: Theme.of(
                     context,
                   ).textTheme.bodyMedium!.copyWith(fontSize: 14.sp),

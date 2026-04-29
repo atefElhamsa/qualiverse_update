@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +9,33 @@ void showAssignDialog(
   BuildContext context,
   CycleIndicatorModel cycleIndicator,
 ) {
+  final cubit = AssignCubit.get(context);
+  final indicatorCubit = CycleIndicatorCubit.get(context);
+  final outerContext = context;
+
   showDialog(
     context: context,
-    builder: (dialogContext) =>
-        AssignIndicatorDialog(cycleIndicator: cycleIndicator),
+    builder: (dialogContext) => BlocProvider.value(
+      value: cubit,
+      child: BlocListener<AssignCubit, AssignState>(
+        listener: (_, state) {
+          if (state is AssignSuccess) {
+            Navigator.of(dialogContext).pop();
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (outerContext.mounted) {
+                showSnackBar(outerContext, state.message, AppColors.green);
+              }
+              // ✅ Simple refresh — cubit already has the last params
+              indicatorCubit.refresh();
+            });
+          }
+          if (state is AssignFailure) {
+            showSnackBar(dialogContext, state.error, AppColors.red);
+          }
+        },
+        child: AssignIndicatorDialog(cycleIndicator: cycleIndicator),
+      ),
+    ),
   );
 }
 
@@ -85,11 +109,11 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
 
   void onSave(BuildContext context) {
     if (selectedDoctor == null) {
-      showSnackBar(context, 'Please Select Doctor', AppColors.red);
+      showSnackBar(context, 'pleaseSelectDoctor'.tr(), AppColors.red);
       return;
     }
     if (selectedDeadline == null) {
-      showSnackBar(context, 'Please Select Deadline', AppColors.red);
+      showSnackBar(context, 'pleaseSelectDeadline'.tr(), AppColors.red);
       return;
     }
     AssignCubit.get(context).assignIndicator(
@@ -99,27 +123,9 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
     );
   }
 
-  void onAssignSuccess(BuildContext context, AssignSuccess state) {
-    showSnackBar(context, state.message, AppColors.green);
-    Navigator.pop(context);
-    CycleIndicatorCubit.get(context).fetchCycleIndicators(
-      yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-      departmentId: DepartmentCubit.get(context).selectedDepartment!.id,
-      criterionId: ProgramAccreditationCubit.get(
-        context,
-      ).selectedProgramAccreditation!.id,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AssignCubit, AssignState>(
-      listener: (context, state) {
-        if (state is AssignSuccess) onAssignSuccess(context, state);
-        if (state is AssignFailure) {
-          showSnackBar(context, state.error, AppColors.red);
-        }
-      },
+    return BlocBuilder<AssignCubit, AssignState>(
       builder: (context, assignState) {
         return Dialog(
           shape: RoundedRectangleBorder(

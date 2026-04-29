@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class GridViewProgramItemsWidget extends StatelessWidget {
   const GridViewProgramItemsWidget({super.key});
@@ -56,7 +57,7 @@ class GridViewProgramItemsWidget extends StatelessWidget {
                     AppRoutes.indicatorsScreen,
                     extra: IndicatorsArgs(
                       accreditationModel: accreditations[index],
-                      title: "programIndicators",
+                      title: "programIndicators".tr(),
                       index: index,
                     ),
                   );

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ResetRightPartWidget extends StatelessWidget {
   const ResetRightPartWidget({super.key});
@@ -47,7 +48,7 @@ class ResetRightPartWidget extends StatelessWidget {
                                 resetPasswordCubit.forgetPasswordCubit();
                               },
                               child: CustomText(
-                                title: "Send OTP",
+                                title: "sendOtp".tr(),
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!

@@ -72,7 +72,7 @@ class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
                       (accreditation) => DropdownMenuItem<int>(
                         value: accreditation.id,
                         child: Text(
-                          accreditation.name,
+                          accreditation.name.tr(),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'create_criterion_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CriterionsTopBar extends StatefulWidget {
   const CriterionsTopBar({super.key});
@@ -30,7 +31,7 @@ class _CriterionsTopBarState extends State<CriterionsTopBar> {
               List<DropdownMenuItem<int?>> items = [
                 DropdownMenuItem<int?>(
                   value: null,
-                  child: Text('All Accreditations', style: TextStyle(fontSize: 14.sp)),
+                  child: Text('allAccreditations'.tr(), style: TextStyle(fontSize: 14.sp)),
                 ),
               ];
 
@@ -111,7 +112,7 @@ class _CreateCriterionButton extends StatelessWidget {
         ),
         icon: const Icon(Icons.add, size: 20),
         label: CustomText(
-          title: 'Create Criterion',
+          title: 'createCriterion'.tr(),
           textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                 color: AppColors.white,
                 fontSize: 13.sp,

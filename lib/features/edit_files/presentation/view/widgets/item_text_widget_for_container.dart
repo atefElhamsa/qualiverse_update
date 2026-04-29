@@ -16,60 +16,62 @@ class ItemTextWidgetForContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _ = context.locale;
-    return Container(
-      width: 357.w,
-      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
-      constraints: BoxConstraints(minHeight: 56.h),
-      decoration: BoxDecoration(
-        color: AppColors.grey,
-        borderRadius: BorderRadius.circular(25.r),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 38.w,
-            height: 38.h,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  AppColors.itemContainerColorEdit1,
-                  AppColors.itemContainerColorEdit2,
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+        constraints: BoxConstraints(minHeight: 56.h),
+        decoration: BoxDecoration(
+          color: AppColors.grey,
+          borderRadius: BorderRadius.circular(25.r),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 38.w,
+              height: 38.h,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                    AppColors.itemContainerColorEdit1,
+                    AppColors.itemContainerColorEdit2,
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.folder_open_rounded,
-                color: AppColors.white,
-                size: 30.sp,
-              ),
-            ),
-          ),
-          const SizedBox(width: 30),
-          Expanded(
-            child: Text(
-              courseFolderModel.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: GoogleFonts.cairo(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w500,
-                color: AppColors.mainBlack,
-                height: 1.25,
+              child: Center(
+                child: Icon(
+                  Icons.folder_open_rounded,
+                  color: AppColors.white,
+                  size: 30.sp,
+                ),
               ),
             ),
-          ),
-          EditDeleteDownloadList(
-            onTap: () {
-              CourseFolderCubit.get(
-                context,
-              ).selectCourseFolder(courseFolder: courseFolderModel);
-            },
-          ),
-        ],
+            const SizedBox(width: 30),
+            Expanded(
+              child: Text(
+                courseFolderModel.name,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.cairo(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.mainBlack,
+                  height: 1.25,
+                ),
+              ),
+            ),
+            EditDeleteDownloadList(
+              onTap: () {
+                CourseFolderCubit.get(
+                  context,
+                ).selectCourseFolder(courseFolder: courseFolderModel);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

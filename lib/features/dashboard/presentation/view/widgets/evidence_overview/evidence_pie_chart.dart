@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_cubit.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidencePieChart extends StatelessWidget {
   final double size;
@@ -100,7 +101,7 @@ class EvidencePieChart extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomText(
-                    title: '0',
+                    title: '0'.tr(),
                     textStyle: GoogleFonts.inter(
                       fontSize: 32.sp,
                       fontWeight: FontWeight.w700,
@@ -108,7 +109,7 @@ class EvidencePieChart extends StatelessWidget {
                     ),
                   ),
                   CustomText(
-                    title: 'Total Indicators',
+                    title: 'totalIndicators'.tr(),
                     textStyle: GoogleFonts.inter(
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w500,

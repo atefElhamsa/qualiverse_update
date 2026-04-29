@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BuildTable extends StatelessWidget {
   const BuildTable({super.key, required this.items});
@@ -17,11 +18,11 @@ class BuildTable extends StatelessWidget {
         children: [
           const BuildHeader(),
           if (items.isEmpty)
-            const Padding(
-              padding: EdgeInsets.all(24),
+            Padding(
+              padding: const EdgeInsets.all(24),
               child: CustomText(
-                title: 'No data found',
-                textStyle: TextStyle(color: AppColors.grey),
+                title: 'noDataFound'.tr(),
+                textStyle: const TextStyle(color: AppColors.grey),
               ),
             )
           else

@@ -12,17 +12,20 @@ class CreateFolderField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 400.w,
-      child: CustomTextFormField(
-        textFieldModel: TextFieldModel(
-          controller: createFolderCubit.newFolderNameController,
-          keyboardType: TextInputType.name,
-          hintText: "enterFolderName".tr(),
-          validator: (value) => MyValidators.displayNameValidator(value),
-          customTextLabel: CustomText(
-            title: "folderName".tr(),
-            textStyle: Theme.of(
-              context,
-            ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+      child: Form(
+        key: createFolderCubit.formKey,
+        child: CustomTextFormField(
+          textFieldModel: TextFieldModel(
+            controller: createFolderCubit.newFolderNameController,
+            keyboardType: TextInputType.name,
+            hintText: "enterFolderName".tr(),
+            validator: (value) => MyValidators.displayNameValidator(value),
+            customTextLabel: CustomText(
+              title: "folderName".tr(),
+              textStyle: Theme.of(
+                context,
+              ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+            ),
           ),
         ),
       ),

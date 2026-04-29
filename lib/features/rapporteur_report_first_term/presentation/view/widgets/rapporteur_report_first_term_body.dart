@@ -6,6 +6,7 @@ import 'package:qualiverse/features/courses_first_and_second_term/presentation/v
 import 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/second_term_button.dart';
 import 'package:qualiverse/features/rapporteur_report_first_term/presentation/view/widgets/rapporteur_report_top.dart';
 import 'package:qualiverse/routing/app_routes.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RapporteurReportFirstTermBody extends StatelessWidget {
   const RapporteurReportFirstTermBody({super.key});
@@ -24,7 +25,7 @@ class RapporteurReportFirstTermBody extends StatelessWidget {
             padding: EdgeInsets.only(top: 50.h, bottom: 10.w),
             child: FirstAndSecondTermButton(
               mainAxisAlignment: MainAxisAlignment.end,
-              title: "secondTerm",
+              title: "secondTerm".tr(),
               onPressed: () {
                 context.pushNamed(AppRoutes.rapporteurReportSecondTermScreen);
               },

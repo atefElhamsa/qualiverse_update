@@ -11,6 +11,7 @@ class UpdateFolderCubit extends Cubit<UpdateFolderState> {
       BlocProvider.of<UpdateFolderCubit>(context);
 
   final editFolderNameController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   Future<void> updateFolder({required int folderId}) async {
     final folderName = editFolderNameController.text.trim();

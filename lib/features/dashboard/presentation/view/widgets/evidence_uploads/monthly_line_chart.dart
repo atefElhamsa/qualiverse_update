@@ -7,6 +7,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/monthly_ch
 import 'package:qualiverse/features/dashboard/presentation/controller/monthly_chart/monthly_chart_state.dart';
 import 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MonthlyLineChart extends StatefulWidget {
   const MonthlyLineChart({super.key});
@@ -156,7 +157,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CustomText(
-                      title: '0',
+                      title: '0'.tr(),
                       textStyle: GoogleFonts.inter(
                         fontSize: 40.sp,
                         fontWeight: FontWeight.w700,
@@ -164,7 +165,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                       ),
                     ),
                     CustomText(
-                      title: 'Total Uploads',
+                      title: 'totalUploads'.tr(),
                       textStyle: GoogleFonts.inter(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,

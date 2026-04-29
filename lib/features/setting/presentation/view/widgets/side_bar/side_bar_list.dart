@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SideBarList extends StatelessWidget {
   const SideBarList({super.key});
@@ -14,7 +15,7 @@ class SideBarList extends StatelessWidget {
         final settingCubit = SettingCubit.get(context);
         final List<SideItemModel> sidesItem = [
           SideItemModel(
-            title: 'account',
+            title: 'account1',
             page: SettingsPage.account,
             selectedPage: settingCubit.selectedPage,
             onTap: () {
@@ -22,7 +23,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'notifications',
+            title: 'notifications1',
             page: SettingsPage.notifications,
             selectedPage: settingCubit.selectedPage,
             onTap: () {
@@ -30,7 +31,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'language',
+            title: 'language1',
             page: SettingsPage.language,
             selectedPage: settingCubit.selectedPage,
             onTap: () {
@@ -38,7 +39,7 @@ class SideBarList extends StatelessWidget {
             },
           ),
           SideItemModel(
-            title: 'help',
+            title: 'help1',
             page: SettingsPage.help,
             selectedPage: settingCubit.selectedPage,
             onTap: () {

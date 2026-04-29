@@ -4,6 +4,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/evidence/e
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence/evidence_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'legend_filter_chip.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidenceLegendProgram extends StatelessWidget {
   const EvidenceLegendProgram({super.key});
@@ -21,26 +22,26 @@ class EvidenceLegendProgram extends StatelessWidget {
           runSpacing: 8,
           children: [
             LegendFilterChip(
-              label: 'Pending Evidence',
+              label: 'pendingEvidence'.tr(),
               color: AppColors.evidenceColorSlide2,
               isSelected: state.showPending,
               onTap: cubit.togglePending,
             ),
-            const LegendFilterChip(
-              label: 'Approved Evidence',
+            LegendFilterChip(
+              label: 'approvedEvidence'.tr(),
               color: AppColors.mainBlack,
               isSelected: true,
               onTap: _noop,
               enabled: false,
             ),
             LegendFilterChip(
-              label: 'Reviewed Evidence',
+              label: 'reviewedEvidence'.tr(),
               color: AppColors.evidenceColorSlide3,
               isSelected: state.showReviewed,
               onTap: cubit.toggleReviewed,
             ),
             LegendFilterChip(
-              label: 'Rejected Evidence',
+              label: 'rejectedEvidence'.tr(),
               color: AppColors.evidenceColorSlide4,
               isSelected: state.showRejected,
               onTap: cubit.toggleRejected,

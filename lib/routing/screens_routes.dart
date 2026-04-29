@@ -328,4 +328,22 @@ class ScreensRoutes {
       },
     );
   }
+
+  static GoRoute evidenceFolderFilesRoute() {
+    return GoRoute(
+      path: AppRoutes.evidenceFolderFilesScreen,
+      name: AppRoutes.evidenceFolderFilesScreen,
+      pageBuilder: (context, state) {
+        final Map<String, dynamic> args = state.extra as Map<String, dynamic>;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: EvidenceFolderFilesScreen(
+            folderName: args['folderName'],
+            folderId: args['folderId'],
+          ),
+        );
+      },
+    );
+  }
 }

@@ -45,7 +45,7 @@ class UserTableRow extends StatelessWidget {
               ),
               Expanded(
                 child: CustomText(
-                  title: user.role,
+                  title: (user.role.toLowerCase() + "Role").tr(),
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,

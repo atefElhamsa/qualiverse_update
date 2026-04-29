@@ -40,6 +40,7 @@ class RouterGenerator {
       ScreensRoutes.archiverAnalysisRoute(),
       ScreensRoutes.analysisFilesRoute(),
       ScreensRoutes.adminDashboardRoute(),
+      ScreensRoutes.evidenceFolderFilesRoute(),
     ],
   );
 }

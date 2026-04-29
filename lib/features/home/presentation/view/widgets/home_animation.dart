@@ -74,8 +74,7 @@ class HomeAnimation {
               ),
               child: CustomText(
                 title:
-                    "AnAcademicSystemThatAimsToEnsureQualityInAcademicProcessesInLineWithInternationalStandards"
-                        .tr(),
+                    "AnAcademicSystemThatAimsToEnsureQualityInAcademicProcessesInLineWithInternationalStandards".tr(),
                 textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: isMobile ? 14.sp : 24.sp,
                   height: 2,

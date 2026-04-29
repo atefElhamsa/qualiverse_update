@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 void showAssignCourseDialog(BuildContext context, CourseItemModel course) {
   showDialog(
@@ -34,7 +35,7 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
 
   void onSave(BuildContext context) {
     if (selectedDoctor == null) {
-      showSnackBar(context, 'Please Select Doctor', AppColors.red);
+      showSnackBar(context, 'pleaseSelectDoctor'.tr(), AppColors.red);
       return;
     }
     AssignCubit.get(context).assignCourse(
@@ -79,7 +80,7 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
       },
       builder: (context, assignState) {
         return CustomDialog(
-          title: 'Assign Course',
+          title: 'assignCourse'.tr(),
           maxWidth: 480.w,
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -103,13 +104,13 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
           ),
           actions: [
             buildButton(
-              title: 'Cancel',
+              title: 'cancel'.tr(),
               onPressed: () => Navigator.pop(context),
               backgroundColor: AppColors.grey.withOpacity(0.1),
               textColor: AppColors.mainBlack,
             ),
             buildButton(
-              title: assignState is AssignLoading ? 'Saving...' : 'Save',
+              title: assignState is AssignLoading ? 'saving'.tr() : 'save'.tr(),
               onPressed: assignState is AssignLoading
                   ? () {}
                   : () => onSave(context),

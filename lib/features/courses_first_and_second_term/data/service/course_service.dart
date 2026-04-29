@@ -8,7 +8,7 @@ class CourseService {
     required int yearId,
     required int levelId,
     required int semesterId,
-    required int departmentId,
+    int? departmentId,
   }) async {
     try {
       final response = await dio.get(

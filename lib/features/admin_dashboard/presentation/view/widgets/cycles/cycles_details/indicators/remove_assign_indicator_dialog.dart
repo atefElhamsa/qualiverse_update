@@ -11,10 +11,7 @@ void showRemoveAssignIndicatorDialog({
   required CycleIndicatorModel cycleIndicator,
 }) async {
   final cubit = context.read<AssignCubit>();
-  final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
-  final departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
-  final criterionId =
-      ProgramAccreditationCubit.get(context).selectedProgramAccreditation?.id;
+  final indicatorCubit = CycleIndicatorCubit.get(context);
 
   final result = await showDialog<bool>(
     context: context,
@@ -28,7 +25,6 @@ void showRemoveAssignIndicatorDialog({
               showSnackBar(ctx, state.error, AppColors.red);
             }
             if (state is DeleteAssignSuccess) {
-              // Pop with true to indicate success
               Navigator.of(dialogContext).pop(true);
             }
           },
@@ -41,19 +37,12 @@ void showRemoveAssignIndicatorDialog({
     },
   );
 
-  // If the result is true, it means removal was successful
   if (result == true) {
-    // Show success message on the main screen context
-    showSnackBar(context, "doneSuccessfully".tr(), AppColors.green);
-
-    // Refresh the indicators list
-    if (yearId != null && departmentId != null && criterionId != null) {
-      CycleIndicatorCubit.get(context).fetchCycleIndicators(
-        yearId: yearId,
-        departmentId: departmentId,
-        criterionId: criterionId,
-      );
+    if (context.mounted) {
+      showSnackBar(context, "doneSuccessfully".tr(), AppColors.green);
     }
+    // ✅ Simple refresh
+    indicatorCubit.refresh();
   }
 }
 

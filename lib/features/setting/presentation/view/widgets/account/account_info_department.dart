@@ -36,12 +36,12 @@ class AccountInfoDepartment extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               InfoItem(
-                label: "userName",
+                label: "userName".tr(),
                 value: meModel.userName,
                 showChange: false,
               ),
               InfoItem(
-                label: "password",
+                label: "password".tr(),
                 value: maskPassword(
                   context.read<SettingCubit>().password.toString(),
                 ),

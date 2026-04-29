@@ -20,6 +20,12 @@ class HomeLayout {
             child: Image.asset(imagePath, fit: BoxFit.contain),
           ),
         ],
+        if (isArabic) ...[
+          FadeTransition(
+            opacity: fadeAnimation,
+            child: Image.asset(imagePath, fit: BoxFit.contain),
+          ),
+        ],
         Expanded(
           flex: 3,
           child: HomeAnimation.buildTextContent(
@@ -30,16 +36,6 @@ class HomeLayout {
             context,
           ),
         ),
-        if (isArabic) ...[
-          SizedBox(width: isTablet ? 24.w : 48.w),
-          FadeTransition(
-            opacity: fadeAnimation,
-            child: Image.asset(
-              imagePath,
-              // fit: BoxFit.contain,
-            ),
-          ),
-        ],
         SizedBox(width: isTablet ? 24.w : 48.w),
         Expanded(
           flex: 2,

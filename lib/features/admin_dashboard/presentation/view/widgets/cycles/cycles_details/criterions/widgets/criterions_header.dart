@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
@@ -15,12 +16,12 @@ class CriterionsHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          _cell(context, 'Criterion Name', flex: 2),
-          _cell(context, 'Accreditation', centered: true),
-          _cell(context, 'Department', centered: true),
-          _cell(context, 'Indicators Count', centered: true),
-          _cell(context, 'Status', centered: true),
-          _cell(context, 'Actions', centered: true),
+          _cell(context, 'criterionName'.tr(), flex: 2),
+          _cell(context, 'accreditation'.tr(), centered: true),
+          _cell(context, 'department'.tr(), centered: true),
+          _cell(context, 'indicatorsCount'.tr(), centered: true),
+          _cell(context, 'status'.tr(), centered: true),
+          _cell(context, 'actions'.tr(), centered: true),
         ],
       ),
     );

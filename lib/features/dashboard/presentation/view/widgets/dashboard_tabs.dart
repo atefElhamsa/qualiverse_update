@@ -19,11 +19,11 @@ class _DashboardTabsState extends State<DashboardTabs> {
   int selectedIndex = 0;
 
   final List<String> titles = [
-    'evidence_overview',
-    'accreditation_structure',
-    'evidence_uploads',
-    'program_vs_institution',
-    'indicators_and_files',
+    'evidenceOverview',
+    'accreditationStructure',
+    'evidenceUploads',
+    'programVsInstitution',
+    'indicatorsAndFiles',
   ];
 
   @override

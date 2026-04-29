@@ -45,8 +45,8 @@ class NextButton extends StatelessWidget {
                   radius: 15,
                   customText: CustomText(
                     title: currentIndex == onboardingList.length - 1
-                        ? "start_button".tr()
-                        : "onboarding_button_title".tr(),
+                        ? "startButton".tr()
+                        : "onboardingButtonTitle".tr(),
                     textStyle: Theme.of(
                       context,
                     ).textTheme.titleSmall!.copyWith(color: AppColors.white),

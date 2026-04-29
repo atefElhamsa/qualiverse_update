@@ -36,14 +36,18 @@ class BasicInfoDepartment extends StatelessWidget {
               const SizedBox(height: 25),
               const ProfileImage(),
               InfoItem(
-                label: "name",
+                label: "name".tr(),
                 value: "${meModel.firstName} ${meModel.lastName}",
                 showChange: true,
                 onPressed: () {},
               ),
-              const InfoItem(label: "gender", value: "Male", showChange: false),
               InfoItem(
-                label: "email",
+                label: "gender".tr(),
+                value: 'male'.tr(),
+                showChange: false,
+              ),
+              InfoItem(
+                label: "email".tr(),
                 value: meModel.email,
                 showChange: true,
                 onPressed: () {},

@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class StandardsContent extends StatelessWidget {
   const StandardsContent({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AdminDashboardTopContentWidget(title: "standards"),
-          SizedBox(height: 20),
-          StandardsIndicatorScreen(
+          const SizedBox(height: 20),
+          const StandardsIndicatorScreen(
             items: [
               StandardsIndicatorModel(
-                standard: 'Teaching Quality',
-                indicator: 'Library Resources',
-                status: 'Completed',
+                standard: 'teachingQuality',
+                indicator: 'libraryResources',
+                status: 'completed',
               ),
               StandardsIndicatorModel(
-                standard: 'Learning Resources',
-                indicator: 'Faculty Evaluation',
-                status: 'In Progress',
+                standard: 'learningResources',
+                indicator: 'facultyEvaluation',
+                status: 'inProgress',
               ),
               StandardsIndicatorModel(
-                standard: 'Teaching Quality',
-                indicator: 'Library Resources',
-                status: 'In Progress',
+                standard: 'teachingQuality',
+                indicator: 'libraryResources',
+                status: 'inProgress',
               ),
               StandardsIndicatorModel(
-                standard: 'Learning Resources',
-                indicator: 'Faculty Evaluation',
-                status: 'Completed',
+                standard: 'learningResources',
+                indicator: 'facultyEvaluation',
+                status: 'completed',
               ),
             ],
           ),

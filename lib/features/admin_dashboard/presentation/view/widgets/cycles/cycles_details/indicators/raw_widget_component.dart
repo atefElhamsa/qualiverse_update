@@ -159,7 +159,7 @@ Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
             backgroundColor: isAssigned ? AppColors.blue : AppColors.green,
             radius: 10,
             customText: CustomText(
-              title: isAssigned ? "Reassign" : "Assign",
+              title: isAssigned ? "reassign".tr() : "assign".tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(
                 context,

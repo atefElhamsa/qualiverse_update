@@ -20,7 +20,7 @@ class CourseCubit extends Cubit<CourseState> {
     required int yearId,
     required int levelId,
     required int semesterId,
-    required int departmentId,
+    int? departmentId,
   }) async {
     emit(CourseLoading());
     try {

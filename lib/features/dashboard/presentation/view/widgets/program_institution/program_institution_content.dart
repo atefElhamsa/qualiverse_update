@@ -3,6 +3,7 @@ import 'evidence_chart_page_program.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProgramInstitutionContent extends StatelessWidget {
   const ProgramInstitutionContent({super.key});
@@ -15,7 +16,7 @@ class ProgramInstitutionContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText(
-            title: "Program VS Institution",
+            title: "programVsInstitution".tr(),
             textStyle: GoogleFonts.inter(
               fontSize: 32.sp,
               fontWeight: FontWeight.w800,

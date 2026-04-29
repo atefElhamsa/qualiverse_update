@@ -26,7 +26,9 @@ class CreateAndCancelButtons extends StatelessWidget {
               CustomButton(
                 buttonModel: ButtonModel(
                   onPressed: () {
-                    createFolderCubit.createFolder(courseId: courseId);
+                    if (createFolderCubit.formKey.currentState!.validate()) {
+                      createFolderCubit.createFolder(courseId: courseId);
+                    }
                   },
                   backgroundColor: AppColors.green,
                   radius: 20,

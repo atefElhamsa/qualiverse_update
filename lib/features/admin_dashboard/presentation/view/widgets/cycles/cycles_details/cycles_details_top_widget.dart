@@ -34,7 +34,7 @@ class CyclesDetailsTopWidget extends StatelessWidget {
                     context.read<AdminDashboardCubit>().backToCycles();
                   },
                   child: CustomText(
-                    title: 'Cycle > ',
+                    title: '${'cycle'.tr()} > ',
                     textStyle: Theme.of(context).textTheme.headlineLarge!
                         .copyWith(fontSize: 32.sp, fontWeight: FontWeight.w900),
                   ),

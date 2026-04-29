@@ -4,6 +4,7 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:qualiverse/features/admin_dashboard/data/model/criterion_item_model.dart';
 import 'criterions_header.dart';
 import 'criterions_row_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CriterionsTable extends StatelessWidget {
   final List<CriterionItemModel> criterions;
@@ -16,7 +17,7 @@ class CriterionsTable extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 40.h),
           child: CustomText(
-            title: 'No Criterions Available',
+            title: 'noCriterionsAvailable'.tr(),
             textStyle: Theme.of(context).textTheme.headlineLarge!,
           ),
         ),

@@ -83,6 +83,50 @@ class EndPoints {
     return "CourseFolder/File?folderId=$folderId";
   }
 
+  static String getEvidenceFilesByFolderId({required int folderId}) {
+    return "EvidenceFolder/$folderId";
+  }
+
+  static String uploadFileToEvidenceFolder({required int folderId}) {
+    return "EvidenceFolder/upload";
+  }
+
+  static String deleteEvidenceFile({required int fileId}) {
+    return "EvidenceFolder/file/$fileId";
+  }
+
+  static String getEvidenceStatistics({
+    required int evidenceFolderId,
+    int? departmentId,
+    required int academicYearId,
+    required int semesterId,
+    required int levelId,
+    required int courseId,
+  }) {
+    String url = "EvidenceFolder/data?evidenceFolderId=$evidenceFolderId"
+        "&academicYearId=$academicYearId"
+        "&semesterId=$semesterId"
+        "&levelId=$levelId"
+        "&courseId=$courseId";
+    if (departmentId != null) {
+      url += "&departmentId=$departmentId";
+    } else {
+      url += "&departmentId=";
+    }
+    return url;
+  }
+
+  static String uploadFileToFolder({required int folderId}) {
+    return "CourseFolder/$folderId/upload";
+  }
+
+  static String deleteFileFromFolder({
+    required int folderId,
+    required int fileId,
+  }) {
+    return "CourseFolder/$folderId/files/$fileId";
+  }
+
   static String activateUser({required String id}) {
     return "User/$id/activate";
   }
@@ -121,7 +165,9 @@ class EndPoints {
     if (yearId != null) params.add("AcademicYearId=$yearId");
     if (departmentId != null) params.add("DepartmentId=$departmentId");
     if (levelId != null) params.add("LevelId=$levelId");
-    if (accreditationTypeId != null) params.add("AccreditationTypeId=$accreditationTypeId");
+    if (accreditationTypeId != null) {
+      params.add("AccreditationTypeId=$accreditationTypeId");
+    }
 
     return "Dashboard${params.isEmpty ? "" : "?${params.join("&")}"}";
   }

@@ -8,6 +8,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/evidence_s
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'evidence_pie_chart.dart';
 import 'evidence_legend.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidenceStatusChart extends StatelessWidget {
   const EvidenceStatusChart({super.key});
@@ -44,7 +45,7 @@ class EvidenceStatusChartView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CustomText(
-            title: 'Evidence Status Distribution',
+            title: 'evidenceStatusDistribution'.tr(),
             textStyle: Theme.of(
               context,
             ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),

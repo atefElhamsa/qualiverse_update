@@ -28,10 +28,7 @@ class CoursesMainButton extends StatelessWidget {
               ).selectedDepartment;
               final level = LevelCubit.get(context).selectedLevel;
               final semester = SemesterCubit.get(context).selectedSemester;
-              if (year == null ||
-                  department == null ||
-                  level == null ||
-                  semester == null) {
+              if (year == null || level == null || semester == null) {
                 showSnackBar(
                   context,
                   "pleaseSelectedYearAndDepartment".tr(),
@@ -44,7 +41,7 @@ class CoursesMainButton extends StatelessWidget {
                     yearId: year.id,
                     levelId: level.id,
                     semesterModel: semester,
-                    departmentId: department.id,
+                    departmentId: department?.id,
                   ),
                 );
               }

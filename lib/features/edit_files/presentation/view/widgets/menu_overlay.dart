@@ -51,18 +51,18 @@ class MenuOverlay extends StatelessWidget {
                     children: [
                       MenuItem(
                         icon: Icons.create_new_folder,
-                        title: 'newFolder',
-                        onTap: () => onItemSelected('new_folder'),
+                        title: 'new_folder'.tr(),
+                        onTap: () => onItemSelected('new_folder'.tr()),
                       ),
                       MenuItem(
                         icon: Icons.drive_folder_upload,
-                        title: 'uploadFolder',
-                        onTap: () => onItemSelected('upload_folder'),
+                        title: 'upload_folder'.tr(),
+                        onTap: () => onItemSelected('upload_folder'.tr()),
                       ),
                       MenuItem(
                         icon: Icons.upload_file,
-                        title: 'uploadFile',
-                        onTap: () => onItemSelected('upload_file'),
+                        title: 'upload_file'.tr(),
+                        onTap: () => onItemSelected('upload_file'.tr()),
                       ),
                     ],
                   ),

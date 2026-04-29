@@ -6,6 +6,7 @@ import 'package:qualiverse/features/dashboard/presentation/controller/evidence_p
 import 'package:qualiverse/features/dashboard/presentation/controller/evidence_per_criterion/evidence_per_criterion_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'evidence_bars.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EvidencePerCriterionView extends StatelessWidget {
   const EvidencePerCriterionView({super.key});
@@ -40,7 +41,7 @@ class EvidencePerCriterionView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               CustomText(
-                title: 'Evidence Per Criterion',
+                title: 'evidencePerCriterion'.tr(),
                 textStyle: Theme.of(
                   context,
                 ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
@@ -52,7 +53,7 @@ class EvidencePerCriterionView extends StatelessWidget {
                   RotatedBox(
                     quarterTurns: 3,
                     child: CustomText(
-                      title: 'Criterion Name',
+                      title: 'criterionName'.tr(),
                       textStyle: Theme.of(
                         context,
                       ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),

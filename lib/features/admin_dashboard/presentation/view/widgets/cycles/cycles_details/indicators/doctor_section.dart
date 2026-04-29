@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DoctorSection extends StatelessWidget {
   const DoctorSection({
@@ -29,10 +30,10 @@ class DoctorSection extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionLabel(title: 'Doctor'),
+            SectionLabel(title: 'doctor'.tr()),
             SizedBox(height: 8.h),
             CustomDropdown(
-              hint: 'Select Doctor',
+              hint: 'selectDoctor'.tr(),
               selectedDoctor: selectedDoctor,
               doctors: doctors,
               isOpen: dropdownOpen,

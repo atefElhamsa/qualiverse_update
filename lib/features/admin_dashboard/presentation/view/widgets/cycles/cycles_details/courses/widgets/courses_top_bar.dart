@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../../../routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class CoursesTopBar extends StatelessWidget {
   final TextEditingController searchController;
@@ -59,7 +60,7 @@ class _SearchField extends StatelessWidget {
             focusedBorder: InputBorder.none,
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
-            hintText: 'Search Course Name...',
+            hintText: 'searchCourseName'.tr(),
             hintStyle: TextStyle(
               fontSize: 15.sp,
               color: AppColors.grey,
@@ -92,7 +93,7 @@ class _AddCourseButton extends StatelessWidget {
         ),
         icon: const Icon(Icons.add, size: 20),
         label: CustomText(
-          title: 'Add New Course',
+          title: 'addNewCourse'.tr(),
           textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                 color: AppColors.white,
                 fontSize: 13.sp,

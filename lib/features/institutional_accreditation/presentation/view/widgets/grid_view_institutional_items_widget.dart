@@ -58,7 +58,7 @@ class GridViewInstitutionalItemsWidget extends StatelessWidget {
                     AppRoutes.indicatorsScreen,
                     extra: IndicatorsArgs(
                       accreditationModel: accreditations[index],
-                      title: "institutionalIndicators",
+                      title: "institutionalIndicators".tr(),
                       index: index,
                     ),
                   );

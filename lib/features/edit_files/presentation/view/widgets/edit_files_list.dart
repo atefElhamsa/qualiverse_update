@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EditFilesList extends StatelessWidget {
   const EditFilesList({super.key});
@@ -27,7 +28,9 @@ class EditFilesList extends StatelessWidget {
           final courseFolders = state.courseFolders;
           if (courseFolders.isEmpty) {
             return RetryWidget(
-              title: 'No Data Found',
+              title: context.locale.languageCode == 'ar'
+                  ? 'لا توجد مجلدات مضافة حالياً. يمكنك إضافة مجلد جديد باستخدام الزر أعلاه.'
+                  : 'No folders added yet. You can add a new folder using the button above.',
               onPressed: () {
                 CourseFolderCubit.get(context).fetchCourseFolders(
                   courseId: CourseFolderCubit.get(context).currentCourseId!,
@@ -36,25 +39,57 @@ class EditFilesList extends StatelessWidget {
             );
           } else {
             return ContainerWidget(
-              widget: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: courseFolders.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10.w,
-                  mainAxisSpacing: 10.h,
-                  childAspectRatio: 7,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      CourseFolderCubit.get(
-                        context,
-                      ).selectCourseFolder(courseFolder: courseFolders[index]);
-                    },
-                    child: ItemTextWidgetForContainer(
-                      courseFolderModel: courseFolders[index],
+              widget: LayoutBuilder(
+                builder: (context, constraints) {
+                  final itemWidth = (constraints.maxWidth - 10.w) / 2;
+                  return Wrap(
+                    spacing: 10.w,
+                    runSpacing: 10.h,
+                    children: List.generate(
+                      courseFolders.length,
+                      (index) => SizedBox(
+                        width: itemWidth,
+                        child: GestureDetector(
+                          onTap: () {
+                            CourseFolderCubit.get(
+                              context,
+                            ).selectCourseFolder(
+                              courseFolder: courseFolders[index],
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (_) => BlocProvider(
+                                create: (_) => FolderFilesCubit()
+                                  ..getFolderFiles(
+                                    folderId: courseFolders[index].id,
+                                  ),
+                                child: Dialog(
+                                  insetPadding: EdgeInsets.symmetric(
+                                    horizontal: 40.w,
+                                    vertical: 30.h,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                  ),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                        0.8,
+                                    child: FolderFilesScreen(
+                                      folderName: courseFolders[index].name,
+                                      folderId: courseFolders[index].id,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: ItemTextWidgetForContainer(
+                            courseFolderModel: courseFolders[index],
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },

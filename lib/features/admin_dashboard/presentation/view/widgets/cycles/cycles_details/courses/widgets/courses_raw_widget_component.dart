@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
@@ -100,7 +101,7 @@ Widget courseActions(BuildContext context, CourseItemModel course) {
     children: [
       if (!course.isAssigned)
         Tooltip(
-          message: 'Assign Course',
+          message: 'assignCourse'.tr(),
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -120,7 +121,7 @@ Widget courseActions(BuildContext context, CourseItemModel course) {
         ),
       if (course.isAssigned)
         Tooltip(
-          message: 'Remove Assignment',
+          message: 'removeAssignment'.tr(),
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -140,7 +141,7 @@ Widget courseActions(BuildContext context, CourseItemModel course) {
         ),
       SizedBox(width: 8.w),
       Tooltip(
-        message: 'Delete Course',
+        message: 'deleteCourse'.tr(),
         child: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
