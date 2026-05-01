@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/features/edit_files/data/models/evidence_folder_model.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_state.dart';
+import 'package:qualiverse/features/login/data/service/login_storage.dart';
+import '../../data/service/evidence_folder_files_services.dart';
 
 class EvidenceFolderCubit extends Cubit<EvidenceFolderState> {
   EvidenceFolderCubit() : super(EvidenceFolderInitial());
@@ -26,7 +28,7 @@ class EvidenceFolderCubit extends Cubit<EvidenceFolderState> {
   Future<void> fetchEvidenceFolders() async {
     emit(EvidenceFolderLoading());
     try {
-      final data = await AnalysisFilesServices.getEvidenceFolders();
+      final data = await EvidenceFolderFilesServices.getEvidenceFolders();
       evidenceFolders = data;
 
       emit(

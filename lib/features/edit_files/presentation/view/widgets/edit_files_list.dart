@@ -65,20 +65,23 @@ class EditFilesList extends StatelessWidget {
                                   ),
                                 child: Dialog(
                                   insetPadding: EdgeInsets.symmetric(
-                                    horizontal: 40.w,
+                                    horizontal: 20.w,
                                     vertical: 30.h,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20.r),
+                                    borderRadius: BorderRadius.circular(30.r),
                                   ),
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height:
-                                        MediaQuery.of(context).size.height *
-                                        0.8,
-                                    child: FolderFilesScreen(
-                                      folderName: courseFolders[index].name,
-                                      folderId: courseFolders[index].id,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                          0.85,
+                                      child: FolderFilesScreen(
+                                        folderName: courseFolders[index].name,
+                                        folderId: courseFolders[index].id,
+                                      ),
                                     ),
                                   ),
                                 ),

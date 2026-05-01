@@ -1,20 +1,59 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'package:qualiverse/features/analysis_files/presentation/controller/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/core/utils/app_colors.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_cubit.dart';
+import 'package:qualiverse/features/edit_files/data/models/evidence_folder_model.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_state.dart';
+import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
+import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_statistics_screen.dart';
+import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_general_screen.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/features/edit_files/presentation/view/widgets/container_widget.dart';
 
 class EvidenceFoldersSection extends StatelessWidget {
-  const EvidenceFoldersSection({super.key});
+  final int? departmentId;
+  final int yearId;
+  final int termId;
+  final int levelId;
+  final int courseId;
+
+  const EvidenceFoldersSection({
+    super.key,
+    this.departmentId,
+    required this.yearId,
+    required this.termId,
+    required this.levelId,
+    required this.courseId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EvidenceFolderCubit, EvidenceFolderState>(
       builder: (context, state) {
         if (state is EvidenceFolderSuccess) {
-          final folders = state.evidenceFolders;
-          if (folders.isEmpty) return const SizedBox.shrink();
+          final List<EvidenceFolderModel> allApiFolders = state.evidenceFolders;
+          
+          // FIND REAL FOLDERS BY NAME
+          final statsFolder = _findFolder(allApiFolders, ['Statistics', 'إحصائيات']);
+          final surveyFolder = _findFolder(allApiFolders, ['Survey', 'استبيانات']);
+          final docAnalysisFolder = _findFolder(allApiFolders, ['Documentary Analysis', 'التحليل الوثائقي']);
+
+          final List<EvidenceFolderModel> orderedFolders = [];
+          if (statsFolder != null) orderedFolders.add(statsFolder);
+          if (surveyFolder != null) orderedFolders.add(surveyFolder);
+          if (docAnalysisFolder != null) orderedFolders.add(docAnalysisFolder);
+
+          // ADD REST OF FOLDERS
+          orderedFolders.addAll(allApiFolders.where((f) => 
+            f.id != statsFolder?.id && 
+            f.id != surveyFolder?.id && 
+            f.id != docAnalysisFolder?.id
+          ));
+
+          if (orderedFolders.isEmpty) return const SizedBox.shrink();
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,94 +65,17 @@ class EvidenceFoldersSection extends StatelessWidget {
                     return Wrap(
                       spacing: 10.w,
                       runSpacing: 10.h,
-                      children: folders.map((folder) {
-                        return SizedBox(
-                          width: itemWidth,
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) => BlocProvider(
-                                  create: (_) =>
-                                      EvidenceFolderFilesCubit()
-                                        ..getEvidenceFiles(folderId: folder.id),
-                                  child: Dialog(
-                                    insetPadding: EdgeInsets.symmetric(
-                                      horizontal: 40.w,
-                                      vertical: 30.h,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                    ),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                          0.8,
-                                      child: EvidenceFolderFilesScreen(
-                                        folderName: folder.name,
-                                        folderId: folder.id,
-                                        isStatistics: true,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 14.w,
-                                  vertical: 12.h,
-                                ),
-                                constraints: BoxConstraints(minHeight: 56.h),
-                                decoration: BoxDecoration(
-                                  color: AppColors.grey,
-                                  borderRadius: BorderRadius.circular(25.r),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 38.w,
-                                      height: 38.h,
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          colors: [
-                                            AppColors.itemContainerColorEdit1,
-                                            AppColors.itemContainerColorEdit2,
-                                          ],
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8.r),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.folder_shared_rounded,
-                                          color: AppColors.white,
-                                          size: 24.sp,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 16.w),
-                                    Expanded(
-                                      child: Text(
-                                        folder.name,
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.mainBlack,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                      children: orderedFolders.map((folder) {
+                        return _FolderGridItem(
+                          folder: folder,
+                          itemWidth: itemWidth,
+                          isStatistics: folder.id == statsFolder?.id,
+                          isGeneral: (folder.id == surveyFolder?.id || folder.id == docAnalysisFolder?.id),
+                          departmentId: departmentId,
+                          yearId: yearId,
+                          termId: termId,
+                          levelId: levelId,
+                          courseId: courseId,
                         );
                       }).toList(),
                     );
@@ -126,6 +88,169 @@ class EvidenceFoldersSection extends StatelessWidget {
         }
         return const SizedBox.shrink();
       },
+    );
+  }
+
+  EvidenceFolderModel? _findFolder(List<EvidenceFolderModel> list, List<String> names) {
+    try {
+      return list.firstWhere((f) => names.contains(f.name));
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
+class _FolderGridItem extends StatefulWidget {
+  final EvidenceFolderModel folder;
+  final double itemWidth;
+  final bool isStatistics;
+  final bool isGeneral;
+  final int? departmentId;
+  final int yearId;
+  final int termId;
+  final int levelId;
+  final int courseId;
+
+  const _FolderGridItem({
+    required this.folder,
+    required this.itemWidth,
+    required this.isStatistics,
+    required this.isGeneral,
+    this.departmentId,
+    required this.yearId,
+    required this.termId,
+    required this.levelId,
+    required this.courseId,
+  });
+
+  @override
+  State<_FolderGridItem> createState() => _FolderGridItemState();
+}
+
+class _FolderGridItemState extends State<_FolderGridItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final folderName = widget.folder.name.tr();
+    return SizedBox(
+      width: widget.itemWidth,
+      child: Tooltip(
+        message: folderName,
+        child: GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (_) => BlocProvider(
+                create: (_) => EvidenceFolderFilesCubit(),
+                child: Dialog(
+                  insetPadding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 30.h,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.r),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(30.r),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.85,
+                      child: widget.isStatistics
+                          ? EvidenceFileStatisticsScreen(
+                              departmentId: widget.departmentId,
+                              academicYearId: widget.yearId,
+                              termId: widget.termId,
+                              levelId: widget.levelId,
+                            )
+                          : widget.isGeneral
+                              ? EvidenceFileGeneralScreen(
+                                  folderId: widget.folder.id,
+                                  folderName: widget.folder.name,
+                                  departmentId: widget.departmentId,
+                                  academicYearId: widget.yearId,
+                                  termId: widget.termId,
+                                  levelId: widget.levelId,
+                                  courseId: widget.courseId,
+                                )
+                              : EvidenceFolderFilesScreen(
+                                  folderName: widget.folder.name,
+                                  folderId: widget.folder.id,
+                                  departmentId: widget.departmentId,
+                                  academicYearId: widget.yearId,
+                                  termId: widget.termId,
+                                  levelId: widget.levelId,
+                                ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          child: MouseRegion(
+            onEnter: (_) => setState(() => _isHovered = true),
+            onExit: (_) => setState(() => _isHovered = false),
+            cursor: SystemMouseCursors.click,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: EdgeInsets.symmetric(
+                horizontal: 14.w,
+                vertical: 12.h,
+              ),
+              constraints: BoxConstraints(minHeight: 56.h),
+              decoration: BoxDecoration(
+                color: _isHovered ? const Color(0xFFF1F5F9) : AppColors.grey,
+                borderRadius: BorderRadius.circular(25.r),
+                boxShadow: _isHovered 
+                  ? [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))]
+                  : [],
+              ),
+              child: Row(
+                children: [
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    width: 38.w,
+                    height: 38.h,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: _isHovered 
+                          ? [const Color(0xFF0F569E), const Color(0xFF4285F4)]
+                          : [AppColors.itemContainerColorEdit1, AppColors.itemContainerColorEdit2],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(8.r),
+                      boxShadow: _isHovered
+                        ? [BoxShadow(color: const Color(0xFF4285F4).withOpacity(0.3), blurRadius: 5, offset: const Offset(0, 2))]
+                        : [],
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.folder_shared_rounded,
+                        color: AppColors.white,
+                        size: 24.sp,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Text(
+                      folderName,
+                      style: GoogleFonts.cairo(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: _isHovered ? const Color(0xFF0F569E) : AppColors.mainBlack,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

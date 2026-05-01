@@ -3,21 +3,28 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'evidence_folders_section.dart';
 
 class EditFilesBody extends StatelessWidget {
-  const EditFilesBody({super.key});
+  final CourseModel courseModel;
+  const EditFilesBody({super.key, required this.courseModel});
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScaffold(
+    return CustomScaffold(
       widget: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          EditFilesTopAndTitle(),
-          EditFilesNewButton(),
-          SizedBox(height: 20),
-          EvidenceFoldersSection(),
-          EditFilesList(),
-          SizedBox(height: 20),
+          const EditFilesTopAndTitle(),
+          const EditFilesNewButton(),
+          const SizedBox(height: 20),
+          EvidenceFoldersSection(
+            departmentId: courseModel.departmentId,
+            yearId: courseModel.academicYearId,
+            termId: courseModel.termId,
+            levelId: courseModel.levelId,
+            courseId: courseModel.id, // Passed courseId
+          ),
+          const EditFilesList(),
+          const SizedBox(height: 20),
         ],
       ),
     );

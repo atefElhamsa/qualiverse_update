@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
 
 import 'all_routes_imports.dart';
 
@@ -11,18 +12,6 @@ class ScreensRoutes {
         context: context,
         state: state,
         child: const AiDescriptionScreen(),
-      ),
-    );
-  }
-
-  static GoRoute analysisFilesRoute() {
-    return GoRoute(
-      path: AppRoutes.analysisFilesScreen,
-      name: AppRoutes.analysisFilesScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AnalysisFilesScreen(),
       ),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:qualiverse/features/analysis_files/data/model/evidence_file_model.dart';
-import 'package:qualiverse/features/analysis_files/data/model/evidence_statistics_model.dart';
+import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
+import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
 
 abstract class EvidenceFolderFilesState {}
 
@@ -41,10 +41,12 @@ class DeleteEvidenceFileFailure extends EvidenceFolderFilesState {
   DeleteEvidenceFileFailure({required this.error});
 }
 
+// Statistics States
 class GetEvidenceStatisticsLoading extends EvidenceFolderFilesState {}
 
 class GetEvidenceStatisticsSuccess extends EvidenceFolderFilesState {
-  final List<EvidenceStatisticsModel> statistics;
+  final List<EvidenceFileStatisticsModel> statistics;
+  
   GetEvidenceStatisticsSuccess({required this.statistics});
 }
 

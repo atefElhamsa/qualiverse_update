@@ -24,6 +24,9 @@ class EndPoints {
   static const String templates = "Course/templates";
   static const String courseFromTemplate = "Course/from-template";
   static const String newCourse = "Course/new";
+  static const String uploadEvidenceGeneral = "EvidenceFolder/upload/general";
+  static const String uploadEvidenceStatistics =
+      "EvidenceFolder/upload/statistics";
   static const String newCriterion = "Criterion/new";
   static const String createNewIndicator = "Indicator";
   static const String newCriterionFromExistingTemplate =
@@ -52,6 +55,10 @@ class EndPoints {
 
   static String deleteIndicator({required int id}) {
     return "Indicator/$id";
+  }
+
+  static String deleteEvidenceFile({required int id}) {
+    return "EvidenceFolder/file/$id";
   }
 
   static String courses({
@@ -89,31 +96,6 @@ class EndPoints {
 
   static String uploadFileToEvidenceFolder({required int folderId}) {
     return "EvidenceFolder/upload";
-  }
-
-  static String deleteEvidenceFile({required int fileId}) {
-    return "EvidenceFolder/file/$fileId";
-  }
-
-  static String getEvidenceStatistics({
-    required int evidenceFolderId,
-    int? departmentId,
-    required int academicYearId,
-    required int semesterId,
-    required int levelId,
-    required int courseId,
-  }) {
-    String url = "EvidenceFolder/data?evidenceFolderId=$evidenceFolderId"
-        "&academicYearId=$academicYearId"
-        "&semesterId=$semesterId"
-        "&levelId=$levelId"
-        "&courseId=$courseId";
-    if (departmentId != null) {
-      url += "&departmentId=$departmentId";
-    } else {
-      url += "&departmentId=";
-    }
-    return url;
   }
 
   static String uploadFileToFolder({required int folderId}) {
@@ -217,5 +199,41 @@ class EndPoints {
 
   static String toggleCriterionStatus({required int criterionId}) {
     return "Criterion/$criterionId/toggle-status";
+  }
+
+  static String getEvidenceFileGeneralFolder({
+    required int id,
+    int? departmentId,
+    required int academicYearId,
+    required int termId,
+    required int levelId,
+    required int courseId,
+  }) {
+    final buffer = StringBuffer("EvidenceFolder/general?id=$id");
+    if (departmentId != null) {
+      buffer.write("&departmentId=$departmentId");
+    }
+    buffer.write("&academicYearId=$academicYearId");
+    buffer.write("&termId=$termId");
+    buffer.write("&levelId=$levelId");
+    buffer.write("&courseId=$courseId");
+    return buffer.toString();
+  }
+
+  static String getEvidenceStatistics({
+    int? departmentId,
+    required int academicYearId,
+    required int termId,
+    required int levelId,
+  }) {
+    final buffer = StringBuffer(
+      "EvidenceFolder/statistics?academicYearId=$academicYearId&termId=$termId&levelId=$levelId",
+    );
+
+    if (departmentId != null) {
+      buffer.write("&departmentId=$departmentId");
+    }
+
+    return buffer.toString();
   }
 }

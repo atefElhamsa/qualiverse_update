@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_cubit.dart';
 
 class EditFilesScreen extends StatelessWidget {
   const EditFilesScreen({super.key, required this.courseFolderArgs});
@@ -19,7 +20,9 @@ class EditFilesScreen extends StatelessWidget {
           create: (context) => EvidenceFolderCubit()..fetchEvidenceFolders(),
         ),
       ],
-      child: const MainWrapper(child: EditFilesBody()),
+      child: MainWrapper(
+        child: EditFilesBody(courseModel: courseFolderArgs.courseModel),
+      ),
     );
   }
 }

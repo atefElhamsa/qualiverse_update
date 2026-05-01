@@ -8,6 +8,7 @@ import 'my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await CashHelper.init();
   await LoginStorage.loadFromCache();
   Bloc.observer = MyBlocObserver();
