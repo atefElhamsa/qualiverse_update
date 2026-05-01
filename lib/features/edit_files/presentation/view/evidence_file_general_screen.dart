@@ -119,34 +119,13 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                   Expanded(child: _buildBody(context, state, cubit)),
                 ],
               ),
-              if (isUploading) ...[
-                // Glassmorphism Overlay
-                Positioned.fill(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                    child: Container(
-                      color: Colors.white.withOpacity(0.4),
-                    ),
+              if (isUploading)
+                Container(
+                  color: Colors.white.withOpacity(0.4),
+                  child: const Center(
+                    child: CustomLoading(),
                   ),
                 ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const CustomLoading(),
-                      SizedBox(height: 15.h),
-                      Text(
-                        'uploadingFiles'.tr(),
-                        style: GoogleFonts.cairo(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFF0F569E),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ],
           );
         },
