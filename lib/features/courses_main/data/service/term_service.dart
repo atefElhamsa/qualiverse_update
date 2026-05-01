@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-class SemesterService {
+class TermService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<SemesterModel>> getSemesters() async {
+  static Future<List<TermModel>> getTerms() async {
     try {
-      final response = await dio.get(EndPoints.semesters);
+      final response = await dio.get(EndPoints.terms);
       final Map<String, dynamic> body = response.data;
       if (body['isSuccess'] != true) {
-        throw Exception('Failed to load semesters');
+        throw Exception('Failed to load terms');
       }
       final List list = body['data'] ?? [];
-      return list.map((e) => SemesterModel.fromJson(e)).toList();
+      return list.map((e) => TermModel.fromJson(e)).toList();
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {

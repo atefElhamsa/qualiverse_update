@@ -14,19 +14,41 @@ class UpdateFolderField extends StatelessWidget {
       width: 400.w,
       child: Form(
         key: updateFolderCubit.formKey,
-        child: CustomTextFormField(
-          textFieldModel: TextFieldModel(
-            controller: updateFolderCubit.editFolderNameController,
-            keyboardType: TextInputType.name,
-            hintText: "enterFolderName".tr(),
-            validator: (value) => MyValidators.displayNameValidator(value),
-            customTextLabel: CustomText(
-              title: "folderName".tr(),
-              textStyle: Theme.of(
-                context,
-              ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomTextFormField(
+              textFieldModel: TextFieldModel(
+                controller: updateFolderCubit.editFolderNameArController,
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.next,
+                hintText: "enterFolderNameArabic".tr(),
+                validator: (value) => MyValidators.displayNameValidator(value),
+                customTextLabel: CustomText(
+                  title: "folderNameArabic".tr(),
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+                ),
+              ),
             ),
-          ),
+            SizedBox(height: 16.h),
+            CustomTextFormField(
+              textFieldModel: TextFieldModel(
+                controller: updateFolderCubit.editFolderNameEnController,
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.done,
+                hintText: "enterFolderNameEnglish".tr(),
+                validator: (value) => MyValidators.displayNameValidator(value),
+                customTextLabel: CustomText(
+                  title: "folderNameEnglish".tr(),
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

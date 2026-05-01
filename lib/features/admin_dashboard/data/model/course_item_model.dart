@@ -45,20 +45,28 @@ class CourseItemModel {
 
   factory CourseItemModel.fromJson(Map<String, dynamic> json) {
     return CourseItemModel(
-      courseId: json['id'] as int,
-      name: json['name'] as String,
-      code: json['code'] as String,
+      courseId: json['id'] as int? ?? 0,
+      name: json['name'] as String? ?? '',
+      code: json['code'] as String? ?? '',
       department: DepartmentCourseItemModel.fromJson(
-        json['department'] as Map<String, dynamic>,
+        json['department'] is Map<String, dynamic>
+            ? json['department'] as Map<String, dynamic>
+            : {'id': 0, 'name': ''},
       ),
       level: LevelCourseItemModel.fromJson(
-        json['level'] as Map<String, dynamic>,
+        json['level'] is Map<String, dynamic>
+            ? json['level'] as Map<String, dynamic>
+            : {'id': 0, 'name': ''},
       ),
       semester: SemesterCourseItemModel.fromJson(
-        json['semester'] as Map<String, dynamic>,
+        (json['semester'] ?? json['term']) is Map<String, dynamic>
+            ? (json['semester'] ?? json['term']) as Map<String, dynamic>
+            : {'id': 0, 'name': ''},
       ),
-      doctor: json['assignedDoctor'] != null
-          ? (json['assignedDoctor'] as Map<String, dynamic>)['name'] as String
+      doctor: json['assignedDoctor'] != null &&
+              json['assignedDoctor'] is Map<String, dynamic>
+          ? (json['assignedDoctor'] as Map<String, dynamic>)['name'] as String? ??
+              '-'
           : '-',
     );
   }

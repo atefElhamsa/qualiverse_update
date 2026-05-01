@@ -27,7 +27,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   late TabController tabController;
   int? selectedDeptId;
   int? selectedLevelId;
-  int? selectedSemesterId;
+  int? selectedTermId;
   List<CourseModel> availableCourses = [];
   CourseModel? selectedCourse;
   bool isLoadingCourses = false;
@@ -41,7 +41,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
 
     if (selectedDeptId == null ||
         selectedLevelId == null ||
-        selectedSemesterId == null) {
+        selectedTermId == null) {
       showSnackBar(
         context,
         'Please select Department, Level and Semester',
@@ -64,7 +64,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         yearId: yearId,
         departmentId: selectedDeptId!,
         levelId: selectedLevelId!,
-        semesterId: selectedSemesterId!,
+        termId: selectedTermId!,
       );
     } else if (tabController.index == 1) {
       if (codeController.text.isEmpty ||
@@ -80,7 +80,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         code: codeController.text,
         departmentId: selectedDeptId!,
         levelId: selectedLevelId!,
-        semesterId: selectedSemesterId!,
+        termId: selectedTermId!,
         yearId: yearId,
       );
     }
@@ -89,7 +89,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   void fetchCourses() async {
     if (selectedDeptId == null ||
         selectedLevelId == null ||
-        selectedSemesterId == null) {
+        selectedTermId == null) {
       return;
     }
 
@@ -100,7 +100,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
       final courses = await CourseService.getCourses(
         yearId: yearId,
         levelId: selectedLevelId!,
-        semesterId: selectedSemesterId!,
+        termId: selectedTermId!,
         departmentId: selectedDeptId!,
       );
       setState(() {
@@ -229,10 +229,10 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
           child: SemesterDropDownWidget(
             height: 45.h,
             isExpanded: true,
-            selectedId: selectedSemesterId,
+            selectedId: selectedTermId,
             useCubitSelection: false,
             onChanged: (id) => setState(() {
-              selectedSemesterId = id;
+              selectedTermId = id;
               fetchCourses();
             }),
           ),

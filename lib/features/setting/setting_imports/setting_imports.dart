@@ -38,7 +38,6 @@ export 'package:qualiverse/features/setting/presentation/view/widgets/language/s
 export 'package:qualiverse/features/setting/presentation/view/widgets/notification/list_notification.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_item_widget.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_setting_content.dart';
-export 'package:qualiverse/features/setting/presentation/view/widgets/notification/theme_selector.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/notification/view_delete_container.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/setting_body.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/setting_content.dart';

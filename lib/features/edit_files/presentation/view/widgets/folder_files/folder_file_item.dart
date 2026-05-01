@@ -219,8 +219,6 @@ class _FolderFileItemState extends State<FolderFileItem> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
@@ -237,7 +235,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
           decoration: BoxDecoration(
             color: _hovered
                 ? AppColors.progressColor.withOpacity(0.06)
-                : (isDark ? const Color(0xFF1E2330) : Colors.white),
+                : Colors.white,
             borderRadius: BorderRadius.circular(14.r),
             border: Border.all(
               color: _hovered

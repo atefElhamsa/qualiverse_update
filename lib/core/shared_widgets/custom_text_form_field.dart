@@ -23,7 +23,8 @@ class CustomTextFormField extends StatelessWidget {
             onChanged: textFieldModel.onChanged,
             style: Theme.of(
               context,
-            ).textTheme.labelSmall!.copyWith(color: AppColors.greyLight),
+            ).textTheme.labelSmall!.copyWith(color: AppColors.mainBlack),
+            textInputAction: textFieldModel.textInputAction,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             keyboardType: textFieldModel.keyboardType,
             obscureText: isPasswordField ? isObscured : false,

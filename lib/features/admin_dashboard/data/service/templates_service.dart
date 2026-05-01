@@ -38,7 +38,7 @@ class TemplatesService {
     required int yearId,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
   }) async {
     try {
       final response = await dio.post(
@@ -47,7 +47,7 @@ class TemplatesService {
           "courseTemplateId": templateId,
           "departmentId": departmentId,
           "levelId": levelId,
-          "semesterId": semesterId,
+          "termId": termId,
           "academicYearId": yearId,
         },
       );
@@ -82,7 +82,7 @@ class TemplatesService {
     required String code,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
     required int yearId,
   }) async {
     try {
@@ -96,7 +96,7 @@ class TemplatesService {
           "code": code,
           "departmentId": departmentId,
           "levelId": levelId,
-          "semesterId": semesterId,
+          "termId": termId,
           "academicYearId": yearId,
         },
       );

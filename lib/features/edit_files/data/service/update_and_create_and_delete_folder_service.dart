@@ -6,12 +6,19 @@ class UpdateAndCreateAndDeleteFolderService {
 
   static Future<String> updateFolder({
     required int folderId,
-    required String name,
+    required String nameAr,
+    required String nameEn,
   }) async {
     try {
       final response = await dio.put(
         EndPoints.updateAndCreateCourseFolder,
-        data: {"folderId": folderId, "name": name},
+        data: {
+          "folderId": folderId,
+          "translations": [
+            {"languageCode": "ar", "name": nameAr},
+            {"languageCode": "en", "name": nameEn},
+          ],
+        },
       );
       var data = response.data;
 
@@ -37,12 +44,19 @@ class UpdateAndCreateAndDeleteFolderService {
 
   static Future<String> createFolder({
     required int courseId,
-    required String name,
+    required String nameAr,
+    required String nameEn,
   }) async {
     try {
       final response = await dio.post(
         EndPoints.updateAndCreateCourseFolder,
-        data: {"name": name, "courseId": courseId},
+        data: {
+          "courseId": courseId,
+          "translations": [
+            {"languageCode": "ar", "name": nameAr},
+            {"languageCode": "en", "name": nameEn},
+          ],
+        },
       );
       var data = response.data;
 

@@ -19,7 +19,7 @@ class CoursesList extends StatelessWidget {
               CourseCubit.get(context).fetchCourses(
                 yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
                 levelId: LevelCubit.get(context).selectedLevel!.id,
-                semesterId: SemesterCubit.get(context).selectedSemester!.id,
+                semesterId: TermCubit.get(context).selectedTerm!.id,
                 departmentId: DepartmentCubit.get(
                   context,
                 ).selectedDepartment!.id,

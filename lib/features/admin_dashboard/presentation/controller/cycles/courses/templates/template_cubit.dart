@@ -49,7 +49,7 @@ class TemplateCubit extends Cubit<TemplateState> {
     required int yearId,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
   }) async {
     emit(TemplateLoading());
     try {
@@ -58,7 +58,7 @@ class TemplateCubit extends Cubit<TemplateState> {
         yearId: yearId,
         departmentId: departmentId,
         levelId: levelId,
-        semesterId: semesterId,
+        termId: termId,
       );
       emit(CreateCourseFromTemplateSuccess(message: message));
     } catch (e) {
@@ -81,7 +81,7 @@ class TemplateCubit extends Cubit<TemplateState> {
     required String code,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
     required int yearId,
   }) async {
     emit(TemplateLoading());
@@ -92,7 +92,7 @@ class TemplateCubit extends Cubit<TemplateState> {
         code: code,
         departmentId: departmentId,
         levelId: levelId,
-        semesterId: semesterId,
+        termId: termId,
         yearId: yearId,
       );
       emit(CreateNewCourseSuccess(message: message));

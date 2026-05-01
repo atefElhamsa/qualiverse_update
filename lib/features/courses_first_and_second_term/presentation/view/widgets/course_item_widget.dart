@@ -24,35 +24,38 @@ class CourseItemWidget extends StatelessWidget {
       child: SizedBox(
         width: 218.w,
         height: 180.h,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          spacing: 5,
-          children: [
-            Container(
-              height: 97.h,
-              width: 218.w,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                borderRadius: BorderRadius.circular(20.r),
-              ),
-            ),
-            Expanded(
-              child: SizedBox(
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            spacing: 5,
+            children: [
+              Container(
+                height: 97.h,
                 width: 218.w,
-                child: SingleChildScrollView(
-                  child: CustomText(
-                    title: title,
-                    textAlign: TextAlign.center,
-                    textStyle: Theme.of(
-                      context,
-                    ).textTheme.bodySmall!.copyWith(fontSize: 24.sp),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: 218.w,
+                  child: SingleChildScrollView(
+                    child: CustomText(
+                      title: title,
+                      textAlign: TextAlign.center,
+                      textStyle: Theme.of(
+                        context,
+                      ).textTheme.bodySmall!.copyWith(fontSize: 24.sp),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -32,6 +32,9 @@ class TextFieldModel {
   // Callback for when the text field content changes.
   final void Function(String)? onChanged;
 
+  // Type of action for the keyboard.
+  final TextInputAction? textInputAction;
+
   // Constructor for TextFieldModel.
   // All parameters except onTap, focusNode, and onFieldSubmitted are required.
   const TextFieldModel({
@@ -45,5 +48,6 @@ class TextFieldModel {
     this.onFieldSubmitted,
     this.isObscured,
     this.onChanged,
+    this.textInputAction,
   });
 }

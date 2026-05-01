@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
@@ -10,7 +9,7 @@ class NotificationSettingsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).scaffoldBackgroundColor != AppColors.white;
+    const isDark = false;
 
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 40.w, top: 50.h, end: 20.w),
@@ -28,7 +27,7 @@ class NotificationSettingsContent extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28.sp,
                       fontWeight: FontWeight.w700,
-                      color: isDark ? AppColors.white : AppColors.mainBlack,
+                      color: AppColors.mainBlack,
                     ),
                   ),
                   SizedBox(height: 4.h),
@@ -36,16 +35,11 @@ class NotificationSettingsContent extends StatelessWidget {
                     'notificationSubtitle'.tr(),
                     style: TextStyle(
                       fontSize: 13.sp,
-                      color: isDark
-                          ? AppColors.white.withOpacity(0.5)
-                          : AppColors.greyLight,
+                      color: AppColors.greyLight,
                     ),
                   ),
                 ],
               ),
-              const Spacer(),
-              // Theme toggle chip
-              const _ThemeToggleChip(),
             ],
           ),
 
@@ -59,57 +53,6 @@ class NotificationSettingsContent extends StatelessWidget {
   }
 }
 
-// ── Theme Toggle ─────────────────────────────────────────────────────────────
-class _ThemeToggleChip extends StatelessWidget {
-  const _ThemeToggleChip();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SettingCubit, SettingState>(
-      builder: (context, state) {
-        final cubit = SettingCubit.get(context);
-        final isDark = cubit.isDark;
-        return GestureDetector(
-          onTap: () => cubit.changeTheme(dark: !isDark),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            decoration: BoxDecoration(
-              color: isDark
-                  ? AppColors.drColor.withOpacity(0.15)
-                  : const Color(0xFFEEF2FF),
-              borderRadius: BorderRadius.circular(30.r),
-              border: Border.all(
-                color: isDark
-                    ? AppColors.drColor.withOpacity(0.4)
-                    : AppColors.drColor.withOpacity(0.25),
-              ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  isDark ? Icons.nights_stay_rounded : Icons.wb_sunny_rounded,
-                  size: 18.sp,
-                  color: AppColors.drColor,
-                ),
-                SizedBox(width: 8.w),
-                Text(
-                  isDark ? 'dark'.tr() : 'light'.tr(),
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.drColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
 
 // ── Notification List ─────────────────────────────────────────────────────────
 class _NotificationList extends StatelessWidget {

@@ -27,7 +27,7 @@ class CourseCubit extends Cubit<CourseState> {
       final data = await CourseService.getCourses(
         yearId: yearId,
         levelId: levelId,
-        semesterId: semesterId,
+        termId: semesterId,
         departmentId: departmentId,
       );
       courses = data;

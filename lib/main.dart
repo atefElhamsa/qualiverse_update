@@ -39,7 +39,7 @@ void main() async {
         BlocProvider(create: (context) => CycleIndicatorCubit()),
         BlocProvider(create: (context) => AssignCubit()),
         BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
-        BlocProvider(create: (context) => SemesterCubit()..fetchSemesters()),
+        BlocProvider(create: (context) => TermCubit()..fetchTerms()),
         BlocProvider(create: (context) => TemplateCubit()),
         BlocProvider(create: (context) => TypesCubit()..fetchTypes()),
         BlocProvider(create: (context) => DashboardCubit()..getDashboard()),

@@ -12,7 +12,6 @@ class SettingCubit extends Cubit<SettingState> {
   static SettingCubit get(BuildContext context) => BlocProvider.of(context);
 
   String languageCode = 'en';
-  bool isDark = false;
   SettingsPage selectedPage = SettingsPage.account;
   List<AppLanguage> preferredLanguages = [];
 
@@ -31,12 +30,7 @@ class SettingCubit extends Cubit<SettingState> {
       await context.setLocale(Locale(languageCode));
     }
 
-    // ===== THEME =====
-    final savedTheme = CashHelper.getData(key: KeysTexts.theme);
 
-    isDark = savedTheme != null
-        ? savedTheme == 'dark'
-        : MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     // ===== USER DATA =====
     password = CashHelper.getData(key: KeysTexts.userPassword);
@@ -83,15 +77,7 @@ class SettingCubit extends Cubit<SettingState> {
     emit(LanguageChangedState());
   }
 
-  // CHANGE THEME
-  void changeTheme({required bool dark}) {
-    if (isDark == dark) return;
 
-    isDark = dark;
-    CashHelper.saveData(key: KeysTexts.theme, value: dark ? 'dark' : 'light');
-
-    emit(ThemeChangedState());
-  }
 
   // REFRESH USER DATA
   void refreshUserData() {

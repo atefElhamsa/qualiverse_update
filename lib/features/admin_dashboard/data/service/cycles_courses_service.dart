@@ -8,7 +8,7 @@ class CyclesCoursesService {
     required int academicYearId,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
   }) async {
     try {
       final response = await dio.get(
@@ -16,14 +16,14 @@ class CyclesCoursesService {
           academicYearId: academicYearId,
           departmentId: departmentId,
           levelId: levelId,
-          semesterId: semesterId,
+          termId: termId,
         ),
       );
       final Map<String, dynamic> body = response.data;
       if (body['isSuccess'] != true) {
         throw Exception('Failed to load courses');
       }
-      final List list = body['data'] ?? [];
+      final List list = body['data'] is List ? body['data'] : [];
       return list.map((e) => CourseItemModel.fromJson(e)).toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {

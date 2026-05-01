@@ -16,7 +16,7 @@ class EndPoints {
   static const String revoke = "Account/revoke-refresh-token";
   static const String me = "User/me";
   static const String user = "User";
-  static const String semesters = "Semester";
+  static const String terms = "Term";
   static const String updateAndCreateCourseFolder = "CourseFolder";
   static const String evidenceFolders = "EvidenceFolder";
   static const String assignIndicator = "Indicator/assign";
@@ -57,11 +57,11 @@ class EndPoints {
   static String courses({
     required int yearId,
     required int levelId,
-    required int semesterId,
+    required int termId,
     int? departmentId,
   }) {
     final buffer = StringBuffer(
-      "Course?yearId=$yearId&levelId=$levelId&semesterId=$semesterId",
+      "Course?yearId=$yearId&levelId=$levelId&termId=$termId",
     );
 
     if (departmentId != null) {
@@ -191,9 +191,9 @@ class EndPoints {
     required int academicYearId,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
   }) {
-    return "Course/all?AcademicYearId=$academicYearId&DepartmentId=$departmentId&LevelId=$levelId&SemesterId=$semesterId";
+    return "Course/all?AcademicYearId=$academicYearId&DepartmentId=$departmentId&LevelId=$levelId&TermId=$termId";
   }
 
   static String getAllCriterions({

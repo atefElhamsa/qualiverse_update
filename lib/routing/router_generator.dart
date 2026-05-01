@@ -37,7 +37,6 @@ class RouterGenerator {
       ScreensRoutes.courseSpecificationSecondTermRoute(),
       ScreensRoutes.rapporteurReportFirstTermRoute(),
       ScreensRoutes.rapporteurReportSecondTermRoute(),
-      ScreensRoutes.archiverAnalysisRoute(),
       ScreensRoutes.analysisFilesRoute(),
       ScreensRoutes.adminDashboardRoute(),
       ScreensRoutes.evidenceFolderFilesRoute(),

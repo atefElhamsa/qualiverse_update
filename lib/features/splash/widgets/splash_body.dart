@@ -28,13 +28,10 @@ class SplashBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: isDark
-              ? [AppColors.mainBlack, AppColors.mainBlack]
-              : [AppColors.splashBackground2, AppColors.splashBackground1],
+          colors: [AppColors.splashBackground2, AppColors.splashBackground1],
           begin: Alignment.centerRight,
           end: Alignment.centerLeft,
         ),

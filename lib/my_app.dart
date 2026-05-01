@@ -28,11 +28,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocBuilder<SettingCubit, SettingState>(
       builder: (context, state) {
-        final cubit = context.read<SettingCubit>();
-        final ThemeMode themeMode = cubit.isDark
-            ? ThemeMode.dark
-            : ThemeMode.light;
-
         return ScreenUtilInit(
           designSize: const Size(AppSizes.appWidth, AppSizes.appHeight),
           minTextAdapt: true,
@@ -41,8 +36,7 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               theme: AppThemeData.lightTheme,
-              darkTheme: AppThemeData.darkTheme,
-              themeMode: themeMode,
+              themeMode: ThemeMode.light,
               routerConfig: RouterGenerator.mainRoutingInOurApp,
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,

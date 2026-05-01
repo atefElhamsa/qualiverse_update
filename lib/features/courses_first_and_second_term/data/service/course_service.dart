@@ -7,7 +7,7 @@ class CourseService {
   static Future<List<CourseModel>> getCourses({
     required int yearId,
     required int levelId,
-    required int semesterId,
+    required int termId,
     int? departmentId,
   }) async {
     try {
@@ -15,7 +15,7 @@ class CourseService {
         EndPoints.courses(
           yearId: yearId,
           levelId: levelId,
-          semesterId: semesterId,
+          termId: termId,
           departmentId: departmentId,
         ),
       );

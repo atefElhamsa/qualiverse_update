@@ -27,7 +27,7 @@ class CoursesMainButton extends StatelessWidget {
                 context,
               ).selectedDepartment;
               final level = LevelCubit.get(context).selectedLevel;
-              final semester = SemesterCubit.get(context).selectedSemester;
+              final semester = TermCubit.get(context).selectedTerm;
               if (year == null || level == null || semester == null) {
                 showSnackBar(
                   context,
@@ -36,11 +36,11 @@ class CoursesMainButton extends StatelessWidget {
                 );
               } else {
                 context.pushNamed(
-                  AppRoutes.archiverAnalysisScreen,
+                  AppRoutes.coursesFirstAndSecondTermScreen,
                   extra: CourseArgs(
                     yearId: year.id,
                     levelId: level.id,
-                    semesterModel: semester,
+                    termModel: semester,
                     departmentId: department?.id,
                   ),
                 );

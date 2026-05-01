@@ -4,12 +4,12 @@ class CourseArgs {
   final int yearId;
   final int levelId;
   final int? departmentId;
-  final SemesterModel semesterModel;
+  final TermModel termModel;
 
   CourseArgs({
     required this.yearId,
     required this.levelId,
-    required this.semesterModel,
+    required this.termModel,
     this.departmentId,
   });
 }

@@ -19,7 +19,7 @@ class CoursesCubit extends Cubit<CoursesState> {
     required int academicYearId,
     required int departmentId,
     required int levelId,
-    required int semesterId,
+    required int termId,
   }) async {
     if (!await checkInternet()) {
       emit(CoursesFailure(error: "checkInternet".tr()));
@@ -31,7 +31,7 @@ class CoursesCubit extends Cubit<CoursesState> {
         academicYearId: academicYearId,
         departmentId: departmentId,
         levelId: levelId,
-        semesterId: semesterId,
+        termId: termId,
       );
       emit(CoursesSuccess(courses: result));
     } catch (e) {

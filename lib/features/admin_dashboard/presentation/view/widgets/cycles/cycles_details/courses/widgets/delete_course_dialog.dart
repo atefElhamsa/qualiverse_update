@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as SemesterCubit;
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -37,14 +38,14 @@ void refreshCourses(BuildContext context) {
   final year = AcademicYearCubit.get(context).selectedAcademicYear;
   final department = DepartmentCubit.get(context).selectedDepartment;
   final level = LevelCubit.get(context).selectedLevel;
-  final semester = SemesterCubit.get(context).selectedSemester;
+  final term = TermCubit.get(context).selectedTerm;
 
-  if (year != null && department != null && level != null && semester != null) {
+  if (year != null && department != null && level != null && term != null) {
     CoursesCubit.get(context).getCourses(
       academicYearId: year.id,
       departmentId: department.id,
       levelId: level.id,
-      semesterId: semester.id,
+      termId: term.id,
     );
   }
 }

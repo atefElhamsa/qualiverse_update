@@ -14,12 +14,12 @@ class CoursesFirstAndSecondTermScreen extends StatelessWidget {
         ..fetchCourses(
           yearId: courseArgs.yearId,
           levelId: courseArgs.levelId,
-          semesterId: courseArgs.semesterModel.id,
+          semesterId: courseArgs.termModel.id,
           departmentId: courseArgs.departmentId,
         ),
       child: MainWrapper(
         child: CoursesFirstAndSecondTermBody(
-          title: courseArgs.semesterModel.name,
+          title: courseArgs.termModel.name,
         ),
       ),
     );

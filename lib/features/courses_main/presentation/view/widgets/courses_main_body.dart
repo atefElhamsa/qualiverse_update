@@ -22,7 +22,7 @@ class CoursesMainBody extends StatelessWidget {
           create: (context) => AcademicYearCubit()..fetchAcademicYears(),
         ),
         BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
-        BlocProvider(create: (context) => SemesterCubit()..fetchSemesters()),
+        BlocProvider(create: (context) => TermCubit()..fetchTerms()),
         BlocProvider(create: (context) => CourseCubit()),
       ],
       child: CustomScaffold(

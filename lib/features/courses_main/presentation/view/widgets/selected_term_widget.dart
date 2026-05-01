@@ -9,40 +9,38 @@ class SelectedSemesterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SemesterCubit, SemesterState>(
+    return BlocBuilder<TermCubit, TermState>(
       builder: (context, state) {
-        if (state is SemesterLoading) {
+        if (state is TermLoading) {
           return const CustomLoading();
         }
-        if (state is SemesterError) {
+        if (state is TermError) {
           return RetryWidget(
             title: state.message,
             onPressed: () {
-              SemesterCubit.get(context).fetchSemesters();
+              TermCubit.get(context).fetchTerms();
             },
           );
         }
-        if (state is SemesterSuccess) {
-          final semesterCubit = SemesterCubit.get(context);
-          final List<String> semesterNames = state.semesters
-              .map((e) => e.name)
-              .toList();
-          final String? selectedSemesterName = state.selectedSemester?.name;
+        if (state is TermSuccess) {
+          final semesterCubit = TermCubit.get(context);
+          final List<String> semesterNames = state.terms.map((e) => e.name).toList();
+          final String? selectedSemesterName = state.selectedTerm?.name;
           return CustomDropButtonAndTitle(
             dropButtonModel: DropButtonModel(
               selectedData: selectedSemesterName,
               listOfData: semesterNames,
-              hintText: "chooseSemester".tr(),
+              hintText: "chooseTerm".tr(),
               hintSize: 20.sp,
               onChanged: (value) {
                 if (value == null) return;
-                final selectedModel = state.semesters.firstWhere(
+                final selectedModel = state.terms.firstWhere(
                   (d) => d.name == value,
                 );
-                semesterCubit.selectSemester(semester: selectedModel);
+                semesterCubit.selectTerm(term: selectedModel);
               },
             ),
-            title: "semester".tr(),
+            title: "term".tr(),
           );
         }
         return const SizedBox();

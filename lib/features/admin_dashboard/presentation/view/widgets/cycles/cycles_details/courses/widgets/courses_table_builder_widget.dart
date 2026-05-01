@@ -14,17 +14,17 @@ class CoursesTableBuilderWidget extends StatelessWidget {
     final year = AcademicYearCubit.get(context).selectedAcademicYear;
     final department = DepartmentCubit.get(context).selectedDepartment;
     final level = LevelCubit.get(context).selectedLevel;
-    final semester = SemesterCubit.get(context).selectedSemester;
+    final term = TermCubit.get(context).selectedTerm;
 
     if (year != null &&
         department != null &&
         level != null &&
-        semester != null) {
+        term != null) {
       CoursesCubit.get(context).getCourses(
         academicYearId: year.id,
         departmentId: department.id,
         levelId: level.id,
-        semesterId: semester.id,
+        termId: term.id,
       );
     }
   }
@@ -51,7 +51,7 @@ class CoursesTableBuilderWidget extends StatelessWidget {
         BlocListener<LevelCubit, LevelState>(
           listener: (ctx, _) => checkAndFetch(ctx),
         ),
-        BlocListener<SemesterCubit, SemesterState>(
+        BlocListener<TermCubit, TermState>(
           listener: (ctx, _) => checkAndFetch(ctx),
         ),
       ],

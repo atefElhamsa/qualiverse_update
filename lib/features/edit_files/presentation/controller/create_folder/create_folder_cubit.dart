@@ -10,12 +10,14 @@ class CreateFolderCubit extends Cubit<CreateFolderState> {
   static CreateFolderCubit get(BuildContext context) =>
       BlocProvider.of<CreateFolderCubit>(context);
 
-  final newFolderNameController = TextEditingController();
+  final newFolderNameArController = TextEditingController();
+  final newFolderNameEnController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   Future<void> createFolder({required int courseId}) async {
-    final folderName = newFolderNameController.text.trim();
-    if (folderName.isEmpty) {
+    final folderNameAr = newFolderNameArController.text.trim();
+    final folderNameEn = newFolderNameEnController.text.trim();
+    if (folderNameAr.isEmpty || folderNameEn.isEmpty) {
       emit(CreateFolderFailure(errorMessage: "fillAllFields".tr()));
       return;
     }
@@ -23,10 +25,12 @@ class CreateFolderCubit extends Cubit<CreateFolderState> {
       emit(CreateFolderLoading());
       final result = await UpdateAndCreateAndDeleteFolderService.createFolder(
         courseId: courseId,
-        name: folderName,
+        nameAr: folderNameAr,
+        nameEn: folderNameEn,
       );
+      newFolderNameArController.clear();
+      newFolderNameEnController.clear();
       emit(CreateFolderSuccess(message: result));
-      newFolderNameController.clear();
     } catch (e) {
       emit(
         CreateFolderFailure(
