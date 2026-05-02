@@ -236,4 +236,22 @@ class EndPoints {
 
     return buffer.toString();
   }
+
+  static String getFileData({
+    int? departmentId,
+    required int academicYearId,
+    required int termId,
+    required int levelId,
+    required int courseId,
+  }) {
+    final buffer = StringBuffer("EvidenceFolder/data?");
+    buffer.write("academicYearId=$academicYearId");
+    buffer.write("&termId=$termId");
+    buffer.write("&levelId=$levelId");
+    buffer.write("&courseId=$courseId");
+    if (departmentId != null) {
+      buffer.write("&departmentId=$departmentId");
+    }
+    return buffer.toString();
+  }
 }

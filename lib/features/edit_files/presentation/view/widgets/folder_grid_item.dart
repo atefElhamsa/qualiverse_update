@@ -5,10 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/utils/app_colors.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_folder_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_statistics_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_general_screen.dart';
+import '../../controller/get_file_data/get_file_data_cubit.dart';
 
 class FolderGridItem extends StatefulWidget {
   final EvidenceFolderModel folder;
@@ -135,8 +136,11 @@ class _FolderGridItemState extends State<FolderGridItem> {
   void _showFilesDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (_) => BlocProvider(
-        create: (_) => EvidenceFolderFilesCubit(),
+      builder: (_) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => EvidenceFolderFilesCubit()),
+          BlocProvider(create: (_) => GetFileDataCubit()),
+        ],
         child: Dialog(
           insetPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           shape: RoundedRectangleBorder(
@@ -153,6 +157,7 @@ class _FolderGridItemState extends State<FolderGridItem> {
                       academicYearId: widget.yearId,
                       termId: widget.termId,
                       levelId: widget.levelId,
+                      courseId: widget.courseId,
                     )
                   : widget.isGeneral
                   ? EvidenceFileGeneralScreen(

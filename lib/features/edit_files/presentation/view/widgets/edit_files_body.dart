@@ -21,7 +21,7 @@ class EditFilesBody extends StatelessWidget {
             yearId: courseModel.academicYearId,
             termId: courseModel.termId,
             levelId: courseModel.levelId,
-            courseId: courseModel.id, // Passed courseId
+            courseId: courseModel.id,
           ),
           const EditFilesList(),
           const SizedBox(height: 20),

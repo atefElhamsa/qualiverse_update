@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,24 +14,48 @@ class RetryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CustomText(
-            title: title,
-            textStyle: GoogleFonts.cairo(
-              fontSize: 20.sp,
-              color: AppColors.red,
-              fontWeight: FontWeight.bold,
+          Icon(
+            Icons.error_outline_rounded,
+            color: AppColors.red.withOpacity(0.8),
+            size: 80.sp,
+          ),
+          SizedBox(height: 20.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
+            child: CustomText(
+              title: title,
+              textAlign: TextAlign.center,
+              textStyle: GoogleFonts.cairo(
+                fontSize: 18.sp,
+                color: const Color(0xFF1A1A1A),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          IconButton(
-            onPressed: onPressed,
-            icon: Icon(
-              Icons.refresh_rounded,
-              size: 30.sp,
-              color: AppColors.red,
+          SizedBox(height: 25.h),
+          if (onPressed != null)
+            ElevatedButton.icon(
+              onPressed: onPressed,
+              icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+              label: Text(
+                "Retry".tr(),
+                style: GoogleFonts.cairo(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.sp,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.red,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 12.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                elevation: 0,
+              ),
             ),
-          ),
         ],
       ),
     );

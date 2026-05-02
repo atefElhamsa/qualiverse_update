@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/helpers/file_download_helper.dart';
 import 'package:qualiverse/core/utils/end_points.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EvidenceFolderFileItem extends StatefulWidget {

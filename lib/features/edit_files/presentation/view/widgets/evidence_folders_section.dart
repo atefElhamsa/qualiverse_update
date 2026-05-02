@@ -4,13 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/utils/app_colors.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_cubit.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder/evidence_folder_cubit.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_folder_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_state.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder/evidence_folder_state.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/get_file_data/get_file_data_cubit.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_statistics_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_file_general_screen.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/widgets/container_widget.dart';
 
 class EvidenceFoldersSection extends StatelessWidget {
@@ -141,8 +142,11 @@ class _FolderGridItemState extends State<_FolderGridItem> {
           onTap: () {
             showDialog(
               context: context,
-              builder: (_) => BlocProvider(
-                create: (_) => EvidenceFolderFilesCubit(),
+              builder: (_) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (_) => EvidenceFolderFilesCubit()),
+                  BlocProvider(create: (_) => GetFileDataCubit()),
+                ],
                 child: Dialog(
                   insetPadding: EdgeInsets.symmetric(
                     horizontal: 20.w,
@@ -162,6 +166,7 @@ class _FolderGridItemState extends State<_FolderGridItem> {
                               academicYearId: widget.yearId,
                               termId: widget.termId,
                               levelId: widget.levelId,
+                              courseId: widget.courseId,
                             )
                           : widget.isGeneral
                               ? EvidenceFileGeneralScreen(

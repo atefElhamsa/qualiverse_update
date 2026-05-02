@@ -5,16 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files_state.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_state.dart';
+import 'package:qualiverse/features/edit_files/presentation/controller/get_file_data/get_file_data_state.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/widgets/evidence_folder_files/evidence_folder_file_item.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import '../controller/evidence_folder_files_cubit.dart';
+import '../controller/evidence_folder_files/evidence_folder_files_cubit.dart';
+import '../controller/get_file_data/get_file_data_cubit.dart';
+import 'widgets/course_statistics/course_statistics_dashboard.dart';
 
 class EvidenceFileStatisticsScreen extends StatefulWidget {
   final int academicYearId;
   final int termId;
   final int levelId;
   final int? departmentId;
+  final int courseId;
 
   const EvidenceFileStatisticsScreen({
     super.key,
@@ -22,6 +26,7 @@ class EvidenceFileStatisticsScreen extends StatefulWidget {
     required this.termId,
     required this.levelId,
     this.departmentId,
+    required this.courseId,
   });
 
   @override
@@ -30,15 +35,25 @@ class EvidenceFileStatisticsScreen extends StatefulWidget {
 }
 
 class _EvidenceFileStatisticsScreenState
-    extends State<EvidenceFileStatisticsScreen> {
+    extends State<EvidenceFileStatisticsScreen>
+    with SingleTickerProviderStateMixin {
   late final TextEditingController _searchController;
+  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _searchController = TextEditingController();
+    _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       EvidenceFolderFilesCubit.get(context).getStatistics(
+        academicYearId: widget.academicYearId,
+        termId: widget.termId,
+        levelId: widget.levelId,
+        departmentId: widget.departmentId,
+      );
+      GetFileDataCubit.get(context).getFileData(
+        courseId: widget.courseId,
         academicYearId: widget.academicYearId,
         termId: widget.termId,
         levelId: widget.levelId,
@@ -50,6 +65,7 @@ class _EvidenceFileStatisticsScreenState
   @override
   void dispose() {
     _searchController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -58,7 +74,7 @@ class _EvidenceFileStatisticsScreenState
     if (result == null || result.files.isEmpty) return;
 
     final cubit = EvidenceFolderFilesCubit.get(context);
-    
+
     final multipartFiles = await Future.wait(
       result.files
           .where((f) => f.path != null)
@@ -102,21 +118,34 @@ class _EvidenceFileStatisticsScreenState
 
           return Stack(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeader(context, cubit.allFiles.length),
-                  _buildToolbar(context, isUploading),
-                  SizedBox(height: 15.h),
-                  Expanded(child: _buildBody(context, state, cubit)),
-                ],
+              Positioned.fill(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildHeader(context, cubit.allFiles.length),
+                    _buildTabBar(),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          Column(
+                            children: [
+                              _buildToolbar(context, isUploading),
+                              SizedBox(height: 15.h),
+                              Expanded(child: _buildBody(context, state, cubit)),
+                            ],
+                          ),
+                          _buildStatisticsAnalysisTab(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               if (isUploading)
                 Container(
                   color: Colors.white.withOpacity(0.4),
-                  child: const Center(
-                    child: CustomLoading(),
-                  ),
+                  child: const Center(child: CustomLoading()),
                 ),
             ],
           );
@@ -140,8 +169,11 @@ class _EvidenceFileStatisticsScreenState
                   color: const Color(0xFFE8F1FF),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: Icon(Icons.arrow_back_ios_new_rounded,
-                    color: const Color(0xFF4285F4), size: 16.sp),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: const Color(0xFF4285F4),
+                  size: 16.sp,
+                ),
               ),
             ),
           ),
@@ -152,21 +184,31 @@ class _EvidenceFileStatisticsScreenState
               color: const Color(0xFF0F569E),
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(Icons.analytics_rounded,
-                color: Colors.white, size: 22.sp),
+            child: Icon(
+              Icons.analytics_rounded,
+              color: Colors.white,
+              size: 22.sp,
+            ),
           ),
           SizedBox(width: 15.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Statistics'.tr(),
-                  style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A1A1A))),
-              Text('$count ${'files'.tr()}',
-                  style: GoogleFonts.cairo(
-                      fontSize: 12.sp, color: Colors.grey.shade500)),
+              Text(
+                'Statistics'.tr(),
+                style: GoogleFonts.cairo(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF1A1A1A),
+                ),
+              ),
+              Text(
+                '$count ${'files'.tr()}',
+                style: GoogleFonts.cairo(
+                  fontSize: 12.sp,
+                  color: Colors.grey.shade500,
+                ),
+              ),
             ],
           ),
         ],
@@ -198,9 +240,15 @@ class _EvidenceFileStatisticsScreenState
                             width: 16.w,
                             height: 16.h,
                             child: const CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2))
-                        : Icon(Icons.upload_file_rounded,
-                            color: Colors.white, size: 18.sp),
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Icon(
+                            Icons.upload_file_rounded,
+                            color: Colors.white,
+                            size: 18.sp,
+                          ),
                     SizedBox(width: 8.w),
                     Text(
                       'Upload File',
@@ -230,9 +278,14 @@ class _EvidenceFileStatisticsScreenState
                 decoration: InputDecoration(
                   hintText: 'Search file...',
                   hintStyle: GoogleFonts.cairo(
-                      color: Colors.grey.shade400, fontSize: 13.sp),
-                  prefixIcon: Icon(Icons.search_rounded,
-                      color: Colors.grey.shade400, size: 18.sp),
+                    color: Colors.grey.shade400,
+                    fontSize: 13.sp,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: Colors.grey.shade400,
+                    size: 18.sp,
+                  ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 8.h),
                 ),
@@ -274,12 +327,16 @@ class _EvidenceFileStatisticsScreenState
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.analytics_outlined,
-                size: 64.sp, color: Colors.grey.shade300),
+            Icon(
+              Icons.analytics_outlined,
+              size: 64.sp,
+              color: Colors.grey.shade300,
+            ),
             SizedBox(height: 12.h),
-            Text("No statistics files found",
-                style: GoogleFonts.cairo(
-                    fontSize: 16.sp, color: Colors.grey)),
+            Text(
+              "No statistics files found",
+              style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+            ),
           ],
         ),
       );
@@ -294,6 +351,77 @@ class _EvidenceFileStatisticsScreenState
           isArabic: context.locale.languageCode == 'ar',
           folderId: -1,
         );
+      },
+    );
+  }
+
+  Widget _buildTabBar() {
+    return Container(
+      height: 50.h,
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      padding: EdgeInsets.all(4.r),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF1F5F9),
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        dividerColor: Colors.transparent,
+        indicator: BoxDecoration(
+          color: const Color(0xFF0F569E),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey.shade600,
+        labelStyle: GoogleFonts.cairo(
+          fontWeight: FontWeight.bold,
+          fontSize: 14.sp,
+        ),
+        tabs: [
+          Tab(text: "Files".tr()),
+          Tab(text: "Analysis".tr()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatisticsAnalysisTab() {
+    return BlocBuilder<GetFileDataCubit, GetFileDataState>(
+      builder: (context, state) {
+        if (state is GetFileDataLoading) {
+          return const Center(child: CustomLoading());
+        }
+        if (state is GetFileDataFailure) {
+          return SizedBox.expand(
+            child: Align(
+              alignment: Alignment.center,
+              child: RetryWidget(
+                title: state.errorMessage,
+                onPressed: () => GetFileDataCubit.get(context).getFileData(
+                  courseId: widget.courseId,
+                  academicYearId: widget.academicYearId,
+                  termId: widget.termId,
+                  levelId: widget.levelId,
+                  departmentId: widget.departmentId,
+                ),
+              ),
+            ),
+          );
+        }
+        if (state is GetFileDataSuccess) {
+          if (state.data.isEmpty) {
+            return Center(
+              child: Text(
+                "No analysis data available",
+                style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+              ),
+            );
+          }
+          // Assuming we take the first item since the API returns a list but we requested for a specific course
+          return CourseStatisticsDashboard(data: state.data.first);
+        }
+        return const SizedBox.shrink();
       },
     );
   }
