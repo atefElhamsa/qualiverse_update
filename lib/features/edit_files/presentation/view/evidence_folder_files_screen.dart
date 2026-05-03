@@ -69,10 +69,10 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
     await cubit.uploadFiles(
       folderId: widget.folderId,
       files: multipartFiles,
-      departmentId: widget.departmentId,
-      academicYearId: widget.academicYearId ?? 1,
-      semesterId: widget.termId ?? 1,
-      levelId: widget.levelId ?? 1,
+      departmentId: widget.departmentId!,
+      academicYearId: widget.academicYearId!,
+      semesterId: widget.termId!,
+      levelId: widget.levelId!,
     );
   }
 
@@ -205,7 +205,7 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
                             color: Colors.white, size: 18.sp),
                     SizedBox(width: 8.w),
                     Text(
-                      'Upload File',
+                      'uploadFile'.tr(),
                       style: GoogleFonts.cairo(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -230,7 +230,7 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
                 controller: _searchController,
                 onChanged: (v) => cubit.searchFiles(v),
                 decoration: InputDecoration(
-                  hintText: 'Search file...',
+                  hintText: 'searchFile'.tr(),
                   hintStyle: GoogleFonts.cairo(
                       color: Colors.grey.shade400, fontSize: 13.sp),
                   prefixIcon: Icon(Icons.search_rounded,
@@ -276,7 +276,7 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
             Icon(Icons.folder_open_rounded,
                 size: 64.sp, color: Colors.grey.shade300),
             SizedBox(height: 12.h),
-            Text("No files found",
+            Text('noDataFound'.tr(),
                 style: GoogleFonts.cairo(
                     fontSize: 16.sp, color: Colors.grey)),
           ],

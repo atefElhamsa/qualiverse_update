@@ -35,11 +35,11 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
       final files = await EvidenceFolderFilesServices.getEvidenceFilesByFolderId(
         folderId: folderId,
       );
-      allFiles = files;
-      filteredFiles = files;
-      emit(EvidenceFolderFilesSuccess(files: files));
+      allFiles = files.files!;
+      filteredFiles = files.files!;
+      emit(EvidenceFolderFilesSuccess(files: files.files!));
     } catch (e) {
-      emit(EvidenceFolderFilesFailure(error: e.toString()));
+      emit(EvidenceFolderFilesFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -76,7 +76,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
       emit(UploadEvidenceFilesSuccess(message: 'Files uploaded successfully'));
       await getEvidenceFiles(folderId: folderId);
     } catch (e) {
-      emit(UploadEvidenceFilesFailure(error: e.toString()));
+      emit(UploadEvidenceFilesFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -115,7 +115,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
           break;
       }
     } catch (e) {
-      emit(DeleteEvidenceFileFailure(error: e.toString()));
+      emit(DeleteEvidenceFileFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -140,12 +140,12 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         levelId: levelId,
         termId: termId,
       );
-      statisticsFiles = files;
-      allFiles = files.map((e) => e.toEvidenceFileModel()).toList();
+      statisticsFiles = files.data!;
+      allFiles = files.data!.map((e) => e.toEvidenceFileModel()).toList();
       filteredFiles = allFiles;
-      emit(GetEvidenceStatisticsSuccess(statistics: files));
+      emit(GetEvidenceStatisticsSuccess(statistics: files.data!));
     } catch (e) {
-      emit(GetEvidenceStatisticsFailure(error: e.toString()));
+      emit(GetEvidenceStatisticsFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -174,7 +174,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         departmentId: departmentId,
       );
     } catch (e) {
-      emit(UploadEvidenceFilesFailure(error: e.toString()));
+      emit(UploadEvidenceFilesFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -208,7 +208,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
       filteredFiles = files;
       emit(EvidenceFolderFilesSuccess(files: files));
     } catch (e) {
-      emit(EvidenceFolderFilesFailure(error: e.toString()));
+      emit(EvidenceFolderFilesFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 
@@ -243,7 +243,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         departmentId: departmentId,
       );
     } catch (e) {
-      emit(UploadEvidenceFilesFailure(error: e.toString()));
+      emit(UploadEvidenceFilesFailure(error: e.toString().replaceFirst('Exception: ', '').trim()));
     }
   }
 }

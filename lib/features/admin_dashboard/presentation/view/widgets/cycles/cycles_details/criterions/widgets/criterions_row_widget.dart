@@ -93,7 +93,8 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: widget.criterion.accreditation == 'Program'
+                  color: (widget.criterion.accreditation == 'Program' ||
+                          widget.criterion.accreditation == 'program'.tr())
                       ? const Color(0xFFD6E4F0)
                       : const Color(0xFFEAD6F0),
                   borderRadius: BorderRadius.circular(15.r),
@@ -102,7 +103,8 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                   title: widget.criterion.accreditation,
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 12.sp,
-                    color: widget.criterion.accreditation == 'Program'
+                    color: (widget.criterion.accreditation == 'Program' ||
+                            widget.criterion.accreditation == 'program'.tr())
                         ? const Color(0xFF2C5C8A)
                         : const Color(0xFF8A2C8A),
                   ),

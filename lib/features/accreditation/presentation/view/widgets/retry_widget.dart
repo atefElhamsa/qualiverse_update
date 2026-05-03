@@ -25,11 +25,11 @@ class RetryWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: CustomText(
-              title: title,
+              title: title.replaceFirst('Exception: ', '').trim(),
               textAlign: TextAlign.center,
               textStyle: GoogleFonts.cairo(
-                fontSize: 18.sp,
-                color: const Color(0xFF1A1A1A),
+                fontSize: 20.sp,
+                color: AppColors.red,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,7 +40,7 @@ class RetryWidget extends StatelessWidget {
               onPressed: onPressed,
               icon: const Icon(Icons.refresh_rounded, color: Colors.white),
               label: Text(
-                "Retry".tr(),
+                "retry".tr(),
                 style: GoogleFonts.cairo(
                   fontWeight: FontWeight.bold,
                   fontSize: 14.sp,

@@ -23,7 +23,7 @@ class LevelCubit extends Cubit<LevelState> {
       levels = data;
       emit(LevelSuccess(levels: levels, selectedLevel: selectedLevel));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(LevelError(message: 'Check your internet connection'));
       } else if (msg.contains('Unauthorized')) {
@@ -31,7 +31,7 @@ class LevelCubit extends Cubit<LevelState> {
         reset();
         emit(LevelError(message: 'Session expired, please login again'));
       } else {
-        emit(LevelError(message: 'Something went wrong'));
+        emit(LevelError(message: msg));
       }
     }
   }

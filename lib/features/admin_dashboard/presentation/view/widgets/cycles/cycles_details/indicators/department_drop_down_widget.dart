@@ -55,7 +55,7 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: DropdownButtonHideUnderline(
-              child: DropdownButton<int>(
+              child: DropdownButton<int?>(
                 value: isValid ? state.selectedDepartment?.id : null,
                 hint: Text('selectTheDepartment'.tr()),
                 icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
@@ -63,19 +63,26 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
                   fontSize: 15.sp,
                   color: const Color(0xFF333333),
                 ),
-                items: departments
-                    .map(
-                      (department) => DropdownMenuItem<int>(
-                        value: department.id,
-                        child: Text(
-                          department.name.tr(),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                items: [
+                  DropdownMenuItem<int?>(
+                    value: null,
+                    child: Text('noSelect'.tr()),
+                  ),
+                  ...departments.map(
+                    (department) => DropdownMenuItem<int?>(
+                      value: department.id,
+                      child: Text(
+                        department.name.tr(),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    )
-                    .toList(),
+                    ),
+                  ),
+                ],
                 onChanged: (value) {
-                  if (value == null) return;
+                  if (value == null) {
+                    departmentCubit.selectDepartment(department: null);
+                    return;
+                  }
                   final selectedModel = state.departments.firstWhere(
                     (d) => d.id == value,
                   );

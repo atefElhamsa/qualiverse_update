@@ -411,5 +411,11 @@
   "english_us": "English",
   "use_as_app_language": "Use as App Language",
   "pleaseSelectDeadline": "Please select a deadline",
-  "evidenceFolders": "Evidence Folders"
+  "evidenceFolders": "Evidence Folders",
+  "pleaseEnterArabicOnly": "Please enter Arabic characters only",
+  "pleaseEnterEnglishOnly": "Please enter English characters only",
+  "pleaseChangeName": "Please change the name before updating",
+  "noSelect": "No Select",
+  "retry": "Retry",
+  "serverError": "Server error, please try again later"
 }

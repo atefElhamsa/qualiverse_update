@@ -6,17 +6,18 @@ import '../models/upload_file_to_folder_model.dart';
 class FileService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<FileModel>> getFolderFiles({required int folderId}) async {
+  static Future<FileResponse> getFolderFiles({required int folderId}) async {
     try {
       final response = await dio.get(
         EndPoints.getFolderFiles(folderId: folderId),
       );
       final Map<String, dynamic> body = response.data;
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load files');
+
+      final result = FileResponse.fromJson(body);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to load files");
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => FileModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {
@@ -45,7 +46,7 @@ class FileService {
     }
   }
 
-  static Future<UploadFileToFolderData> uploadFilesToFolder({
+  static Future<UploadFileToFolderModel> uploadFilesToFolder({
     required int folderId,
     required List<MultipartFile> files,
   }) async {
@@ -59,15 +60,13 @@ class FileService {
       );
 
       final Map<String, dynamic> body = response.data;
-      if (body['isSuccess'] != true) {
-        throw Exception(
-          body['error']?['description'] ?? 'Failed to upload files',
-        );
+
+      final result = UploadFileToFolderModel.fromJson(body);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to upload files");
       }
 
-      return UploadFileToFolderData.fromJson(
-        body['data'] as Map<String, dynamic>,
-      );
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');

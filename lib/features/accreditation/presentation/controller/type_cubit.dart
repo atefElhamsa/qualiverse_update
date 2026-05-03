@@ -22,7 +22,7 @@ class TypesCubit extends Cubit<TypesState> {
     emit(TypesLoading());
     try {
       final data = await TypesService.getTypes();
-      types = data;
+      types = data.types!;
       emit(TypesSuccess(types: types, selectedIndex: selectedIndex));
     } catch (e) {
       final msg = e.toString();

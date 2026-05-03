@@ -209,14 +209,14 @@ class EndPoints {
     required int levelId,
     required int courseId,
   }) {
-    final buffer = StringBuffer("EvidenceFolder/general?id=$id");
+    final buffer = StringBuffer(
+      "EvidenceFolder/general?id=$id&academicYearId=$academicYearId&termId=$termId&levelId=$levelId&courseId=$courseId",
+    );
+
     if (departmentId != null) {
       buffer.write("&departmentId=$departmentId");
     }
-    buffer.write("&academicYearId=$academicYearId");
-    buffer.write("&termId=$termId");
-    buffer.write("&levelId=$levelId");
-    buffer.write("&courseId=$courseId");
+
     return buffer.toString();
   }
 

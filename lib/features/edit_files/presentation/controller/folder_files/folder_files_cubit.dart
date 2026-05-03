@@ -23,7 +23,7 @@ class FolderFilesCubit extends Cubit<FolderFilesState> {
     try {
       emit(FolderFilesLoading());
       final files = await FileService.getFolderFiles(folderId: folderId);
-      emit(FolderFilesSuccess(files: files));
+      emit(FolderFilesSuccess(files: files.files!));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('No Internet')) {
@@ -54,7 +54,7 @@ class FolderFilesCubit extends Cubit<FolderFilesState> {
         folderId: folderId,
         files: files,
       );
-      emit(UploadFilesSuccess(data: data));
+      emit(UploadFilesSuccess(data: data.data!));
       getFolderFiles(folderId: folderId);
     } catch (e) {
       final msg = e.toString();

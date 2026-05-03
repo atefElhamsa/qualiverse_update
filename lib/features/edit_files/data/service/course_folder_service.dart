@@ -4,7 +4,7 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class CourseFolderService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<CourseFolderModel>> getCourseFolders({
+  static Future<CourseFolderResponse> getCourseFolders({
     required int courseId,
   }) async {
     try {
@@ -13,13 +13,16 @@ class CourseFolderService {
       );
 
       final Map<String, dynamic> body = response.data;
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load course folders');
+
+      final result = CourseFolderResponse.fromJson(body);
+
+      if (!result.isSuccess) {
+        throw Exception(
+          result.error?.description ?? "Failed to load course folders",
+        );
       }
 
-      final List list = body['data'] ?? [];
-
-      return list.map((e) => CourseFolderModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {

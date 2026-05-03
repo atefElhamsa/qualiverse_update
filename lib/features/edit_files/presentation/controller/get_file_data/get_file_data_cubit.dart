@@ -25,7 +25,7 @@ class GetFileDataCubit extends Cubit<GetFileDataState> {
         levelId: levelId,
         departmentId: departmentId,
       );
-      emit(GetFileDataSuccess(data: response));
+      emit(GetFileDataSuccess(data: response.data!));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('No Internet')) {

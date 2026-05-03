@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,7 @@ class DepartmentCubit extends Cubit<DepartmentState> {
   List<DepartmentModel> departments = [];
   DepartmentModel? selectedDepartment;
 
-  void selectDepartment({required DepartmentModel department}) {
+  void selectDepartment({DepartmentModel? department}) {
     selectedDepartment = department;
 
     emit(
@@ -35,7 +36,7 @@ class DepartmentCubit extends Cubit<DepartmentState> {
         ),
       );
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
 
       if (msg.contains('No Internet')) {
         emit(DepartmentError(message: 'Check your internet connection'));
@@ -44,7 +45,7 @@ class DepartmentCubit extends Cubit<DepartmentState> {
         reset();
         emit(DepartmentError(message: 'Session expired, please login again'));
       } else {
-        emit(DepartmentError(message: 'Something went wrong'));
+        emit(DepartmentError(message: msg));
       }
     }
   }

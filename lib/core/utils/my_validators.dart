@@ -16,6 +16,26 @@ class MyValidators {
     return null; // Return null if display name is valid
   }
 
+  static String? arabicValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'userNameValidator'.tr();
+    }
+    if (!RegExp(r'^[\u0600-\u06FF\s0-9]+$').hasMatch(value)) {
+      return 'pleaseEnterArabicOnly'.tr();
+    }
+    return displayNameValidator(value);
+  }
+
+  static String? englishValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'userNameValidator'.tr();
+    }
+    if (!RegExp(r'^[a-zA-Z\s0-9]+$').hasMatch(value)) {
+      return 'pleaseEnterEnglishOnly'.tr();
+    }
+    return displayNameValidator(value);
+  }
+
   // Validates an email address.
   static String? emailValidator(String? value) {
     if (value!.isEmpty) {

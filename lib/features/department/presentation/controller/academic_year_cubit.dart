@@ -36,7 +36,7 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
         ),
       );
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
 
       if (msg.contains('No Internet')) {
         emit(AcademicYearError(message: 'Check your internet connection'));
@@ -45,7 +45,7 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
         reset();
         emit(AcademicYearError(message: 'Session expired, please login again'));
       } else {
-        emit(AcademicYearError(message: 'Something went wrong'));
+        emit(AcademicYearError(message: msg));
       }
     }
   }
@@ -58,7 +58,7 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
       );
       emit(AcademicYearAdded());
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(AcademicYearAddedError(message: 'Check your internet connection'));
       }
@@ -70,8 +70,9 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
             message: 'Session expired, please login again',
           ),
         );
+      } else {
+        emit(AcademicYearAddedError(message: msg));
       }
-      emit(AcademicYearAddedError(message: 'Something went wrong'));
     }
   }
 

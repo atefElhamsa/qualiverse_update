@@ -6,7 +6,7 @@ import '../models/get_file_data_model.dart';
 class GetFileDataService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<GetFileDataModel>> getFileData({
+  static Future<GetFileDataResponseModel> getFileData({
     required int courseId,
     required int academicYearId,
     required int termId,
@@ -25,11 +25,13 @@ class GetFileDataService {
       );
       final Map<String, dynamic> body = response.data;
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load file data');
+      final result = GetFileDataResponseModel.fromJson(body);
+      if (!result.isSuccess) {
+        throw Exception(
+          result.error?.description ?? "Failed to load file data",
+        );
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => GetFileDataModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');

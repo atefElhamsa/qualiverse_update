@@ -51,16 +51,23 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
           final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedDepartment?.id : null);
           final selectedItem = departments.where((d) => d.id == selectedValue).firstOrNull;
 
-          return CustomBaseDropDown<DepartmentModel>(
-            items: departments,
-            itemLabelBuilder: (d) => d.name,
-            itemValueBuilder: (d) => d.id,
+          final String noSelectLabel = 'noSelect'.tr();
+          return CustomBaseDropDown<DepartmentModel?>(
+            items: [null, ...departments],
+            itemLabelBuilder: (d) => d?.name ?? noSelectLabel,
+            itemValueBuilder: (d) => d?.id,
             value: selectedItem,
             hint: 'selectTheDepartment'.tr(),
             height: widget.height,
             isExpanded: widget.isExpanded,
             onChanged: (value) {
-              if (value == null) return;
+              if (value == null) {
+                if (widget.onChanged != null) {
+                  widget.onChanged!(0); // Using 0 as a flag for "No Select" if external listener needs it
+                }
+                DepartmentCubit.get(context).selectDepartment(department: null);
+                return;
+              }
               if (widget.onChanged != null) {
                 widget.onChanged!(value as int);
                 return;

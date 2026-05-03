@@ -7,7 +7,7 @@ import 'package:qualiverse/features/edit_files/data/models/evidence_file_statist
 class EvidenceFileStatisticsService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<EvidenceFileStatisticsModel>> getEvidenceFileStatistics({
+  static Future<EvidenceFileStatisticsModelResponse> getEvidenceFileStatistics({
     required int academicYearId,
     int? departmentId,
     required int levelId,
@@ -15,32 +15,34 @@ class EvidenceFileStatisticsService {
   }) async {
     try {
       final response = await dio.get(
-        "EvidenceFolder/statistics",
-        queryParameters: {
-          'departmentId': departmentId ?? 1,
-          'academicYearId': academicYearId,
-          'termId': termId,
-          'levelId': levelId,
-        },
+        EndPoints.getEvidenceStatistics(
+          departmentId: departmentId,
+          academicYearId: academicYearId,
+          termId: termId,
+          levelId: levelId,
+        ),
       );
       final Map<String, dynamic> body = response.data;
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load evidence files');
+      final result = EvidenceFileStatisticsModelResponse.fromJson(body);
+
+      if (!result.isSuccess) {
+        throw Exception(
+          result.error?.description ?? "Failed to load evidence files",
+        );
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => EvidenceFileStatisticsModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -54,24 +56,32 @@ class EvidenceFileStatisticsService {
     required int levelId,
   }) async {
     try {
-      final formData = FormData.fromMap({
+      final Map<String, dynamic> dataMap = {
         'File': file,
-        'DepartmentId': departmentId ?? 1,
         'AcademicYearId': academicYearId,
         'TermId': termId,
         'LevelId': levelId,
-      });
+      };
+      if (departmentId != null) {
+        dataMap['DepartmentId'] = departmentId;
+      }
+      final formData = FormData.fromMap(dataMap);
 
       final response = await dio.post(
         EndPoints.uploadEvidenceStatistics,
         data: formData,
       );
       final Map<String, dynamic> body = response.data;
+      
 
       if (body['isSuccess'] == true) {
         return 'File uploaded successfully';
       } else {
-        throw Exception(body['message'] ?? 'Failed to upload evidence files');
+        final errorData = body['error'] ?? body['message'];
+        if (errorData is Map && errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        throw Exception(errorData?.toString() ?? 'Failed to upload evidence files');
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
@@ -79,11 +89,11 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -121,11 +131,11 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -141,15 +151,18 @@ class EvidenceFileStatisticsService {
     required int courseId,
   }) async {
     try {
-      final formData = FormData.fromMap({
+      final Map<String, dynamic> dataMap = {
         'Files': files,
         'EvidenceFolderId': id,
-        'DepartmentId': departmentId ?? 1,
         'AcademicYearId': academicYearId,
         'TermId': termId,
         'LevelId': levelId,
         'CourseId': courseId,
-      });
+      };
+      if (departmentId != null) {
+        dataMap['DepartmentId'] = departmentId;
+      }
+      final formData = FormData.fromMap(dataMap);
 
       final response = await dio.post(
         EndPoints.uploadEvidenceGeneral,
@@ -160,7 +173,11 @@ class EvidenceFileStatisticsService {
       if (body['isSuccess'] == true) {
         return 'File uploaded successfully';
       } else {
-        throw Exception(body['message'] ?? 'Failed to upload evidence files');
+        final errorData = body['error'] ?? body['message'];
+        if (errorData is Map && errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        throw Exception(errorData?.toString() ?? 'Failed to upload evidence files');
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
@@ -168,11 +185,11 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }

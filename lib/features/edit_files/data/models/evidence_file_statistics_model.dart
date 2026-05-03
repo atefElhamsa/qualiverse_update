@@ -3,12 +3,12 @@ import 'evidence_file_model.dart';
 
 class EvidenceFileStatisticsModelResponse {
   final List<EvidenceFileStatisticsModel>? data;
-  final bool? isSuccess;
+  final bool isSuccess;
   final ApiErrorModel? error;
 
   EvidenceFileStatisticsModelResponse({
     this.data,
-    this.isSuccess,
+    required this.isSuccess,
     this.error,
   });
 
@@ -19,7 +19,7 @@ class EvidenceFileStatisticsModelResponse {
               .map((e) => EvidenceFileStatisticsModel.fromJson(e))
               .toList()
           : null,
-      isSuccess: json['isSuccess'] as bool?,
+      isSuccess: json['isSuccess'],
       error: json['error'] != null
           ? ApiErrorModel.fromJson(json['error'])
           : null,

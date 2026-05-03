@@ -31,7 +31,7 @@ class CourseFolderCubit extends Cubit<CourseFolderState> {
       final data = await CourseFolderService.getCourseFolders(
         courseId: courseId,
       );
-      courseFolders = data;
+      courseFolders = data.courseFolders!;
       emit(
         CourseFolderSuccess(
           courseFolders: courseFolders,

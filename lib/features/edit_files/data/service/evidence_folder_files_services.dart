@@ -6,29 +6,32 @@ import '../models/evidence_folder_model.dart';
 class EvidenceFolderFilesServices {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<EvidenceFolderModel>> getEvidenceFolders() async {
+  static Future<EvidenceFolderResponseModel> getEvidenceFolders() async {
     try {
       final response = await dio.get(EndPoints.evidenceFolders);
       final Map<String, dynamic> body = response.data;
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load evidence folders');
+      final result = EvidenceFolderResponseModel.fromJson(body);
+
+      if (!result.isSuccess) {
+        throw Exception(
+          result.error?.description ?? "Failed to load evidence folders",
+        );
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => EvidenceFolderModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
 
-  static Future<List<EvidenceFileModel>> getEvidenceFilesByFolderId({
+  static Future<EvidenceFileResponse> getEvidenceFilesByFolderId({
     required int folderId,
   }) async {
     try {
@@ -36,23 +39,23 @@ class EvidenceFolderFilesServices {
         EndPoints.getEvidenceFilesByFolderId(folderId: folderId),
       );
       final Map<String, dynamic> body = response.data;
+      final result = EvidenceFileResponse.fromJson(body);
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load evidence files');
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to load files");
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => EvidenceFileModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -68,14 +71,17 @@ class EvidenceFolderFilesServices {
   }) async {
     try {
       for (var file in files) {
-        final formData = FormData.fromMap({
+        final Map<String, dynamic> dataMap = {
           'File': file,
           'EvidenceFolderId': folderId,
-          'DepartmentId': departmentId,
           'AcademicYearId': academicYearId,
           'SemesterId': semesterId,
           'LevelId': levelId,
-        });
+        };
+        if (departmentId != null) {
+          dataMap['DepartmentId'] = departmentId;
+        }
+        final formData = FormData.fromMap(dataMap);
 
         await dio.post(
           EndPoints.uploadFileToEvidenceFolder(folderId: folderId),
@@ -83,11 +89,11 @@ class EvidenceFolderFilesServices {
         );
       }
     } on DioException catch (e) {
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Upload Failed',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Upload Failed');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -105,11 +111,11 @@ class EvidenceFolderFilesServices {
       }
       return body['message'] ?? 'File deleted successfully';
     } on DioException catch (e) {
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Delete Failed',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Delete Failed');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }

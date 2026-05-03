@@ -94,9 +94,9 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
             );
             break;
           case 'edit':
-            final folderId = CourseFolderCubit.get(
-              context,
-            ).selectedCourseFolder!.id;
+            final folder = CourseFolderCubit.get(context).selectedCourseFolder!;
+
+            final folderId = folder.id;
             showDialog(
               context: context,
               builder: (dialogContext) => BlocProvider.value(

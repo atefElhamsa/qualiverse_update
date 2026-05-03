@@ -29,7 +29,7 @@ class EvidenceFolderCubit extends Cubit<EvidenceFolderState> {
     emit(EvidenceFolderLoading());
     try {
       final data = await EvidenceFolderFilesServices.getEvidenceFolders();
-      evidenceFolders = data;
+      evidenceFolders = data.courseFolders!;
 
       emit(
         EvidenceFolderSuccess(
@@ -49,7 +49,7 @@ class EvidenceFolderCubit extends Cubit<EvidenceFolderState> {
           EvidenceFolderError(message: 'Session expired, please login again'),
         );
       } else {
-        emit(EvidenceFolderError(message: 'Something went wrong'));
+        emit(EvidenceFolderError(message: msg));
       }
     }
   }

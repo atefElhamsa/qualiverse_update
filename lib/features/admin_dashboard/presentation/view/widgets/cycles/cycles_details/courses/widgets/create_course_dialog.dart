@@ -104,13 +104,13 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         departmentId: selectedDeptId!,
       );
       setState(() {
-        availableCourses = courses;
+        availableCourses = courses.courses!;
         isLoadingCourses = false;
         selectedCourse = null;
       });
     } catch (e) {
       setState(() => isLoadingCourses = false);
-      if (mounted) showSnackBar(context, e.toString(), AppColors.red);
+      if (mounted) showSnackBar(context, e.toString().replaceFirst('Exception: ', '').trim(), AppColors.red);
     }
   }
 

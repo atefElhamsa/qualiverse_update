@@ -4,15 +4,15 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class UsersService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<UserManagementModel>> getUsers() async {
+  static Future<UserManagementResponseModel> getUsers() async {
     try {
       final response = await dio.get(EndPoints.user);
       final Map<String, dynamic> body = response.data;
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load users');
+      final result = UserManagementResponseModel.fromJson(body);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to load users");
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => UserManagementModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');

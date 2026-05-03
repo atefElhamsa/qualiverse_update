@@ -11,8 +11,8 @@
   "login": "تسجيل الدخول",
   "forgetPassword": "نسيت كلمة المرور؟",
   "academicSystem": "النظام الأكاديمي الذي يهدف إلى ضمان الجودة\nفي العمليات الاكاديمية مع المعايير الدولية",
-  "softwareAccreditation": "إعتماد برمجي",
-  "SelectTheDepartmentAndAcademicYear": "اختيار القسم و السنة الدراسية",
+  "softwareAccreditation": "برنامجي",
+  "institutionalAccreditation": "مؤسسي",
   "department": "القسم",
   "year": "السنة",
   "computerScience": "علوم الحاسب",
@@ -377,7 +377,7 @@
   "descriptionArabic": "الوصف (بالعربي)",
   "descriptionEnglish": "الوصف (بالإنجليزي)",
   "pleaseFillAllFields": "يرجى ملء جميع الحقول",
-  "program": "برامجي",
+  "program": "برنامجي",
   "evaluationMethods": "طرق التقييم",
   "indicators": "المؤشرات",
   "criterions": "المعايير",
@@ -410,5 +410,11 @@
   "english_us": "الإنجليزية",
   "use_as_app_language": "استخدام كلغة التطبيق",
   "pleaseSelectDeadline": "من فضلك اختر الموعد النهائي",
-  "evidenceFolders": "مجلدات الأدلة"
+  "evidenceFolders": "مجلدات الأدلة",
+  "pleaseEnterArabicOnly": "يرجى إدخال حروف عربية فقط",
+  "pleaseEnterEnglishOnly": "يرجى إدخال حروف إنجليزية فقط",
+  "pleaseChangeName": "يرجى تغيير الاسم قبل التحديث",
+  "noSelect": "بدون تحديد",
+  "retry": "إعادة المحاولة",
+  "serverError": "خطأ في الخادم، يرجى المحاولة مرة أخرى لاحقاً"
 }

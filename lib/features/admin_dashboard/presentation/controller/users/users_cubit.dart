@@ -13,7 +13,7 @@ class UsersCubit extends Cubit<UsersState> {
     emit(UsersLoading());
     try {
       final data = await UsersService.getUsers();
-      users = data;
+      users = data.data!;
       emit(UsersSuccess(users: users));
     } catch (e) {
       final msg = e.toString();

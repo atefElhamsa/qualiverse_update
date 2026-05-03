@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/routing/app_routes.dart';
 
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit() : super(SettingInitial());
@@ -72,6 +74,10 @@ class SettingCubit extends Cubit<SettingState> {
 
     await context.setLocale(Locale(lang));
     await CashHelper.saveData(key: KeysTexts.lang, value: lang);
+
+    if (context.mounted) {
+      context.pushReplacementNamed(AppRoutes.homeScreen);
+    }
 
     sortPreferredLanguages();
     emit(LanguageChangedState());

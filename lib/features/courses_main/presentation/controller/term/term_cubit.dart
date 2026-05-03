@@ -23,7 +23,7 @@ class TermCubit extends Cubit<TermState> {
       terms = data;
       emit(TermSuccess(terms: terms, selectedTerm: selectedTerm));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(TermError(message: 'Check your internet connection'));
       } else if (msg.contains('Unauthorized')) {
@@ -31,7 +31,7 @@ class TermCubit extends Cubit<TermState> {
         reset();
         emit(TermError(message: 'Session expired, please login again'));
       } else {
-        emit(TermError(message: 'Something went wrong'));
+        emit(TermError(message: msg));
       }
     }
   }

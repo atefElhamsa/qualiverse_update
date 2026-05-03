@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,10 +16,16 @@ class UpdateFolderCubit extends Cubit<UpdateFolderState> {
   Future<void> updateFolder({required int folderId}) async {
     final folderNameAr = editFolderNameArController.text.trim();
     final folderNameEn = editFolderNameEnController.text.trim();
-    if (folderNameAr.isEmpty || folderNameEn.isEmpty) {
-      emit(UpdateFolderFailure(errorMessage: "fillAllFields".tr()));
+
+    final nameArError = MyValidators.arabicValidator(folderNameAr);
+    final nameEnError = MyValidators.englishValidator(folderNameEn);
+
+    if (nameArError != null || nameEnError != null) {
+      formKey.currentState!.validate();
+      emit(UpdateFolderFailure(errorMessage: nameArError ?? nameEnError!));
       return;
     }
+
     try {
       emit(UpdateFolderLoading());
       final result = await UpdateAndCreateAndDeleteFolderService.updateFolder(

@@ -31,11 +31,11 @@ class TermService {
       }
 
       // Server error
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }

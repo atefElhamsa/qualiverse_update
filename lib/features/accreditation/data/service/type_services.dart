@@ -4,19 +4,19 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class TypesService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<TypeModel>> getTypes() async {
+  static Future<AccreditationType> getTypes() async {
     try {
       final response = await dio.get(EndPoints.accreditationTypes);
 
       final Map<String, dynamic> body = response.data;
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to load types');
+      final result = AccreditationType.fromJson(body);
+
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? "Failed to load types");
       }
 
-      final List list = body['data'] ?? [];
-
-      return list.map((e) => TypeModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');

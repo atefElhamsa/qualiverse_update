@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:dio/dio.dart' as dio;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';

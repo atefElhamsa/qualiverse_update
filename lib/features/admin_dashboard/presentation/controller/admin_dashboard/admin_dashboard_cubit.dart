@@ -45,8 +45,8 @@ enum AdminPage {
   users,
   cycles,
   standards,
-  accreditation,
-  auditLog,
-  settings,
+  // accreditation,
+  // auditLog,
+  // settings,
   cycleDetails,
 }

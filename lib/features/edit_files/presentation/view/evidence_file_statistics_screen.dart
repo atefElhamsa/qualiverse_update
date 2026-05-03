@@ -195,7 +195,7 @@ class _EvidenceFileStatisticsScreenState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Statistics'.tr(),
+                'statistics'.tr(),
                 style: GoogleFonts.cairo(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -251,7 +251,7 @@ class _EvidenceFileStatisticsScreenState
                           ),
                     SizedBox(width: 8.w),
                     Text(
-                      'Upload File',
+                      'uploadFile'.tr(),
                       style: GoogleFonts.cairo(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -276,7 +276,7 @@ class _EvidenceFileStatisticsScreenState
                 controller: _searchController,
                 onChanged: (v) => cubit.searchFiles(v),
                 decoration: InputDecoration(
-                  hintText: 'Search file...',
+                  hintText: 'searchFile'.tr(),
                   hintStyle: GoogleFonts.cairo(
                     color: Colors.grey.shade400,
                     fontSize: 13.sp,
@@ -334,7 +334,7 @@ class _EvidenceFileStatisticsScreenState
             ),
             SizedBox(height: 12.h),
             Text(
-              "No statistics files found",
+              'noDataFound'.tr(),
               style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
             ),
           ],
@@ -379,8 +379,8 @@ class _EvidenceFileStatisticsScreenState
           fontSize: 14.sp,
         ),
         tabs: [
-          Tab(text: "Files".tr()),
-          Tab(text: "Analysis".tr()),
+          Tab(text: "files".tr()),
+          Tab(text: "analysis".tr()),
         ],
       ),
     );
@@ -413,7 +413,7 @@ class _EvidenceFileStatisticsScreenState
           if (state.data.isEmpty) {
             return Center(
               child: Text(
-                "No analysis data available",
+                "noDataAvailable".tr(),
                 style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
               ),
             );

@@ -44,30 +44,30 @@ class SideBarAdminList extends StatelessWidget {
               adminDashboardCubit.changePage(page: AdminPage.standards);
             },
           ),
-          SideItemModel(
-            title: 'accreditation',
-            page: AdminPage.accreditation,
-            selectedPage: adminDashboardCubit.selectedSidebarItem,
-            onTap: () {
-              adminDashboardCubit.changePage(page: AdminPage.accreditation);
-            },
-          ),
-          SideItemModel(
-            title: 'auditLog',
-            page: AdminPage.auditLog,
-            selectedPage: adminDashboardCubit.selectedSidebarItem,
-            onTap: () {
-              adminDashboardCubit.changePage(page: AdminPage.auditLog);
-            },
-          ),
-          SideItemModel(
-            title: 'settings',
-            page: AdminPage.settings,
-            selectedPage: adminDashboardCubit.selectedSidebarItem,
-            onTap: () {
-              adminDashboardCubit.changePage(page: AdminPage.settings);
-            },
-          ),
+          // SideItemModel(
+          //   title: 'accreditation',
+          //   page: AdminPage.accreditation,
+          //   selectedPage: adminDashboardCubit.selectedSidebarItem,
+          //   onTap: () {
+          //     adminDashboardCubit.changePage(page: AdminPage.accreditation);
+          //   },
+          // ),
+          // SideItemModel(
+          //   title: 'auditLog',
+          //   page: AdminPage.auditLog,
+          //   selectedPage: adminDashboardCubit.selectedSidebarItem,
+          //   onTap: () {
+          //     adminDashboardCubit.changePage(page: AdminPage.auditLog);
+          //   },
+          // ),
+          // SideItemModel(
+          //   title: 'settings',
+          //   page: AdminPage.settings,
+          //   selectedPage: adminDashboardCubit.selectedSidebarItem,
+          //   onTap: () {
+          //     adminDashboardCubit.changePage(page: AdminPage.settings);
+          //   },
+          // ),
         ];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

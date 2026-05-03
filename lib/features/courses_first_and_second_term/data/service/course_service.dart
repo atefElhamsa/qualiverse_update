@@ -4,7 +4,7 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class CourseService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<List<CourseModel>> getCourses({
+  static Future<CoursesResponseModel> getCourses({
     required int yearId,
     required int levelId,
     required int termId,
@@ -20,11 +20,11 @@ class CourseService {
         ),
       );
       final Map<String, dynamic> body = response.data;
-      if (body['isSuccess'] != true) {
+      final result = CoursesResponseModel.fromJson(body);
+      if (!result.isSuccess) {
         throw Exception('Failed to load courses');
       }
-      final List list = body['data'] ?? [];
-      return list.map((e) => CourseModel.fromJson(e)).toList();
+      return result;
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {
@@ -43,11 +43,11 @@ class CourseService {
       }
 
       // Server error
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
