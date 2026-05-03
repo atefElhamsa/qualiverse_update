@@ -38,9 +38,9 @@ class EvidenceFoldersSection extends StatelessWidget {
           final List<EvidenceFolderModel> allApiFolders = state.evidenceFolders;
           
           // FIND REAL FOLDERS BY NAME
-          final statsFolder = _findFolder(allApiFolders, ['Statistics', 'إحصائيات']);
-          final surveyFolder = _findFolder(allApiFolders, ['Survey', 'استبيانات']);
-          final docAnalysisFolder = _findFolder(allApiFolders, ['Documentary Analysis', 'التحليل الوثائقي']);
+          final statsFolder = _findFolder(allApiFolders, ['Statistics', 'إحصائيات', 'الإحصائيات', 'إحصائية']);
+          final surveyFolder = _findFolder(allApiFolders, ['Survey', 'Surveys', 'استبيان', 'استبيانات', 'الاستبيانات']);
+          final docAnalysisFolder = _findFolder(allApiFolders, ['Documentary Analysis', 'التحليل الوثائقي', 'تحليل وثائقي']);
 
           final List<EvidenceFolderModel> orderedFolders = [];
           if (statsFolder != null) orderedFolders.add(statsFolder);
@@ -94,7 +94,7 @@ class EvidenceFoldersSection extends StatelessWidget {
 
   EvidenceFolderModel? _findFolder(List<EvidenceFolderModel> list, List<String> names) {
     try {
-      return list.firstWhere((f) => names.contains(f.name));
+      return list.firstWhere((f) => names.contains(f.name.trim()));
     } catch (_) {
       return null;
     }
