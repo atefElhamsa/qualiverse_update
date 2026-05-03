@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +46,7 @@ class DashboardHeader extends StatelessWidget {
               color: primaryColor.withOpacity(0.3),
             ),
             Text(
-              "COURSE STATISTICS - ACADEMIC YEAR ${data.academicYearNumber}",
+              "${"courseStatistics".tr()} - ${"academicYearStatistics".tr()} ${data.academicYearNumber}",
               style: GoogleFonts.cairo(
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

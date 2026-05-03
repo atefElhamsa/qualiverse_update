@@ -9,7 +9,7 @@ class IndicatorsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsetsDirectional.only(start: 50.w, end: 30.w, bottom: 20.h),
+      margin: EdgeInsetsDirectional.only(start: 30.w, end: 30.w, bottom: 20.h),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.white,

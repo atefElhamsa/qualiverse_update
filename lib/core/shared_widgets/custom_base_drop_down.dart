@@ -13,6 +13,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
   final bool isExpanded;
   final bool isLoading;
   final Widget? prefixIcon;
+  final bool isDisabled;
 
   const CustomBaseDropDown({
     super.key,
@@ -26,6 +27,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
     this.isExpanded = true,
     this.isLoading = false,
     this.prefixIcon,
+    this.isDisabled = false,
   });
 
   @override
@@ -34,7 +36,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
       height: height ?? 50.h,
       padding: EdgeInsets.symmetric(horizontal: 12.w),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: isDisabled ? Colors.grey.shade100 : AppColors.white,
         border: Border.all(color: AppColors.grey.withOpacity(0.3)),
         borderRadius: BorderRadius.circular(8.r),
       ),
@@ -53,7 +55,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
                   isLoading ? 'Loading...' : hint,
                   style: TextStyle(
                     fontSize: 15.sp,
-                    color: AppColors.grey,
+                    color: isDisabled ? Colors.grey.shade400 : AppColors.grey,
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.w400,
                   ),
@@ -67,10 +69,12 @@ class CustomBaseDropDown<T> extends StatelessWidget {
                   height: 15.sp,
                   child: const CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Icon(Icons.keyboard_arrow_down, color: AppColors.mainBlack, size: 22.sp),
+              : Icon(Icons.keyboard_arrow_down,
+                  color: isDisabled ? Colors.grey.shade400 : AppColors.mainBlack,
+                  size: 22.sp),
           style: TextStyle(
             fontSize: 15.sp,
-            color: AppColors.mainBlack,
+            color: isDisabled ? Colors.grey.shade400 : AppColors.mainBlack,
             fontWeight: FontWeight.w500,
           ),
           items: items.map((item) {
@@ -84,7 +88,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
               ),
             );
           }).toList(),
-          onChanged: onChanged,
+          onChanged: isDisabled ? null : onChanged,
         ),
       ),
     );

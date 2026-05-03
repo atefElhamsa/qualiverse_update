@@ -6,8 +6,6 @@ import 'components/dashboard_header.dart';
 import 'components/grade_distribution_section.dart';
 import 'components/summary_cards_row.dart';
 
-/// A dashboard widget that displays detailed course statistics including 
-/// student attendance, passing rates, and grade distribution.
 class CourseStatisticsDashboard extends StatelessWidget {
   final GetFileDataModel data;
 
@@ -20,10 +18,9 @@ class CourseStatisticsDashboard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DashboardHeader(data: data)
-              .animate()
-              .fadeIn(duration: 600.ms)
-              .slideY(begin: -0.2),
+          DashboardHeader(
+            data: data,
+          ).animate().fadeIn(duration: 600.ms).slideY(begin: -0.2),
           SizedBox(height: 20.h),
           SummaryCardsRow(data: data)
               .animate()

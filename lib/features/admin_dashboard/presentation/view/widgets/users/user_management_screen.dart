@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/roles_cubit.dart';
+
+import '../../../controller/roles/roles_state.dart';
 
 class UserManagementScreen extends StatefulWidget {
   const UserManagementScreen({super.key});
@@ -16,12 +19,11 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
   String selectedRole = 'All';
   String searchQuery = '';
 
-  static const roles = ['All', 'admin', 'user', 'doctor'];
-
   @override
   void initState() {
     super.initState();
     UsersCubit.get(context).fetchUsers();
+    RolesCubit.get(context).getRoles();
   }
 
   @override
@@ -43,50 +45,74 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UsersCubit, UsersState>(
-      builder: (context, state) => Container(
-        margin: EdgeInsetsDirectional.only(
-          start: 50.w,
-          end: 30.w,
-          bottom: 20.h,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UsersCubit, UsersState>(
+          listener: (context, state) {
+            if (state is ActivateDeactivateUserSuccess) {
+              showSnackBar(context, state.message, AppColors.green);
+              UsersCubit.get(context).fetchUsers();
+            }
+            if (state is ActivateDeactivateUserFailure) {
+              showSnackBar(context, state.error, AppColors.red);
+            }
+          },
         ),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: AppColors.grey,
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CustomText(
-              title: 'userManagement'.tr(),
-              textStyle: Theme.of(
-                context,
-              ).textTheme.titleLarge!.copyWith(fontSize: 25.sp),
-            ),
-            const SizedBox(height: 16),
-            buildToolbar(),
-            const SizedBox(height: 16),
-            buildContent(state),
-          ],
+      ],
+      child: BlocBuilder<UsersCubit, UsersState>(
+        builder: (context, usersState) => BlocBuilder<RolesCubit, RolesState>(
+          builder: (context, rolesState) {
+            List<String> dynamicRoles = ['All'];
+            if (rolesState is RolesSuccess) {
+              dynamicRoles.addAll(rolesState.roles.map((e) => e.name));
+            }
+
+            return Container(
+              margin: EdgeInsetsDirectional.only(
+                start: 30.w,
+                end: 30.w,
+                bottom: 20.h,
+              ),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.grey,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomText(
+                    title: 'userManagement'.tr(),
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.titleLarge!.copyWith(fontSize: 25.sp),
+                  ),
+                  const SizedBox(height: 16),
+                  buildToolbar(rolesState),
+                  const SizedBox(height: 16),
+                  buildContent(usersState),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget buildToolbar() {
+  Widget buildToolbar(RolesState rolesState) {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
-      children: [buildSearchField(), buildRoleDropdown()],
+      children: [buildSearchField(), buildRoleDropdown(rolesState)],
     );
   }
 
@@ -109,7 +135,19 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
     );
   }
 
-  Widget buildRoleDropdown() {
+  Widget buildRoleDropdown(RolesState rolesState) {
+    List<String> dynamicRoles = ['All'];
+    bool isLoading = rolesState is RolesLoading;
+
+    if (rolesState is RolesSuccess) {
+      dynamicRoles.addAll(rolesState.roles.map((e) => e.name));
+    }
+
+    // Ensure selectedRole is valid if the list changed
+    if (!dynamicRoles.contains(selectedRole)) {
+      selectedRole = 'All';
+    }
+
     return Container(
       height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -118,26 +156,49 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: selectedRole,
-          icon: const Icon(Icons.keyboard_arrow_down, size: 18),
-          style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
-          items: roles
-              .map((role) => DropdownMenuItem(
-                    value: role,
-                    child: Text(
-                      role == 'All' ? 'all'.tr() : (role + "Role").tr(),
-                    ),
-                  ))
-              .toList(),
-          onChanged: (val) => setState(() => selectedRole = val!),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (isLoading)
+              Padding(
+                padding: EdgeInsetsDirectional.only(end: 8.w),
+                child: SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: AppColors.tooltipBehavior,
+                  ),
+                ),
+              ),
+            DropdownButton<String>(
+              value: selectedRole,
+              icon: const Icon(Icons.keyboard_arrow_down, size: 18),
+              style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
+              items: dynamicRoles
+                  .map((role) => DropdownMenuItem(
+                        value: role,
+                        child: Text(
+                          role == 'All' ? 'all'.tr() : (role + "Role").tr(),
+                        ),
+                      ))
+                  .toList(),
+              onChanged: isLoading ? null : (val) => setState(() => selectedRole = val!),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget buildContent(UsersState state) {
-    return BlocListener<UsersCubit, UsersState>(
+    return BlocListener<RolesCubit, RolesState>(
+      listener: (context, state) {
+        if (state is RolesFailure) {
+          showSnackBar(context, state.errorMessage, AppColors.red);
+        }
+      },
+      child: BlocListener<UsersCubit, UsersState>(
       listener: (context, state) {
         if (state is ActivateDeactivateUserSuccess) {
           showSnackBar(context, state.message, AppColors.green);
@@ -166,6 +227,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           return const SizedBox();
         },
       ),
+    ),
     );
   }
 

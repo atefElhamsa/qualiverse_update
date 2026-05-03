@@ -30,8 +30,12 @@ void showDeleteIndicatorDialog({
                 if (context.mounted) {
                   showSnackBar(context, state.msg, AppColors.green);
                 }
-                // ✅ Simple refresh
-                cubit.refresh();
+                // ✅ Manual fetch after delete
+                cubit.fetchCycleIndicators(
+                  yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
+                  departmentId: DepartmentCubit.get(context).selectedDepartment?.id,
+                  criterionId: ProgramAccreditationCubit.get(context).selectedProgramAccreditation!.id,
+                );
               });
             }
           },

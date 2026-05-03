@@ -9,7 +9,12 @@ class CyclesListItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AcademicYearCubit, AcademicYearState>(
+    return BlocConsumer<AcademicYearCubit, AcademicYearState>(
+      listener: (context, state) {
+        if (state is AcademicYearAddedError) {
+          showSnackBar(context, state.message, AppColors.red);
+        }
+      },
       builder: (context, state) {
         if (state is AcademicYearLoading) {
           return const CustomLoading();
@@ -17,8 +22,10 @@ class CyclesListItems extends StatelessWidget {
         if (state is AcademicYearError) {
           return Center(child: Text(state.message));
         }
-        if (state is AcademicYearSuccess) {
-          final academicYears = state.academicYears;
+        if (state is AcademicYearSuccess ||
+            state is AcademicYearAdded ||
+            state is AcademicYearAddedError) {
+          final academicYears = AcademicYearCubit.get(context).academicYears;
           return academicYears.isEmpty
               ? Padding(
                   padding: const EdgeInsets.all(24),

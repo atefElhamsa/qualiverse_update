@@ -41,8 +41,12 @@ void showRemoveAssignIndicatorDialog({
     if (context.mounted) {
       showSnackBar(context, "doneSuccessfully".tr(), AppColors.green);
     }
-    // ✅ Simple refresh
-    indicatorCubit.refresh();
+    // ✅ Manual fetch after remove assign
+    indicatorCubit.fetchCycleIndicators(
+      yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
+      departmentId: DepartmentCubit.get(context).selectedDepartment?.id,
+      criterionId: ProgramAccreditationCubit.get(context).selectedProgramAccreditation!.id,
+    );
   }
 }
 

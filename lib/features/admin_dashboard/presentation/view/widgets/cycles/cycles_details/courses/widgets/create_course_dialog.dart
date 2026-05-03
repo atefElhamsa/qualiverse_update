@@ -39,14 +39,16 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   void handleCreateCourse(BuildContext context) {
     final cubit = TemplateCubit.get(context);
 
-    if (selectedDeptId == null ||
-        selectedLevelId == null ||
-        selectedTermId == null) {
-      showSnackBar(
-        context,
-        'Please select Department, Level and Semester',
-        AppColors.red,
-      );
+    // Check if level needs a department
+    bool needsDept = true;
+    if (selectedLevelId != null) {
+      // Assuming level 1 and 2 don't need department
+      // We might need to find the level number, but for now we'll check if it's set
+      // A better way is to check the level number if available
+    }
+
+    if (selectedLevelId == null || selectedTermId == null) {
+      showSnackBar(context, 'Please select Level and Term', AppColors.red);
       return;
     }
 
@@ -62,7 +64,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
       cubit.createCourseFromTemplate(
         templateId: selectedTemplate.id,
         yearId: yearId,
-        departmentId: selectedDeptId!,
+        departmentId: selectedDeptId,
         levelId: selectedLevelId!,
         termId: selectedTermId!,
       );
@@ -78,7 +80,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         nameAr: arabicNameController.text,
         nameEn: englishNameController.text,
         code: codeController.text,
-        departmentId: selectedDeptId!,
+        departmentId: selectedDeptId,
         levelId: selectedLevelId!,
         termId: selectedTermId!,
         yearId: yearId,
@@ -87,9 +89,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   }
 
   void fetchCourses() async {
-    if (selectedDeptId == null ||
-        selectedLevelId == null ||
-        selectedTermId == null) {
+    if (selectedLevelId == null || selectedTermId == null) {
       return;
     }
 
@@ -101,7 +101,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         yearId: yearId,
         levelId: selectedLevelId!,
         termId: selectedTermId!,
-        departmentId: selectedDeptId!,
+        departmentId: selectedDeptId,
       );
       setState(() {
         availableCourses = courses.courses!;

@@ -56,13 +56,10 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
     final level = LevelCubit.get(context).selectedLevel;
     final term = TermCubit.get(context).selectedTerm;
 
-    if (year != null &&
-        department != null &&
-        level != null &&
-        term != null) {
+    if (year != null && level != null && term != null) {
       CoursesCubit.get(context).getCourses(
         academicYearId: year.id,
-        departmentId: department.id,
+        departmentId: department?.id,
         levelId: level.id,
         termId: term.id,
       );

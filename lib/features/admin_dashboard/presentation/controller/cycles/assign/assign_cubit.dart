@@ -93,6 +93,7 @@ class AssignCubit extends Cubit<AssignState> {
     try {
       final result = await AssignService.removeAssignCourse(courseId: courseId);
       emit(DeleteAssignSuccess(message: result));
+      
     } catch (e) {
       emit(
         AssignFailure(

@@ -16,13 +16,13 @@ class UsersCubit extends Cubit<UsersState> {
       users = data.data!;
       emit(UsersSuccess(users: users));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(UsersFailure(error: 'Check your internet connection'));
       } else if (msg.contains('Unauthorized')) {
         reset();
       } else {
-        emit(UsersFailure(error: 'Something went wrong'));
+        emit(UsersFailure(error: msg));
       }
     }
   }
@@ -33,7 +33,7 @@ class UsersCubit extends Cubit<UsersState> {
       final data = await UsersService.activateUser(id: id);
       emit(ActivateDeactivateUserSuccess(message: data));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(
           ActivateDeactivateUserFailure(
@@ -44,7 +44,7 @@ class UsersCubit extends Cubit<UsersState> {
       if (msg.contains('Unauthorized')) {
         reset();
       } else {
-        emit(ActivateDeactivateUserFailure(error: 'Something went wrong'));
+        emit(ActivateDeactivateUserFailure(error: msg));
       }
     }
   }
@@ -55,7 +55,7 @@ class UsersCubit extends Cubit<UsersState> {
       final data = await UsersService.deactivateUser(id: id);
       emit(ActivateDeactivateUserSuccess(message: data));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(
           ActivateDeactivateUserFailure(
@@ -66,7 +66,7 @@ class UsersCubit extends Cubit<UsersState> {
       if (msg.contains('Unauthorized')) {
         reset();
       } else {
-        emit(ActivateDeactivateUserFailure(error: 'Something went wrong'));
+        emit(ActivateDeactivateUserFailure(error: msg));
       }
     }
   }
@@ -77,14 +77,14 @@ class UsersCubit extends Cubit<UsersState> {
       final data = await UsersService.deleteUser(id: id);
       emit(DeleteUserSuccess(message: data));
     } catch (e) {
-      final msg = e.toString();
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(DeleteUserFailure(error: 'Check your internet connection'));
       }
       if (msg.contains('Unauthorized')) {
         reset();
       } else {
-        emit(DeleteUserFailure(error: 'Something went wrong'));
+        emit(DeleteUserFailure(error: msg));
       }
     }
   }

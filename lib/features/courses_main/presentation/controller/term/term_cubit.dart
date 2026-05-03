@@ -11,7 +11,7 @@ class TermCubit extends Cubit<TermState> {
   List<TermModel> terms = [];
   TermModel? selectedTerm;
 
-  void selectTerm({required TermModel term}) {
+  void selectTerm({TermModel? term}) {
     selectedTerm = term;
     emit(TermSuccess(terms: terms, selectedTerm: selectedTerm));
   }

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import '../model/criterion_template_model.dart';
 
 class CriterionsService {
   static final Dio dio = ApiClient.dio;

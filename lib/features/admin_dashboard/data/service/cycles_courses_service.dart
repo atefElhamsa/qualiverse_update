@@ -6,7 +6,7 @@ class CyclesCoursesService {
 
   static Future<List<CourseItemModel>> getCourses({
     required int academicYearId,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
   }) async {
@@ -30,16 +30,17 @@ class CyclesCoursesService {
         throw Exception('Unauthorized');
       }
 
+      if (e.response?.data != null) {
+        final result = AssignModel.fromJson(e.response!.data);
+        throw Exception(result.error?.description ?? "Server Error");
+      }
+
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
 
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }

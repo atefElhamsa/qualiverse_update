@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../../routing/all_routes_imports.dart';
 
 class DepartmentDropDownWidget extends StatefulWidget {
-  const DepartmentDropDownWidget({super.key});
+  final bool isDisabled;
+  const DepartmentDropDownWidget({super.key, this.isDisabled = false});
 
   @override
   State<DepartmentDropDownWidget> createState() =>
@@ -17,13 +18,10 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
   @override
   void initState() {
     super.initState();
-    DepartmentCubit.get(context).fetchDepartments();
-  }
-
-  @override
-  void didChangeDependencies() {
-    DepartmentCubit.get(context).reset();
-    super.didChangeDependencies();
+    final cubit = DepartmentCubit.get(context);
+    if (cubit.departments.isEmpty) {
+      cubit.fetchDepartments();
+    }
   }
 
   @override
@@ -48,60 +46,68 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
             (e) => e.id == state.selectedDepartment?.id,
           );
           return Container(
-            height: 54.h,
+            height: 45.h,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
+              color: widget.isDisabled ? Colors.grey.shade100 : AppColors.white,
               border: Border.all(color: const Color(0xFFCCCCCC)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<int?>(
                 value: isValid ? state.selectedDepartment?.id : null,
-                hint: Text('selectTheDepartment'.tr()),
-                icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
+                isExpanded: true,
+                hint: Text(
+                  'selectTheDepartment'.tr(),
+                  style: TextStyle(
+                    color: widget.isDisabled ? Colors.grey : null,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 20.sp,
+                  color: widget.isDisabled ? Colors.grey : null,
+                ),
                 style: TextStyle(
                   fontSize: 15.sp,
-                  color: const Color(0xFF333333),
+                  color: widget.isDisabled
+                      ? Colors.grey
+                      : const Color(0xFF333333),
                 ),
-                items: [
-                  DropdownMenuItem<int?>(
-                    value: null,
-                    child: Text('noSelect'.tr()),
-                  ),
-                  ...departments.map(
-                    (department) => DropdownMenuItem<int?>(
-                      value: department.id,
-                      child: Text(
-                        department.name.tr(),
-                        overflow: TextOverflow.ellipsis,
+                items: departments
+                    .map(
+                      (department) => DropdownMenuItem<int?>(
+                        value: department.id,
+                        child: Text(
+                          department.name.tr(),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-                onChanged: (value) {
-                  if (value == null) {
-                    departmentCubit.selectDepartment(department: null);
-                    return;
-                  }
-                  final selectedModel = state.departments.firstWhere(
-                    (d) => d.id == value,
-                  );
-                  departmentCubit.selectDepartment(department: selectedModel);
-                  context
-                      .read<ProgramAccreditationCubit>()
-                      .fetchProgramAccreditations(
-                        academicYearId: AcademicYearCubit.get(
-                          context,
-                        ).selectedAcademicYear!.id,
-                        departmentId: value,
-                      );
-                  context.read<CycleIndicatorCubit>().fetchCycleIndicators(
-                    yearId: AcademicYearCubit.get(
-                      context,
-                    ).selectedAcademicYear!.id,
-                    departmentId: value,
-                  );
-                },
+                    )
+                    .toList(),
+                onChanged: widget.isDisabled
+                    ? null
+                    : (value) {
+                        if (value == null) {
+                          departmentCubit.selectDepartment(department: null);
+                          return;
+                        }
+                        final selectedModel = state.departments.firstWhere(
+                          (d) => d.id == value,
+                        );
+                        departmentCubit.selectDepartment(
+                          department: selectedModel,
+                        );
+                        context
+                            .read<ProgramAccreditationCubit>()
+                            .fetchProgramAccreditations(
+                              academicYearId: AcademicYearCubit.get(
+                                context,
+                              ).selectedAcademicYear!.id,
+                              departmentId: value,
+                            );
+                        context.read<CycleIndicatorCubit>().reset();
+                      },
               ),
             ),
           );

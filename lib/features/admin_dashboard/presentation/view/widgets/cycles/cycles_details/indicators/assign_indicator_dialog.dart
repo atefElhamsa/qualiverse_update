@@ -25,8 +25,12 @@ void showAssignDialog(
               if (outerContext.mounted) {
                 showSnackBar(outerContext, state.message, AppColors.green);
               }
-              // ✅ Simple refresh — cubit already has the last params
-              indicatorCubit.refresh();
+              // ✅ Manual fetch after assign
+              indicatorCubit.fetchCycleIndicators(
+                yearId: AcademicYearCubit.get(outerContext).selectedAcademicYear!.id,
+                departmentId: DepartmentCubit.get(outerContext).selectedDepartment?.id,
+                criterionId: ProgramAccreditationCubit.get(outerContext).selectedProgramAccreditation!.id,
+              );
             });
           }
           if (state is AssignFailure) {

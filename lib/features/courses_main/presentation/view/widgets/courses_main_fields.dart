@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
@@ -7,13 +8,22 @@ class CoursesMainFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SelectedAcademicYearWidget(),
-        SelectedLevelWidget(),
-        SelectedDepartmentWidget(),
-        SelectedSemesterWidget(),
+        const SelectedAcademicYearWidget(),
+        const SelectedLevelWidget(),
+        BlocListener<LevelCubit, LevelState>(
+          listener: (context, state) {
+            if (state is LevelSuccess && state.selectedLevel != null) {
+              if (state.selectedLevel!.levelNumber <= 2) {
+                DepartmentCubit.get(context).selectDepartment(department: null);
+              }
+            }
+          },
+          child: const SelectedDepartmentWidget(),
+        ),
+        const SelectedSemesterWidget(),
       ],
     );
   }

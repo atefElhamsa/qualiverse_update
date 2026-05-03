@@ -12,7 +12,7 @@ class AdminDashboardTopContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 50.w, top: 100.h, end: 30.w),
+      padding: EdgeInsetsDirectional.only(start: 30.w, top: 100.h, end: 30.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

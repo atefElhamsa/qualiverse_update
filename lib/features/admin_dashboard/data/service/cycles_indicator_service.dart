@@ -7,7 +7,7 @@ class CyclesIndicatorService {
   static Future<List<CycleIndicatorModel>> getCycleIndicators({
     required int yearId,
     int? departmentId,
-    int? criterionId,
+    required int criterionId,
   }) async {
     try {
       final response = await dio.get(

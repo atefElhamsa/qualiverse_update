@@ -24,7 +24,7 @@ class _CompletionChartState extends State<CompletionChart> {
     return Expanded(
       child: Container(
         margin: EdgeInsetsDirectional.only(
-          start: 50.w,
+          start: 30.w,
           end: 30.w,
           bottom: 20.h,
         ),

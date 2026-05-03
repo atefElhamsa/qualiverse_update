@@ -10,49 +10,59 @@ class SelectedDepartmentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DepartmentCubit, DepartmentState>(
-      builder: (context, state) {
-        if (state is DepartmentLoading) {
-          return const CustomLoading();
+    return BlocBuilder<LevelCubit, LevelState>(
+      builder: (context, levelState) {
+        bool isDisabled = false;
+        if (levelState is LevelSuccess && levelState.selectedLevel != null) {
+          if (levelState.selectedLevel!.levelNumber <= 2) {
+            isDisabled = true;
+          }
         }
-        if (state is DepartmentError) {
-          return RetryWidget(
-            title: state.message,
-            onPressed: () {
-              DepartmentCubit.get(context).fetchDepartments();
-            },
-          );
-        }
-        if (state is DepartmentSuccess) {
-          final departmentCubit = DepartmentCubit.get(context);
-          final String noSelectLabel = "noSelect".tr();
-          final List<String> departmentNames = [
-            noSelectLabel,
-            ...state.departments.map((e) => e.name),
-          ];
-          final String? selectedDepartmentName =
-              state.selectedDepartment?.name ?? noSelectLabel;
-          return CustomDropButtonAndTitle(
-            dropButtonModel: DropButtonModel(
-              selectedData: selectedDepartmentName,
-              listOfData: departmentNames,
-              hintText: "selectTheDepartment".tr(),
-              hintSize: 20.sp,
-              onChanged: (value) {
-                if (value == null || value == noSelectLabel) {
-                  departmentCubit.selectDepartment(department: null);
-                  return;
-                }
-                final selectedModel = state.departments.firstWhere(
-                  (d) => d.name == value,
-                );
-                departmentCubit.selectDepartment(department: selectedModel);
-              },
-            ),
-            title: "department".tr(),
-          );
-        }
-        return const SizedBox();
+
+        return BlocBuilder<DepartmentCubit, DepartmentState>(
+          builder: (context, state) {
+            if (state is DepartmentLoading) {
+              return const CustomLoading();
+            }
+            if (state is DepartmentError) {
+              return RetryWidget(
+                title: state.message,
+                onPressed: () {
+                  DepartmentCubit.get(context).fetchDepartments();
+                },
+              );
+            }
+            if (state is DepartmentSuccess) {
+              final departmentCubit = DepartmentCubit.get(context);
+              final List<String> departmentNames =
+                  state.departments.map((e) => e.name).toList();
+              final String? selectedDepartmentName =
+                  state.selectedDepartment?.name;
+
+              return CustomDropButtonAndTitle(
+                dropButtonModel: DropButtonModel(
+                  selectedData: isDisabled ? null : selectedDepartmentName,
+                  listOfData: isDisabled ? [] : departmentNames,
+                  hintText: "selectTheDepartment".tr(),
+                  hintSize: 20.sp,
+                  onChanged: isDisabled
+                      ? null
+                      : (value) {
+                          if (value == null) return;
+                          final selectedModel = state.departments.firstWhere(
+                            (d) => d.name == value,
+                          );
+                          departmentCubit.selectDepartment(
+                            department: selectedModel,
+                          );
+                        },
+                ),
+                title: "department".tr(),
+              );
+            }
+            return const SizedBox();
+          },
+        );
       },
     );
   }

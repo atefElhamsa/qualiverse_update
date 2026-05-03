@@ -16,6 +16,7 @@ class EndPoints {
   static const String revoke = "Account/revoke-refresh-token";
   static const String me = "User/me";
   static const String user = "User";
+  static const String roles = "Role";
   static const String terms = "Term";
   static const String updateAndCreateCourseFolder = "CourseFolder";
   static const String evidenceFolders = "EvidenceFolder";
@@ -157,25 +158,29 @@ class EndPoints {
   static String getCycleIndicators({
     required int yearId,
     int? departmentId,
-    int? criterionId,
+    required int criterionId,
   }) {
     final buffer = StringBuffer("Indicator?AcademicYearId=$yearId");
     if (departmentId != null) {
       buffer.write("&DepartmentId=$departmentId");
     }
-    if (criterionId != null) {
-      buffer.write("&CriterionId=$criterionId");
-    }
+    buffer.write("&CriterionId=$criterionId");
     return buffer.toString();
   }
 
   static String coursesByDepartment({
     required int academicYearId,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
   }) {
-    return "Course/all?AcademicYearId=$academicYearId&DepartmentId=$departmentId&LevelId=$levelId&TermId=$termId";
+    final buffer = StringBuffer(
+      "Course/all?AcademicYearId=$academicYearId&LevelId=$levelId&TermId=$termId",
+    );
+    if (departmentId != null) {
+      buffer.write("&DepartmentId=$departmentId");
+    }
+    return buffer.toString();
   }
 
   static String getAllCriterions({
@@ -254,4 +259,6 @@ class EndPoints {
     }
     return buffer.toString();
   }
+
+  static String userRole({required String userId}) => "Role/user/$userId";
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
@@ -37,7 +38,7 @@ class _MainWrapperState extends State<MainWrapper> {
       openRatio: 0.20,
       // نسبة عرض القائمة
       animationCurve: Curves.easeInOut,
-      rtlOpening: false,
+      rtlOpening: context.locale.languageCode == 'ar',
       controller: advancedDrawerController,
       backdropColor: Colors.transparent,
       animationDuration: const Duration(milliseconds: 10),

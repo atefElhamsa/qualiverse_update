@@ -24,8 +24,8 @@ class UsersService {
       }
 
       throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
+        e.response?.data?['error']?['description'] ??
+            e.response?.data?['message'] ??
             'Server Error',
       );
     } catch (e) {
@@ -52,8 +52,8 @@ class UsersService {
       }
 
       throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
+        e.response?.data?['error']?['description'] ??
+            e.response?.data?['message'] ??
             'Server Error',
       );
     } catch (e) {
@@ -80,8 +80,8 @@ class UsersService {
       }
 
       throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
+        e.response?.data?['error']?['description'] ??
+            e.response?.data?['message'] ??
             'Server Error',
       );
     } catch (e) {
@@ -108,8 +108,8 @@ class UsersService {
       }
 
       throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
+        e.response?.data?['error']?['description'] ??
+            e.response?.data?['message'] ??
             'Server Error',
       );
     } catch (e) {

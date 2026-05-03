@@ -17,7 +17,7 @@ class CoursesCubit extends Cubit<CoursesState> {
 
   Future<void> getCourses({
     required int academicYearId,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
   }) async {

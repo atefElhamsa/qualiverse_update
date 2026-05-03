@@ -24,7 +24,7 @@ class _CoursesContentState extends State<CoursesContent> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      margin: EdgeInsetsDirectional.only(start: 50.w, end: 30.w, bottom: 20.h),
+      margin: EdgeInsetsDirectional.only(start: 30.w, end: 30.w, bottom: 20.h),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),

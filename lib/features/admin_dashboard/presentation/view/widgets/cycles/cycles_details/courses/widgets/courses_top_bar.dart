@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../../../../routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,20 +16,32 @@ class CoursesTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _SearchField(controller: searchController, onChanged: onSearchChanged),
-        ),
-        SizedBox(width: 12.w),
-        Expanded( child:  CoursesDepartmentDropDownWidget(height: 45.h)),
-        SizedBox(width: 8.w),
-        Expanded(child: LevelDropDownWidget(height: 45.h)),
-        SizedBox(width: 8.w),
-        Expanded(child: SemesterDropDownWidget(height: 45.h)),
-        SizedBox(width: 12.w),
-        const _AddCourseButton(),
-      ],
+    return BlocListener<LevelCubit, LevelState>(
+      listener: (context, state) {
+        if (state is LevelSuccess && state.selectedLevel != null) {
+          if (state.selectedLevel!.levelNumber <= 2) {
+            DepartmentCubit.get(context).selectDepartment(department: null);
+          }
+        }
+      },
+      child: Row(
+        children: [
+          Expanded(
+            child: _SearchField(
+              controller: searchController,
+              onChanged: onSearchChanged,
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(child: LevelDropDownWidget(height: 45.h)),
+          SizedBox(width: 8.w),
+          Expanded(child: CoursesDepartmentDropDownWidget(height: 45.h)),
+          SizedBox(width: 8.w),
+          Expanded(child: SemesterDropDownWidget(height: 45.h)),
+          SizedBox(width: 12.w),
+          const _AddCourseButton(),
+        ],
+      ),
     );
   }
 }
@@ -66,7 +79,11 @@ class _SearchField extends StatelessWidget {
               color: AppColors.grey,
               fontWeight: FontWeight.w400,
             ),
-            prefixIcon: Icon(Icons.search, color: AppColors.mainBlack, size: 24.sp),
+            prefixIcon: Icon(
+              Icons.search,
+              color: AppColors.mainBlack,
+              size: 24.sp,
+            ),
             border: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(vertical: 8.h),
           ),
@@ -89,15 +106,17 @@ class _AddCourseButton extends StatelessWidget {
           backgroundColor: AppColors.blue,
           foregroundColor: AppColors.white,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.r),
+          ),
         ),
         icon: const Icon(Icons.add, size: 20),
         label: CustomText(
           title: 'addNewCourse'.tr(),
           textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                color: AppColors.white,
-                fontSize: 13.sp,
-              ),
+            color: AppColors.white,
+            fontSize: 13.sp,
+          ),
         ),
       ),
     );

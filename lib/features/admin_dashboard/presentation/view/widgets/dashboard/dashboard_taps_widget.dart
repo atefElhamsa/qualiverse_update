@@ -18,7 +18,7 @@ class DashboardTapsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      padding: EdgeInsetsDirectional.only(start: 50.w, end: 30.w),
+      padding: EdgeInsetsDirectional.only(start: 30.w, end: 30.w),
       physics: const NeverScrollableScrollPhysics(),
       itemCount: titles.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

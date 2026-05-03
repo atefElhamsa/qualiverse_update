@@ -17,9 +17,12 @@ class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
   @override
   void initState() {
     super.initState();
-    context.read<ProgramAccreditationCubit>().fetchProgramAccreditations(
-      academicYearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-    );
+    final cubit = context.read<ProgramAccreditationCubit>();
+    if (cubit.programAccreditations.isEmpty) {
+      cubit.fetchProgramAccreditations(
+        academicYearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
+      );
+    }
   }
 
   @override
@@ -52,7 +55,7 @@ class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
             (e) => e.id == state.selectedAccreditation?.id,
           );
           return Container(
-            height: 54.h,
+            height: 45.h,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFFCCCCCC)),
@@ -61,6 +64,7 @@ class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<int>(
                 value: isValid ? state.selectedAccreditation?.id : null,
+                isExpanded: true,
                 hint: Text('selectTheCriterion'.tr()),
                 icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
                 style: TextStyle(
@@ -92,7 +96,7 @@ class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
                     ).selectedAcademicYear!.id,
                     departmentId: DepartmentCubit.get(
                       context,
-                    ).selectedDepartment!.id,
+                    ).selectedDepartment?.id,
                     criterionId: selectedModel.id,
                   );
                 },

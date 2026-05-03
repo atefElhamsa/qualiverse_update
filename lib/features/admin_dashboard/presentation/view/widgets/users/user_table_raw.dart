@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'widgets/update_role_dialog.dart';
 
 class UserTableRow extends StatelessWidget {
   final UserManagementModel user;
@@ -67,18 +68,48 @@ class UserTableRow extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Tooltip(
-                      message: 'deleteUser'.tr(),
+                      message: user.role.toLowerCase() == 'admin' ? '' : 'edit'.tr(),
                       child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
+                        cursor: user.role.toLowerCase() == 'admin'
+                            ? SystemMouseCursors.basic
+                            : SystemMouseCursors.click,
                         child: GestureDetector(
-                          onTap: () => showDeleteUserDialog(
-                            context: context,
-                            user: user,
+                          onTap: user.role.toLowerCase() == 'admin'
+                              ? null
+                              : () => showUpdateRoleDialog(
+                                    context: context,
+                                    user: user,
+                                  ),
+                          child: Icon(
+                            Icons.edit_outlined,
+                            color: user.role.toLowerCase() == 'admin'
+                                ? Colors.grey
+                                : AppColors.blue,
+                            size: 22.sp,
                           ),
-                          child: const Icon(
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Tooltip(
+                      message: user.role.toLowerCase() == 'admin' ? '' : 'deleteUser'.tr(),
+                      child: MouseRegion(
+                        cursor: user.role.toLowerCase() == 'admin'
+                            ? SystemMouseCursors.basic
+                            : SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: user.role.toLowerCase() == 'admin'
+                              ? null
+                              : () => showDeleteUserDialog(
+                                    context: context,
+                                    user: user,
+                                  ),
+                          child: Icon(
                             Icons.delete_outline,
-                            color: Colors.red,
-                            size: 22,
+                            color: user.role.toLowerCase() == 'admin'
+                                ? Colors.grey
+                                : Colors.red,
+                            size: 22.sp,
                           ),
                         ),
                       ),
@@ -93,6 +124,16 @@ class UserTableRow extends StatelessWidget {
       ],
     );
   }
+}
+
+void showUpdateRoleDialog({
+  required BuildContext context,
+  required UserManagementModel user,
+}) {
+  showDialog(
+    context: context,
+    builder: (dialogContext) => UpdateRoleDialog(user: user),
+  );
 }
 
 void showDeleteUserDialog({

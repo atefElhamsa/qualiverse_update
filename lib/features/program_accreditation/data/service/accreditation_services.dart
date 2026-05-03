@@ -7,12 +7,14 @@ class AccreditationServices {
   static Future<List<AccreditationModel>> getAccreditations({
     required int academicYearId,
     int? departmentId,
+    int? accreditationTypeId,
   }) async {
     try {
       final response = await dio.get(
-        EndPoints.accreditations(
+        EndPoints.getAllCriterions(
           academicYearId: academicYearId,
           departmentId: departmentId,
+          accreditationTypeId: accreditationTypeId,
         ),
       );
 

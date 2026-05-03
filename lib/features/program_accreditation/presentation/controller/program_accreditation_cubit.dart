@@ -26,12 +26,14 @@ class ProgramAccreditationCubit extends Cubit<ProgramAccreditationState> {
   Future<void> fetchProgramAccreditations({
     required int academicYearId,
     int? departmentId,
+    int? accreditationTypeId,
   }) async {
     emit(ProgramAccreditationLoading());
     try {
       final data = await AccreditationServices.getAccreditations(
         academicYearId: academicYearId,
         departmentId: departmentId,
+        accreditationTypeId: accreditationTypeId,
       );
       programAccreditations = data;
       emit(

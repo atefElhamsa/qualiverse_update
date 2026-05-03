@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +23,7 @@ class AttendanceSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseCard(
-      title: "ATTENDANCE SUMMARY",
+      title: "attendanceSummary".tr(),
       child: Row(
         children: [
           _buildLeadingIcon(),
@@ -30,21 +31,21 @@ class AttendanceSummaryCard extends StatelessWidget {
           _buildMainStat(),
           const Spacer(),
           _SmallStatBadge(
-            label: "ABSENT",
+            label: "absent".tr().toUpperCase(),
             value: absent,
             bgColor: Colors.red.shade50,
             textColor: Colors.red,
           ),
           SizedBox(width: 8.w),
           _SmallStatBadge(
-            label: "EXCUSED",
+            label: "absentWithExcuse".tr().toUpperCase(),
             value: absentWithExcuse,
             bgColor: Colors.orange.shade50,
             textColor: Colors.orange,
           ),
           SizedBox(width: 8.w),
           _SmallStatBadge(
-            label: "DEPRIVED",
+            label: "deprived".tr().toUpperCase(),
             value: deprived,
             bgColor: Colors.grey.shade100,
             textColor: Colors.grey,
@@ -74,7 +75,7 @@ class AttendanceSummaryCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "ATTENDED EXAM",
+          "attendedExam".tr().toUpperCase(),
           style: GoogleFonts.cairo(
             fontSize: 12.sp,
             fontWeight: FontWeight.bold,

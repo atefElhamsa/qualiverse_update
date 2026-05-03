@@ -10,6 +10,7 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
   final ValueChanged<int>? onChanged;
   final int? selectedId;
   final bool useCubitSelection;
+  final bool? isDisabled;
   const CoursesDepartmentDropDownWidget({
     super.key,
     this.height,
@@ -17,6 +18,7 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
     this.onChanged,
     this.selectedId,
     this.useCubitSelection = true,
+    this.isDisabled,
   });
 
   @override
@@ -27,7 +29,10 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
   @override
   void initState() {
     super.initState();
-    DepartmentCubit.get(context).fetchDepartments();
+    final cubit = DepartmentCubit.get(context);
+    if (cubit.departments.isEmpty) {
+      cubit.fetchDepartments();
+    }
   }
 
   @override
@@ -46,34 +51,53 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
           );
         }
         if (state is DepartmentSuccess) {
-          final departments = state.departments;
-          final isValid = departments.any((e) => e.id == state.selectedDepartment?.id);
-          final selectedValue = widget.selectedId ?? (widget.useCubitSelection && isValid ? state.selectedDepartment?.id : null);
-          final selectedItem = departments.where((d) => d.id == selectedValue).firstOrNull;
-
-          final String noSelectLabel = 'noSelect'.tr();
-          return CustomBaseDropDown<DepartmentModel?>(
-            items: [null, ...departments],
-            itemLabelBuilder: (d) => d?.name ?? noSelectLabel,
-            itemValueBuilder: (d) => d?.id,
-            value: selectedItem,
-            hint: 'selectTheDepartment'.tr(),
-            height: widget.height,
-            isExpanded: widget.isExpanded,
-            onChanged: (value) {
-              if (value == null) {
-                if (widget.onChanged != null) {
-                  widget.onChanged!(0); // Using 0 as a flag for "No Select" if external listener needs it
+          return BlocBuilder<LevelCubit, LevelState>(
+            builder: (context, levelState) {
+              bool isDisabled = widget.isDisabled ?? false;
+              if (widget.isDisabled == null &&
+                  levelState is LevelSuccess &&
+                  levelState.selectedLevel != null) {
+                if (levelState.selectedLevel!.levelNumber <= 2) {
+                  isDisabled = true;
                 }
-                DepartmentCubit.get(context).selectDepartment(department: null);
-                return;
               }
-              if (widget.onChanged != null) {
-                widget.onChanged!(value as int);
-                return;
-              }
-              final selectedModel = departments.firstWhere((d) => d.id == value);
-              DepartmentCubit.get(context).selectDepartment(department: selectedModel);
+
+              final departments = state.departments;
+              final isValid = departments.any(
+                (e) => e.id == state.selectedDepartment?.id,
+              );
+              final selectedValue =
+                  widget.selectedId ??
+                  (widget.useCubitSelection && isValid
+                      ? state.selectedDepartment?.id
+                      : null);
+              final selectedItem = departments
+                  .where((d) => d.id == selectedValue)
+                  .firstOrNull;
+
+              return CustomBaseDropDown<DepartmentModel>(
+                items: departments,
+                itemLabelBuilder: (d) => d.name,
+                itemValueBuilder: (d) => d.id,
+                value: selectedItem,
+                hint: 'selectTheDepartment'.tr(),
+                height: widget.height,
+                isExpanded: widget.isExpanded,
+                isDisabled: isDisabled,
+                onChanged: (value) {
+                  if (value == null) return;
+                  if (widget.onChanged != null) {
+                    widget.onChanged!(value as int);
+                    return;
+                  }
+                  final selectedModel = departments.firstWhere(
+                    (d) => d.id == value,
+                  );
+                  DepartmentCubit.get(context).selectDepartment(
+                    department: selectedModel,
+                  );
+                },
+              );
             },
           );
         }

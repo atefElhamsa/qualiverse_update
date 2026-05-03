@@ -53,26 +53,17 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
   Future<void> addAcademicYear({required int yearNumber}) async {
     emit(AcademicYearLoading());
     try {
-      final data = await AcademicYearServices.addAcademicYear(
-        yearNumber: yearNumber,
-      );
-      emit(AcademicYearAdded());
+      await AcademicYearServices.addAcademicYear(yearNumber: yearNumber);
+      await fetchAcademicYears();
     } catch (e) {
       final msg = e.toString().replaceFirst('Exception: ', '').trim();
-      if (msg.contains('No Internet')) {
-        emit(AcademicYearAddedError(message: 'Check your internet connection'));
-      }
-      if (msg.contains('Unauthorized')) {
-        await LoginStorage.clear();
-        reset();
-        emit(
-          AcademicYearAddedError(
-            message: 'Session expired, please login again',
-          ),
-        );
-      } else {
-        emit(AcademicYearAddedError(message: msg));
-      }
+      emit(AcademicYearAddedError(message: msg));
+      emit(
+        AcademicYearSuccess(
+          academicYears: academicYears,
+          selectedAcademicYear: selectedAcademicYear,
+        ),
+      );
     }
   }
 

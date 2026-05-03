@@ -44,10 +44,7 @@ class CyclesItemWidget extends StatelessWidget {
                       academicYear: academicYear,
                     );
                     context.read<DepartmentCubit>().fetchDepartments();
-                    context.read<CycleIndicatorCubit>().fetchCycleIndicators(
-                      yearId: academicYear.id,
-                    );
-                  },
+                    },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF2C2C3E),
                     side: const BorderSide(color: Color(0xFFBBBBCC), width: 1),

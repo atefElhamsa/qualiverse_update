@@ -47,7 +47,7 @@ class TemplateCubit extends Cubit<TemplateState> {
   Future<void> createCourseFromTemplate({
     required int templateId,
     required int yearId,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
   }) async {
@@ -79,7 +79,7 @@ class TemplateCubit extends Cubit<TemplateState> {
     required String nameAr,
     required String nameEn,
     required String code,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
     required int yearId,

@@ -23,7 +23,6 @@ class CourseItemWidget extends StatelessWidget {
       },
       child: SizedBox(
         width: 218.w,
-        height: 180.h,
         child: MouseRegion(
           cursor: SystemMouseCursors.click,
           child: Column(
@@ -43,14 +42,12 @@ class CourseItemWidget extends StatelessWidget {
               Expanded(
                 child: SizedBox(
                   width: 218.w,
-                  child: SingleChildScrollView(
-                    child: CustomText(
-                      title: title,
-                      textAlign: TextAlign.center,
-                      textStyle: Theme.of(
-                        context,
-                      ).textTheme.bodySmall!.copyWith(fontSize: 24.sp),
-                    ),
+                  child: CustomText(
+                    title: title,
+                    textAlign: TextAlign.center,
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.bodySmall!.copyWith(fontSize: 18.sp),
                   ),
                 ),
               ),

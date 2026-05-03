@@ -17,12 +17,12 @@ class CoursesList extends StatelessWidget {
             title: state.message,
             onPressed: () {
               CourseCubit.get(context).fetchCourses(
-                yearId: AcademicYearCubit.get(context).selectedAcademicYear?.id ?? -1,
-                levelId: LevelCubit.get(context).selectedLevel?.id ?? -1,
-                semesterId: TermCubit.get(context).selectedTerm?.id ?? -1,
+                yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
+                levelId: LevelCubit.get(context).selectedLevel!.id,
+                semesterId: TermCubit.get(context).selectedTerm!.id,
                 departmentId: DepartmentCubit.get(
                   context,
-                ).selectedDepartment?.id ?? -1,
+                ).selectedDepartment?.id,
               );
             },
           );
@@ -36,9 +36,9 @@ class CoursesList extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.8,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              childAspectRatio: 1.7,
             ),
             itemBuilder: (context, index) {
               return CourseItemWidget(title: courseName[index], state: state);

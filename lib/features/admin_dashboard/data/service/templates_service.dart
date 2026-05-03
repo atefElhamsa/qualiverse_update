@@ -36,7 +36,7 @@ class TemplatesService {
   static Future<String> createCourseFromTemplate({
     required int templateId,
     required int yearId,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
   }) async {
@@ -80,7 +80,7 @@ class TemplatesService {
     required String nameAr,
     required String nameEn,
     required String code,
-    required int departmentId,
+    int? departmentId,
     required int levelId,
     required int termId,
     required int yearId,

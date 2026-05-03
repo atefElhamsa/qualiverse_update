@@ -1,76 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-
-// class IndicatorsTable extends StatefulWidget {
-//   const IndicatorsTable({super.key});
-//
-//   @override
-//   State<IndicatorsTable> createState() => _IndicatorsTableState();
-// }
-//
-// class _IndicatorsTableState extends State<IndicatorsTable> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     CycleIndicatorCubit.get(context).fetchCycleIndicators(
-//       yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-//       departmentId: DepartmentCubit.get(context).selectedDepartment!.id,
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<CycleIndicatorCubit, CycleIndicatorState>(
-//       builder: (context, state) {
-//         if (state is CycleIndicatorLoading) {
-//           return const CustomLoading();
-//         }
-//         if (state is CycleIndicatorError) {
-//           return RetryWidget(
-//             title: state.error,
-//             onPressed: () {
-//               CycleIndicatorCubit.get(context).fetchCycleIndicators(
-//                 yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-//                 departmentId: DepartmentCubit.get(
-//                   context,
-//                 ).selectedDepartment!.id,
-//                 criterionId: ProgramAccreditationCubit.get(
-//                   context,
-//                 ).selectedProgramAccreditation!.id,
-//               );
-//             },
-//           );
-//         }
-//         if (state is CycleIndicatorLoaded) {
-//           final cycleIndicators = state.cycleIndicators;
-//           return cycleIndicators.isEmpty
-//               ? Center(
-//                   child: CustomText(
-//                     title: 'noIndicators'.tr(),
-//                     textStyle: Theme.of(context).textTheme.headlineLarge!,
-//                   ),
-//                 )
-//               : Column(
-//                   children: [
-//                     const IndicatorsHeader(),
-//                     ...cycleIndicators.asMap().entries.map(
-//                       (entry) => IndicatorsRowWidget(
-//                         cycleIndicator: entry.value,
-//                         index: entry.key,
-//                         total: cycleIndicators.length,
-//                       ),
-//                     ),
-//                   ],
-//                 );
-//         }
-//         return const SizedBox();
-//       },
-//     );
-//   }
-// }
 
 class IndicatorsTable extends StatefulWidget {
   const IndicatorsTable({super.key});
@@ -97,7 +30,7 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
       context,
     ).selectedProgramAccreditation?.id;
 
-    if (yearId != null && departmentId != null && criterionId != null) {
+    if (yearId != null && criterionId != null) {
       CycleIndicatorCubit.get(context).fetchCycleIndicators(
         yearId: yearId,
         departmentId: departmentId,
@@ -120,9 +53,12 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
           final cycleIndicators = state.cycleIndicators;
           return cycleIndicators.isEmpty
               ? Center(
-                  child: CustomText(
-                    title: 'noIndicators'.tr(),
-                    textStyle: Theme.of(context).textTheme.headlineLarge!,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: CustomText(
+                      title: 'noIndicators'.tr(),
+                      textStyle: Theme.of(context).textTheme.headlineLarge!,
+                    ),
                   ),
                 )
               : Column(
@@ -137,6 +73,20 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
                     ),
                   ],
                 );
+        }
+        if (state is CycleIndicatorInitial) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.h),
+              child: CustomText(
+                title: 'pleaseSelectTheCriterion'.tr(),
+                textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      color: AppColors.grey,
+                      fontSize: 18.sp,
+                    ),
+              ),
+            ),
+          );
         }
         return const SizedBox();
       },

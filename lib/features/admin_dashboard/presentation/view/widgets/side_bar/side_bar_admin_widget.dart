@@ -8,7 +8,7 @@ class SideBarAdminWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350.w,
+      width: 300.w,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
         borderRadius: BorderRadius.only(

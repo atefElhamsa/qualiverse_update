@@ -45,6 +45,11 @@ class _EvidenceFileStatisticsScreenState
     super.initState();
     _searchController = TextEditingController();
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.index == 1 && !_tabController.indexIsChanging) {
+        _refreshFileData();
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       EvidenceFolderFilesCubit.get(context).getStatistics(
         academicYearId: widget.academicYearId,
@@ -52,14 +57,18 @@ class _EvidenceFileStatisticsScreenState
         levelId: widget.levelId,
         departmentId: widget.departmentId,
       );
-      GetFileDataCubit.get(context).getFileData(
-        courseId: widget.courseId,
-        academicYearId: widget.academicYearId,
-        termId: widget.termId,
-        levelId: widget.levelId,
-        departmentId: widget.departmentId,
-      );
+      _refreshFileData();
     });
+  }
+
+  void _refreshFileData() {
+    GetFileDataCubit.get(context).getFileData(
+      courseId: widget.courseId,
+      academicYearId: widget.academicYearId,
+      termId: widget.termId,
+      levelId: widget.levelId,
+      departmentId: widget.departmentId,
+    );
   }
 
   @override
@@ -107,6 +116,12 @@ class _EvidenceFileStatisticsScreenState
               levelId: widget.levelId,
               departmentId: widget.departmentId,
             );
+            _refreshFileData();
+            Future.delayed(const Duration(milliseconds: 2000), () {
+              if (mounted) {
+                _refreshFileData();
+              }
+            });
           }
           if (state is UploadEvidenceFilesFailure) {
             showSnackBar(context, state.error, AppColors.red);
@@ -132,7 +147,9 @@ class _EvidenceFileStatisticsScreenState
                             children: [
                               _buildToolbar(context, isUploading),
                               SizedBox(height: 15.h),
-                              Expanded(child: _buildBody(context, state, cubit)),
+                              Expanded(
+                                child: _buildBody(context, state, cubit),
+                              ),
                             ],
                           ),
                           _buildStatisticsAnalysisTab(),
@@ -392,6 +409,7 @@ class _EvidenceFileStatisticsScreenState
         if (state is GetFileDataLoading) {
           return const Center(child: CustomLoading());
         }
+
         if (state is GetFileDataFailure) {
           return SizedBox.expand(
             child: Align(
@@ -412,13 +430,33 @@ class _EvidenceFileStatisticsScreenState
         if (state is GetFileDataSuccess) {
           if (state.data.isEmpty) {
             return Center(
-              child: Text(
-                "noDataAvailable".tr(),
-                style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.analytics_outlined,
+                    size: 64.sp,
+                    color: Colors.grey.shade300,
+                  ),
+                  SizedBox(height: 12.h),
+                  Text(
+                    "noDataAvailable".tr(),
+                    style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+                  ),
+                  SizedBox(height: 15.h),
+                  TextButton.icon(
+                    onPressed: () => _refreshFileData(),
+                    icon: const Icon(Icons.refresh_rounded),
+                    label: Text("refresh".tr()),
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color(0xFF0F569E),
+                      textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
             );
           }
-          // Assuming we take the first item since the API returns a list but we requested for a specific course
           return CourseStatisticsDashboard(data: state.data.first);
         }
         return const SizedBox.shrink();

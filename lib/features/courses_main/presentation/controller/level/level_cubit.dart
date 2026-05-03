@@ -11,7 +11,7 @@ class LevelCubit extends Cubit<LevelState> {
   List<LevelModel> levels = [];
   LevelModel? selectedLevel;
 
-  void selectLevel({required LevelModel level}) {
+  void selectLevel({LevelModel? level}) {
     selectedLevel = level;
     emit(LevelSuccess(levels: levels, selectedLevel: selectedLevel));
   }

@@ -19,9 +19,19 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
             return MouseRegion(
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
-                onTap: () => cubit.changeTab(tab),
+                onTap: () {
+                  cubit.changeTab(tab);
+                  DepartmentCubit.get(context).selectDepartment(
+                    department: null,
+                  );
+                  LevelCubit.get(context).selectLevel(level: null);
+                  TermCubit.get(context).selectTerm(term: null);
+
+                  CoursesCubit.get(context).emit(CoursesInitial());
+                  CriterionsCubit.get(context).emit(CriterionsInitial());
+                },
                 child: Padding(
-                  padding: EdgeInsetsDirectional.only(start: 50.w),
+                  padding: EdgeInsetsDirectional.only(start: 30.w),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -45,7 +55,7 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeInOut,
                         height: 3,
-                        width: isSelected ? getTextWidth(tab.name.tr()) : 0,
+                        width: isSelected ? 80.w : 0, // Simplified width logic
                         decoration: BoxDecoration(
                           color: AppColors.blue,
                           borderRadius: BorderRadius.circular(10.r),
