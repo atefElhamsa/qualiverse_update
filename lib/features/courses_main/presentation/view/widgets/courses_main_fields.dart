@@ -16,12 +16,22 @@ class CoursesMainFields extends StatelessWidget {
         BlocListener<LevelCubit, LevelState>(
           listener: (context, state) {
             if (state is LevelSuccess && state.selectedLevel != null) {
+              final deptCubit = DepartmentCubit.get(context);
               if (state.selectedLevel!.levelNumber <= 2) {
-                DepartmentCubit.get(context).selectDepartment(department: null);
+                deptCubit.selectDepartment(department: null);
+              } else {
+                // If moving to level 3 or 4 and no department is selected, pick the first one
+                if (deptCubit.selectedDepartment == null &&
+                    deptCubit.state is DepartmentSuccess) {
+                  final departments = (deptCubit.state as DepartmentSuccess).departments;
+                  if (departments.isNotEmpty) {
+                    deptCubit.selectDepartment(department: departments.first);
+                  }
+                }
               }
             }
           },
-          child: const SelectedDepartmentWidget(),
+          child: const SelectedDepartmentWidget(checkLevel: true),
         ),
         const SelectedSemesterWidget(),
       ],

@@ -27,6 +27,7 @@ class ProgramAccreditationCubit extends Cubit<ProgramAccreditationState> {
     required int academicYearId,
     int? departmentId,
     int? accreditationTypeId,
+    bool isAdmin = true,
   }) async {
     emit(ProgramAccreditationLoading());
     try {
@@ -34,8 +35,20 @@ class ProgramAccreditationCubit extends Cubit<ProgramAccreditationState> {
         academicYearId: academicYearId,
         departmentId: departmentId,
         accreditationTypeId: accreditationTypeId,
+        isAdmin: isAdmin,
       );
-      programAccreditations = data;
+
+      final Map<String, AccreditationModel> uniqueMap = {};
+      for (var item in data) {
+        uniqueMap[item.name] = item;
+      }
+      programAccreditations = uniqueMap.values.toList();
+
+      if (programAccreditations.isNotEmpty) {
+        selectedProgramAccreditation = programAccreditations.first;
+      } else {
+        selectedProgramAccreditation = null;
+      }
       emit(
         ProgramAccreditationSuccess(
           accreditations: programAccreditations,
@@ -58,7 +71,7 @@ class ProgramAccreditationCubit extends Cubit<ProgramAccreditationState> {
           ),
         );
       } else {
-        emit(ProgramAccreditationError(message: 'Something went wrong'));
+        emit(ProgramAccreditationError(message: msg.replaceFirst('Exception: ', '').trim()));
       }
     }
   }

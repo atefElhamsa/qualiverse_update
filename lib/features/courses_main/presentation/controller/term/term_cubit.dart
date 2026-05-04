@@ -21,6 +21,11 @@ class TermCubit extends Cubit<TermState> {
     try {
       final data = await TermService.getTerms();
       terms = data;
+
+      if (selectedTerm == null && terms.isNotEmpty) {
+        selectedTerm = terms.first;
+      }
+
       emit(TermSuccess(terms: terms, selectedTerm: selectedTerm));
     } catch (e) {
       final msg = e.toString().replaceFirst('Exception: ', '').trim();

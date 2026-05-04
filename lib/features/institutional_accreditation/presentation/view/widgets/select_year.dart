@@ -45,10 +45,21 @@ class SelectYear extends StatelessWidget {
                 academicYearCubit.selectAcademicYear(
                   academicYear: selectedModel,
                 );
+
+                final typeState = context.read<TypesCubit>().state;
+                final typeId = (typeState is TypesSuccess)
+                    ? typeState.types.firstWhere((t) => t.name.contains("Institutional")).id
+                    : null;
+                
+                final meState = context.read<MeCubit>().state;
+                final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+
                 context
                     .read<InstitutionalAccreditationCubit>()
                     .fetchInstitutionalAccreditations(
                       academicYearId: selectedModel.id,
+                      accreditationTypeId: typeId,
+                      isAdmin: isAdmin,
                     );
                 context
                         .read<InstitutionalAccreditationCubit>()

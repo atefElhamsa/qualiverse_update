@@ -21,6 +21,11 @@ class LevelCubit extends Cubit<LevelState> {
     try {
       final data = await CoursesMainServices.getLevels();
       levels = data;
+      
+      if (selectedLevel == null && levels.isNotEmpty) {
+        selectedLevel = levels.first;
+      }
+      
       emit(LevelSuccess(levels: levels, selectedLevel: selectedLevel));
     } catch (e) {
       final msg = e.toString().replaceFirst('Exception: ', '').trim();

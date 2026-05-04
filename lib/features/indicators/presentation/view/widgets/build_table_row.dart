@@ -62,29 +62,33 @@ TableRow buildTableRow({
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextButton(
-                onPressed: () {
-                  if (indicator.filePath == null) {
-                    showSnackBar(
-                      context,
-                      "no_file_uploaded_yet".tr(),
-                      Colors.red,
-                    );
-                  } else {
-                    context.read<IndicatorsCubit>().openIndicatorFile(
-                      indicator.filePath!,
-                    );
-                  }
-                },
-                child: CustomText(
-                  title: indicator.fileName ?? "noFile".tr(),
-                  textAlign: TextAlign.center,
-                  textStyle: TextStyle(
-                    color: indicator.filePath == null
-                        ? Theme.of(context).colorScheme.onSecondary
-                        : AppColors.noFileColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w100,
+              Flexible(
+                child: TextButton(
+                  onPressed: () {
+                    if (indicator.filePath == null) {
+                      showSnackBar(
+                        context,
+                        "no_file_uploaded_yet".tr(),
+                        Colors.red,
+                      );
+                    } else {
+                      context.read<IndicatorsCubit>().openIndicatorFile(
+                        indicator.filePath!,
+                      );
+                    }
+                  },
+                  child: CustomText(
+                    title: indicator.fileName ?? "noFile".tr(),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textStyle: TextStyle(
+                      color: indicator.filePath == null
+                          ? Theme.of(context).colorScheme.onSecondary
+                          : AppColors.noFileColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w100,
+                    ),
                   ),
                 ),
               ),

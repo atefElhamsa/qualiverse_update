@@ -5,12 +5,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
 
-class CoursesTableBuilderWidget extends StatelessWidget {
+class CoursesTableBuilderWidget extends StatefulWidget {
   final String searchQuery;
 
   const CoursesTableBuilderWidget({super.key, this.searchQuery = ''});
 
-  void checkAndFetch(BuildContext context) {
+  @override
+  State<CoursesTableBuilderWidget> createState() => _CoursesTableBuilderWidgetState();
+}
+
+class _CoursesTableBuilderWidgetState extends State<CoursesTableBuilderWidget> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkAndFetch();
+    });
+  }
+
+  void _checkAndFetch() {
+    if (!mounted) return;
     final year = AcademicYearCubit.get(context).selectedAcademicYear;
     final department = DepartmentCubit.get(context).selectedDepartment;
     final level = LevelCubit.get(context).selectedLevel;
@@ -19,16 +33,16 @@ class CoursesTableBuilderWidget extends StatelessWidget {
     if (year != null && level != null && term != null) {
       CoursesCubit.get(context).getCourses(
         academicYearId: year.id,
-        departmentId: department?.id,
+        departmentId: level.levelNumber <= 2 ? null : department?.id,
         levelId: level.id,
         termId: term.id,
       );
     }
   }
 
-  List<CourseItemModel> applySearch(List<CourseItemModel> courses) {
-    if (searchQuery.isEmpty) return courses;
-    final q = searchQuery.toLowerCase();
+  List<CourseItemModel> _applySearch(List<CourseItemModel> courses) {
+    if (widget.searchQuery.isEmpty) return courses;
+    final q = widget.searchQuery.toLowerCase();
     return courses.where((c) {
       return c.name.toLowerCase().contains(q) ||
           c.code.toLowerCase().contains(q);
@@ -40,16 +54,16 @@ class CoursesTableBuilderWidget extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<AcademicYearCubit, AcademicYearState>(
-          listener: (ctx, _) => checkAndFetch(ctx),
+          listener: (ctx, _) => _checkAndFetch(),
         ),
         BlocListener<DepartmentCubit, DepartmentState>(
-          listener: (ctx, _) => checkAndFetch(ctx),
+          listener: (ctx, _) => _checkAndFetch(),
         ),
         BlocListener<LevelCubit, LevelState>(
-          listener: (ctx, _) => checkAndFetch(ctx),
+          listener: (ctx, _) => _checkAndFetch(),
         ),
         BlocListener<TermCubit, TermState>(
-          listener: (ctx, _) => checkAndFetch(ctx),
+          listener: (ctx, _) => _checkAndFetch(),
         ),
       ],
       child: BlocBuilder<CoursesCubit, CoursesState>(
@@ -60,10 +74,13 @@ class CoursesTableBuilderWidget extends StatelessWidget {
               current is CoursesInitial;
         },
         builder: (context, state) {
+          if (state is CoursesInitial) {
+            _checkAndFetch();
+          }
           if (state is CoursesLoading) return const LoadingView();
           if (state is CoursesFailure) return ErrorView(message: state.error);
           if (state is CoursesSuccess) {
-            final filtered = applySearch(state.courses);
+            final filtered = _applySearch(state.courses);
             if (filtered.isEmpty) {
               return EmptyView(message: 'noCoursesFound'.tr());
             }

@@ -58,13 +58,18 @@ class UserTableRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        final cubit = UsersCubit.get(context);
-                        user.isActive
-                            ? cubit.deactivateUser(id: user.id)
-                            : cubit.activateUser(id: user.id);
-                      },
-                      child: UserStatusBadge(status: user.status),
+                      onTap: user.role.toLowerCase() == 'admin'
+                          ? null
+                          : () {
+                              final cubit = UsersCubit.get(context);
+                              user.isActive
+                                  ? cubit.deactivateUser(id: user.id)
+                                  : cubit.activateUser(id: user.id);
+                            },
+                      child: UserStatusBadge(
+                        status: user.status,
+                        isDisabled: user.role.toLowerCase() == 'admin',
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Tooltip(

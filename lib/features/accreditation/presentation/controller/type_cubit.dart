@@ -23,6 +23,9 @@ class TypesCubit extends Cubit<TypesState> {
     try {
       final data = await TypesService.getTypes();
       types = data.types!;
+      if (selectedIndex == -1 && types.isNotEmpty) {
+        selectedIndex = 0;
+      }
       emit(TypesSuccess(types: types, selectedIndex: selectedIndex));
     } catch (e) {
       final msg = e.toString();

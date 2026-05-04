@@ -46,7 +46,7 @@ class GridViewInstitutionalItemsWidget extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return ItemWidget(
-                itemModel: institutionalItems[index],
+                itemModel: institutionalItems[index % institutionalItems.length],
                 accreditationModel: accreditations[index],
                 onTap: () {
                   context

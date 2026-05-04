@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignment_status_cubit.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_cubit.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignments_cubit.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/roles_cubit.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/update_user_role_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
@@ -38,6 +41,9 @@ void main() async {
           create: (context) => DepartmentCubit()..fetchDepartments(),
         ),
         BlocProvider(create: (context) => ProgramAccreditationCubit()),
+        BlocProvider(create: (context) => AssignmentsCubit()),
+        BlocProvider(create: (context) => AssignmentStatusCubit()..fetchStatuses()),
+        BlocProvider(create: (context) => ApproveRejectAssignmentCubit()),
         BlocProvider(create: (context) => CriterionsCubit()),
         BlocProvider(create: (context) => CycleIndicatorCubit()),
         BlocProvider(create: (context) => AssignCubit()),

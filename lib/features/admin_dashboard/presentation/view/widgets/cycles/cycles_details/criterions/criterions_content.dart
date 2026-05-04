@@ -14,26 +14,25 @@ class _CriterionsContentState extends State<CriterionsContent> {
   @override
   void initState() {
     super.initState();
-    // No need for addPostFrameCallback anymore as Cubit is global
     _fetchData();
   }
 
   void _fetchData() {
     final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
     final deptId = DepartmentCubit.get(context).selectedDepartment?.id;
-    
+
     final typesCubit = TypesCubit.get(context);
     final typeState = typesCubit.state;
-    final typeId = (typeState is TypesSuccess && typeState.selectedIndex != -1) 
-        ? typeState.types[typeState.selectedIndex].id 
+    final typeId = (typeState is TypesSuccess && typeState.selectedIndex != -1)
+        ? typeState.types[typeState.selectedIndex].id
         : null;
 
     if (yearId != null) {
       context.read<CriterionsCubit>().fetchCriterions(
-            academicYearId: yearId,
-            departmentId: deptId,
-            accreditationTypeId: typeId,
-          );
+        academicYearId: yearId,
+        departmentId: deptId,
+        accreditationTypeId: typeId,
+      );
     }
   }
 
@@ -51,13 +50,36 @@ class _CriterionsContentState extends State<CriterionsContent> {
         ),
         BlocListener<TypesCubit, TypesState>(
           listener: (context, state) {
-            if (state is TypesSuccess) _fetchData();
+            if (state is TypesSuccess && state.selectedIndex != -1) {
+              final selectedType = state.types[state.selectedIndex];
+              final name = selectedType.name.toLowerCase();
+              final deptCubit = DepartmentCubit.get(context);
+
+              if (name.contains('program') || name.contains('برامجي')) {
+                if (deptCubit.selectedDepartment == null &&
+                    deptCubit.state is DepartmentSuccess) {
+                  final departments =
+                      (deptCubit.state as DepartmentSuccess).departments;
+                  if (departments.isNotEmpty) {
+                    deptCubit.selectDepartment(department: departments.first);
+                  }
+                }
+              } else if (name.contains('institutional') ||
+                  name.contains('مؤسسي')) {
+                deptCubit.selectDepartment(department: null);
+              }
+              _fetchData();
+            }
           },
         ),
       ],
       child: Container(
         padding: const EdgeInsets.all(20),
-        margin: EdgeInsetsDirectional.only(start: 30.w, end: 30.w, bottom: 20.h),
+        margin: EdgeInsetsDirectional.only(
+          start: 30.w,
+          end: 30.w,
+          bottom: 20.h,
+        ),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(16.r),

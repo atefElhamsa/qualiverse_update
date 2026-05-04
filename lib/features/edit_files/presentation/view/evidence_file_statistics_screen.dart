@@ -51,13 +51,13 @@ class _EvidenceFileStatisticsScreenState
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      _refreshFileData(); // Ensure data is fetched even before switching tabs
       EvidenceFolderFilesCubit.get(context).getStatistics(
         academicYearId: widget.academicYearId,
         termId: widget.termId,
         levelId: widget.levelId,
         departmentId: widget.departmentId,
       );
-      _refreshFileData();
     });
   }
 
@@ -117,7 +117,7 @@ class _EvidenceFileStatisticsScreenState
               departmentId: widget.departmentId,
             );
             _refreshFileData();
-            Future.delayed(const Duration(milliseconds: 2000), () {
+            Future.delayed(const Duration(seconds: 3), () {
               if (mounted) {
                 _refreshFileData();
               }
@@ -441,7 +441,10 @@ class _EvidenceFileStatisticsScreenState
                   SizedBox(height: 12.h),
                   Text(
                     "noDataAvailable".tr(),
-                    style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+                    style: GoogleFonts.cairo(
+                      fontSize: 16.sp,
+                      color: Colors.grey,
+                    ),
                   ),
                   SizedBox(height: 15.h),
                   TextButton.icon(

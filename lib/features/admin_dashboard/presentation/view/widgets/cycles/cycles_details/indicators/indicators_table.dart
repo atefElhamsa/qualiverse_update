@@ -41,55 +41,56 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CycleIndicatorCubit, CycleIndicatorState>(
-      builder: (context, state) {
-        if (state is CycleIndicatorLoading) {
-          return const CustomLoading();
-        }
-        if (state is CycleIndicatorError) {
-          return RetryWidget(title: state.error, onPressed: fetchIfReady);
-        }
-        if (state is CycleIndicatorLoaded) {
-          final cycleIndicators = state.cycleIndicators;
-          return cycleIndicators.isEmpty
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: CustomText(
-                      title: 'noIndicators'.tr(),
-                      textStyle: Theme.of(context).textTheme.headlineLarge!,
-                    ),
-                  ),
-                )
-              : Column(
-                  children: [
-                    const IndicatorsHeader(),
-                    ...cycleIndicators.asMap().entries.map(
-                      (entry) => IndicatorsRowWidget(
-                        cycleIndicator: entry.value,
-                        index: entry.key,
-                        total: cycleIndicators.length,
+    return BlocListener<ProgramAccreditationCubit, ProgramAccreditationState>(
+      listener: (context, state) => fetchIfReady(),
+      child: BlocBuilder<CycleIndicatorCubit, CycleIndicatorState>(
+        builder: (context, state) {
+          if (state is CycleIndicatorLoading) {
+            return const CustomLoading();
+          }
+          if (state is CycleIndicatorError) {
+            return RetryWidget(title: state.error, onPressed: fetchIfReady);
+          }
+          if (state is CycleIndicatorLoaded) {
+            final cycleIndicators = state.cycleIndicators;
+            return cycleIndicators.isEmpty
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: CustomText(
+                        title: 'noIndicators'.tr(),
+                        textStyle: Theme.of(context).textTheme.headlineLarge!,
                       ),
                     ),
-                  ],
-                );
-        }
-        if (state is CycleIndicatorInitial) {
-          return Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.h),
-              child: CustomText(
-                title: 'pleaseSelectTheCriterion'.tr(),
-                textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      color: AppColors.grey,
-                      fontSize: 18.sp,
-                    ),
+                  )
+                : Column(
+                    children: [
+                      const IndicatorsHeader(),
+                      ...cycleIndicators.asMap().entries.map(
+                        (entry) => IndicatorsRowWidget(
+                          cycleIndicator: entry.value,
+                          index: entry.key,
+                          total: cycleIndicators.length,
+                        ),
+                      ),
+                    ],
+                  );
+          }
+          if (state is CycleIndicatorInitial) {
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 40.h),
+                child: CustomText(
+                  title: 'pleaseSelectTheCriterion'.tr(),
+                  textStyle: Theme.of(context).textTheme.headlineLarge!
+                      .copyWith(color: AppColors.grey, fontSize: 18.sp),
+                ),
               ),
-            ),
-          );
-        }
-        return const SizedBox();
-      },
+            );
+          }
+          return const SizedBox();
+        },
+      ),
     );
   }
 }

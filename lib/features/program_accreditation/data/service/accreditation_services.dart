@@ -8,14 +8,21 @@ class AccreditationServices {
     required int academicYearId,
     int? departmentId,
     int? accreditationTypeId,
+    bool isAdmin = true,
   }) async {
     try {
       final response = await dio.get(
-        EndPoints.getAllCriterions(
-          academicYearId: academicYearId,
-          departmentId: departmentId,
-          accreditationTypeId: accreditationTypeId,
-        ),
+        isAdmin
+            ? EndPoints.getAllCriterions(
+              academicYearId: academicYearId,
+              departmentId: departmentId,
+              accreditationTypeId: accreditationTypeId,
+            )
+            : EndPoints.accreditations(
+              academicYearId: academicYearId,
+              departmentId: departmentId,
+              accreditationTypeId: accreditationTypeId,
+            ),
       );
 
       final Map<String, dynamic> body = response.data;

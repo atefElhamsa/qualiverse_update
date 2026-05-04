@@ -9,9 +9,6 @@ class InstitutionalAccreditationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => AcademicYearCubit()..fetchAcademicYears(),
-        ),
         BlocProvider(create: (context) => InstitutionalAccreditationCubit()),
       ],
       child: const MainWrapper(child: InstitutionalAccreditationBody()),

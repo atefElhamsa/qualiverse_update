@@ -6,19 +6,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../routing/all_routes_imports.dart';
 
 class SelectedDepartmentWidget extends StatelessWidget {
-  const SelectedDepartmentWidget({super.key});
+  final bool checkLevel;
+  const SelectedDepartmentWidget({super.key, this.checkLevel = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LevelCubit, LevelState>(
       builder: (context, levelState) {
         bool isDisabled = false;
-        if (levelState is LevelSuccess && levelState.selectedLevel != null) {
+        if (checkLevel && levelState is LevelSuccess && levelState.selectedLevel != null) {
           if (levelState.selectedLevel!.levelNumber <= 2) {
             isDisabled = true;
           }
         }
-
         return BlocBuilder<DepartmentCubit, DepartmentState>(
           builder: (context, state) {
             if (state is DepartmentLoading) {

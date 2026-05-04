@@ -33,8 +33,8 @@ class CyclesItemWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 40.h,
-                width: 62.w,
+                height: 36.h,
+                width: 80.w,
                 child: OutlinedButton(
                   onPressed: () {
                     context.read<AdminDashboardCubit>().openCycleDetails(
@@ -44,15 +44,12 @@ class CyclesItemWidget extends StatelessWidget {
                       academicYear: academicYear,
                     );
                     context.read<DepartmentCubit>().fetchDepartments();
-                    },
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color(0xFF2C2C3E),
                     side: const BorderSide(color: Color(0xFFBBBBCC), width: 1),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
-                    ),
-                    minimumSize: const Size(60, 32),
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size(70.w, 32.h),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.r),
                     ),

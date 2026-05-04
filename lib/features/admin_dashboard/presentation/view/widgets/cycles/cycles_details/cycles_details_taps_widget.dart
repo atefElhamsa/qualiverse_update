@@ -38,7 +38,15 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
                         child: CustomText(
-                          title: tab.name.tr(),
+                          title: context.locale.languageCode == 'ar'
+                              ? (tab == CycleTab.assignments
+                                  ? 'التكليفات'
+                                  : tab == CycleTab.indicators
+                                      ? 'المؤشرات'
+                                      : tab == CycleTab.criterions
+                                          ? 'المعايير'
+                                          : 'المقررات')
+                              : tab.name.capitalizeFirst().tr(),
                           textStyle: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: isSelected

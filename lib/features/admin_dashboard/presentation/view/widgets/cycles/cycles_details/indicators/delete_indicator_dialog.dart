@@ -25,17 +25,26 @@ void showDeleteIndicatorDialog({
             }
 
             if (state is CycleIndicatorDeleteSuccess) {
+              // Capture IDs before context becomes invalid
+              final yearId = AcademicYearCubit.get(ctx).selectedAcademicYear?.id;
+              final deptId = DepartmentCubit.get(ctx).selectedDepartment?.id;
+              final criterionId = ProgramAccreditationCubit.get(ctx).selectedProgramAccreditation?.id;
+
               Navigator.of(dialogContext).pop();
+
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (context.mounted) {
-                  showSnackBar(context, state.msg, AppColors.green);
+                if (ctx.mounted) {
+                  showSnackBar(ctx, state.msg, AppColors.green);
                 }
-                // ✅ Manual fetch after delete
-                cubit.fetchCycleIndicators(
-                  yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-                  departmentId: DepartmentCubit.get(context).selectedDepartment?.id,
-                  criterionId: ProgramAccreditationCubit.get(context).selectedProgramAccreditation!.id,
-                );
+
+                // Use captured IDs to re-fetch data
+                if (yearId != null && criterionId != null) {
+                  cubit.fetchCycleIndicators(
+                    yearId: yearId,
+                    departmentId: deptId,
+                    criterionId: criterionId,
+                  );
+                }
               });
             }
           },

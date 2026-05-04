@@ -33,14 +33,21 @@ class EndPoints {
   static const String newCriterionFromExistingTemplate =
       "Criterion/from-existing";
 
+  static const String assignmentsStatus = "Enum/AssignmentStatus";
+
   static String accreditations({
     required int academicYearId,
     int? departmentId,
+    int? accreditationTypeId,
   }) {
     final buffer = StringBuffer("Criterion?academicYearId=$academicYearId");
 
     if (departmentId != null) {
       buffer.write("&departmentId=$departmentId");
+    }
+
+    if (accreditationTypeId != null) {
+      buffer.write("&accreditationTypeId=$accreditationTypeId");
     }
 
     return buffer.toString();
@@ -261,4 +268,28 @@ class EndPoints {
   }
 
   static String userRole({required String userId}) => "Role/user/$userId";
+
+  static String getAssignmentInidicatorAdmin({
+    required int academicYearId,
+    String? doctorId,
+    int? status,
+  }) {
+    final buffer = StringBuffer("Indicator/assignments?");
+    buffer.write("AcademicYearId=$academicYearId");
+    if (doctorId != null) {
+      buffer.write("&DoctorId=$doctorId");
+    }
+    if (status != null) {
+      buffer.write("&Status=$status");
+    }
+    return buffer.toString();
+  }
+
+  static String approveAssignmentIndicator({required int indicatorId}) {
+    return "Indicator/$indicatorId/approve";
+  }
+
+  static String rejectAssignmentIndicator({required int indicatorId}) {
+    return "Indicator/$indicatorId/reject";
+  }
 }

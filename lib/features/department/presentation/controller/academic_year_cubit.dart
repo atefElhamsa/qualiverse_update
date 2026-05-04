@@ -29,6 +29,10 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
       final data = await AcademicYearServices.getAcademicYears();
       academicYears = data;
 
+      if (selectedAcademicYear == null && academicYears.isNotEmpty) {
+        selectedAcademicYear = academicYears.first;
+      }
+
       emit(
         AcademicYearSuccess(
           academicYears: academicYears,

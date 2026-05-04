@@ -12,11 +12,34 @@ class ProgramAccreditationScreen extends StatelessWidget {
 
     final academicYearId = data['academicYearId'] as int;
     final departmentId = data['departmentId'] as int?;
+    final meState = context.read<MeCubit>().state;
+    final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+    final typeState = context.read<TypesCubit>().state;
+    int? typeId;
+    if (typeState is TypesSuccess && typeState.types.isNotEmpty) {
+      try {
+        typeId = typeState.types
+            .firstWhere(
+              (t) =>
+                  t.name.toLowerCase().contains("program") ||
+                  t.name.contains("برامجي"),
+            )
+            .id;
+      } catch (e) {
+        // Fallback to second type if not found by name, as Program is usually index 1
+        if (typeState.types.length > 1) {
+          typeId = typeState.types[1].id;
+        }
+      }
+    }
+
     return BlocProvider(
       create: (context) => ProgramAccreditationCubit()
         ..fetchProgramAccreditations(
           academicYearId: academicYearId,
           departmentId: departmentId,
+          accreditationTypeId: typeId,
+          isAdmin: isAdmin,
         ),
       child: const MainWrapper(child: ProgramAccreditationBody()),
     );

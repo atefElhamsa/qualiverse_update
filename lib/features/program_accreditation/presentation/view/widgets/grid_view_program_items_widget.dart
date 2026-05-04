@@ -19,6 +19,8 @@ class GridViewProgramItemsWidget extends StatelessWidget {
           return RetryWidget(
             title: state.message,
             onPressed: () {
+              final meState = context.read<MeCubit>().state;
+              final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
               context
                   .read<ProgramAccreditationCubit>()
                   .fetchProgramAccreditations(
@@ -28,6 +30,7 @@ class GridViewProgramItemsWidget extends StatelessWidget {
                     departmentId: DepartmentCubit.get(
                       context,
                     ).selectedDepartment?.id,
+                    isAdmin: isAdmin,
                   );
             },
           );

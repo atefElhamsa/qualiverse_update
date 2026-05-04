@@ -30,12 +30,16 @@ class InstitutionalAccreditationCubit
 
   Future<void> fetchInstitutionalAccreditations({
     required int academicYearId,
+    int? accreditationTypeId,
+    bool isAdmin = true,
   }) async {
     emit(InstitutionalAccreditationLoading());
 
     try {
       final data = await AccreditationServices.getAccreditations(
         academicYearId: academicYearId,
+        accreditationTypeId: accreditationTypeId,
+        isAdmin: isAdmin,
       );
       institutionalAccreditations = data;
       emit(
@@ -62,7 +66,11 @@ class InstitutionalAccreditationCubit
           ),
         );
       } else {
-        emit(InstitutionalAccreditationError(message: 'Something went wrong'));
+        emit(
+          InstitutionalAccreditationError(
+            message: msg.replaceFirst('Exception: ', '').trim(),
+          ),
+        );
       }
     }
   }

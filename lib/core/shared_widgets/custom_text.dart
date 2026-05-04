@@ -11,17 +11,28 @@ class CustomText extends StatelessWidget {
   // Declare a final TextAlign variable to control the alignment of the text.
   final TextAlign? textAlign;
 
+  final int? maxLines;
+  final TextOverflow? overflow;
+
   // Constructor for the CustomText widget.
   const CustomText({
     super.key,
     required this.title,
     required this.textStyle,
     this.textAlign,
+    this.maxLines,
+    this.overflow,
   });
 
   @override
   Widget build(BuildContext context) {
     // Return a Text widget with the given title, style, and center alignment.
-    return Text(title, style: textStyle, textAlign: textAlign);
+    return Text(
+      title,
+      style: textStyle,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
   }
 }

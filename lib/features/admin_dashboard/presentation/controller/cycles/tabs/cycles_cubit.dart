@@ -11,11 +11,11 @@ class CycleTabsCubit extends Cubit<CycleTabsState> {
 
   void changeTab(CycleTab tab) {
     currentTab = tab;
-    emit(CycleTabsChanged());
+    emit(CycleTabsChanged(tab: tab));
   }
 }
 
-enum CycleTab { courses, criterions, indicators }
+enum CycleTab { courses, criterions, indicators, assignments }
 
 extension StringCasingExtension on String {
   String capitalizeFirst() {

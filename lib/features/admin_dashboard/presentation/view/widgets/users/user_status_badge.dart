@@ -5,18 +5,27 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class UserStatusBadge extends StatelessWidget {
   final String status;
+  final bool isDisabled;
 
-  const UserStatusBadge({super.key, required this.status});
+  const UserStatusBadge({
+    super.key,
+    required this.status,
+    this.isDisabled = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final isActive = status == 'Active';
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: isDisabled ? SystemMouseCursors.basic : SystemMouseCursors.click,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
-          color: isActive ? AppColors.green : AppColors.orange,
+          color: isDisabled
+              ? Colors.grey
+              : isActive
+              ? AppColors.green
+              : AppColors.orange,
           borderRadius: BorderRadius.circular(20),
         ),
         child: CustomText(

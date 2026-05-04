@@ -41,7 +41,7 @@ class CoursesMainButton extends StatelessWidget {
                     yearId: year.id,
                     levelId: level.id,
                     termModel: semester,
-                    departmentId: department?.id,
+                    departmentId: level.levelNumber <= 2 ? null : department?.id,
                   ),
                 );
               }
