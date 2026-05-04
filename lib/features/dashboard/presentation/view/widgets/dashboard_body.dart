@@ -13,6 +13,8 @@ import 'package:qualiverse/features/dashboard/data/models/criterion_data_model.d
 import 'package:qualiverse/features/dashboard/data/models/department_data_model.dart';
 import 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
 import 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/assignmets/assignments_user_cubit.dart';
+
 import 'dashboard_scaffold.dart';
 import 'dashboard_top_and_title.dart';
 import 'dashboard_tabs.dart';
@@ -35,61 +37,95 @@ class DashboardBody extends StatelessWidget {
             providers: [
               BlocProvider(
                 create: (_) => EvidenceStatusCubit(
-                  data: state.data.indicatorOverview?.statusDistribution?.map((e) => ChartDataModel(
-                    label: e.status ?? '',
-                    value: (e.count ?? 0).toDouble(),
-                    color: _getStatusColor(e.status),
-                  )).toList() ?? [],
+                  data:
+                      state.data.indicatorOverview?.statusDistribution
+                          ?.map(
+                            (e) => ChartDataModel(
+                              label: e.status ?? '',
+                              value: (e.count ?? 0).toDouble(),
+                              color: _getStatusColor(e.status),
+                            ),
+                          )
+                          .toList() ??
+                      [],
                 ),
               ),
               BlocProvider(
                 create: (_) => EvidencePerCriterionCubit(
-                  data: (state.data.indicatorOverview?.indicatorsPerCriterion as List?)?.map((e) {
-                    if (e is! Map) return const CriterionDataModel(label: '', value: 0);
-                    return CriterionDataModel(
-                      label: e['criterionName']?.toString() ?? '',
-                      value: (e['count'] ?? 0).toDouble(),
-                    );
-                  }).toList() ?? [],
+                  data:
+                      (state.data.indicatorOverview?.indicatorsPerCriterion)
+                          ?.map((e) {
+                            if (e is! Map) {
+                              return const CriterionDataModel(
+                                label: '',
+                                value: 0,
+                              );
+                            }
+                            return CriterionDataModel(
+                              label: e['criterionName']?.toString() ?? '',
+                              value: (e['count'] ?? 0).toDouble(),
+                            );
+                          })
+                          .toList() ??
+                      [],
                 )..loadData(),
               ),
               BlocProvider(
                 create: (_) => CoursesPerDepartmentCubit(
-                  data: state.data.accreditationStructure?.coursesPerDepartment?.map((e) => DepartmentDataModel(
-                    label: e.departmentName ?? '',
-                    value: (e.count ?? 0).toDouble(),
-                  )).toList() ?? [],
+                  data:
+                      state.data.accreditationStructure?.coursesPerDepartment
+                          ?.map(
+                            (e) => DepartmentDataModel(
+                              label: e.departmentName ?? '',
+                              value: (e.count ?? 0).toDouble(),
+                            ),
+                          )
+                          .toList() ??
+                      [],
                 )..loadData(),
               ),
               BlocProvider(
                 create: (_) => MonthlyChartCubit(
-                  data: state.data.indicatorUploads?.map((e) => MonthlyChartDataModel(
-                    month: e.month ?? '',
-                    value: (e.count ?? 0).toDouble(),
-                  )).toList() ?? [],
+                  data:
+                      state.data.indicatorUploads
+                          ?.map(
+                            (e) => MonthlyChartDataModel(
+                              month: e.month ?? '',
+                              value: (e.count ?? 0).toDouble(),
+                            ),
+                          )
+                          .toList() ??
+                      [],
                 ),
               ),
               BlocProvider(
                 create: (_) => EvidenceCubit(
-                  data: (state.data.programVsInstitution?.items as List?)?.map((e) {
-                    if (e is! Map) return EvidenceDataModel(criterion: '', pending: 0, reviewed: 0, rejected: 0);
-                    return EvidenceDataModel(
-                      criterion: e['criterion']?.toString() ?? '',
-                      pending: e['pending'] ?? 0,
-                      reviewed: e['reviewed'] ?? 0,
-                      rejected: e['rejected'] ?? 0,
-                    );
-                  }).toList() ?? [],
+                  data:
+                      (state.data.programVsInstitution?.items)?.map((e) {
+                        if (e is! Map) {
+                          return EvidenceDataModel(
+                            criterion: '',
+                            pending: 0,
+                            reviewed: 0,
+                            rejected: 0,
+                          );
+                        }
+                        return EvidenceDataModel(
+                          criterion: e['criterion']?.toString() ?? '',
+                          pending: e['pending'] ?? 0,
+                          reviewed: e['reviewed'] ?? 0,
+                          rejected: e['rejected'] ?? 0,
+                        );
+                      }).toList() ??
+                      [],
                 )..loadData(),
               ),
+              BlocProvider(create: (context) => AssignmentsUserCubit()),
             ],
             child: const DashboardScaffold(
               widget: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    DashboardTopAndTitle(),
-                    DashboardTabs(),
-                  ],
+                  children: [DashboardTopAndTitle(), DashboardTabs()],
                 ),
               ),
             ),
@@ -103,13 +139,13 @@ class DashboardBody extends StatelessWidget {
   Color _getStatusColor(String? status) {
     switch (status) {
       case 'Approved':
-        return AppColors.approvedColor;
+        return AppColors.approvedColorIndicator; // أخضر
       case 'Pending':
-        return AppColors.pendingColor;
+        return AppColors.pendingColorIndicator; // برتقالي/أصفر
       case 'Submitted':
-        return AppColors.reviewedColor;
+        return AppColors.reviewedColor; // أزرق
       case 'Rejected':
-        return AppColors.rejectedColor;
+        return AppColors.rejectedColorIndicator; // أحمر
       default:
         return AppColors.grey;
     }

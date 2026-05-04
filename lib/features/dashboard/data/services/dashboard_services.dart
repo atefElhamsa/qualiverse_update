@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'models/dashboard_response_model.dart';
+import '../models/dashboard_response_model.dart';
 
 class DashboardServices {
   Future<DashboardResponseModel> getDashboard({

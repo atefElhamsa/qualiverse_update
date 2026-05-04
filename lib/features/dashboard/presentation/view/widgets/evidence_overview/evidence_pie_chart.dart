@@ -69,7 +69,7 @@ class EvidencePieChart extends StatelessWidget {
                       ),
                     )
                   : null,
-              badgePositionPercentageOffset: 1.5,
+              badgePositionPercentageOffset: 1.15,
             );
           });
         }

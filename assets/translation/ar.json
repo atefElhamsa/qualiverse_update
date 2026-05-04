@@ -434,5 +434,21 @@
   "studentsPassed": "طلاب ناجحون",
   "pleaseSelectTheCriterion": "يرجى اختيار المعيار لإظهار المؤشرات",
   "changeRole": "تغيير دور المستخدم",
-  "updateRole": "تحديث الدور"
+  "january": "يناير",
+  "february": "فبراير",
+  "march": "مارس",
+  "april": "أبريل",
+  "may": "مايو",
+  "june": "يونيو",
+  "july": "يوليو",
+  "august": "أغسطس",
+  "september": "سبتمبر",
+  "october": "أكتوبر",
+  "november": "نوفمبر",
+  "december": "ديسمبر",
+  "updateRole": "تحديث الدور",
+  "submitted": "قيد المراجعة",
+  "pending": "قيد الانتظار",
+  "rejected": "مرفوض",
+  "daysRemaining": "الأيام المتبقية"
 }

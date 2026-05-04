@@ -435,5 +435,21 @@
   "studentsPassed": "Students Passed",
   "pleaseSelectTheCriterion": "Please select the criterion to show indicators",
   "changeRole": "Change User Role",
-  "updateRole": "Update Role"
+  "january": "January",
+  "february": "February",
+  "march": "March",
+  "april": "April",
+  "may": "May",
+  "june": "June",
+  "july": "July",
+  "august": "August",
+  "september": "September",
+  "october": "October",
+  "november": "November",
+  "december": "December",
+  "updateRole": "Update Role",
+  "submitted": "Submitted",
+  "pending": "Pending",
+  "rejected": "Rejected",
+  "daysRemaining": "Days Remaining"
 }

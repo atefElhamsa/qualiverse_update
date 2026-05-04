@@ -94,17 +94,17 @@ class AssignmentsRowWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+          padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 8.w),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(4.r),
+            color: color,
+            borderRadius: BorderRadius.circular(6.r),
           ),
           child: Text(
             translatedStatus,
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
-              color: color,
+              fontWeight: FontWeight.w800,
+              color: AppColors.white,
             ),
             textAlign: TextAlign.center,
           ),

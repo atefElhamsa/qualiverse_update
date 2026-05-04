@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,11 +33,11 @@ class DropButtonList extends StatelessWidget {
               if (state is TypesSuccess) {
                 items = state.types.map((e) => DropdownMenuItem(
                   value: e.id,
-                  child: Text(e.name ?? ''),
+                  child: Text(e.name),
                 )).toList();
               }
               return CustomFilterDropdown<int>(
-                hint: 'Accreditation',
+                hint: 'accreditationLabel'.tr(),
                 value: filtersCubit.accreditationTypeId,
                 items: items,
                 onChanged: (v) {
@@ -58,11 +59,11 @@ class DropButtonList extends StatelessWidget {
               if (state is LevelSuccess) {
                 items = state.levels.map((e) => DropdownMenuItem(
                   value: e.id,
-                  child: Text(e.name ?? ''),
+                  child: Text(e.name),
                 )).toList();
               }
               return CustomFilterDropdown<int>(
-                hint: 'Level',
+                hint: 'level'.tr(),
                 value: filtersCubit.levelId,
                 items: items,
                 onChanged: (v) {
@@ -88,7 +89,7 @@ class DropButtonList extends StatelessWidget {
                 )).toList();
               }
               return CustomFilterDropdown<int>(
-                hint: 'Year',
+                hint: 'year'.tr(),
                 value: filtersCubit.yearId,
                 items: items,
                 onChanged: (v) {
@@ -110,11 +111,11 @@ class DropButtonList extends StatelessWidget {
               if (state is DepartmentSuccess) {
                 items = state.departments.map((e) => DropdownMenuItem(
                   value: e.id,
-                  child: Text(e.name ?? ''),
+                  child: Text(e.name),
                 )).toList();
               }
               return CustomFilterDropdown<int>(
-                hint: 'Department Name',
+                hint: 'department'.tr(),
                 value: filtersCubit.departmentId,
                 items: items,
                 onChanged: (v) {

@@ -5,7 +5,7 @@ export 'package:qualiverse/features/dashboard/data/models/doc_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/evidence_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/monthly_chart_data_model.dart';
 export 'package:qualiverse/features/dashboard/data/models/dashboard_response_model.dart';
-export 'package:qualiverse/features/dashboard/data/dashboard_services.dart';
+export 'package:qualiverse/features/dashboard/data/services/dashboard_services.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_cubit.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
 export 'package:qualiverse/features/dashboard/presentation/controller/documents/documents_cubit.dart';

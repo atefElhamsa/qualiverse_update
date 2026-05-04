@@ -135,7 +135,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                 series: <CartesianSeries>[
                   SplineSeries<MonthlyChartDataModel, String>(
                     dataSource: data,
-                    xValueMapper: (d, _) => d.month,
+                    xValueMapper: (d, _) => d.month.toLowerCase().tr(),
                     yValueMapper: (d, _) => d.value,
                     splineType: SplineType.natural,
                     color: Theme.of(context).colorScheme.onSecondary,

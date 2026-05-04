@@ -62,6 +62,7 @@ class EvidenceChartProgram extends StatelessWidget {
               isVisible: false,
               majorGridLines: MajorGridLines(width: 0),
               axisLine: AxisLine(width: 0),
+              rangePadding: ChartRangePadding.additional,
             ),
             series: buildSeries(state),
             enableAxisAnimation: true,
@@ -79,16 +80,6 @@ class EvidenceChartProgram extends StatelessWidget {
   ) {
     final series = <StackedBarSeries<EvidenceDataModel, String>>[];
 
-    const labelSettings = DataLabelSettings(
-      isVisible: true,
-      labelAlignment: ChartDataLabelAlignment.middle,
-      textStyle: TextStyle(
-        color: AppColors.mainBlack,
-        fontWeight: FontWeight.bold,
-        fontSize: 18,
-      ),
-    );
-
     if (state.showPending) {
       series.add(
         StackedBarSeries<EvidenceDataModel, String>(
@@ -97,7 +88,6 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.pending,
           color: AppColors.evidenceColorSlide2,
-          dataLabelSettings: labelSettings,
         ),
       );
     }
@@ -110,7 +100,6 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.reviewed,
           color: AppColors.evidenceColorSlide3,
-          dataLabelSettings: labelSettings,
         ),
       );
     }
@@ -123,7 +112,6 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.rejected,
           color: AppColors.evidenceColorSlide4,
-          dataLabelSettings: labelSettings,
         ),
       );
     }

@@ -16,16 +16,16 @@ class IndicatorsRowWidget extends StatelessWidget {
 
   Color get statusColor {
     switch (cycleIndicator.status?.toLowerCase()) {
-      case 'pending':
-        return AppColors.yellow;
-      case 'submitted':
-        return AppColors.green;
       case 'approved':
-        return AppColors.blue;
+        return const Color(0xFF10B981); // Green
+      case 'pending':
+        return const Color(0xFFF59E0B); // Orange
+      case 'submitted':
+        return const Color(0xFF3B82F6); // Blue
       case 'rejected':
-        return AppColors.red;
+        return const Color(0xFFEF4444); // Red
       default:
-        return AppColors.transparent;
+        return AppColors.mainGrey;
     }
   }
 

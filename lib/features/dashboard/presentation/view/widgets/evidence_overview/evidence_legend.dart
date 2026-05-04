@@ -63,7 +63,7 @@ class EvidenceLegend extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       CustomText(
-                        title: data[i].label,
+                        title: data[i].label.toLowerCase().tr(),
                         textStyle: GoogleFonts.inter(
                           fontSize: 12.sp,
                           fontWeight: isActive

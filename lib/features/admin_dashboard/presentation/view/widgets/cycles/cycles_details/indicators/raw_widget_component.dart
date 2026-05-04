@@ -134,11 +134,13 @@ Widget statusBadge(BuildContext context, String? status, Color? statusColor) {
       color: statusColor,
     ),
     child: CustomText(
-      title: status ?? '---',
+      title: status?.toLowerCase().tr() ?? '---',
       textAlign: TextAlign.center,
-      textStyle: Theme.of(
-        context,
-      ).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+      textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+            fontSize: 13.sp,
+            color: AppColors.white,
+            fontWeight: FontWeight.w800,
+          ),
     ),
   );
 }

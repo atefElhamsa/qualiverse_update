@@ -292,4 +292,13 @@ class EndPoints {
   static String rejectAssignmentIndicator({required int indicatorId}) {
     return "Indicator/$indicatorId/reject";
   }
+
+  static String getMyAssignments({required int academicYearId, int? status}) {
+    final buffer = StringBuffer("Indicator/assignments/me?");
+    buffer.write("academicYearId=$academicYearId");
+    if (status != null) {
+      buffer.write("&status=$status");
+    }
+    return buffer.toString();
+  }
 }
