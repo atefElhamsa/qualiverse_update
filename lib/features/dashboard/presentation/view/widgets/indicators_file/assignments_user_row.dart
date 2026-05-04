@@ -48,10 +48,21 @@ class AssignmentsUserRow extends StatelessWidget {
             return Expanded(
               flex: kAssignmentsFlex[i],
               child: Center(
-                child: Icon(
-                  Icons.visibility_outlined,
-                  color: AppColors.viewAndDeleteIconColor,
-                  size: 20.sp,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.file_upload_outlined,
+                      color: AppColors.viewAndDeleteIconColor,
+                      size: 20.sp,
+                    ),
+                    SizedBox(width: 8.w),
+                    Icon(
+                      Icons.visibility_outlined,
+                      color: AppColors.viewAndDeleteIconColor,
+                      size: 20.sp,
+                    ),
+                  ],
                 ),
               ),
             );

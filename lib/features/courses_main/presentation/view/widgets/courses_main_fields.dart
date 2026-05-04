@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/accreditation_type_drop_down_widget.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
@@ -20,10 +21,10 @@ class CoursesMainFields extends StatelessWidget {
               if (state.selectedLevel!.levelNumber <= 2) {
                 deptCubit.selectDepartment(department: null);
               } else {
-                // If moving to level 3 or 4 and no department is selected, pick the first one
                 if (deptCubit.selectedDepartment == null &&
                     deptCubit.state is DepartmentSuccess) {
-                  final departments = (deptCubit.state as DepartmentSuccess).departments;
+                  final departments =
+                      (deptCubit.state as DepartmentSuccess).departments;
                   if (departments.isNotEmpty) {
                     deptCubit.selectDepartment(department: departments.first);
                   }

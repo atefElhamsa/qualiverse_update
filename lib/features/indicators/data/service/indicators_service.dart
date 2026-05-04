@@ -92,9 +92,15 @@ class IndicatorServices {
         EndPoints.deleteIndicatorFile(indicatorId: indicatorId),
       );
       var data = response.data;
+      
+      // Handle empty response
+      if (data == null) {
+        return "File deleted successfully";
+      }
+
       final result = DeleteFileIndicatorModel.fromJson(data);
       if (!result.isSuccess) {
-        throw Exception(result.error?.description);
+        throw Exception(result.error?.description ?? "Failed to delete file");
       }
       return result.data ?? "File deleted successfully";
     } on DioException catch (e) {
@@ -113,7 +119,7 @@ class IndicatorServices {
       throw Exception(
         e.response?.data?['message'] ??
             e.response?.data?['error'] ??
-            'Upload Failed',
+            'Delete Failed',
       );
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());

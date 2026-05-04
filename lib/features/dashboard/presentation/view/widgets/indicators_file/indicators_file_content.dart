@@ -34,7 +34,6 @@ class _IndicatorsFileContentState extends State<IndicatorsFileContent> {
     return Column(
       children: [
         const AssignmentsFiltersRow(),
-        const AssignmentsUserHeaderRow(),
         BlocBuilder<AssignmentsUserCubit, AssignmentsUserState>(
           builder: (context, state) {
             if (state is AssignmentsUserLoading) {
@@ -49,17 +48,29 @@ class _IndicatorsFileContentState extends State<IndicatorsFileContent> {
             if (state is AssignmentsUserSuccess) {
               if (state.assignments.isEmpty) {
                 return Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: Text('noDataFound'.tr()),
+                  padding: const EdgeInsets.all(80.0),
+                  child: Center(
+                    child: CustomText(
+                      title: 'noDataFound'.tr(),
+                      textStyle: Theme.of(context).textTheme.headlineLarge!,
+                    ),
+                  ),
                 );
               }
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: state.assignments.length,
-                itemBuilder: (context, index) {
-                  return AssignmentsUserRow(assignment: state.assignments[index]);
-                },
+              return Column(
+                children: [
+                  const AssignmentsUserHeaderRow(),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.assignments.length,
+                    itemBuilder: (context, index) {
+                      return AssignmentsUserRow(
+                        assignment: state.assignments[index],
+                      );
+                    },
+                  ),
+                ],
               );
             }
             return const SizedBox.shrink();

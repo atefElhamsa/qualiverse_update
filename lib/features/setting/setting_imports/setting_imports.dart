@@ -35,10 +35,11 @@ export 'package:qualiverse/features/setting/presentation/view/widgets/language/l
 export 'package:qualiverse/features/setting/presentation/view/widgets/language/language_setting_content.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/language/list_languages.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/language/show_add_language_bottom_sheet.dart';
-export 'package:qualiverse/features/setting/presentation/view/widgets/notification/list_notification.dart';
-export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_item_widget.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_setting_content.dart';
-export 'package:qualiverse/features/setting/presentation/view/widgets/notification/view_delete_container.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_header.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_list_view.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/notification/notification_card.dart';
+export 'package:qualiverse/features/setting/presentation/view/widgets/notification/action_button.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/setting_body.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/setting_content.dart';
 export 'package:qualiverse/features/setting/presentation/view/widgets/side_bar/side_bar_details.dart';

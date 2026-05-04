@@ -26,6 +26,9 @@ class TableOfFiles extends StatelessWidget {
                   AppColors.green,
                 );
               }
+              if (state is IndicatorActionError) {
+                showSnackBar(context, state.message, Colors.red);
+              }
               if (state is IndicatorsError) {
                 showSnackBar(context, state.message, Colors.red);
               }

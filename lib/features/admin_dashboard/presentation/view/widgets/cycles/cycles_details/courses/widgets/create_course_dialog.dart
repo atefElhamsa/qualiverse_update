@@ -39,14 +39,6 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
   void handleCreateCourse(BuildContext context) {
     final cubit = TemplateCubit.get(context);
 
-    // Check if level needs a department
-    bool needsDept = true;
-    if (selectedLevelId != null) {
-      // Assuming level 1 and 2 don't need department
-      // We might need to find the level number, but for now we'll check if it's set
-      // A better way is to check the level number if available
-    }
-
     if (selectedLevelId == null || selectedTermId == null) {
       showSnackBar(context, 'Please select Level and Term', AppColors.red);
       return;
@@ -205,6 +197,8 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
             isExpanded: true,
             selectedId: selectedDeptId,
             useCubitSelection: false,
+            isDisabled: selectedLevelId != null && 
+                       LevelCubit.get(context).levels.any((l) => l.id == selectedLevelId && l.levelNumber <= 2),
             onChanged: (id) => setState(() {
               selectedDeptId = id;
               fetchCourses();
@@ -218,10 +212,16 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
             isExpanded: true,
             selectedId: selectedLevelId,
             useCubitSelection: false,
-            onChanged: (id) => setState(() {
-              selectedLevelId = id;
-              fetchCourses();
-            }),
+            onChanged: (id) {
+              final level = LevelCubit.get(context).levels.firstWhere((l) => l.id == id);
+              setState(() {
+                selectedLevelId = id;
+                if (level.levelNumber <= 2) {
+                  selectedDeptId = null;
+                }
+                fetchCourses();
+              });
+            },
           ),
         ),
         SizedBox(width: 6.w),

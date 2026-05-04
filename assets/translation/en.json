@@ -333,11 +333,13 @@
   "basicModels": "Basic Models",
   "reportDescription": "Report Description",
   "institutionalIndicators": "Institutional Indicators",
+  "please_wait_uploading": "Please wait, uploading...",
   "programIndicators": "Program Indicators",
   "noUsersFound": "No users found",
   "courseNameArabic": "Course Name (Arabic)",
   "courseNameEnglish": "Course Name (English)",
   "courseNameExample": "e.g., Advanced Database",
+  "courseNameEnglishExample": "e.g., Advanced Database",
   "criterionNameArabic": "Criterion Name (Arabic)",
   "criterionNameEnglish": "Criterion Name (English)",
   "criterionNameArabicExample": "e.g., Curriculum Design",
@@ -451,5 +453,11 @@
   "submitted": "Submitted",
   "pending": "Pending",
   "rejected": "Rejected",
-  "daysRemaining": "Days Remaining"
+  "view_all": "View All",
+  "view_more": "View More",
+  "no_notifications": "No notifications yet",
+  "read": "Read",
+  "unread": "Unread",
+  "daysRemaining": "Days Remaining",
+  "mark_all_as_read": "Mark all as read"
 }

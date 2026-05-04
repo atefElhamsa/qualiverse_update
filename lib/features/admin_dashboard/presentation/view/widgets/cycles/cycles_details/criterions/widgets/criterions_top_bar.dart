@@ -21,7 +21,8 @@ class _CriterionsTopBarState extends State<CriterionsTopBar> {
         bool isInstitutional = false;
         if (state is TypesSuccess && state.selectedIndex != -1) {
           final selectedType = state.types[state.selectedIndex];
-          if (selectedType.name.toLowerCase().contains('institutional')) {
+          final name = selectedType.name.toLowerCase();
+          if (name.contains('institutional') || name.contains('مؤسسي')) {
             isInstitutional = true;
           }
         }
@@ -30,7 +31,8 @@ class _CriterionsTopBarState extends State<CriterionsTopBar> {
           listener: (context, state) {
             if (state is TypesSuccess && state.selectedIndex != -1) {
               final selectedType = state.types[state.selectedIndex];
-              if (selectedType.name.toLowerCase().contains('institutional')) {
+              final name = selectedType.name.toLowerCase();
+              if (name.contains('institutional') || name.contains('مؤسسي')) {
                 DepartmentCubit.get(context).selectDepartment(department: null);
               }
             }

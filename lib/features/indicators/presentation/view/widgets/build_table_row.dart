@@ -116,13 +116,21 @@ void showDeleteDialog({
   required IndicatorModel indicator,
   required IndicatorsArgs indicatorsArgs,
 }) {
+  final cubit = context.read<IndicatorsCubit>();
+  
   showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (dialogContext) => BlocProvider.value(
-      value: context.read<IndicatorsCubit>(),
+      value: cubit,
       child: BlocListener<IndicatorsCubit, IndicatorsState>(
         listener: (listenerContext, state) {
+          if (state is IndicatorActionError) {
+            showSnackBar(listenerContext, state.message, AppColors.red);
+            Navigator.of(dialogContext).pop();
+          }
           if (state is IndicatorsError) {
+            Navigator.of(dialogContext).pop();
             showSnackBar(listenerContext, state.message, AppColors.red);
           }
           if (state is FileIndicatorDeleteSuccess) {
@@ -154,11 +162,16 @@ void showDeleteDialog({
             ).textTheme.headlineLarge!.copyWith(color: AppColors.mainBlack),
           ),
           actions: [
-            DeleteAndCancelButtons(
-              onPressed: () {
-                context.read<IndicatorsCubit>().deleteIndicatorFile(
-                  indicatorId: indicator.id,
-                  criterionId: indicatorsArgs.accreditationModel.id,
+            BlocBuilder<IndicatorsCubit, IndicatorsState>(
+              builder: (context, state) {
+                return DeleteAndCancelButtons(
+                  isLoading: state is FileIndicatorDeleteLoading,
+                  onPressed: () {
+                    cubit.deleteIndicatorFile(
+                      indicatorId: indicator.id,
+                      criterionId: indicatorsArgs.accreditationModel.id,
+                    );
+                  },
                 );
               },
             ),

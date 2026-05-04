@@ -21,8 +21,8 @@ class AdminDashboardContent extends StatelessWidget {
           case AdminPage.cycles:
             return const CyclesContent();
 
-          case AdminPage.standards:
-            return const StandardsContent();
+          // case AdminPage.standards:
+          //   return const StandardsContent();
 
           // case AdminPage.accreditation:
           //   return const AccreditationContent();

@@ -6,9 +6,14 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../routing/all_routes_imports.dart';
 
 class DeleteAndCancelButtons extends StatelessWidget {
-  const DeleteAndCancelButtons({super.key, required this.onPressed});
+  const DeleteAndCancelButtons({
+    super.key,
+    required this.onPressed,
+    this.isLoading = false,
+  });
 
   final void Function()? onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +23,12 @@ class DeleteAndCancelButtons extends StatelessWidget {
       children: [
         CustomButton(
           buttonModel: ButtonModel(
-            onPressed: onPressed,
+            onPressed: isLoading ? null : onPressed,
             backgroundColor: AppColors.red,
             radius: 20,
             space: 10.h,
             customText: CustomText(
-              title: "delete".tr(),
+              title: isLoading ? "" : "delete".tr(),
               textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                 fontSize: 20.sp,
                 fontWeight: FontWeight.w500,
@@ -32,12 +37,26 @@ class DeleteAndCancelButtons extends StatelessWidget {
             ),
           ),
         ),
+        if (isLoading)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: SizedBox(
+              width: 20.w,
+              height: 20.w,
+              child: const CircularProgressIndicator(
+                color: AppColors.red,
+                strokeWidth: 2,
+              ),
+            ),
+          ),
         const SizedBox(width: 10),
         CustomButton(
           buttonModel: ButtonModel(
-            onPressed: () {
-              context.pop();
-            },
+            onPressed: isLoading
+                ? null
+                : () {
+                    context.pop();
+                  },
             backgroundColor: AppColors.green,
             radius: 20,
             space: 10.h,

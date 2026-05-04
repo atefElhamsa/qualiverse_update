@@ -26,8 +26,8 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     );
   }
 
-  Future<void> fetchIndicators({required int criterionId}) async {
-    emit(IndicatorsLoading());
+  Future<void> fetchIndicators({required int criterionId, bool silent = false}) async {
+    if (!silent) emit(IndicatorsLoading());
 
     try {
       final data = await IndicatorServices.getIndicators(
@@ -43,7 +43,14 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
         ),
       );
     } catch (e) {
-      handleError(e);
+      if (!silent) {
+        handleError(e);
+      } else {
+        handleActionError(e);
+        if (indicators.isNotEmpty) {
+          emit(IndicatorsSuccess(indicators: indicators, selectedIndicator: selectedIndicator));
+        }
+      }
     }
   }
 
@@ -68,9 +75,12 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
         indicatorId: indicatorId,
         file: file,
       );
-      await fetchIndicators(criterionId: criterionId);
+      await fetchIndicators(criterionId: criterionId, silent: true);
     } catch (e) {
-      handleError(e);
+      handleActionError(e);
+      if (indicators.isNotEmpty) {
+        emit(IndicatorsSuccess(indicators: indicators, selectedIndicator: selectedIndicator));
+      }
     }
   }
 
@@ -97,16 +107,27 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     required int criterionId,
   }) async {
     try {
-      emit(IndicatorsLoading());
+      emit(FileIndicatorDeleteLoading());
 
       final result = await IndicatorServices.deleteIndicatorFile(
         indicatorId: indicatorId,
-      );
+      ).timeout(const Duration(seconds: 30));
 
-      await fetchIndicators(criterionId: criterionId);
       emit(FileIndicatorDeleteSuccess(message: result));
+      
+      Future.delayed(const Duration(milliseconds: 300), () {
+        fetchIndicators(criterionId: criterionId, silent: true);
+      });
     } catch (e) {
-      handleError(e);
+      handleActionError(e);
+      if (indicators.isNotEmpty) {
+        emit(IndicatorsSuccess(
+          indicators: indicators,
+          selectedIndicator: selectedIndicator,
+        ));
+      } else {
+        emit(IndicatorsInitial());
+      }
     }
   }
 
@@ -141,5 +162,33 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       return;
     }
     emit(IndicatorsError(message: 'Something went wrong'));
+  }
+
+  void handleActionError(dynamic e) async {
+    final msg = e.toString().replaceFirst('Exception: ', '').trim();
+    print("Action Error: $msg");
+
+    final match = RegExp(r'description:\s*(.*?),\s*statusCode').firstMatch(msg);
+    final description = match?.group(1);
+
+    if (description != null) {
+      emit(IndicatorActionError(message: description));
+      return;
+    }
+
+    if (msg.contains('No Internet')) {
+      emit(IndicatorActionError(message: "checkInternet".tr()));
+      return;
+    }
+
+    if (msg.contains('Unauthorized')) {
+      await LoginStorage.clear();
+      reset();
+      emit(IndicatorsError(message: 'Session expired, please login again'));
+      return;
+    }
+
+    // If it's a plain string error from IndicatorsService
+    emit(IndicatorActionError(message: msg.isNotEmpty ? msg : 'Something went wrong'));
   }
 }

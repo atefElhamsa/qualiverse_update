@@ -33,3 +33,11 @@ class FileIndicatorDeleteSuccess extends IndicatorsState {
 
   FileIndicatorDeleteSuccess({required this.message});
 }
+
+class IndicatorActionError extends IndicatorsState {
+  final String message;
+
+  IndicatorActionError({required this.message});
+}
+
+class FileIndicatorDeleteLoading extends IndicatorsState {}

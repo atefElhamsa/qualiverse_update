@@ -23,6 +23,7 @@ class AssignmentsFiltersRow extends StatelessWidget {
         children: [
           // Year Filter
           Expanded(
+            flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,6 +66,7 @@ class AssignmentsFiltersRow extends StatelessWidget {
           SizedBox(width: 20.w),
           // Status Filter
           Expanded(
+            flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -117,6 +119,7 @@ class AssignmentsFiltersRow extends StatelessWidget {
               ],
             ),
           ),
+          const Spacer(flex: 5),
         ],
       ),
     );

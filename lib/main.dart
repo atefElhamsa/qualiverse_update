@@ -8,6 +8,8 @@ import 'package:qualiverse/features/admin_dashboard/presentation/controller/role
 import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/update_user_role_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
+import 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
+import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
 import 'bloc_observer.dart';
 import 'my_app.dart';
 
@@ -20,6 +22,8 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => NotificationCountCubit()..getUnreadCount()),
+        BlocProvider(create: (context) => NotificationsCubit()),
         BlocProvider(create: (context) => SettingCubit()),
         BlocProvider(create: (context) => AdminDashboardCubit()),
         BlocProvider(create: (context) => MeCubit()..getMyInfo()),

@@ -34,6 +34,7 @@ class EndPoints {
       "Criterion/from-existing";
 
   static const String assignmentsStatus = "Enum/AssignmentStatus";
+  static const String unreadNotificationCount = "Notification/unread-count";
 
   static String accreditations({
     required int academicYearId,
@@ -301,4 +302,26 @@ class EndPoints {
     }
     return buffer.toString();
   }
+
+  static String getAllNotifications({
+    required int pageIndex,
+    required int pageSize,
+    bool? isRead,
+  }) {
+    final buffer = StringBuffer(
+      "Notification?PageIndex=$pageIndex&PageSize=$pageSize",
+    );
+    if (isRead != null) {
+      buffer.write("&IsRead=$isRead");
+    }
+    return buffer.toString();
+  }
+
+  static String getUnreadNotificationCount() => "Notification/unread-count";
+
+  static String deleteNotification({required int id}) => "Notification/$id";
+
+  static String markNotificationAsRead({required int id}) => "Notification/$id/read";
+
+  static String markAllNotificationsAsRead() => "Notification/read-all";
 }

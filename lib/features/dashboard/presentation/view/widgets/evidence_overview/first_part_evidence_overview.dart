@@ -4,26 +4,22 @@ import 'evidence_status_chart.dart';
 import 'drop_button_list.dart';
 import 'three_containers_right_evidence_overview.dart';
 
-class FirstPartEvidenceOverview extends StatefulWidget {
+class FirstPartEvidenceOverview extends StatelessWidget {
   const FirstPartEvidenceOverview({super.key});
 
   @override
-  State<FirstPartEvidenceOverview> createState() =>
-      _FirstPartEvidenceOverviewState();
-}
-
-class _FirstPartEvidenceOverviewState extends State<FirstPartEvidenceOverview> {
-  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.start,
+        runSpacing: 30.h,
         children: [
           const EvidenceStatusChart(),
-          SizedBox(width: 28.w),
           const DropButtonList(),
-          SizedBox(width: 80.w),
-          const ThreeContainersRightEvidenceOverview(),
+          const EvidenceSummaryCards(),
         ],
       ),
     );

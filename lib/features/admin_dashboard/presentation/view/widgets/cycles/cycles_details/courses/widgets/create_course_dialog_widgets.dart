@@ -171,7 +171,7 @@ Widget buildNewCourseTab(
         SizedBox(height: 16.h),
         buildFormField(
           label: 'courseNameEnglish'.tr(),
-          hint: 'courseNameExample'.tr(),
+          hint: 'courseNameEnglishExample'.tr(),
           controller: englishNameController,
         ),
       ],

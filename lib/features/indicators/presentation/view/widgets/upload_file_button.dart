@@ -17,32 +17,48 @@ class UploadFileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 128,
-      height: 51,
-      child: ElevatedButton(
-        onPressed: () {
-          context.read<IndicatorsCubit>().pickAndUploadIndicatorFile(
-            indicatorId: indicatorModel.id,
-            criterionId: indicatorsArgs.accreditationModel.id,
-          );
-        },
-
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.colorButtonLight,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
+    return BlocBuilder<IndicatorsCubit, IndicatorsState>(
+      builder: (context, state) {
+        final isLoading = state is IndicatorUploadLoading &&
+            state.indicatorId == indicatorModel.id;
+        return SizedBox(
+          width: 128,
+          height: 51,
+          child: ElevatedButton(
+            onPressed: isLoading
+                ? null
+                : () {
+                    context.read<IndicatorsCubit>().pickAndUploadIndicatorFile(
+                      indicatorId: indicatorModel.id,
+                      criterionId: indicatorsArgs.accreditationModel.id,
+                    );
+                  },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.colorButtonLight,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+            ),
+            child: isLoading
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: AppColors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
+                : Text(
+                    "uploadFile".tr(),
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
           ),
-        ),
-        child: Text(
-          "uploadFile".tr(),
-          style: const TextStyle(
-            color: AppColors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

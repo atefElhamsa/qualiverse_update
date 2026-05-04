@@ -210,7 +210,7 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                             color: Colors.white, size: 18.sp),
                     SizedBox(width: 8.w),
                     Text(
-                      'Upload File',
+                      'uploadFile'.tr(),
                       style: GoogleFonts.cairo(
                         color: Colors.white,
                         fontSize: 14.sp,
@@ -235,7 +235,7 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                 controller: _searchController,
                 onChanged: (v) => cubit.searchFiles(v),
                 decoration: InputDecoration(
-                  hintText: 'Search file...',
+                  hintText: 'searchFile'.tr(),
                   hintStyle: GoogleFonts.cairo(
                       color: Colors.grey.shade400, fontSize: 13.sp),
                   prefixIcon: Icon(Icons.search_rounded,
@@ -286,7 +286,7 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
             Icon(Icons.folder_open_rounded,
                 size: 64.sp, color: Colors.grey.shade300),
             SizedBox(height: 12.h),
-            Text("No files found",
+            Text("noDataFound".tr(),
                 style: GoogleFonts.cairo(
                     fontSize: 16.sp, color: Colors.grey)),
           ],

@@ -16,38 +16,38 @@ class SideBarItemModel {
 }
 
 final List<SideBarItemModel> sideBarItems = [
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "home",
     image: AppImages.sideBarHomeImage,
     route: AppRoutes.homeScreen,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "adminDashboard",
     image: AppImages.sideBarAdminDashboardImage,
     route: AppRoutes.adminDashboardScreen,
     isAdmin: true,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "dashboard",
     image: AppImages.sideBarDashboardImage,
     route: AppRoutes.dashboardScreen,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "aiModel",
     image: AppImages.sideBarAiImage,
     route: AppRoutes.aiMainScreen,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "courseFile",
     image: AppImages.sideBarCoursesImage,
     route: AppRoutes.coursesMainScreen,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "accreditation",
     image: AppImages.sideBarAccreditationImage,
     route: AppRoutes.accreditationScreen,
   ),
-  SideBarItemModel(
+  const SideBarItemModel(
     title: "settings",
     image: AppImages.sideBarSettingImage,
     route: AppRoutes.settingScreen,

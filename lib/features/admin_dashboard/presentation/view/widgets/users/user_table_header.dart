@@ -41,6 +41,13 @@ class UserTableHeader extends StatelessWidget {
               textStyle: headerStyle,
             ),
           ),
+          Expanded(
+            child: CustomText(
+              title: 'actions'.tr(),
+              textAlign: TextAlign.center,
+              textStyle: headerStyle,
+            ),
+          ),
         ],
       ),
     );

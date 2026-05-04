@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/dashboard/data/models/chart_data_model.dart';
-import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_cubit.dart';
-import 'package:qualiverse/features/dashboard/presentation/controller/dashboard/dashboard_state.dart';
-import 'package:qualiverse/features/dashboard/presentation/controller/evidence_status/evidence_status_cubit.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'evidence_pie_chart.dart';
 import 'evidence_legend.dart';
@@ -26,7 +21,7 @@ class EvidenceStatusChartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: const BoxConstraints(maxWidth: 599),
+      constraints: const BoxConstraints(maxWidth: 640),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
             ? AppColors.grey
@@ -54,9 +49,9 @@ class EvidenceStatusChartView extends StatelessWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               final isNarrow = constraints.maxWidth < 420;
-              final chartSize = (constraints.maxWidth * 0.45).clamp(
-                120.0,
-                240.0,
+              final chartSize = (constraints.maxWidth * 0.48).clamp(
+                150.0,
+                260.0,
               );
               if (isNarrow) {
                 return Column(

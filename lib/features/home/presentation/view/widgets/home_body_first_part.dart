@@ -26,6 +26,8 @@ class HomeBodyFirstPart extends StatelessWidget {
             ? CustomScaffoldHome(controller: inherited.controller)
             : const SizedBox(),
         const Spacer(),
+        const NotificationIconWithBadge(notificationCount: 3),
+        const SizedBox(width: 16),
         SizedBox(
           width: 200.w,
           height: 75.h,

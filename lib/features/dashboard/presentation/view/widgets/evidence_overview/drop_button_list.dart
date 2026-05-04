@@ -23,7 +23,7 @@ class DropButtonList extends StatelessWidget {
     final dashboardCubit = context.read<DashboardCubit>();
 
     return SizedBox(
-      width: 200.w,
+      width: 280.w,
       child: Column(
         children: [
           // Accreditation Type
@@ -31,10 +31,11 @@ class DropButtonList extends StatelessWidget {
             builder: (context, state) {
               List<DropdownMenuItem<int>> items = [];
               if (state is TypesSuccess) {
-                items = state.types.map((e) => DropdownMenuItem(
-                  value: e.id,
-                  child: Text(e.name),
-                )).toList();
+                items = state.types
+                    .map(
+                      (e) => DropdownMenuItem(value: e.id, child: Text(e.name)),
+                    )
+                    .toList();
               }
               return CustomFilterDropdown<int>(
                 hint: 'accreditationLabel'.tr(),
@@ -50,17 +51,18 @@ class DropButtonList extends StatelessWidget {
             },
           ),
 
-          const SizedBox(height: 12),
+          SizedBox(height: 25.h),
 
           // Level
           BlocBuilder<LevelCubit, LevelState>(
             builder: (context, state) {
               List<DropdownMenuItem<int>> items = [];
               if (state is LevelSuccess) {
-                items = state.levels.map((e) => DropdownMenuItem(
-                  value: e.id,
-                  child: Text(e.name),
-                )).toList();
+                items = state.levels
+                    .map(
+                      (e) => DropdownMenuItem(value: e.id, child: Text(e.name)),
+                    )
+                    .toList();
               }
               return CustomFilterDropdown<int>(
                 hint: 'level'.tr(),
@@ -76,17 +78,21 @@ class DropButtonList extends StatelessWidget {
             },
           ),
 
-          const SizedBox(height: 12),
+          SizedBox(height: 25.h),
 
           // Year
           BlocBuilder<AcademicYearCubit, AcademicYearState>(
             builder: (context, state) {
               List<DropdownMenuItem<int>> items = [];
               if (state is AcademicYearSuccess) {
-                items = state.academicYears.map((e) => DropdownMenuItem(
-                  value: e.id,
-                  child: Text(e.yearNumber.toString()),
-                )).toList();
+                items = state.academicYears
+                    .map(
+                      (e) => DropdownMenuItem(
+                        value: e.id,
+                        child: Text(e.yearNumber.toString()),
+                      ),
+                    )
+                    .toList();
               }
               return CustomFilterDropdown<int>(
                 hint: 'year'.tr(),
@@ -102,17 +108,18 @@ class DropButtonList extends StatelessWidget {
             },
           ),
 
-          const SizedBox(height: 12),
+          SizedBox(height: 25.h),
 
           // Department
           BlocBuilder<DepartmentCubit, DepartmentState>(
             builder: (context, state) {
               List<DropdownMenuItem<int>> items = [];
               if (state is DepartmentSuccess) {
-                items = state.departments.map((e) => DropdownMenuItem(
-                  value: e.id,
-                  child: Text(e.name),
-                )).toList();
+                items = state.departments
+                    .map(
+                      (e) => DropdownMenuItem(value: e.id, child: Text(e.name)),
+                    )
+                    .toList();
               }
               return CustomFilterDropdown<int>(
                 hint: 'department'.tr(),

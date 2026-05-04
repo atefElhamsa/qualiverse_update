@@ -24,61 +24,10 @@ class LoginInterceptor extends Interceptor {
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
-  ) async {
+  ) {
     if (isAuthPath(options.path)) {
       handler.next(options);
       return;
-    }
-
-    // ===========================
-    // Auto-refresh if token about to expire
-    // ===========================
-    if (LoginStorage.tokenExpiresSoon) {
-      if (!isRefreshing) {
-        isRefreshing = true;
-        final refreshed = await refreshToken();
-        isRefreshing = false;
-
-        if (!refreshed) {
-          logout();
-          handler.reject(
-            DioException(
-              requestOptions: options,
-              message: "Session expired",
-              type: DioExceptionType.cancel,
-            ),
-          );
-          return;
-        }
-
-        // Retry queued requests
-        for (final q in queue) {
-          try {
-            final res = await retry(q.options);
-            q.completer.complete(res);
-          } catch (e) {
-            q.completer.completeError(e);
-          }
-        }
-        queue.clear();
-      } else {
-        // Refresh running → queue this request
-        final completer = Completer<Response>();
-        queue.add(QueuedRequest(options, completer));
-        try {
-          final response = await completer.future;
-          handler.resolve(response);
-        } catch (_) {
-          handler.reject(
-            DioException(
-              requestOptions: options,
-              message: "Session expired",
-              type: DioExceptionType.cancel,
-            ),
-          );
-        }
-        return;
-      }
     }
 
     final token = LoginStorage.token;
@@ -99,15 +48,15 @@ class LoginInterceptor extends Interceptor {
       return;
     }
 
-    if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
+    if (err.response?.statusCode == 401) {
       if (isRefreshing) {
         final completer = Completer<Response>();
         queue.add(QueuedRequest(err.requestOptions, completer));
         try {
           final response = await completer.future;
           handler.resolve(response);
-        } catch (_) {
-          handler.next(err);
+        } catch (e) {
+          handler.next(e is DioException ? e : err);
         }
         return;
       }
@@ -127,9 +76,13 @@ class LoginInterceptor extends Interceptor {
       for (final q in queue) {
         try {
           final res = await retry(q.options);
-          q.completer.complete(res);
+          if (!q.completer.isCompleted) {
+            q.completer.complete(res);
+          }
         } catch (e) {
-          q.completer.completeError(e);
+          if (!q.completer.isCompleted) {
+            q.completer.completeError(e);
+          }
         }
       }
       queue.clear();
@@ -230,17 +183,4 @@ class QueuedRequest {
   final Completer<Response> completer;
 
   QueuedRequest(this.options, this.completer);
-}
-
-// ============================================
-// LoginStorage Extension - tokenExpiresSoon
-// ============================================
-extension LoginStorageExtension on LoginStorage {
-  static bool get tokenExpiresSoon {
-    if (LoginStorage.refreshTokenExpiration == null) return false;
-    final now = DateTime.now();
-    return LoginStorage.refreshTokenExpiration!.isBefore(
-      now.add(const Duration(seconds: 60)),
-    );
-  }
 }
