@@ -20,22 +20,31 @@ class MonthlySplineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isWhite = Theme.of(context).scaffoldBackgroundColor == AppColors.white;
+    final isWhite =
+        Theme.of(context).scaffoldBackgroundColor == AppColors.white;
     return FadeTransition(
       opacity: fadeAnimation,
       child: SlideTransition(
         position: slideAnimation,
         child: Container(
-          width: double.infinity, height: double.infinity,
+          width: double.infinity,
+          height: double.infinity,
           decoration: BoxDecoration(
             color: isWhite ? AppColors.grey : AppColors.mainBlack,
-            boxShadow: [BoxShadow(color: AppColors.mainBlack.withOpacity(0.25), offset: const Offset(0, 4), blurRadius: 4)],
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.mainBlack.withOpacity(0.25),
+                offset: const Offset(0, 4),
+                blurRadius: 4,
+              ),
+            ],
           ),
           child: Stack(
             alignment: Alignment.center,
             children: [
               _buildSfChart(context, isWhite),
-              if (data.isEmpty || data.every((d) => d.value == 0)) _buildEmptyState(),
+              if (data.isEmpty || data.every((d) => d.value == 0))
+                _buildEmptyState(),
             ],
           ),
         ),
@@ -49,16 +58,38 @@ class MonthlySplineChart extends StatelessWidget {
       backgroundColor: isWhite ? AppColors.grey : AppColors.mainBlack,
       plotAreaBackgroundColor: isWhite ? AppColors.grey : AppColors.mainBlack,
       primaryXAxis: CategoryAxis(
-        isVisible: true, axisLine: const AxisLine(width: 0), majorTickLines: const MajorTickLines(size: 0), majorGridLines: const MajorGridLines(width: 0),
-        interval: 1, labelIntersectAction: AxisLabelIntersectAction.none, labelAlignment: LabelAlignment.center,
-        labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 14.sp, color: isWhite ? AppColors.textGrey : AppColors.white),
+        isVisible: true,
+        axisLine: const AxisLine(width: 0),
+        majorTickLines: const MajorTickLines(size: 0),
+        majorGridLines: const MajorGridLines(width: 0),
+        interval: 1,
+        labelIntersectAction: AxisLabelIntersectAction.none,
+        labelAlignment: LabelAlignment.center,
+        labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+          fontSize: 14.sp,
+          color: isWhite ? AppColors.textGrey : AppColors.white,
+        ),
       ),
-      primaryYAxis: const NumericAxis(isVisible: false, rangePadding: ChartRangePadding.additional),
+      primaryYAxis: const NumericAxis(
+        isVisible: false,
+        rangePadding: ChartRangePadding.additional,
+      ),
       series: <CartesianSeries>[
         SplineSeries<MonthlyChartDataModel, String>(
-          dataSource: data, xValueMapper: (d, _) => d.month, yValueMapper: (d, _) => d.value,
-          splineType: SplineType.natural, color: Theme.of(context).colorScheme.onSecondary, width: 2.5, animationDuration: 2000,
-          dataLabelSettings: DataLabelSettings(isVisible: true, labelAlignment: ChartDataLabelAlignment.top, textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 16.sp)),
+          dataSource: data,
+          xValueMapper: (d, _) => d.month,
+          yValueMapper: (d, _) => d.value,
+          splineType: SplineType.natural,
+          color: Theme.of(context).colorScheme.onSecondary,
+          width: 2.5,
+          animationDuration: 2000,
+          dataLabelSettings: DataLabelSettings(
+            isVisible: true,
+            labelAlignment: ChartDataLabelAlignment.top,
+            textStyle: Theme.of(
+              context,
+            ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+          ),
         ),
       ],
     );
@@ -68,8 +99,22 @@ class MonthlySplineChart extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CustomText(title: '0'.tr(), textStyle: GoogleFonts.inter(fontSize: 40.sp, fontWeight: FontWeight.w700, color: AppColors.textGrey.withOpacity(0.3))),
-        CustomText(title: 'totalUploads'.tr(), textStyle: GoogleFonts.inter(fontSize: 12.sp, fontWeight: FontWeight.w500, color: AppColors.textGrey.withOpacity(0.2))),
+        CustomText(
+          title: '0'.tr(),
+          textStyle: GoogleFonts.inter(
+            fontSize: 40.sp,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textGrey.withOpacity(0.3),
+          ),
+        ),
+        CustomText(
+          title: 'totalUploads'.tr(),
+          textStyle: GoogleFonts.inter(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: AppColors.textGrey.withOpacity(0.2),
+          ),
+        ),
       ],
     );
   }

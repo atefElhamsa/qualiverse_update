@@ -41,9 +41,7 @@ class AssignmentsTable extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: CustomText(
-                      title: context.locale.languageCode == 'ar' 
-                          ? 'لا توجد تكليفات حالياً' 
-                          : 'noAssignments'.tr(),
+                      title: 'noAssignments'.tr(),
                       textStyle: Theme.of(context).textTheme.headlineLarge!,
                     ),
                   ),

@@ -17,20 +17,11 @@ class AssignmentsHeader extends StatelessWidget {
       child: Row(
         children: [
           _buildHeaderItem('indicatorsName'.tr(), 2),
-          _buildHeaderItem(
-            context.locale.languageCode == 'ar' ? 'الوصف' : 'description'.tr(),
-            4,
-          ),
+          _buildHeaderItem('description'.tr(), 4),
           _buildHeaderItem('assignedDoctor'.tr(), 2),
           _buildHeaderItem('deadline'.tr(), 2),
-          _buildHeaderItem(
-            context.locale.languageCode == 'ar' ? 'الحالة' : 'status'.tr(),
-            2,
-          ),
-          _buildHeaderItem(
-            context.locale.languageCode == 'ar' ? 'الإجراءات' : 'action'.tr(),
-            2,
-          ),
+          _buildHeaderItem('status'.tr(), 2),
+          _buildHeaderItem('action'.tr(), 2),
         ],
       ),
     );

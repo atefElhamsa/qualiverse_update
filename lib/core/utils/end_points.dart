@@ -321,7 +321,11 @@ class EndPoints {
 
   static String deleteNotification({required int id}) => "Notification/$id";
 
-  static String markNotificationAsRead({required int id}) => "Notification/$id/read";
+  static String markNotificationAsRead({required int id}) =>
+      "Notification/$id/read";
 
   static String markAllNotificationsAsRead() => "Notification/read-all";
+
+  static String cleanupNotifications({int daysRetention = 30}) =>
+      "Notification/cleanup?daysRetention=$daysRetention";
 }

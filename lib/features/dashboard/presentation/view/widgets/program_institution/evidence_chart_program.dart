@@ -88,6 +88,7 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.pending,
           color: AppColors.evidenceColorSlide2,
+          dataLabelSettings: const DataLabelSettings(isVisible: false),
         ),
       );
     }
@@ -100,6 +101,7 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.reviewed,
           color: AppColors.evidenceColorSlide3,
+          dataLabelSettings: const DataLabelSettings(isVisible: false),
         ),
       );
     }
@@ -112,6 +114,7 @@ class EvidenceChartProgram extends StatelessWidget {
           xValueMapper: (d, _) => d.criterion,
           yValueMapper: (d, _) => d.rejected,
           color: AppColors.evidenceColorSlide4,
+          dataLabelSettings: const DataLabelSettings(isVisible: false),
         ),
       );
     }
@@ -134,12 +137,16 @@ class EvidenceChartProgram extends StatelessWidget {
           title: '$total',
           textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
             fontSize: 16.sp,
-            color: AppColors.textGrey,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                ? AppColors.mainBlack
+                : AppColors.white,
           ),
         ),
         coordinateUnit: CoordinateUnit.point,
         x: d.criterion,
-        y: total + (total * 0.05),
+        y: total.toDouble(),
+        horizontalAlignment: ChartAlignment.near,
       );
     }).toList();
   }

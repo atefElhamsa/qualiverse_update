@@ -10,21 +10,24 @@ class ProgramInstitutionContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomText(
-            title: "programVsInstitution".tr(),
-            textStyle: GoogleFonts.inter(
-              fontSize: 32.sp,
-              fontWeight: FontWeight.w800,
-              color: AppColors.mainBlack,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomText(
+              title: "programVsInstitution".tr(),
+              textStyle: GoogleFonts.inter(
+                fontSize: 32.sp,
+                fontWeight: FontWeight.w800,
+                color: AppColors.mainBlack,
+              ),
             ),
-          ),
-          const EvidenceChartPageProgram(),
-        ],
+            const EvidenceChartPageProgram(),
+          ],
+        ),
       ),
     );
   }

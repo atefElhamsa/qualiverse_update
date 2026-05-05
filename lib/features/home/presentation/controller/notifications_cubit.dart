@@ -152,4 +152,22 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       );
     }
   }
+
+  Future<void> cleanupNotifications({int daysRetention = 30}) async {
+    emit(NotificationActionLoading());
+    final result = await NotificationsService.cleanupNotifications(
+      daysRetention: daysRetention,
+    );
+    if (result.isSuccess) {
+      emit(NotificationActionSuccess("Old notifications cleaned up successfully"));
+      // Refresh the list
+      getAllNotifications();
+    } else {
+      emit(
+        NotificationActionError(
+          result.error?.description ?? "Failed to cleanup notifications",
+        ),
+      );
+    }
+  }
 }

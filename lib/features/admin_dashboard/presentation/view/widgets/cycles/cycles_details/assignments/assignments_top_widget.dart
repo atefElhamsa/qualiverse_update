@@ -30,27 +30,13 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
   }
 
   String _translateStatus(String statusName) {
-    if (context.locale.languageCode != 'ar')
-      return statusName.capitalizeFirst();
-    switch (statusName.toLowerCase()) {
-      case 'pending':
-        return 'قيد الانتظار';
-      case 'submitted':
-        return 'تم التسليم';
-      case 'approved':
-        return 'مقبول';
-      case 'rejected':
-        return 'مرفوض';
-      default:
-        return statusName;
-    }
+    return statusName.toLowerCase().tr();
   }
 
   @override
   Widget build(BuildContext context) {
-    final isAr = context.locale.languageCode == 'ar';
-    final allDocsText = isAr ? 'جميع الأطباء' : 'All Doctors';
-    final allStatusesText = isAr ? 'جميع الحالات' : 'All Statuses';
+    final allDocsText = 'all_doctors'.tr();
+    final allStatusesText = 'all_statuses'.tr();
 
     return Container(
       padding: EdgeInsets.all(20.w),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'first_part_evidence_overview.dart';
 import 'evidence_per_criterion_chart.dart';
 
@@ -7,8 +8,9 @@ class EvidenceOverviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FirstPartEvidenceOverview(),

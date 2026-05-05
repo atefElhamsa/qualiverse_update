@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EvidenceUploadsContent extends StatelessWidget {
@@ -6,6 +7,9 @@ class EvidenceUploadsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: ChartPage());
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: const Center(child: ChartPage()),
+    );
   }
 }

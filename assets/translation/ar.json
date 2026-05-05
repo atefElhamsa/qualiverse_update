@@ -161,7 +161,7 @@
   "noIndicatorsDescription": "سيتم عرض المؤشرات هنا عند إضافتها",
   "noFile": "لا يوجد ملف",
   "pleaseWaitUploading": "برجاء الانتظار، جاري رفع الملف...",
-  "noFileUploadedYet": "لم يتم رفع أي ملف بعد. يرجى رفع ملف أولًا.",
+  "noFileUploadedYet": "لا يوجد ملف مرفوع حالياً.",
   "manageEvidenceFiles": "إدارة ملفات الأدلة",
   "description": "الوصف",
   "documentaryAnalysis": "التحليل الوثائقي",
@@ -458,5 +458,14 @@
   "read": "مقروء",
   "unread": "غير مقروء",
   "daysRemaining": "الأيام المتبقية",
-  "mark_all_as_read": "تحديد الكل كمقروء"
+  "mark_all_as_read": "تحديد الكل كمقروء",
+  "cleanup_notifications": "تنظيف الإشعارات القديمة",
+  "last_7_days": "الأقدم من 7 أيام",
+  "last_30_days": "الأقدم من 30 يوم",
+  "last_90_days": "الأقدم من 90 يوم",
+  "retention_period": "فترة الاحتفاظ",
+  "noAssignments": "لم يتم العثور على تكليفات",
+  "all_doctors": "جميع الأطباء",
+  "all_statuses": "جميع الحالات",
+  "assignments": "التكليفات"
 }

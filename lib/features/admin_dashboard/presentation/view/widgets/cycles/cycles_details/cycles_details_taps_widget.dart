@@ -21,14 +21,11 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   cubit.changeTab(tab);
-                  DepartmentCubit.get(context).selectDepartment(
-                    department: null,
-                  );
+                  DepartmentCubit.get(
+                    context,
+                  ).selectDepartment(department: null);
                   LevelCubit.get(context).selectLevel(level: null);
                   TermCubit.get(context).selectTerm(term: null);
-
-                  CoursesCubit.get(context).emit(CoursesInitial());
-                  CriterionsCubit.get(context).emit(CriterionsInitial());
                 },
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(start: 30.w),
@@ -40,12 +37,12 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                         child: CustomText(
                           title: context.locale.languageCode == 'ar'
                               ? (tab == CycleTab.assignments
-                                  ? 'التكليفات'
-                                  : tab == CycleTab.indicators
-                                      ? 'المؤشرات'
-                                      : tab == CycleTab.criterions
-                                          ? 'المعايير'
-                                          : 'المقررات')
+                                    ? 'التكليفات'
+                                    : tab == CycleTab.indicators
+                                    ? 'المؤشرات'
+                                    : tab == CycleTab.criterions
+                                    ? 'المعايير'
+                                    : 'المقررات')
                               : tab.name.capitalizeFirst().tr(),
                           textStyle: TextStyle(
                             fontSize: 20.sp,
@@ -58,12 +55,11 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 250),
                         curve: Curves.easeInOut,
                         height: 3,
-                        width: isSelected ? 80.w : 0, // Simplified width logic
+                        width: isSelected ? 80.w : 0,
                         decoration: BoxDecoration(
                           color: AppColors.blue,
                           borderRadius: BorderRadius.circular(10.r),

@@ -57,20 +57,52 @@ class NotificationHeader extends StatelessWidget {
                       final notifications = cubit.allNotifications;
                       final hasUnread = notifications.any((n) => !n.isRead);
                       final isEmpty = notifications.isEmpty;
-                      final isEnabled = !isEmpty && hasUnread;
+                      final isMarkAllEnabled = !isEmpty && hasUnread;
+                      final isCleanupEnabled = !isEmpty;
 
-                      return InkWell(
-                        onTap: isEnabled ? () => cubit.markAllAsRead() : null,
-                        child: CustomText(
-                          title: "mark_all_as_read".tr(),
-                          textStyle: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600,
-                            color: isEnabled
-                                ? AppColors.progressColor
-                                : AppColors.greyLight.withOpacity(0.5),
+                      return Row(
+                        children: [
+                          InkWell(
+                            onTap: isMarkAllEnabled
+                                ? () => cubit.markAllAsRead()
+                                : null,
+                            child: CustomText(
+                              title: "mark_all_as_read".tr(),
+                              textStyle: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: isMarkAllEnabled
+                                    ? AppColors.progressColor
+                                    : AppColors.greyLight.withOpacity(0.5),
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Text(
+                              "|",
+                              style: TextStyle(
+                                color: AppColors.greyLight.withOpacity(0.3),
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: isCleanupEnabled
+                                ? () => _showCleanupConfirmation(context, cubit)
+                                : null,
+                            child: CustomText(
+                              title: "cleanup_notifications".tr(),
+                              textStyle: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color: isCleanupEnabled
+                                    ? AppColors.rejectedColorIndicator
+                                    : AppColors.greyLight.withOpacity(0.5),
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -112,6 +144,128 @@ class NotificationHeader extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _showCleanupConfirmation(
+    BuildContext context,
+    NotificationsCubit cubit,
+  ) {
+    int selectedDays = 30;
+
+    showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.r),
+            ),
+            child: Container(
+              padding: EdgeInsets.all(32.w),
+              constraints: BoxConstraints(maxWidth: 480.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "cleanup_notifications".tr(),
+                    style: TextStyle(
+                      fontSize: 26.sp,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.mainBlack,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  SizedBox(height: 24.h),
+                  Text(
+                    "retention_period".tr(),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.greyLight,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  CustomFilterDropdown<int>(
+                    hint: "last_30_days".tr(),
+                    value: selectedDays,
+                    items: [
+                      DropdownMenuItem(
+                        value: 7,
+                        child: CustomText(
+                          title: "last_7_days".tr(),
+                          textStyle: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 30,
+                        child: CustomText(
+                          title: "last_30_days".tr(),
+                          textStyle: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 90,
+                        child: CustomText(
+                          title: "last_90_days".tr(),
+                          textStyle: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setDialogState(() => selectedDays = value);
+                      }
+                    },
+                  ),
+                  SizedBox(height: 24.h),
+                  Text(
+                    "${"confirmDeleteFile".tr()} ${"notifications".tr()}?",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: AppColors.mainBlack.withOpacity(0.7),
+                      height: 1.4,
+                    ),
+                  ),
+                  SizedBox(height: 32.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(
+                          "cancel".tr(),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF6200EE),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 16.w),
+                      TextButton(
+                        onPressed: () {
+                          cubit.cleanupNotifications(daysRetention: selectedDays);
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "delete".tr(),
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.rejectedColorIndicator,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

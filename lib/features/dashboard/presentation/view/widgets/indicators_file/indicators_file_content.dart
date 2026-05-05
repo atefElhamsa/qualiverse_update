@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/assignmets/assignments_user_cubit.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/assignmets/assignments_user_state.dart';
 import 'package:qualiverse/features/department/presentation/controller/academic_year_cubit.dart';
@@ -31,52 +32,55 @@ class _IndicatorsFileContentState extends State<IndicatorsFileContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const AssignmentsFiltersRow(),
-        BlocBuilder<AssignmentsUserCubit, AssignmentsUserState>(
-          builder: (context, state) {
-            if (state is AssignmentsUserLoading) {
-              return const Padding(
-                padding: EdgeInsets.all(40.0),
-                child: CustomLoading(),
-              );
-            }
-            if (state is AssignmentsUserFailure) {
-              return Center(child: Text(state.errorMessage));
-            }
-            if (state is AssignmentsUserSuccess) {
-              if (state.assignments.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.all(80.0),
-                  child: Center(
-                    child: CustomText(
-                      title: 'noDataFound'.tr(),
-                      textStyle: Theme.of(context).textTheme.headlineLarge!,
-                    ),
-                  ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        children: [
+          const AssignmentsFiltersRow(),
+          BlocBuilder<AssignmentsUserCubit, AssignmentsUserState>(
+            builder: (context, state) {
+              if (state is AssignmentsUserLoading) {
+                return const Padding(
+                  padding: EdgeInsets.all(40.0),
+                  child: CustomLoading(),
                 );
               }
-              return Column(
-                children: [
-                  const AssignmentsUserHeaderRow(),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: state.assignments.length,
-                    itemBuilder: (context, index) {
-                      return AssignmentsUserRow(
-                        assignment: state.assignments[index],
-                      );
-                    },
-                  ),
-                ],
-              );
-            }
-            return const SizedBox.shrink();
-          },
-        ),
-      ],
+              if (state is AssignmentsUserFailure) {
+                return Center(child: Text(state.errorMessage));
+              }
+              if (state is AssignmentsUserSuccess) {
+                if (state.assignments.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.all(80.0),
+                    child: Center(
+                      child: CustomText(
+                        title: 'noDataFound'.tr(),
+                        textStyle: Theme.of(context).textTheme.headlineLarge!,
+                      ),
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    const AssignmentsUserHeaderRow(),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.assignments.length,
+                      itemBuilder: (context, index) {
+                        return AssignmentsUserRow(
+                          assignment: state.assignments[index],
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as SemesterCubit;
 import 'package:qualiverse/core/shared_widgets/custom_base_drop_down.dart';
 import '../../../../../../../../../routing/all_routes_imports.dart';
 

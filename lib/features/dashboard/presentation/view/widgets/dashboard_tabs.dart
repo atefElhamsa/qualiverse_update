@@ -31,6 +31,7 @@ class _DashboardTabsState extends State<DashboardTabs> {
     return Column(
       children: [
         GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: titles.length,
@@ -41,40 +42,43 @@ class _DashboardTabsState extends State<DashboardTabs> {
             childAspectRatio: 2.8,
           ),
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              child: AnimatedContainer(
-                constraints: BoxConstraints(minWidth: 214.w, minHeight: 87.h),
-                duration: const Duration(milliseconds: 200),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.mainBlack.withOpacity(0.25),
-                      offset: const Offset(0, 4),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                    ),
-                  ],
-                  color: selectedIndex == index
-                      ? AppColors.viewAndDeleteIconColor
-                      : Theme.of(context).scaffoldBackgroundColor ==
-                            AppColors.white
-                      ? AppColors.grey
-                      : AppColors.mainBlack,
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Center(
-                  child: CustomText(
-                    title: titles[index].tr(),
-                    textAlign: TextAlign.center,
-                    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: selectedIndex == index
-                          ? AppColors.white
-                          : Theme.of(context).colorScheme.onSecondary,
+            return MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: AnimatedContainer(
+                  constraints: BoxConstraints(minWidth: 214.w, minHeight: 87.h),
+                  duration: const Duration(milliseconds: 200),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.mainBlack.withOpacity(0.25),
+                        offset: const Offset(0, 4),
+                        spreadRadius: 0,
+                        blurRadius: 4,
+                      ),
+                    ],
+                    color: selectedIndex == index
+                        ? AppColors.viewAndDeleteIconColor
+                        : Theme.of(context).scaffoldBackgroundColor ==
+                              AppColors.white
+                        ? AppColors.grey
+                        : AppColors.mainBlack,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Center(
+                    child: CustomText(
+                      title: titles[index].tr(),
+                      textAlign: TextAlign.center,
+                      textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: selectedIndex == index
+                            ? AppColors.white
+                            : Theme.of(context).colorScheme.onSecondary,
+                      ),
                     ),
                   ),
                 ),

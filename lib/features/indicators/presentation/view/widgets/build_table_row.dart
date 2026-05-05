@@ -68,7 +68,7 @@ TableRow buildTableRow({
                     if (indicator.filePath == null) {
                       showSnackBar(
                         context,
-                        "no_file_uploaded_yet".tr(),
+                        "noFileUploadedYet".tr(),
                         Colors.red,
                       );
                     } else {

@@ -120,4 +120,33 @@ class NotificationsService {
       );
     }
   }
+
+  static Future<GeneralNotificationResponseModel> cleanupNotifications({
+    int daysRetention = 30,
+  }) async {
+    try {
+      final response = await dio.delete(
+        EndPoints.cleanupNotifications(daysRetention: daysRetention),
+      );
+      return GeneralNotificationResponseModel.fromJson(response.data);
+    } on DioException catch (e) {
+      return GeneralNotificationResponseModel(
+        isSuccess: false,
+        error: ApiErrorModel(
+          code: '',
+          description: e.message ?? "Failed to cleanup notifications",
+          statusCode: e.response?.statusCode ?? 500,
+        ),
+      );
+    } catch (e) {
+      return GeneralNotificationResponseModel(
+        isSuccess: false,
+        error: ApiErrorModel(
+          code: '',
+          description: e.toString(),
+          statusCode: 500,
+        ),
+      );
+    }
+  }
 }

@@ -42,9 +42,9 @@ class ThreeContainersRightAccreditationStructure extends StatelessWidget {
                     onPressed: () {},
                     backgroundColor:
                         Theme.of(context).scaffoldBackgroundColor ==
-                                AppColors.white
-                            ? AppColors.tableColor
-                            : AppColors.mainBlack,
+                            AppColors.white
+                        ? AppColors.tableColor
+                        : AppColors.mainBlack,
                     radius: 10,
                     customText: CustomText(
                       title:
