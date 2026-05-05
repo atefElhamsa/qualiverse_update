@@ -7,7 +7,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
   NotificationsCubit() : super(NotificationsInitial());
 
   int currentPage = 1;
-  final int pageSize = 5;
+  final int pageSize = 10;
   List<NotificationModel> allNotifications = [];
   bool hasMore = true;
   bool? currentIsReadFilter;
@@ -16,7 +16,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     emit(NotificationsLoading());
     final result = await NotificationsService.getNotifications(
       pageIndex: 1,
-      pageSize: 5,
+      pageSize: 3,
+      isRead: false,
     );
     if (result.isSuccess) {
       emit(
@@ -169,5 +170,13 @@ class NotificationsCubit extends Cubit<NotificationsState> {
         ),
       );
     }
+  }
+
+  void reset() {
+    currentPage = 1;
+    allNotifications.clear();
+    hasMore = true;
+    currentIsReadFilter = null;
+    emit(NotificationsInitial());
   }
 }

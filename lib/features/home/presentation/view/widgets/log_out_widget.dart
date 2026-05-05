@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
+import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
@@ -19,7 +21,12 @@ class LogOutWidget extends StatelessWidget {
         if (state is LogoutSuccess) {
           showSnackBar(context, state.message, AppColors.green);
           await LoginStorage.clear();
-          context.pushReplacementNamed(AppRoutes.loginScreen);
+          if (context.mounted) {
+            context.read<NotificationsCubit>().reset();
+            context.read<NotificationCountCubit>().reset();
+            context.read<MeCubit>().reset();
+            context.pushReplacementNamed(AppRoutes.loginScreen);
+          }
         }
       },
       builder: (context, state) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class LoginFieldAndBigImageWidget extends StatelessWidget {
@@ -17,6 +18,10 @@ class LoginFieldAndBigImageWidget extends StatelessWidget {
         }
         if (state is LoginSuccess) {
           showSnackBar(context, "loginSuccess".tr(), AppColors.green);
+          final countCubit = context.read<NotificationCountCubit>();
+          countCubit.getUnreadCount();
+          countCubit.startPolling();
+          context.read<MeCubit>().getMyInfo();
           context.pushReplacementNamed(AppRoutes.homeScreen);
         }
       },

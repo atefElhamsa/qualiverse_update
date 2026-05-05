@@ -37,6 +37,7 @@ class AssignmentIndicatorAdminModel {
   final String doctorName;
   final DateTime? deadline;
   final String status;
+  final String filePath;
 
   AssignmentIndicatorAdminModel({
     required this.id,
@@ -47,6 +48,7 @@ class AssignmentIndicatorAdminModel {
     required this.doctorName,
     required this.deadline,
     required this.status,
+    required this.filePath,
   });
 
   factory AssignmentIndicatorAdminModel.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class AssignmentIndicatorAdminModel {
           ? DateTime.tryParse(json['deadline'])
           : null,
       status: json['status'] ?? '',
+      filePath: json['filePath'] ?? '',
     );
   }
 }

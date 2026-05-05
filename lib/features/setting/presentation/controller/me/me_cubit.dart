@@ -32,4 +32,8 @@ class MeCubit extends Cubit<MeState> {
       );
     }
   }
+
+  void reset() {
+    emit(MeInitial());
+  }
 }

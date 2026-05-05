@@ -279,6 +279,8 @@
   "openCycles": "Open Cycles",
   "completionChart": "Completion Chart",
   "status": "Status",
+  "file": "File",
+  "view_file": "View File",
   "role": "Role",
   "deleteUser": "Delete User",
   "deleteUserMessage": "Are you sure you deleted this user?",

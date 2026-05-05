@@ -7,6 +7,9 @@ import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence
 import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
 import 'package:qualiverse/features/home/presentation/controller/notifications_state.dart';
 
+import 'package:qualiverse/features/setting/presentation/controller/me/me_cubit.dart';
+import 'package:qualiverse/features/setting/presentation/controller/me/me_state.dart';
+
 class NotificationHeader extends StatelessWidget {
   final bool isDark;
   final bool? selectedFilter;
@@ -77,30 +80,52 @@ class NotificationHeader extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.w),
-                            child: Text(
-                              "|",
-                              style: TextStyle(
-                                color: AppColors.greyLight.withOpacity(0.3),
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: isCleanupEnabled
-                                ? () => _showCleanupConfirmation(context, cubit)
-                                : null,
-                            child: CustomText(
-                              title: "cleanup_notifications".tr(),
-                              textStyle: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                                color: isCleanupEnabled
-                                    ? AppColors.rejectedColorIndicator
-                                    : AppColors.greyLight.withOpacity(0.5),
-                              ),
-                            ),
+                          BlocBuilder<MeCubit, MeState>(
+                            builder: (context, meState) {
+                              final isAdmin = meState is MeSuccess &&
+                                  meState.meModel.role.toLowerCase() == 'admin';
+
+                              if (!isAdmin) return const SizedBox();
+
+                              return Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8.w,
+                                    ),
+                                    child: Text(
+                                      "|",
+                                      style: TextStyle(
+                                        color: AppColors.greyLight.withOpacity(
+                                          0.3,
+                                        ),
+                                        fontSize: 12.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: isCleanupEnabled
+                                        ? () => _showCleanupConfirmation(
+                                          context,
+                                          cubit,
+                                        )
+                                        : null,
+                                    child: CustomText(
+                                      title: "cleanup_notifications".tr(),
+                                      textStyle: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: isCleanupEnabled
+                                            ? AppColors.rejectedColorIndicator
+                                            : AppColors.greyLight.withOpacity(
+                                              0.5,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ],
                       );

@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
   // Builds the UI for the custom button.
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return ElevatedButton(
       onPressed: buttonModel.onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: buttonModel.backgroundColor,
@@ -23,13 +23,9 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(buttonModel.radius.r),
         ),
       ),
-      label: Padding(
+      child: Padding(
         padding: EdgeInsets.all(buttonModel.space!),
-        child: CustomText(
-          title: buttonModel.customText.title,
-          textStyle: buttonModel.customText.textStyle,
-          textAlign: TextAlign.center,
-        ),
+        child: buttonModel.customText,
       ),
     );
   }

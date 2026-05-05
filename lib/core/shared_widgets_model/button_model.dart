@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:qualiverse/core/shared_widgets/custom_text.dart';
 
 // Represents the data model for a button widget.
 class ButtonModel {
@@ -12,8 +11,8 @@ class ButtonModel {
   // Radius of the button's corners.
   final double radius;
 
-  // Custom text widget to be displayed on the button.
-  final CustomText customText;
+  // Custom widget to be displayed on the button.
+  final Widget customText;
 
   // Space between the button and the text.
   final double? space;

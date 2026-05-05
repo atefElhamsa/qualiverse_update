@@ -57,23 +57,65 @@ class NotificationCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  notification.title,
-                  style: TextStyle(
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w600,
-                    color: titleColor,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        notification.title,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w700,
+                          color: titleColor,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    Text(
+                      notification.timeAgo,
+                      style: TextStyle(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w500,
+                        color: subtitleColor.withOpacity(0.8),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 3.h),
+                SizedBox(height: 4.h),
                 Text(
                   notification.message,
                   style: TextStyle(
                     fontSize: 13.sp,
                     color: subtitleColor,
+                    height: 1.4,
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 8.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.calendar_today_rounded,
+                          size: 10.sp,
+                          color: subtitleColor.withOpacity(0.4),
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          notification.formattedCreatedOn,
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w400,
+                            color: subtitleColor.withOpacity(0.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

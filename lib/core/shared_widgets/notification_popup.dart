@@ -19,7 +19,7 @@ class NotificationPopup extends StatelessWidget {
       elevation: 0,
       insetPadding: EdgeInsetsDirectional.only(
         top: 55.h,
-        start: 320.w,
+        start: 350.w,
       ).resolve(Directionality.of(context)),
       child: Container(
         width: 360.w,
@@ -230,13 +230,36 @@ class _NotificationContent extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        CustomText(
-          title: notification.timeAgo,
-          textStyle: TextStyle(
-            fontSize: 10.sp,
-            color: AppColors.greyLight,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.access_time_rounded,
+                  size: 10.sp,
+                  color: AppColors.greyLight.withOpacity(0.5),
+                ),
+                SizedBox(width: 4.w),
+                CustomText(
+                  title: notification.timeAgo,
+                  textStyle: TextStyle(
+                    fontSize: 10.sp,
+                    color: AppColors.greyLight,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            CustomText(
+              title: notification.formattedCreatedOn,
+              textStyle: TextStyle(
+                fontSize: 9.sp,
+                color: AppColors.greyLight.withOpacity(0.6),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
         ),
       ],
     );

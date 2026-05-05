@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:qualiverse/core/errors/api_error_model.dart';
 
 class NotificationModel {
@@ -20,6 +21,16 @@ class NotificationModel {
     required this.createdOn,
     required this.timeAgo,
   });
+
+  String get formattedCreatedOn {
+    if (createdOn.isEmpty) return '';
+    try {
+      final date = DateTime.parse(createdOn);
+      return DateFormat('MMM dd, yyyy - hh:mm a').format(date);
+    } catch (e) {
+      return createdOn;
+    }
+  }
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(

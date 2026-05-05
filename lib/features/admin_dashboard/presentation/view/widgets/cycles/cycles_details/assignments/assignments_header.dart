@@ -21,6 +21,7 @@ class AssignmentsHeader extends StatelessWidget {
           _buildHeaderItem('assignedDoctor'.tr(), 2),
           _buildHeaderItem('deadline'.tr(), 2),
           _buildHeaderItem('status'.tr(), 2),
+          _buildHeaderItem('file'.tr(), 1),
           _buildHeaderItem('action'.tr(), 2),
         ],
       ),

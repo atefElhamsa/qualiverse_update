@@ -26,10 +26,26 @@ class HomeBodyFirstPart extends StatelessWidget {
             ? CustomScaffoldHome(controller: inherited.controller)
             : const SizedBox(),
         const Spacer(),
+        IconButton(
+          onPressed: () {
+            final cubit = SettingCubit.get(context);
+            if (context.locale.languageCode == 'en') {
+              cubit.changeLanguage(lang: 'ar', context: context);
+            } else {
+              cubit.changeLanguage(lang: 'en', context: context);
+            }
+          },
+          icon: Icon(
+            Icons.language_rounded,
+            color: AppColors.mainBlack,
+            size: 28.sp,
+          ),
+        ),
+        const SizedBox(width: 8),
         const NotificationIconWithBadge(notificationCount: 3),
         const SizedBox(width: 16),
         SizedBox(
-          width: 200.w,
+          width: 220.w,
           height: 75.h,
           child: CustomButton(
             buttonModel: ButtonModel(
@@ -38,11 +54,14 @@ class HomeBodyFirstPart extends StatelessWidget {
               },
               backgroundColor: AppColors.progressColor,
               radius: 32.5,
-              customText: CustomText(
-                title: "accreditation".tr(),
-                textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  fontSize: 24.sp,
-                  color: AppColors.white,
+              customText: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: CustomText(
+                  title: "accreditation".tr(),
+                  textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 24.sp,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ),
@@ -50,7 +69,7 @@ class HomeBodyFirstPart extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         SizedBox(
-          width: 200.w,
+          width: 220.w,
           height: 75.h,
           child: CustomButton(
             buttonModel: ButtonModel(
@@ -59,11 +78,14 @@ class HomeBodyFirstPart extends StatelessWidget {
               },
               backgroundColor: AppColors.aiModelColor,
               radius: 32.5,
-              customText: CustomText(
-                title: "aiModel".tr(),
-                textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  fontSize: 24.sp,
-                  color: AppColors.white,
+              customText: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: CustomText(
+                  title: "aiModel".tr(),
+                  textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 24.sp,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ),

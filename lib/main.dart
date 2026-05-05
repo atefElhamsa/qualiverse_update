@@ -22,7 +22,16 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => NotificationCountCubit()..getUnreadCount()),
+        BlocProvider(
+          create: (context) {
+            final cubit = NotificationCountCubit();
+            if (LoginStorage.hasToken) {
+              cubit.getUnreadCount();
+              cubit.startPolling();
+            }
+            return cubit;
+          },
+        ),
         BlocProvider(create: (context) => NotificationsCubit()),
         BlocProvider(create: (context) => SettingCubit()),
         BlocProvider(create: (context) => AdminDashboardCubit()),
@@ -46,7 +55,9 @@ void main() async {
         ),
         BlocProvider(create: (context) => ProgramAccreditationCubit()),
         BlocProvider(create: (context) => AssignmentsCubit()),
-        BlocProvider(create: (context) => AssignmentStatusCubit()..fetchStatuses()),
+        BlocProvider(
+          create: (context) => AssignmentStatusCubit()..fetchStatuses(),
+        ),
         BlocProvider(create: (context) => ApproveRejectAssignmentCubit()),
         BlocProvider(create: (context) => CriterionsCubit()),
         BlocProvider(create: (context) => CycleIndicatorCubit()),

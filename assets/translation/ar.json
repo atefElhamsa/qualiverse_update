@@ -278,6 +278,8 @@
   "openCycles": "الدورات المفتوحة",
   "completionChart": "مخطط الإنجاز",
   "status": "الحالة",
+  "file": "الملف",
+  "view_file": "عرض الملف",
   "role": "الدور",
   "deleteUser": "مسح المستخدم",
   "deleteUserMessage": "هل انت متأكد من حذف هذا المستخدم ؟",

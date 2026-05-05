@@ -40,10 +40,12 @@ class NotificationIconWithBadge extends StatelessWidget {
                 child: NotificationPopup(
                   onViewAll: () {
                     final settingCubit = context.read<SettingCubit>();
-                    
+
                     Future.delayed(const Duration(milliseconds: 100), () {
                       settingCubit.changePage(SettingsPage.notifications);
-                      RouterGenerator.mainRoutingInOurApp.pushNamed(AppRoutes.settingScreen);
+                      RouterGenerator.mainRoutingInOurApp.pushNamed(
+                        AppRoutes.settingScreen,
+                      );
                     });
                   },
                 ),
