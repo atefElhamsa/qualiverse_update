@@ -71,6 +71,7 @@ class DashboardBarChartCard extends StatelessWidget {
           SizedBox(
             height: 350.h,
             child: SfCartesianChart(
+              key: ValueKey(data),
               margin: EdgeInsets.zero,
               plotAreaBorderWidth: 0,
               primaryXAxis: CategoryAxis(
@@ -111,8 +112,18 @@ class DashboardBarChartCard extends StatelessWidget {
                     top: Radius.circular(4.r),
                   ),
                   spacing: 0.1,
-                  width: 0.4,
+                  width: 0.55,
                   animationDuration: 1500,
+                  dataLabelSettings: DataLabelSettings(
+                    isVisible: true,
+                    textStyle: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.blue,
+                    ),
+                    labelAlignment: ChartDataLabelAlignment.outer,
+                    labelPosition: ChartDataLabelPosition.outside,
+                  ),
                 ),
                 ColumnSeries<DepartmentBarData, String>(
                   dataSource: data,
@@ -124,8 +135,18 @@ class DashboardBarChartCard extends StatelessWidget {
                     top: Radius.circular(4.r),
                   ),
                   spacing: 0.1,
-                  width: 0.4,
+                  width: 0.55,
                   animationDuration: 1800,
+                  dataLabelSettings: DataLabelSettings(
+                    isVisible: true,
+                    textStyle: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.green,
+                    ),
+                    labelAlignment: ChartDataLabelAlignment.outer,
+                    labelPosition: ChartDataLabelPosition.outside,
+                  ),
                 ),
                 ColumnSeries<DepartmentBarData, String>(
                   dataSource: data,
@@ -137,8 +158,18 @@ class DashboardBarChartCard extends StatelessWidget {
                     top: Radius.circular(4.r),
                   ),
                   spacing: 0.1,
-                  width: 0.4,
+                  width: 0.55,
                   animationDuration: 2100,
+                  dataLabelSettings: DataLabelSettings(
+                    isVisible: true,
+                    textStyle: TextStyle(
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.orange,
+                    ),
+                    labelAlignment: ChartDataLabelAlignment.outer,
+                    labelPosition: ChartDataLabelPosition.outside,
+                  ),
                 ),
               ],
               tooltipBehavior: TooltipBehavior(
@@ -178,12 +209,16 @@ class DashboardBarChartCard extends StatelessWidget {
                             BarChartTooltipItem(
                               label: 'indicators'.tr(),
                               value: d.indicators,
+                              detailValue:
+                                  "${d.indicatorsCount}/${d.indicatorsTotal}",
                               color: AppColors.blue,
                             ),
                             SizedBox(height: 6.h),
                             BarChartTooltipItem(
                               label: 'courses'.tr(),
                               value: d.courses,
+                              detailValue:
+                                  "${d.coursesCount}/${d.coursesTotal}",
                               color: AppColors.green,
                             ),
                             SizedBox(height: 6.h),

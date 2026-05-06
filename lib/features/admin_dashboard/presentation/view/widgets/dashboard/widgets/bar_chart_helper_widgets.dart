@@ -41,12 +41,14 @@ class BarChartLegendItem extends StatelessWidget {
 class BarChartTooltipItem extends StatelessWidget {
   final String label;
   final double value;
+  final String? detailValue;
   final Color color;
 
   const BarChartTooltipItem({
     super.key,
     required this.label,
     required this.value,
+    this.detailValue,
     required this.color,
   });
 
@@ -81,7 +83,9 @@ class BarChartTooltipItem extends StatelessWidget {
           ),
         ),
         CustomText(
-          title: "${value.toStringAsFixed(0)}%",
+          title: detailValue != null
+              ? "$detailValue (${value.toStringAsFixed(0)}%)"
+              : "${value.toStringAsFixed(0)}%",
           textStyle: TextStyle(
             fontSize: 12.sp,
             fontWeight: FontWeight.w800,

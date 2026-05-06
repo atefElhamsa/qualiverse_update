@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignment_status_cubit.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class MainWrapper extends StatefulWidget {
@@ -17,6 +18,32 @@ class MainWrapper extends StatefulWidget {
 class _MainWrapperState extends State<MainWrapper> {
   final AdvancedDrawerController advancedDrawerController =
       AdvancedDrawerController();
+  Locale? _currentLocale;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshSharedData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final newLocale = context.locale;
+    if (_currentLocale != null && _currentLocale != newLocale) {
+      _refreshSharedData();
+    }
+    _currentLocale = newLocale;
+  }
+
+  void _refreshSharedData() {
+    AcademicYearCubit.get(context).fetchAcademicYears();
+    DepartmentCubit.get(context).fetchDepartments();
+    LevelCubit.get(context).fetchLevels();
+    TermCubit.get(context).fetchTerms();
+    TypesCubit.get(context).fetchTypes();
+    AssignmentStatusCubit.get(context).fetchStatuses();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +69,7 @@ class _MainWrapperState extends State<MainWrapper> {
         ),
       ),
       openScale: isMobile ? 0.75 : 0.8,
-      openRatio: isMobile ? 0.75 : 0.28,
+      openRatio: isMobile ? 0.75 : 0.22,
       animationCurve: Curves.easeInOut,
       rtlOpening: context.locale.languageCode == 'ar',
       controller: advancedDrawerController,
@@ -70,7 +97,6 @@ class _MainWrapperState extends State<MainWrapper> {
         valueListenable: advancedDrawerController,
         builder: (context, value, child) {
           final isDrawerVisible = value.visible;
-          // Removing the vertical slide for a cleaner standard look
           return Scaffold(
             body: HomeBodyInherited(
               controller: advancedDrawerController,

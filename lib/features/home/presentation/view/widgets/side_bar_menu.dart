@@ -24,7 +24,7 @@ class SideBarMenu extends StatelessWidget {
     return Column(
       children: List.generate(visibleItems.length * 2 - 1, (index) {
         if (index.isOdd) {
-          return SizedBox(height: 12.h);
+          return SizedBox(height: 8.h);
         }
         final itemIndex = index ~/ 2;
         return SideBarItem(

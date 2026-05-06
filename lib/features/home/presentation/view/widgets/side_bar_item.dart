@@ -30,7 +30,7 @@ class _SideBarItemState extends State<SideBarItem> {
     final bool isSelected = currentRoute == widget.sideBarItemModel.route;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
       child: MouseRegion(
         onEnter: (_) => setState(() => isHovered = true),
         onExit: (_) => setState(() => isHovered = false),
@@ -48,7 +48,7 @@ class _SideBarItemState extends State<SideBarItem> {
             child:
                 AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
-                      padding: EdgeInsets.symmetric(vertical: 2.h),
+                      padding: EdgeInsets.symmetric(vertical: 0.h),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? Colors.white.withOpacity(0.12)
@@ -58,10 +58,10 @@ class _SideBarItemState extends State<SideBarItem> {
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12.w),
                         leading: ImageIcon(
                           AssetImage(widget.sideBarItemModel.image),
-                          size: 22.sp,
+                          size: 20.sp,
                           color: isSelected
                               ? Colors.white
                               : Colors.white.withOpacity(0.4),
@@ -75,7 +75,7 @@ class _SideBarItemState extends State<SideBarItem> {
                             fontWeight: isSelected
                                 ? FontWeight.w800
                                 : FontWeight.w600,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontFamily: 'Tajawal',
                           ),
                         ),

@@ -4,23 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/shared_widgets_model/drop_button_model.dart';
 
-// A customizable dropdown button widget.
 class CustomDropButton extends StatelessWidget {
-  // Constructor for CustomDropButton.
   const CustomDropButton({super.key, required this.dropButtonModel});
 
-  // Model containing data and behavior for the dropdown button.
   final DropButtonModel dropButtonModel;
 
-  // Creates the mutable state for this widget.
-  // Builds the UI for the CustomDropButton.
   @override
   Widget build(BuildContext context) {
+    final isValueInItems = dropButtonModel.listOfData.contains(
+      dropButtonModel.selectedData,
+    );
+
     return SizedBox(
       width: 592.w,
       child: DropdownButton2(
         isExpanded: true,
-        value: dropButtonModel.selectedData,
+        value: isValueInItems ? dropButtonModel.selectedData : null,
         underline: const SizedBox(),
         hint: Text(
           dropButtonModel.hintText,
@@ -50,10 +49,7 @@ class CustomDropButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(15.r),
-            border: Border.all(
-              color: Colors.grey.withOpacity(0.2),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
           ),
         ),
         dropdownStyleData: DropdownStyleData(

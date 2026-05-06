@@ -190,7 +190,11 @@ class _DashboardOverviewState extends State<DashboardOverview> {
                           (e) => DepartmentBarData(
                             department: e.departmentName,
                             indicators: e.indicatorsPercentage.toDouble(),
+                            indicatorsCount: e.indicatorsWithFiles,
+                            indicatorsTotal: e.totalIndicators,
                             courses: e.coursesPercentage.toDouble(),
+                            coursesCount: e.coursesWithFiles,
+                            coursesTotal: e.totalCourses,
                             overall: e.overallPercentage.toDouble(),
                           ),
                         )

@@ -12,7 +12,7 @@ class CustomSidebarDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final _ = context.locale;
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 40.h),
+      padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
       child: Column(
         children: [
           Container(
@@ -22,12 +22,12 @@ class CustomSidebarDrawer extends StatelessWidget {
               border: Border.all(color: Colors.white24, width: 2),
             ),
             child: CircleAvatar(
-              radius: 45.r,
+              radius: 35.r,
               backgroundImage: const AssetImage(AppImages.logo),
               backgroundColor: Colors.transparent,
             ),
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 12.h),
           CustomText(
             title: "accreditationQualitySystem".tr(),
             textAlign: TextAlign.center,
@@ -38,7 +38,7 @@ class CustomSidebarDrawer extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 8.h),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
             decoration: BoxDecoration(
@@ -54,7 +54,7 @@ class CustomSidebarDrawer extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 30.h),
+          SizedBox(height: 20.h),
           const Divider(color: Colors.white10, indent: 20, endIndent: 20),
         ],
       ),

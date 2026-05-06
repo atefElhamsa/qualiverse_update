@@ -26,14 +26,14 @@ class _SideBarState extends State<SideBar> {
     final _ = context.locale;
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
             const CustomSidebarDrawer(),
             Expanded(
-              child: ListView(
+              child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                children: [SideBarMenu(controller: widget.controller)],
+                child: SideBarMenu(controller: widget.controller),
               ),
             ),
             const LogOutWidget(),
