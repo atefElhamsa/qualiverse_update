@@ -22,35 +22,32 @@ class CustomScaffoldHome extends StatelessWidget {
   Widget build(BuildContext context) {
     // Returns a Column widget to arrange its children vertically.
     return Column(
-      // Aligns children to the start (left) of the cross axis.
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Displays a circular avatar.
         CircleAvatar(
-          // Sets the radius of the circle.
           radius: 50.r,
-          // Sets the background image of the avatar.
           backgroundImage: const AssetImage(AppImages.logo),
-          // Sets the background color of the avatar to transparent.
-          backgroundColor: AppColors.transparent,
+          backgroundColor: Colors.transparent,
         ),
-        // Adds a sized box for spacing.
-        const SizedBox(height: 10),
-        // Displays a custom text widget.
+        SizedBox(height: 12.h),
         CustomText(
-          // Sets the title text, translated using easy_localization.
           title: "accreditationQualitySystem".tr(),
-          // Applies a predefined text style from the current theme.
-          textStyle: Theme.of(context).textTheme.headlineLarge!,
+          textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                fontWeight: FontWeight.w900,
+                fontSize: 22.sp,
+                color: AppColors.mainBlack,
+              ),
         ),
-        // Adds a sized box for spacing.
-        const SizedBox(height: 10),
-        // Displays a custom widget for drawer and back button functionality.
+        SizedBox(height: 12.h),
         IconButton(
           onPressed: () {
             controller.showDrawer();
           },
-          icon: Image.asset(AppImages.drawerImage, fit: BoxFit.cover),
+          icon: Image.asset(
+            AppImages.drawerImage,
+            width: 35.w,
+            fit: BoxFit.contain,
+          ),
         ),
       ],
     );

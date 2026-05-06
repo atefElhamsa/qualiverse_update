@@ -26,19 +26,27 @@ class IndicatorsTopWidget extends StatelessWidget {
               final deptCubit = DepartmentCubit.get(context);
 
               if (name.contains('program') || name.contains('برامجي')) {
-                // If switching to Program and no department is selected, pick the first one
                 if (deptCubit.selectedDepartment == null &&
                     deptCubit.state is DepartmentSuccess) {
-                  final departments = (deptCubit.state as DepartmentSuccess).departments;
+                  final departments =
+                      (deptCubit.state as DepartmentSuccess).departments;
                   if (departments.isNotEmpty) {
                     deptCubit.selectDepartment(department: departments.first);
                   }
                 }
-              } else if (name.contains('institutional') || name.contains('مؤسسي')) {
-                // Institutional doesn't need department
+              } else if (name.contains('institutional') ||
+                  name.contains('مؤسسي')) {
                 deptCubit.selectDepartment(department: null);
               }
               _fetchCriterions(context);
+            }
+          },
+        ),
+        BlocListener<ProgramAccreditationCubit, ProgramAccreditationState>(
+          listener: (context, state) {
+            if (state is ProgramAccreditationSuccess &&
+                state.selectedAccreditation != null) {
+              _fetchIndicators(context, state.selectedAccreditation!);
             }
           },
         ),
@@ -56,20 +64,14 @@ class IndicatorsTopWidget extends StatelessWidget {
 
           return Row(
             children: [
-              const Expanded(
-                flex: 2,
-                child: AccreditationTypeDropDownWidget(),
-              ),
+              const Expanded(flex: 2, child: AccreditationTypeDropDownWidget()),
               SizedBox(width: 10.w),
               Expanded(
                 flex: 3,
                 child: DepartmentDropDownWidget(isDisabled: isInstitutional),
               ),
               SizedBox(width: 10.w),
-              const Expanded(
-                flex: 7,
-                child: CriterionsDropDownWidget(),
-              ),
+              const Expanded(flex: 7, child: CriterionsDropDownWidget()),
             ],
           );
         },
@@ -83,12 +85,30 @@ class IndicatorsTopWidget extends StatelessWidget {
     final typesCubit = TypesCubit.get(context);
     final typeState = typesCubit.state;
 
-    if (yearId != null && typeState is TypesSuccess && typeState.selectedIndex != -1) {
+    if (yearId != null &&
+        typeState is TypesSuccess &&
+        typeState.selectedIndex != -1) {
       final typeId = typeState.types[typeState.selectedIndex].id;
       ProgramAccreditationCubit.get(context).fetchProgramAccreditations(
         academicYearId: yearId,
         departmentId: deptId,
         accreditationTypeId: typeId,
+      );
+    }
+  }
+
+  void _fetchIndicators(
+    BuildContext context,
+    AccreditationModel selectedModel,
+  ) {
+    final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
+    final deptId = DepartmentCubit.get(context).selectedDepartment?.id;
+
+    if (yearId != null) {
+      context.read<CycleIndicatorCubit>().fetchCycleIndicators(
+        yearId: yearId,
+        departmentId: deptId,
+        criterionId: selectedModel.id,
       );
     }
   }

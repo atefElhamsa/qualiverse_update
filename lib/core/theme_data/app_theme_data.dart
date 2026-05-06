@@ -22,63 +22,63 @@ class AppThemeData {
       onPrimaryContainer: AppColors.greyLight,
     ),
     textTheme: TextTheme(
-      displayLarge: GoogleFonts.inter(
-        fontSize: 48.sp,
+      displayLarge: GoogleFonts.tajawal(
+        fontSize: 50.sp,
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      displayMedium: GoogleFonts.cairo(
-        fontSize: 40.sp,
+      displayMedium: GoogleFonts.tajawal(
+        fontSize: 42.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.black,
       ),
-      displaySmall: GoogleFonts.cairo(
-        fontSize: 24.sp,
+      displaySmall: GoogleFonts.tajawal(
+        fontSize: 26.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.black,
       ),
-      headlineLarge: GoogleFonts.inter(
-        fontSize: 20.sp,
+      headlineLarge: GoogleFonts.tajawal(
+        fontSize: 22.sp,
         fontWeight: FontWeight.w600,
         color: AppColors.black,
       ),
-      titleLarge: GoogleFonts.cairo(
-        fontSize: 48.sp,
+      titleLarge: GoogleFonts.tajawal(
+        fontSize: 50.sp,
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      bodyMedium: GoogleFonts.cairo(
-        fontSize: 24.sp,
-        fontWeight: FontWeight.w600,
+      bodyMedium: GoogleFonts.tajawal(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w500,
         color: AppColors.black,
       ),
-      headlineMedium: GoogleFonts.cairo(
-        fontSize: 32.sp,
+      headlineMedium: GoogleFonts.tajawal(
+        fontSize: 34.sp,
         fontWeight: FontWeight.w500,
         color: AppColors.white,
       ),
-      labelLarge: GoogleFonts.cairo(
-        fontSize: 50.sp,
+      labelLarge: GoogleFonts.tajawal(
+        fontSize: 52.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.mainBlack,
       ),
-      headlineSmall: GoogleFonts.cairo(
-        fontSize: 32.sp,
+      headlineSmall: GoogleFonts.tajawal(
+        fontSize: 34.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.mainBlack,
       ),
-      bodySmall: GoogleFonts.cairo(
-        fontSize: 20.sp,
+      bodySmall: GoogleFonts.tajawal(
+        fontSize: 18.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.mainBlack,
       ),
-      labelSmall: GoogleFonts.inter(
+      labelSmall: GoogleFonts.tajawal(
         fontSize: 20.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.redLight,
       ),
-      titleSmall: GoogleFonts.inter(
-        fontSize: 20.sp,
+      titleSmall: GoogleFonts.tajawal(
+        fontSize: 22.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.colorButtonLight,
       ),
@@ -94,7 +94,7 @@ class AppThemeData {
     inputDecorationTheme: InputDecorationTheme(
       // filled: true,
       // fillColor: AppColors.grey,
-      hintStyle: GoogleFonts.cairo(
+      hintStyle: GoogleFonts.tajawal(
         fontSize: 16.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.grey,
@@ -109,7 +109,7 @@ class AppThemeData {
       // Color for the suffix icon in input fields.
       suffixIconColor: AppColors.mainBlack,
       // Style for error messages in input fields.
-      errorStyle: GoogleFonts.cairo(
+      errorStyle: GoogleFonts.tajawal(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.red,

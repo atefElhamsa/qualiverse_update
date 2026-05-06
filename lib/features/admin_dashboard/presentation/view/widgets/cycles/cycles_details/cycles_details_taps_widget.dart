@@ -10,67 +10,51 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _ = context.locale;
     return BlocBuilder<CycleTabsCubit, CycleTabsState>(
       builder: (context, state) {
         final cubit = context.read<CycleTabsCubit>();
-        return Row(
-          children: CycleTab.values.map((tab) {
-            final isSelected = cubit.currentTab == tab;
-            return MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  cubit.changeTab(tab);
-                  DepartmentCubit.get(
-                    context,
-                  ).selectDepartment(department: null);
-                  LevelCubit.get(context).selectLevel(level: null);
-                  TermCubit.get(context).selectTerm(term: null);
-                },
-                child: Padding(
-                  padding: EdgeInsetsDirectional.only(start: 30.w),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: CustomText(
-                          title: context.locale.languageCode == 'ar'
-                              ? (tab == CycleTab.assignments
-                                    ? 'التكليفات'
-                                    : tab == CycleTab.indicators
-                                    ? 'المؤشرات'
-                                    : tab == CycleTab.criterions
-                                    ? 'المعايير'
-                                    : 'المقررات')
-                              : tab.name.capitalizeFirst().tr(),
-                          textStyle: TextStyle(
-                            fontSize: 20.sp,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                            color: isSelected
-                                ? AppColors.blue
-                                : AppColors.mainGrey,
-                          ),
-                        ),
-                      ),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        curve: Curves.easeInOut,
-                        height: 3,
-                        width: isSelected ? 80.w : 0,
-                        decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
+        final tabs = CycleTab.values;
+        return DefaultTabController(
+          key: ValueKey(context.locale.languageCode),
+          length: tabs.length,
+          initialIndex: tabs.indexOf(cubit.currentTab),
+          child: TabBar(
+            onTap: (index) {
+              final tab = tabs[index];
+              cubit.changeTab(tab);
+              DepartmentCubit.get(context).selectDepartment(department: null);
+              LevelCubit.get(context).selectLevel(level: null);
+              TermCubit.get(context).selectTerm(term: null);
+            },
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
+            dividerColor: Colors.transparent,
+            indicatorColor: AppColors.blue,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorWeight: 3.h,
+            labelColor: AppColors.blue,
+            unselectedLabelColor: AppColors.mainGrey,
+            padding: EdgeInsets.zero,
+            labelPadding: EdgeInsetsDirectional.only(start: 30.w),
+            labelStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w400,
+            ),
+            tabs: tabs.map((tab) {
+              final title = context.locale.languageCode == 'ar'
+                  ? (tab == CycleTab.assignments
+                        ? 'التكليفات'
+                        : tab == CycleTab.indicators
+                        ? 'المؤشرات'
+                        : tab == CycleTab.criterions
+                        ? 'المعايير'
+                        : 'المقررات')
+                  : tab.name.capitalizeFirst().tr();
+              return Tab(text: title);
+            }).toList(),
+          ),
         );
       },
     );

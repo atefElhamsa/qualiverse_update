@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets_model/button_model.dart';
 
-import 'custom_text.dart';
-
 // A custom button widget that can be configured with a ButtonModel.
 class CustomButton extends StatelessWidget {
   // Constructor for CustomButton, requires a ButtonModel.

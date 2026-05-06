@@ -328,4 +328,16 @@ class EndPoints {
 
   static String cleanupNotifications({int daysRetention = 30}) =>
       "Notification/cleanup?daysRetention=$daysRetention";
+
+  static String getDashboardTotals({required int yearId}) {
+    return "Dashboard/admin/overview/totals?yearId=$yearId";
+  }
+
+  static String getDepartmentProgress({required int yearId}) {
+    return "Dashboard/admin/overview/department-progress?yearId=$yearId";
+  }
+
+  static String getInstitutionalProgress({required int yearId}) {
+    return "Dashboard/admin/overview/institutional-progress?yearId=$yearId";
+  }
 }

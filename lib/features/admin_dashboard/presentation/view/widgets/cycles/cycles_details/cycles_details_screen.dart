@@ -13,12 +13,7 @@ class _CyclesDetailsScreenState extends State<CyclesDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    // Reset tab to the first one whenever the screen is opened
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        context.read<CycleTabsCubit>().changeTab(CycleTab.courses);
-      }
-    });
+    context.read<CycleTabsCubit>().changeTab(CycleTab.courses);
   }
 
   @override

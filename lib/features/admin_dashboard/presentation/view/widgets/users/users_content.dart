@@ -12,7 +12,7 @@ class UsersContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AdminDashboardTopContentWidget(title: "users"),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           UserManagementScreen(),
         ],
       ),

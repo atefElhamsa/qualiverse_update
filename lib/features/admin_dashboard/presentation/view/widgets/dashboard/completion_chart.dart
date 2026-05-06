@@ -12,11 +12,11 @@ class CompletionChart extends StatefulWidget {
 }
 
 class _CompletionChartState extends State<CompletionChart> {
-  final List<ChartData> data = [
-    ChartData('informationSystems', 50),
-    ChartData('informationTechnology', 65),
-    ChartData('computerScience', 70),
-    ChartData('artificialIntelligence', 80),
+  final List<BarChartData> data = [
+    BarChartData('informationSystems', 50),
+    BarChartData('informationTechnology', 65),
+    BarChartData('computerScience', 70),
+    BarChartData('artificialIntelligence', 80),
   ];
 
   @override
@@ -82,10 +82,10 @@ class _CompletionChartState extends State<CompletionChart> {
             format: 'point.x : point.y%',
           ),
           series: <CartesianSeries>[
-            ColumnSeries<ChartData, String>(
+            ColumnSeries<BarChartData, String>(
               dataSource: data,
-              xValueMapper: (ChartData d, _) => d.label.tr(),
-              yValueMapper: (ChartData d, _) => d.value,
+              xValueMapper: (BarChartData d, _) => d.label.tr(),
+              yValueMapper: (BarChartData d, _) => d.value,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(6),
               ),
@@ -112,9 +112,9 @@ class _CompletionChartState extends State<CompletionChart> {
   }
 }
 
-class ChartData {
+class BarChartData {
   final String label;
   final double value;
 
-  ChartData(this.label, this.value);
+  BarChartData(this.label, this.value);
 }

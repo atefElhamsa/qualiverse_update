@@ -34,6 +34,7 @@ class _AccreditationTypeDropDownWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final _ = context.locale;
     return BlocBuilder<TypesCubit, TypesState>(
       builder: (context, state) {
         int? currentValue;
@@ -72,7 +73,7 @@ class _AccreditationTypeDropDownWidgetState
                       return DropdownMenuItem<int?>(
                         value: e.id,
                         child: Text(
-                          e.name,
+                          e.name.toLowerCase().tr(),
                           style: TextStyle(fontSize: 14.sp),
                         ),
                       );

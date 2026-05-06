@@ -22,22 +22,24 @@ class CustomDropButtonAndTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 592.w,
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 3),
-          child: CustomText(
-            title: title,
-            textStyle: GoogleFonts.inter(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
-              color:
-                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                  ? AppColors.mainBlack
-                  : AppColors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 8.w, bottom: 8.h),
+            child: CustomText(
+              title: title,
+              textStyle: GoogleFonts.tajawal(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.mainBlack
+                    : AppColors.white,
+              ),
             ),
           ),
-        ),
-        subtitle: CustomDropButton(dropButtonModel: dropButtonModel),
+          CustomDropButton(dropButtonModel: dropButtonModel),
+        ],
       ),
     );
   }

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../utils/app_colors.dart';
 import '../utils/app_images.dart';
 import 'custom_text.dart';
 
@@ -11,23 +10,54 @@ class CustomSidebarDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(
-          radius: 50.r,
-          backgroundImage: const AssetImage(AppImages.logo),
-          backgroundColor: AppColors.transparent,
-        ),
-        const SizedBox(height: 10),
-        CustomText(
-          title: "accreditationQualitySystem".tr(),
-          textStyle: Theme.of(
-            context,
-          ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
-        ),
-        const SizedBox(height: 50),
-      ],
+    final _ = context.locale;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 40.h),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(4.w),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Colors.white24, width: 2),
+            ),
+            child: CircleAvatar(
+              radius: 45.r,
+              backgroundImage: const AssetImage(AppImages.logo),
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+          SizedBox(height: 16.h),
+          CustomText(
+            title: "accreditationQualitySystem".tr(),
+            textAlign: TextAlign.center,
+            textStyle: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w900,
+              fontFamily: 'Tajawal',
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 10.h),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Text(
+              "appName".tr(),
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          SizedBox(height: 30.h),
+          const Divider(color: Colors.white10, indent: 20, endIndent: 20),
+        ],
+      ),
     );
   }
 }

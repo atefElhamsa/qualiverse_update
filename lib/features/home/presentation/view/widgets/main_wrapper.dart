@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
@@ -19,48 +20,62 @@ class _MainWrapperState extends State<MainWrapper> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final bool isMobile = screenWidth < 600;
+
     return AdvancedDrawer(
       backdrop: Container(
         decoration: BoxDecoration(
-          boxShadow: [],
           gradient: LinearGradient(
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                ? [AppColors.loginBackground2, AppColors.loginBackground1]
-                : [AppColors.black, AppColors.mainWrapperDark1],
+                ? [
+                    const Color(0xFF1E3A8A), // Deep Blue
+                    const Color(0xFF3B82F6), // Light Blue
+                  ]
+                : [
+                    const Color(0xFF0F172A), // Deep Navy
+                    const Color(0xFF1E293B), // Slate
+                  ],
           ),
         ),
       ),
-
-      openScale: 1.0,
-      // الإبقاء على الحجم الكامل (بدون تصغير)
-      openRatio: 0.20,
-      // نسبة عرض القائمة
+      openScale: isMobile ? 0.75 : 0.8,
+      openRatio: isMobile ? 0.75 : 0.28,
       animationCurve: Curves.easeInOut,
       rtlOpening: context.locale.languageCode == 'ar',
       controller: advancedDrawerController,
       backdropColor: Colors.transparent,
-      animationDuration: const Duration(milliseconds: 10),
-      childDecoration: const BoxDecoration(
-        boxShadow: [],
-        borderRadius: BorderRadius.all(Radius.circular(16)),
+      animationDuration: const Duration(milliseconds: 300),
+      childDecoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30.r)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 30,
+            spreadRadius: 5,
+            offset: Offset(context.locale.languageCode == 'ar' ? -10 : 10, 10),
+          ),
+        ],
+        border: Border.all(
+          color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+              ? AppColors.progressColor.withOpacity(0.2)
+              : Colors.white10,
+          width: 1,
+        ),
       ),
       drawer: SideBar(controller: advancedDrawerController),
       child: ValueListenableBuilder<AdvancedDrawerValue>(
         valueListenable: advancedDrawerController,
         builder: (context, value, child) {
           final isDrawerVisible = value.visible;
-
-          final double slideAmount = value.visible ? 150.0 : 0.0;
-          return Transform.translate(
-            offset: Offset(0, slideAmount),
-            child: Scaffold(
-              body: HomeBodyInherited(
-                controller: advancedDrawerController,
-                isDrawerVisible: isDrawerVisible,
-                child: widget.child,
-              ),
+          // Removing the vertical slide for a cleaner standard look
+          return Scaffold(
+            body: HomeBodyInherited(
+              controller: advancedDrawerController,
+              isDrawerVisible: isDrawerVisible,
+              child: widget.child,
             ),
           );
         },

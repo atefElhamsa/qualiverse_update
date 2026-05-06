@@ -38,158 +38,163 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
     final allDocsText = 'all_doctors'.tr();
     final allStatusesText = 'all_statuses'.tr();
 
-    return Container(
-      padding: EdgeInsets.all(20.w),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(12.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.mainBlack.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Doctor Dropdown
-          Expanded(
-            child: BlocBuilder<UsersCubit, UsersState>(
-              builder: (context, state) {
-                final doctors = state is UsersSuccess
-                    ? state.users.where((u) => u.role == 'doctor').toList()
-                    : <UserManagementModel>[];
+    return BlocListener<AcademicYearCubit, AcademicYearState>(
+      listener: (context, state) => _triggerFetch(),
+      child: Container(
+        padding: EdgeInsets.all(20.w),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.mainBlack.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Doctor Dropdown
+            Expanded(
+              child: BlocBuilder<UsersCubit, UsersState>(
+                builder: (context, state) {
+                  final doctors = state is UsersSuccess
+                      ? state.users.where((u) => u.role == 'doctor').toList()
+                      : <UserManagementModel>[];
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildLabel('doctor'.tr(), Icons.person_outline),
-                    SizedBox(height: 10.h),
-                    _buildDropdownContainer(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<UserManagementModel?>(
-                          value: _selectedDoctor,
-                          isExpanded: true,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.greyLight,
-                            size: 20.sp,
-                          ),
-                          hint: Text(
-                            allDocsText,
-                            style: TextStyle(
-                              fontSize: 14.sp,
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLabel('doctor'.tr(), Icons.person_outline),
+                      SizedBox(height: 10.h),
+                      _buildDropdownContainer(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<UserManagementModel?>(
+                            value: _selectedDoctor,
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
                               color: AppColors.greyLight,
+                              size: 20.sp,
                             ),
-                          ),
-                          items: [
-                            DropdownMenuItem<UserManagementModel?>(
-                              value: null,
-                              child: Text(
-                                allDocsText,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            hint: Text(
+                              allDocsText,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.greyLight,
                               ),
                             ),
-                            ...doctors.map(
-                              (d) => DropdownMenuItem<UserManagementModel?>(
-                                value: d,
+                            items: [
+                              DropdownMenuItem<UserManagementModel?>(
+                                value: null,
                                 child: Text(
-                                  '${d.firstName} ${d.lastName}',
+                                  allDocsText,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                          onChanged: (val) {
-                            setState(() => _selectedDoctor = val);
-                            _triggerFetch();
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          SizedBox(width: 24.w),
-          // Status Dropdown
-          Expanded(
-            child: BlocBuilder<AssignmentStatusCubit, AssignmentStatusState>(
-              builder: (context, state) {
-                final statuses = context.read<AssignmentStatusCubit>().statuses;
-                final selectedStatus = context
-                    .read<AssignmentStatusCubit>()
-                    .selectedStatus;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildLabel('status'.tr(), Icons.assignment_outlined),
-                    SizedBox(height: 10.h),
-                    _buildDropdownContainer(
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton<AssignmentStateModel?>(
-                          value: selectedStatus,
-                          isExpanded: true,
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: AppColors.greyLight,
-                            size: 20.sp,
-                          ),
-                          hint: Text(
-                            allStatusesText,
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: AppColors.greyLight,
-                            ),
-                          ),
-                          items: [
-                            DropdownMenuItem<AssignmentStateModel?>(
-                              value: null,
-                              child: Text(
-                                allStatusesText,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500,
+                              ...doctors.map(
+                                (d) => DropdownMenuItem<UserManagementModel?>(
+                                  value: d,
+                                  child: Text(
+                                    '${d.firstName} ${d.lastName}',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 ),
                               ),
+                            ],
+                            onChanged: (val) {
+                              setState(() => _selectedDoctor = val);
+                              _triggerFetch();
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+            SizedBox(width: 24.w),
+            // Status Dropdown
+            Expanded(
+              child: BlocBuilder<AssignmentStatusCubit, AssignmentStatusState>(
+                builder: (context, state) {
+                  final statuses = context
+                      .read<AssignmentStatusCubit>()
+                      .statuses;
+                  final selectedStatus = context
+                      .read<AssignmentStatusCubit>()
+                      .selectedStatus;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildLabel('status'.tr(), Icons.assignment_outlined),
+                      SizedBox(height: 10.h),
+                      _buildDropdownContainer(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<AssignmentStateModel?>(
+                            value: selectedStatus,
+                            isExpanded: true,
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: AppColors.greyLight,
+                              size: 20.sp,
                             ),
-                            ...statuses.map(
-                              (s) => DropdownMenuItem<AssignmentStateModel?>(
-                                value: s,
+                            hint: Text(
+                              allStatusesText,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: AppColors.greyLight,
+                              ),
+                            ),
+                            items: [
+                              DropdownMenuItem<AssignmentStateModel?>(
+                                value: null,
                                 child: Text(
-                                  _translateStatus(s.name),
+                                  allStatusesText,
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                          onChanged: (val) {
-                            context.read<AssignmentStatusCubit>().selectStatus(
-                              val,
-                            );
-                            _triggerFetch();
-                          },
+                              ...statuses.map(
+                                (s) => DropdownMenuItem<AssignmentStateModel?>(
+                                  value: s,
+                                  child: Text(
+                                    _translateStatus(s.name),
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                            onChanged: (val) {
+                              context
+                                  .read<AssignmentStatusCubit>()
+                                  .selectStatus(val);
+                              _triggerFetch();
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/assignments/assignments_content.dart';
@@ -11,6 +12,7 @@ class CycleDetailsTapsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _ = context.locale;
     return BlocListener<CycleTabsCubit, CycleTabsState>(
       listener: (context, state) {
         ProgramAccreditationCubit.get(context).reset();
@@ -32,7 +34,7 @@ class CycleDetailsTapsContent extends StatelessWidget {
               return const IndicatorsContent();
 
             case CycleTab.assignments:
-              return AssignmentsContent();
+              return const AssignmentsContent();
           }
         },
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
@@ -6,43 +7,24 @@ class HomeLayout {
   static Widget buildDesktopLayout(
     bool isArabic,
     bool isTablet,
-    Animation<double> fadeAnimation,
-    Animation<Offset> slideAnimation,
-    Animation<double> scaleAnimation,
     BuildContext context,
     String imagePath,
   ) {
     return Row(
       children: [
-        if (!isArabic) ...[
-          FadeTransition(
-            opacity: fadeAnimation,
-            child: Image.asset(imagePath, fit: BoxFit.contain),
-          ),
-        ],
-        if (isArabic) ...[
-          FadeTransition(
-            opacity: fadeAnimation,
-            child: Image.asset(imagePath, fit: BoxFit.contain),
-          ),
-        ],
+        Image.asset(imagePath, fit: BoxFit.contain).animate().fadeIn(),
         Expanded(
           flex: 3,
           child: HomeAnimation.buildTextContent(
             isArabic,
             false,
-            slideAnimation,
-            fadeAnimation,
             context,
           ),
         ),
         SizedBox(width: isTablet ? 24.w : 48.w),
         Expanded(
           flex: 2,
-          child: HomeAnimation.buildMainImage(
-            scaleAnimation: scaleAnimation,
-            fadeAnimation: fadeAnimation,
-          ),
+          child: HomeAnimation.buildMainImage(),
         ),
       ],
     );
@@ -50,9 +32,6 @@ class HomeLayout {
 
   static Widget buildMobileLayout(
     bool isArabic,
-    Animation<double> fadeAnimation,
-    Animation<Offset> slideAnimation,
-    Animation<double> scaleAnimation,
     BuildContext context,
     String imagePath,
   ) {
@@ -60,20 +39,15 @@ class HomeLayout {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        FadeTransition(opacity: fadeAnimation, child: Image.asset(imagePath)),
+        Image.asset(imagePath).animate().fadeIn(),
         SizedBox(height: 24.h),
         HomeAnimation.buildTextContent(
           isArabic,
           true,
-          slideAnimation,
-          fadeAnimation,
           context,
         ),
         SizedBox(height: 24.h),
-        HomeAnimation.buildMainImage(
-          scaleAnimation: scaleAnimation,
-          fadeAnimation: fadeAnimation,
-        ),
+        HomeAnimation.buildMainImage(),
       ],
     );
   }

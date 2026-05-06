@@ -13,11 +13,16 @@ class AdminDashboardCubit extends Cubit<AdminDashboardState> {
 
   AdminPage selectedSidebarItem = AdminPage.dashboard;
 
+  int dashboardTabIndex = 0;
+
   int? selectedCycleId;
 
   void changePage({required AdminPage page}) {
     currentPage = page;
     selectedSidebarItem = page;
+    if (page == AdminPage.dashboard) {
+      dashboardTabIndex = 0;
+    }
 
     emit(AdminDashboardPageChanged());
   }
@@ -38,11 +43,24 @@ class AdminDashboardCubit extends Cubit<AdminDashboardState> {
 
     emit(AdminDashboardPageChanged());
   }
+
+  void changeDashboardTab(int index) {
+    dashboardTabIndex = index;
+    emit(AdminDashboardTabChanged());
+  }
+
+  String get currentPageTitle {
+    switch (currentPage) {
+      case AdminPage.dashboard:
+        return 'dashboard';
+      case AdminPage.users:
+        return 'users';
+      case AdminPage.cycles:
+        return 'cycles';
+      case AdminPage.cycleDetails:
+        return 'cycleDetails';
+    }
+  }
 }
 
-enum AdminPage {
-  dashboard,
-  users,
-  cycles,
-  cycleDetails,
-}
+enum AdminPage { dashboard, users, cycles, cycleDetails }

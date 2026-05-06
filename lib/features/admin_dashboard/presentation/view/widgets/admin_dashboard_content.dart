@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AdminDashboardContent extends StatelessWidget {
@@ -11,31 +12,33 @@ class AdminDashboardContent extends StatelessWidget {
       builder: (context, state) {
         final cubit = AdminDashboardCubit.get(context);
 
+        final Widget content;
         switch (cubit.currentPage) {
           case AdminPage.dashboard:
-            return const DashboardContent();
-
+            content = const DashboardContent();
+            break;
           case AdminPage.users:
-            return const UsersContent();
-
+            content = const UsersContent();
+            break;
           case AdminPage.cycles:
-            return const CyclesContent();
-
-          // case AdminPage.standards:
-          //   return const StandardsContent();
-
-          // case AdminPage.accreditation:
-          //   return const AccreditationContent();
-
-          // case AdminPage.auditLog:
-          //   return const AuditLogContent();
-
-          // case AdminPage.settings:
-          //   return const SettingsContent();
-
+            content = const CyclesContent();
+            break;
           case AdminPage.cycleDetails:
-            return const CyclesDetailsScreen();
+            content = const CyclesDetailsScreen();
+            break;
         }
+
+        if (cubit.currentPage == AdminPage.dashboard) {
+          return content;
+        }
+
+        return Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: EdgeInsets.only(top: 100.h),
+            child: content,
+          ),
+        );
       },
     );
   }

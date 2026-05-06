@@ -35,6 +35,7 @@ void main() async {
         BlocProvider(create: (context) => NotificationsCubit()),
         BlocProvider(create: (context) => SettingCubit()),
         BlocProvider(create: (context) => AdminDashboardCubit()),
+        BlocProvider(create: (context) => DashboardOverviewCubit()),
         BlocProvider(create: (context) => MeCubit()..getMyInfo()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => LogoutCubit()),

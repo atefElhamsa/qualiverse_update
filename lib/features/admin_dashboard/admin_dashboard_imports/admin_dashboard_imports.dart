@@ -2,9 +2,11 @@ export 'package:qualiverse/features/admin_dashboard/data/model/activate_deactiva
 export 'package:qualiverse/features/admin_dashboard/data/model/assign_model.dart';
 export 'package:qualiverse/features/admin_dashboard/data/model/cycle_indicator_model.dart';
 export 'package:qualiverse/features/admin_dashboard/data/model/user_management_model.dart';
+export 'package:qualiverse/features/admin_dashboard/data/model/dashboard_overview_models.dart';
 export 'package:qualiverse/features/admin_dashboard/data/service/assign_service.dart';
 export 'package:qualiverse/features/admin_dashboard/data/service/cycles_indicator_service.dart';
 export 'package:qualiverse/features/admin_dashboard/data/service/users_service.dart';
+export 'package:qualiverse/features/admin_dashboard/data/service/dashboard_overview_service.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/admin_dashboard/admin_dashboard_cubit.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/admin_dashboard/admin_dashboard_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assign/assign_cubit.dart';
@@ -15,6 +17,8 @@ export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycl
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/tabs/cycles_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/users/users_cubit.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/users/users_state.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/dashboard/overview/dashboard_overview_cubit.dart';
+export 'package:qualiverse/features/admin_dashboard/presentation/controller/dashboard/overview/dashboard_overview_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/courses_cubit.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/courses/courses_state.dart';
 export 'package:qualiverse/features/admin_dashboard/presentation/view/admin_dashboard_screen.dart';

@@ -8,25 +8,31 @@ class DepartmentBodyDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Center the content.
     return Center(
-      // Constrain the width of the content.
-      child: SizedBox(
-          width: 590.w,
-          // Arrange children in a column.
-          child: const Column(
-            // Align children to the start of the cross axis.
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Display the selected year and department.
-              SelectedYearAndDepartmentWidget(),
-              // Add some vertical spacing.
-              SizedBox(height: 80),
-              // Display the standard button.
-              StandardButton(),
-              // Add some vertical spacing.
-              SizedBox(height: 10),
-            ],
+      child: Container(
+        width: 650.w,
+        margin: EdgeInsets.symmetric(vertical: 40.h),
+        padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 50.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+          border: Border.all(color: AppColors.greyLight.withOpacity(0.2)),
+        ),
+        child: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SelectedYearAndDepartmentWidget(),
+            SizedBox(height: 60),
+            StandardButton(),
+          ],
         ),
       ),
     );

@@ -11,46 +11,38 @@ class CustomHomeLastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: SizedBox(
-          width: 250.w,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 65,
-                height: 65,
-                child: Image.asset(homeLastBodyModel.image),
-              ),
-              const SizedBox(height: 20),
-              CustomText(
-                title: homeLastBodyModel.title.tr(),
-                textAlign: TextAlign.center,
-                textStyle: Theme.of(
-                  context,
-                ).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.w900),
-              ),
-              const SizedBox(height: 15),
-              CustomText(
-                title: homeLastBodyModel.description.tr(),
-                textAlign: TextAlign.center,
-                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18.sp,
-                  shadows: [
-                    BoxShadow(
-                      spreadRadius: 0,
-                      color: AppColors.sideBarTextDark.withValues(alpha: 0.4),
-                      blurRadius: 3,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: SizedBox(
+        width: 250.w,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 65.w,
+              height: 65.w,
+              child: Image.asset(homeLastBodyModel.image),
+            ),
+            SizedBox(height: 20.h),
+            CustomText(
+              title: homeLastBodyModel.title.tr(),
+              textAlign: TextAlign.center,
+              textStyle: Theme.of(context).textTheme.displaySmall!.copyWith(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18.sp,
+                  ),
+            ),
+            SizedBox(height: 15.h),
+            CustomText(
+              title: homeLastBodyModel.description.tr(),
+              textAlign: TextAlign.center,
+              textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    height: 1.4,
+                  ),
+            ),
+          ],
         ),
       ),
     );

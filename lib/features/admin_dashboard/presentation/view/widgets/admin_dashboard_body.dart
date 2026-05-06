@@ -15,6 +15,7 @@ class AdminDashboardBody extends StatelessWidget {
             height: constraints.maxHeight,
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SideBarAdminWidget(),
                 Expanded(child: AdminDashboardContent()),

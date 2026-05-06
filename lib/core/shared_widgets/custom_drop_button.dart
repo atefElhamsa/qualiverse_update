@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/shared_widgets_model/drop_button_model.dart';
 
 // A customizable dropdown button widget.
@@ -20,50 +21,53 @@ class CustomDropButton extends StatelessWidget {
       child: DropdownButton2(
         isExpanded: true,
         value: dropButtonModel.selectedData,
-        // Removes the default underline.
         underline: const SizedBox(),
-        // Hint text displayed when no item is selected.
         hint: Text(
           dropButtonModel.hintText,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          softWrap: false,
-          style: TextStyle(fontSize: dropButtonModel.hintSize),
+          style: GoogleFonts.tajawal(
+            fontSize: dropButtonModel.hintSize ?? 18.sp,
+            color: Colors.grey,
+          ),
         ),
-        // List of items to display in the dropdown.
-        items: dropButtonModel.listOfData.map((department) {
+        items: dropButtonModel.listOfData.map((data) {
           return DropdownMenuItem(
-            value: department,
+            value: data,
             child: Text(
-              department.toString(),
-              style: TextStyle(fontSize: dropButtonModel.hintSize),
+              data.toString(),
+              style: GoogleFonts.tajawal(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           );
         }).toList(),
-        // Callback when an item is selected.
-        // Updates the selectedData in the dropButtonModel.
         onChanged: dropButtonModel.onChanged,
         buttonStyleData: ButtonStyleData(
-          height: 58.h,
+          height: 65.h,
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondaryFixed,
-            // Rounded corners for the button.
+            color: Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(15.r),
             border: Border.all(
-              color: Theme.of(context).colorScheme.onSecondaryFixed,
+              color: Colors.grey.withOpacity(0.2),
+              width: 1,
             ),
           ),
         ),
         dropdownStyleData: DropdownStyleData(
-          // Offset for the dropdown menu.
-          offset: Offset(0, -10.h),
+          offset: Offset(0, -5.h),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSecondaryFixed,
-            // Rounded corners for the dropdown menu.
-            borderRadius: BorderRadius.circular(20.r),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.onSecondaryFixed,
-            ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
           ),
         ),
       ),

@@ -20,14 +20,14 @@ class SideBarAdminTop extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            radius: 50.r,
+            radius: 65.r,
             backgroundImage: const AssetImage(AppImages.logo),
             backgroundColor: AppColors.transparent,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           CustomText(
             title: "accreditationQualitySystem".tr(),
-            textStyle: Theme.of(context).textTheme.headlineLarge!,
+            textStyle: Theme.of(context).textTheme.headlineLarge!
           ),
           const SizedBox(height: 10),
           CustomDrawerAndBackWidget(controller: inherited.controller),

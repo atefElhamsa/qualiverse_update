@@ -162,7 +162,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
             if (isLoading)
               Padding(
                 padding: EdgeInsetsDirectional.only(end: 8.w),
-                child: SizedBox(
+                child: const SizedBox(
                   width: 14,
                   height: 14,
                   child: CircularProgressIndicator(
@@ -176,14 +176,18 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
               icon: const Icon(Icons.keyboard_arrow_down, size: 18),
               style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
               items: dynamicRoles
-                  .map((role) => DropdownMenuItem(
-                        value: role,
-                        child: Text(
-                          role == 'All' ? 'all'.tr() : (role + "Role").tr(),
-                        ),
-                      ))
+                  .map(
+                    (role) => DropdownMenuItem(
+                      value: role,
+                      child: Text(
+                        role == 'All' ? 'all'.tr() : (role + "Role").tr(),
+                      ),
+                    ),
+                  )
                   .toList(),
-              onChanged: isLoading ? null : (val) => setState(() => selectedRole = val!),
+              onChanged: isLoading
+                  ? null
+                  : (val) => setState(() => selectedRole = val!),
             ),
           ],
         ),
@@ -199,43 +203,42 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
         }
       },
       child: BlocListener<UsersCubit, UsersState>(
-      listener: (context, state) {
-        if (state is ActivateDeactivateUserSuccess) {
-          showSnackBar(context, state.message, AppColors.green);
-          UsersCubit.get(context).fetchUsers();
-        }
-        if (state is ActivateDeactivateUserFailure) {
-          showSnackBar(context, state.error, AppColors.red);
-        }
-      },
-      child: Builder(
-        builder: (context) {
-          if (state is UsersLoading || state is ActivateDeactivateUserLoading) {
-            return const Center(child: CustomLoading());
+        listener: (context, state) {
+          if (state is ActivateDeactivateUserSuccess) {
+            showSnackBar(context, state.message, AppColors.green);
+            UsersCubit.get(context).fetchUsers();
           }
-          if (state is UsersFailure) {
-            return Center(
-              child: Text(
-                state.error,
-                style: const TextStyle(color: Colors.red),
-              ),
-            );
+          if (state is ActivateDeactivateUserFailure) {
+            showSnackBar(context, state.error, AppColors.red);
           }
-          if (state is UsersSuccess) {
-            return buildTable(filteredUsers(state.users));
-          }
-          return const SizedBox();
         },
+        child: Builder(
+          builder: (context) {
+            if (state is UsersLoading ||
+                state is ActivateDeactivateUserLoading) {
+              return const Center(child: CustomLoading());
+            }
+            if (state is UsersFailure) {
+              return Center(
+                child: Text(
+                  state.error,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              );
+            }
+            if (state is UsersSuccess) {
+              return buildTable(filteredUsers(state.users));
+            }
+            return const SizedBox();
+          },
+        ),
       ),
-    ),
     );
   }
 
   Widget buildTable(List<UserManagementModel> users) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

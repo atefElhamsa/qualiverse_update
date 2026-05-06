@@ -20,7 +20,7 @@ class DepartmentBody extends StatelessWidget {
           Center(
             child: CustomText(
               title: "SelectTheDepartmentAndAcademicYear".tr(),
-              textStyle: Theme.of(context).textTheme.labelLarge!,
+              textStyle: Theme.of(context).textTheme.displaySmall!,
             ),
           ),
           // Display department body details
