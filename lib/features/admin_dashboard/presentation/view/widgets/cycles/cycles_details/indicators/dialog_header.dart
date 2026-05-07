@@ -18,7 +18,7 @@ class DialogHeader extends StatelessWidget {
           title: 'assignIndicator'.tr(),
           textStyle: Theme.of(
             context,
-          ).textTheme.titleLarge!.copyWith(fontSize: 18.sp),
+          ).textTheme.titleLarge!.copyWith(fontSize: 15.sp),
         ),
         IconButton(onPressed: onClose, icon: const Icon(Icons.close)),
       ],

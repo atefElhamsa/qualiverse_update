@@ -36,7 +36,7 @@ class EvidenceChartProgram extends StatelessWidget {
               text: 'evidencePerCriterion'.tr(),
               textStyle: Theme.of(
                 context,
-              ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+              ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
             ),
             plotAreaBorderWidth: 0,
             backgroundColor:
@@ -48,13 +48,13 @@ class EvidenceChartProgram extends StatelessWidget {
                 text: 'criterionName'.tr(),
                 textStyle: Theme.of(
                   context,
-                ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
               ),
               majorGridLines: const MajorGridLines(width: 0),
               axisLine: const AxisLine(width: 0),
               majorTickLines: const MajorTickLines(size: 0),
               labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                fontSize: 16.sp,
+                fontSize: 13.sp,
                 color: AppColors.textGrey,
               ),
             ),
@@ -136,7 +136,7 @@ class EvidenceChartProgram extends StatelessWidget {
         widget: CustomText(
           title: '$total',
           textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-            fontSize: 16.sp,
+            fontSize: 13.sp,
             fontWeight: FontWeight.bold,
             color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
                 ? AppColors.mainBlack

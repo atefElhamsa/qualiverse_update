@@ -72,7 +72,7 @@ class NotificationHeader extends StatelessWidget {
                             child: CustomText(
                               title: "mark_all_as_read".tr(),
                               textStyle: TextStyle(
-                                fontSize: 12.sp,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w600,
                                 color: isMarkAllEnabled
                                     ? AppColors.progressColor
@@ -99,7 +99,7 @@ class NotificationHeader extends StatelessWidget {
                                         color: AppColors.greyLight.withOpacity(
                                           0.3,
                                         ),
-                                        fontSize: 12.sp,
+                                        fontSize: 13.sp,
                                       ),
                                     ),
                                   ),
@@ -113,7 +113,7 @@ class NotificationHeader extends StatelessWidget {
                                     child: CustomText(
                                       title: "cleanup_notifications".tr(),
                                       textStyle: TextStyle(
-                                        fontSize: 12.sp,
+                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.w600,
                                         color: isCleanupEnabled
                                             ? AppColors.rejectedColorIndicator
@@ -147,21 +147,21 @@ class NotificationHeader extends StatelessWidget {
                 value: null,
                 child: CustomText(
                   title: "all".tr(),
-                  textStyle: TextStyle(fontSize: 14.sp),
+                  textStyle: TextStyle(fontSize: 15.sp),
                 ),
               ),
               DropdownMenuItem(
                 value: true,
                 child: CustomText(
                   title: "read".tr(),
-                  textStyle: TextStyle(fontSize: 14.sp),
+                  textStyle: TextStyle(fontSize: 15.sp),
                 ),
               ),
               DropdownMenuItem(
                 value: false,
                 child: CustomText(
                   title: "unread".tr(),
-                  textStyle: TextStyle(fontSize: 14.sp),
+                  textStyle: TextStyle(fontSize: 15.sp),
                 ),
               ),
             ],
@@ -206,7 +206,7 @@ class NotificationHeader extends StatelessWidget {
                   Text(
                     "retention_period".tr(),
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
                       color: AppColors.greyLight,
                     ),
@@ -220,21 +220,21 @@ class NotificationHeader extends StatelessWidget {
                         value: 7,
                         child: CustomText(
                           title: "last_7_days".tr(),
-                          textStyle: TextStyle(fontSize: 14.sp),
+                          textStyle: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                       DropdownMenuItem(
                         value: 30,
                         child: CustomText(
                           title: "last_30_days".tr(),
-                          textStyle: TextStyle(fontSize: 14.sp),
+                          textStyle: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                       DropdownMenuItem(
                         value: 90,
                         child: CustomText(
                           title: "last_90_days".tr(),
-                          textStyle: TextStyle(fontSize: 14.sp),
+                          textStyle: TextStyle(fontSize: 15.sp),
                         ),
                       ),
                     ],
@@ -248,7 +248,7 @@ class NotificationHeader extends StatelessWidget {
                   Text(
                     "${"confirmDeleteFile".tr()} ${"notifications".tr()}?",
                     style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 13.sp,
                       color: AppColors.mainBlack.withOpacity(0.7),
                       height: 1.4,
                     ),

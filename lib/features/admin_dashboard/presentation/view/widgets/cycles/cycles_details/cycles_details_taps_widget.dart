@@ -37,10 +37,10 @@ class CyclesDetailsTapsWidget extends StatelessWidget {
             unselectedLabelColor: AppColors.mainGrey,
             padding: EdgeInsets.zero,
             labelPadding: EdgeInsetsDirectional.only(start: 30.w),
-            labelStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+            labelStyle: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
             unselectedLabelStyle: TextStyle(
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w600,
             ),
             tabs: tabs.map((tab) {
               final title = context.locale.languageCode == 'ar'

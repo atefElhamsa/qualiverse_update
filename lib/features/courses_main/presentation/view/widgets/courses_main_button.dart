@@ -14,11 +14,11 @@ class CoursesMainButton extends StatelessWidget {
       padding: EdgeInsets.only(
         left: locale == const Locale('ar') ? 0 : 18.w,
         right: locale == const Locale('ar') ? 0 : 18.w,
-        top: 60.h,
+        top: 0.h,
       ),
       child: SizedBox(
-        width: 144.w,
-        height: 48.h,
+        width: 160.w,
+        height: 50.h,
         child: CustomButton(
           buttonModel: ButtonModel(
             onPressed: () {
@@ -28,12 +28,12 @@ class CoursesMainButton extends StatelessWidget {
               ).selectedDepartment;
               final level = LevelCubit.get(context).selectedLevel;
               final semester = TermCubit.get(context).selectedTerm;
-              if (year == null || level == null || semester == null) {
-                showSnackBar(
-                  context,
-                  "pleaseSelectedYearAndDepartment".tr(),
-                  AppColors.red,
-                );
+              if (year == null) {
+                showSnackBar(context, "Select Year", AppColors.red);
+              } else if (level == null) {
+                showSnackBar(context, "Select Level", AppColors.red);
+              } else if (semester == null) {
+                showSnackBar(context, "Select Term", AppColors.red);
               } else {
                 context.pushNamed(
                   AppRoutes.coursesFirstAndSecondTermScreen,
@@ -52,7 +52,11 @@ class CoursesMainButton extends StatelessWidget {
               title: "next".tr(),
               textStyle: Theme.of(
                 context,
-              ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+              ).textTheme.headlineMedium!.copyWith(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18.sp,
+                  ),
             ),
           ),
         ),

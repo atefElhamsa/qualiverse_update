@@ -25,9 +25,9 @@ class ResetAndDescriptionTextWidget extends StatelessWidget {
         CustomText(
           title: "checkEmail".tr(),
           textStyle: GoogleFonts.inter(
-            fontSize: 12.sp,
+            fontSize: 13.sp,
             color: AppColors.descResetColor,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

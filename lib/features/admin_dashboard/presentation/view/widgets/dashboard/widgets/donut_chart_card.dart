@@ -33,7 +33,7 @@ class DashboardDonutChartCard extends StatelessWidget {
             title: title.tr(),
             textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
               fontWeight: FontWeight.w800,
-              fontSize: 16.sp,
+              fontSize: 13.sp,
               color: AppColors.mainBlack,
             ),
           ),
@@ -82,7 +82,7 @@ class DashboardDonutChartCard extends StatelessWidget {
                                 .copyWith(
                                   color: AppColors.textGrey,
                                   fontSize: 11.sp,
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                 ),
                           ),
                         ],
@@ -138,7 +138,7 @@ class DashboardDonutChartCard extends StatelessWidget {
                           textStyle: Theme.of(context).textTheme.bodySmall!
                               .copyWith(
                                 fontWeight: FontWeight.w700,
-                                fontSize: 12.sp,
+                                fontSize: 13.sp,
                                 color: AppColors.mainBlack,
                               ),
                         ),
@@ -148,7 +148,7 @@ class DashboardDonutChartCard extends StatelessWidget {
                               .copyWith(
                                 color: AppColors.textGrey.withOpacity(0.6),
                                 fontSize: 10.sp,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w600,
                               ),
                         ),
                       ],
@@ -159,7 +159,7 @@ class DashboardDonutChartCard extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontWeight: FontWeight.w800,
                       color: l.color,
-                      fontSize: 18.sp,
+                      fontSize: 15.sp,
                     ),
                   ),
                 ],

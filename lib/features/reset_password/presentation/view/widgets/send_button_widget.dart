@@ -38,7 +38,7 @@ class SendButtonWidget extends StatelessWidget {
                     customText: CustomText(
                       title: "send".tr(),
                       textStyle: GoogleFonts.inter(
-                        fontSize: 16.sp,
+                        fontSize: 13.sp,
                         color: AppColors.white,
                         fontWeight: FontWeight.w900,
                       ),

@@ -58,13 +58,13 @@ class CustomTextFormField extends StatelessWidget {
               ),
               hintText: textFieldModel.hintText,
               hintStyle: Theme.of(context).textTheme.labelSmall!.copyWith(
-                fontSize: 16.sp,
+                fontSize: 13.sp,
                 color: AppColors.greyLight,
               ),
               label: textFieldModel.customTextLabel,
-              errorStyle: GoogleFonts.cairo(
+              errorStyle: GoogleFonts.almarai(
                 color: AppColors.red,
-                fontSize: 12.sp,
+                fontSize: 13.sp,
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.r),

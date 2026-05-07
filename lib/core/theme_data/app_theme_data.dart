@@ -22,63 +22,63 @@ class AppThemeData {
       onPrimaryContainer: AppColors.greyLight,
     ),
     textTheme: TextTheme(
-      displayLarge: GoogleFonts.tajawal(
+      displayLarge: GoogleFonts.almarai(
         fontSize: 50.sp,
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      displayMedium: GoogleFonts.tajawal(
+      displayMedium: GoogleFonts.almarai(
         fontSize: 42.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.black,
       ),
-      displaySmall: GoogleFonts.tajawal(
+      displaySmall: GoogleFonts.almarai(
         fontSize: 26.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.black,
       ),
-      headlineLarge: GoogleFonts.tajawal(
-        fontSize: 22.sp,
+      headlineLarge: GoogleFonts.almarai(
+        fontSize: 24.sp,
         fontWeight: FontWeight.w600,
         color: AppColors.black,
       ),
-      titleLarge: GoogleFonts.tajawal(
+      titleLarge: GoogleFonts.almarai(
         fontSize: 50.sp,
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      bodyMedium: GoogleFonts.tajawal(
-        fontSize: 20.sp,
+      bodyMedium: GoogleFonts.almarai(
+        fontSize: 22.sp,
         fontWeight: FontWeight.w500,
         color: AppColors.black,
       ),
-      headlineMedium: GoogleFonts.tajawal(
-        fontSize: 34.sp,
+      headlineMedium: GoogleFonts.almarai(
+        fontSize: 36.sp,
         fontWeight: FontWeight.w500,
         color: AppColors.white,
       ),
-      labelLarge: GoogleFonts.tajawal(
+      labelLarge: GoogleFonts.almarai(
         fontSize: 52.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.mainBlack,
       ),
-      headlineSmall: GoogleFonts.tajawal(
+      headlineSmall: GoogleFonts.almarai(
         fontSize: 34.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.mainBlack,
       ),
-      bodySmall: GoogleFonts.tajawal(
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w400,
+      bodySmall: GoogleFonts.almarai(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.w500,
         color: AppColors.mainBlack,
       ),
-      labelSmall: GoogleFonts.tajawal(
+      labelSmall: GoogleFonts.almarai(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         color: AppColors.redLight,
       ),
-      titleSmall: GoogleFonts.tajawal(
-        fontSize: 22.sp,
+      titleSmall: GoogleFonts.almarai(
+        fontSize: 24.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.colorButtonLight,
       ),
@@ -94,9 +94,9 @@ class AppThemeData {
     inputDecorationTheme: InputDecorationTheme(
       // filled: true,
       // fillColor: AppColors.grey,
-      hintStyle: GoogleFonts.tajawal(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w400,
+      hintStyle: GoogleFonts.almarai(
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w500,
         color: AppColors.grey,
       ),
       // Outline border styles for input fields.
@@ -109,9 +109,9 @@ class AppThemeData {
       // Color for the suffix icon in input fields.
       suffixIconColor: AppColors.mainBlack,
       // Style for error messages in input fields.
-      errorStyle: GoogleFonts.tajawal(
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
+      errorStyle: GoogleFonts.almarai(
+        fontSize: 15.sp,
+        fontWeight: FontWeight.w600,
         color: AppColors.red,
       ),
     ),

@@ -69,7 +69,7 @@ class _PopupHeader extends StatelessWidget {
                 title: "notifications".tr(),
                 textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                 ),
               ),
             ],
@@ -172,7 +172,7 @@ class _IconBadge extends StatelessWidget {
         color: config.color.withOpacity(0.1),
         shape: BoxShape.circle,
       ),
-      child: Icon(config.icon, color: config.color, size: 18.sp),
+      child: Icon(config.icon, color: config.color, size: 15.sp),
     );
   }
 }
@@ -200,7 +200,7 @@ class _NotificationContent extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 textStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontWeight: isUnread ? FontWeight.bold : FontWeight.w600,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   color: isUnread ? AppColors.mainBlack : AppColors.greyLight,
                 ),
               ),
@@ -225,7 +225,7 @@ class _NotificationContent extends StatelessWidget {
             color: isUnread
                 ? AppColors.mainBlack.withOpacity(0.8)
                 : AppColors.greyLight,
-            fontSize: 12.sp,
+            fontSize: 13.sp,
             height: 1.3,
           ),
         ),
@@ -256,7 +256,7 @@ class _NotificationContent extends StatelessWidget {
               textStyle: TextStyle(
                 fontSize: 9.sp,
                 color: AppColors.greyLight.withOpacity(0.6),
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -295,7 +295,7 @@ class _PopupFooter extends StatelessWidget {
               CustomText(
                 title: "view_all".tr(),
                 textStyle: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
                   color: AppColors.progressColor,
                 ),
@@ -303,7 +303,7 @@ class _PopupFooter extends StatelessWidget {
               SizedBox(width: 8.w),
               Icon(
                 Icons.arrow_forward_ios_rounded,
-                size: 12.sp,
+                size: 13.sp,
                 color: AppColors.progressColor,
               ),
             ],

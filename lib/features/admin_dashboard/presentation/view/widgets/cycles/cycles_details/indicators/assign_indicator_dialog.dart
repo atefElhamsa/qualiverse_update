@@ -91,7 +91,7 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
               color: AppColors.white,
             ),
             headerHelpStyle: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               color: AppColors.white.withOpacity(0.8),
             ),
           ),
@@ -99,7 +99,7 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
             style: TextButton.styleFrom(
               foregroundColor: AppColors.blue,
               textStyle: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),

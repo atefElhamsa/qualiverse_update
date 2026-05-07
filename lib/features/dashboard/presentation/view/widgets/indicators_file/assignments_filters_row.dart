@@ -30,7 +30,7 @@ class AssignmentsFiltersRow extends StatelessWidget {
                 CustomText(
                   title: 'academicYear'.tr(),
                   textStyle: GoogleFonts.inter(
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSecondary,
                   ),
@@ -73,7 +73,7 @@ class AssignmentsFiltersRow extends StatelessWidget {
                 CustomText(
                   title: 'status'.tr(),
                   textStyle: GoogleFonts.inter(
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSecondary,
                   ),

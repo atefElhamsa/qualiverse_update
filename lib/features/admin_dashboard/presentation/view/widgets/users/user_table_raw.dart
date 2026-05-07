@@ -32,7 +32,7 @@ class UserTableRow extends StatelessWidget {
                   title: user.fullName,
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
+                  ).textTheme.titleMedium!.copyWith(fontSize: 15.sp),
                 ),
               ),
               Expanded(
@@ -41,7 +41,7 @@ class UserTableRow extends StatelessWidget {
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
+                  ).textTheme.titleMedium!.copyWith(fontSize: 15.sp),
                 ),
               ),
               Expanded(
@@ -50,7 +50,7 @@ class UserTableRow extends StatelessWidget {
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
+                  ).textTheme.titleMedium!.copyWith(fontSize: 15.sp),
                 ),
               ),
               Expanded(

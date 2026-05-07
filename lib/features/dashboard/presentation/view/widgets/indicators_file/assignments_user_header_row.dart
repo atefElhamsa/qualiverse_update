@@ -39,7 +39,7 @@ class AssignmentsUserHeaderRow extends StatelessWidget {
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w700,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),

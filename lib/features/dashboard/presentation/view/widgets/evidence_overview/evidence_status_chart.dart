@@ -43,7 +43,7 @@ class EvidenceStatusChartView extends StatelessWidget {
             title: 'evidenceStatusDistribution'.tr(),
             textStyle: Theme.of(
               context,
-            ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+            ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
           ),
           const SizedBox(height: 16),
           LayoutBuilder(

@@ -30,7 +30,7 @@ class DocumentsHeaderRow extends StatelessWidget {
               overflow: TextOverflow.visible,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w800,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),

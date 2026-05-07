@@ -63,10 +63,10 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
   Future<void> _pickAndUpload() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result == null || result.files.isEmpty) return;
-    
+
     final cubit = EvidenceFolderFilesCubit.get(context);
     List<dio.MultipartFile> multipartFiles = [];
-    
+
     for (var f in result.files) {
       if (f.path != null) {
         final multipartFile = await dio.MultipartFile.fromFile(
@@ -106,7 +106,7 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
         builder: (context, state) {
           final cubit = EvidenceFolderFilesCubit.get(context);
           final isUploading = state is UploadEvidenceFilesLoading;
-          
+
           return Stack(
             children: [
               Column(
@@ -121,9 +121,7 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
               if (isUploading)
                 Container(
                   color: Colors.white.withOpacity(0.4),
-                  child: const Center(
-                    child: CustomLoading(),
-                  ),
+                  child: const Center(child: CustomLoading()),
                 ),
             ],
           );
@@ -147,8 +145,11 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                   color: const Color(0xFFE8F1FF),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: Icon(Icons.arrow_back_ios_new_rounded,
-                    color: const Color(0xFF4285F4), size: 16.sp),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: const Color(0xFF4285F4),
+                  size: 13.sp,
+                ),
               ),
             ),
           ),
@@ -159,21 +160,31 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
               color: const Color(0xFF0F569E),
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(Icons.folder_open_rounded,
-                color: Colors.white, size: 22.sp),
+            child: Icon(
+              Icons.folder_open_rounded,
+              color: Colors.white,
+              size: 22.sp,
+            ),
           ),
           SizedBox(width: 15.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.folderName.tr(),
-                  style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A1A1A))),
-              Text('$count ${'files'.tr()}',
-                  style: GoogleFonts.cairo(
-                      fontSize: 12.sp, color: Colors.grey.shade500)),
+              Text(
+                widget.folderName.tr(),
+                style: GoogleFonts.almarai(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF1A1A1A),
+                ),
+              ),
+              Text(
+                '$count ${'files'.tr()}',
+                style: GoogleFonts.almarai(
+                  fontSize: 13.sp,
+                  color: Colors.grey.shade500,
+                ),
+              ),
             ],
           ),
         ],
@@ -205,15 +216,21 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                             width: 16.w,
                             height: 16.h,
                             child: const CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2))
-                        : Icon(Icons.upload_file_rounded,
-                            color: Colors.white, size: 18.sp),
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Icon(
+                            Icons.upload_file_rounded,
+                            color: Colors.white,
+                            size: 15.sp,
+                          ),
                     SizedBox(width: 8.w),
                     Text(
                       'uploadFile'.tr(),
-                      style: GoogleFonts.cairo(
+                      style: GoogleFonts.almarai(
                         color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -236,10 +253,15 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
                 onChanged: (v) => cubit.searchFiles(v),
                 decoration: InputDecoration(
                   hintText: 'searchFile'.tr(),
-                  hintStyle: GoogleFonts.cairo(
-                      color: Colors.grey.shade400, fontSize: 13.sp),
-                  prefixIcon: Icon(Icons.search_rounded,
-                      color: Colors.grey.shade400, size: 18.sp),
+                  hintStyle: GoogleFonts.almarai(
+                    color: Colors.grey.shade400,
+                    fontSize: 13.sp,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: Colors.grey.shade400,
+                    size: 15.sp,
+                  ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 8.h),
                 ),
@@ -283,12 +305,16 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.folder_open_rounded,
-                size: 64.sp, color: Colors.grey.shade300),
+            Icon(
+              Icons.folder_open_rounded,
+              size: 64.sp,
+              color: Colors.grey.shade300,
+            ),
             SizedBox(height: 12.h),
-            Text("noDataFound".tr(),
-                style: GoogleFonts.cairo(
-                    fontSize: 16.sp, color: Colors.grey)),
+            Text(
+              "noDataFound".tr(),
+              style: GoogleFonts.almarai(fontSize: 13.sp, color: Colors.grey),
+            ),
           ],
         ),
       );

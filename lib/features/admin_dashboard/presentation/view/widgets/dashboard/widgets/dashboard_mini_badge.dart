@@ -38,7 +38,7 @@ class DashboardMiniBadge extends StatelessWidget {
       ),
       textStyle: TextStyle(
         color: AppColors.mainBlack,
-        fontSize: 12.sp,
+        fontSize: 13.sp,
         fontWeight: FontWeight.w600,
       ),
       child: Container(
@@ -52,7 +52,7 @@ class DashboardMiniBadge extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color, size: 12.sp),
+            Icon(icon, color: color, size: 13.sp),
             SizedBox(width: 4.w),
             CustomText(
               title: value,

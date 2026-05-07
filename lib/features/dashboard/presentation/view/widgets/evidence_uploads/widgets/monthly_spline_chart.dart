@@ -66,7 +66,7 @@ class MonthlySplineChart extends StatelessWidget {
         labelIntersectAction: AxisLabelIntersectAction.none,
         labelAlignment: LabelAlignment.center,
         labelStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-          fontSize: 14.sp,
+          fontSize: 15.sp,
           color: isWhite ? AppColors.textGrey : AppColors.white,
         ),
       ),
@@ -88,7 +88,7 @@ class MonthlySplineChart extends StatelessWidget {
             labelAlignment: ChartDataLabelAlignment.top,
             textStyle: Theme.of(
               context,
-            ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+            ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
           ),
         ),
       ],
@@ -110,8 +110,8 @@ class MonthlySplineChart extends StatelessWidget {
         CustomText(
           title: 'totalUploads'.tr(),
           textStyle: GoogleFonts.inter(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
             color: AppColors.textGrey.withOpacity(0.2),
           ),
         ),

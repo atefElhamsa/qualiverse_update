@@ -27,7 +27,7 @@ class RetryWidget extends StatelessWidget {
             child: CustomText(
               title: title.replaceFirst('Exception: ', '').trim(),
               textAlign: TextAlign.center,
-              textStyle: GoogleFonts.cairo(
+              textStyle: GoogleFonts.almarai(
                 fontSize: 20.sp,
                 color: AppColors.red,
                 fontWeight: FontWeight.bold,
@@ -41,9 +41,9 @@ class RetryWidget extends StatelessWidget {
               icon: const Icon(Icons.refresh_rounded, color: Colors.white),
               label: Text(
                 "retry".tr(),
-                style: GoogleFonts.cairo(
+                style: GoogleFonts.almarai(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                 ),
               ),
               style: ElevatedButton.styleFrom(

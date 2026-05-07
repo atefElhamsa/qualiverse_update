@@ -112,7 +112,7 @@ class EvidencePieChart extends StatelessWidget {
                     title: 'totalIndicators'.tr(),
                     textStyle: GoogleFonts.inter(
                       fontSize: 10.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.textGrey.withOpacity(0.4),
                     ),
                   ),

@@ -531,5 +531,21 @@
   "totalFilesUploaded": "Total Files Uploaded",
   "allLevels": "All Levels",
   "allTypes": "All Types",
-  "totalUsers": "Total Users"
+  "totalUsers": "Total Users",
+  "uploadStatisticsFile": "Upload Statistics File",
+  "previewResults": "Preview Results",
+  "reviewMatchesBeforeConfirming": "Please review the course matches below before confirming the upload.",
+  "coursesList": "Courses List",
+  "fileCourseName": "Course in File",
+  "fromFile": "From Excel File",
+  "matchedCourseName": "Matched System Course",
+  "matchedSystemCourse": "Matched System Course",
+  "matchScore": "Match Score",
+  "attentionRequired": "Attention Required",
+  "unmatchedRowsWarning": "There are some rows that were not matched automatically. Please select the appropriate course for them manually.",
+  "confirmUpload": "Confirm Upload",
+  "matchedCount": "Matched Count",
+  "unmatchedCount": "Unmatched Count",
+  "matched": "Matched",
+  "unmatched": "Unmatched"
 }

@@ -12,7 +12,7 @@ class CriterionBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
       decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(15.r)),
-      child: CustomText(title: title, textAlign: TextAlign.center, textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 12.sp, color: textColor)),
+      child: CustomText(title: title, textAlign: TextAlign.center, textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 13.sp, color: textColor)),
     );
   }
 }

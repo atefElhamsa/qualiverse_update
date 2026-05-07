@@ -60,7 +60,7 @@ class _AccreditationTypeDropDownWidgetState
                 isExpanded: true,
                 hint: Text(
                   'selectAccreditation'.tr(),
-                  style: TextStyle(fontSize: 14.sp),
+                  style: TextStyle(fontSize: 15.sp),
                 ),
                 icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
                 style: TextStyle(
@@ -74,7 +74,7 @@ class _AccreditationTypeDropDownWidgetState
                         value: e.id,
                         child: Text(
                           e.name.toLowerCase().tr(),
-                          style: TextStyle(fontSize: 14.sp),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                       );
                     }),

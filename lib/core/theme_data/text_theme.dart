@@ -9,12 +9,12 @@ TextTheme getAppTextTheme() => TextTheme(
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      displayMedium: GoogleFonts.cairo(
+      displayMedium: GoogleFonts.almarai(
         fontSize: 40.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.black,
       ),
-      displaySmall: GoogleFonts.cairo(
+      displaySmall: GoogleFonts.almarai(
         fontSize: 24.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.black,
@@ -24,39 +24,39 @@ TextTheme getAppTextTheme() => TextTheme(
         fontWeight: FontWeight.w600,
         color: AppColors.black,
       ),
-      titleLarge: GoogleFonts.cairo(
+      titleLarge: GoogleFonts.almarai(
         fontSize: 48.sp,
         fontWeight: FontWeight.w900,
         color: AppColors.black,
       ),
-      bodyMedium: GoogleFonts.cairo(
+      bodyMedium: GoogleFonts.almarai(
         fontSize: 24.sp,
         fontWeight: FontWeight.w600,
         color: AppColors.black,
       ),
-      headlineMedium: GoogleFonts.cairo(
+      headlineMedium: GoogleFonts.almarai(
         fontSize: 32.sp,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: AppColors.white,
       ),
-      labelLarge: GoogleFonts.cairo(
+      labelLarge: GoogleFonts.almarai(
         fontSize: 50.sp,
         fontWeight: FontWeight.w800,
         color: AppColors.mainBlack,
       ),
-      headlineSmall: GoogleFonts.cairo(
+      headlineSmall: GoogleFonts.almarai(
         fontSize: 32.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.mainBlack,
       ),
-      bodySmall: GoogleFonts.cairo(
+      bodySmall: GoogleFonts.almarai(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         color: AppColors.mainBlack,
       ),
       labelSmall: GoogleFonts.inter(
         fontSize: 20.sp,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         color: AppColors.redLight,
       ),
       titleSmall: GoogleFonts.inter(

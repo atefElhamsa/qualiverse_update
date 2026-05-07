@@ -31,7 +31,7 @@ class LoginButtonWidget extends StatelessWidget {
                       textStyle: GoogleFonts.inter(
                         fontWeight: FontWeight.w900,
                         color: AppColors.white,
-                        fontSize: 16.sp,
+                        fontSize: 13.sp,
                       ),
                     ),
                   ),
@@ -50,8 +50,8 @@ class LoginButtonWidget extends StatelessWidget {
                   CustomText(
                     title: "dontHaveAccount".tr(),
                     textStyle: GoogleFonts.inter(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
                       color:
                           Theme.of(context).scaffoldBackgroundColor ==
                               AppColors.white
@@ -66,8 +66,8 @@ class LoginButtonWidget extends StatelessWidget {
                     child: CustomText(
                       title: "signUp".tr(),
                       textStyle: GoogleFonts.inter(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
                         color:
                             Theme.of(context).scaffoldBackgroundColor ==
                                 AppColors.white

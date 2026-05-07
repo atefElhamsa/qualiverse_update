@@ -21,10 +21,10 @@ class FolderFilesEmptyState extends StatelessWidget {
           SizedBox(height: 16.h),
           Text(
             'noFile'.tr(),
-            style: GoogleFonts.cairo(
-              fontSize: 18.sp,
+            style: GoogleFonts.almarai(
+              fontSize: 15.sp,
               color: AppColors.greyLight,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

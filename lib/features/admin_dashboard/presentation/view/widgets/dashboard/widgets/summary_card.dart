@@ -81,7 +81,7 @@ class DashboardSummaryCard extends StatelessWidget {
                                     .copyWith(
                                       color: AppColors.textGrey,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: 14.sp,
+                                      fontSize: 15.sp,
                                     ),
                               ),
                             ),
@@ -116,7 +116,7 @@ class DashboardSummaryCard extends StatelessWidget {
                                       .labelSmall!
                                       .copyWith(
                                         color: AppColors.textGrey,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                   maxLines: 1,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
@@ -7,31 +8,67 @@ class CoursesMainDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Expanded(flex: 2, child: CoursesMainFields()),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 40.h),
-                  child: Image.asset(
-                    AppImages.accreditationImage,
-                    width: 447.w,
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 40.h),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.85),
+              borderRadius: BorderRadius.circular(30.r),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.6),
+                width: 1.5,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.scaffoldLight1.withOpacity(0.12),
+                  blurRadius: 40,
+                  offset: const Offset(0, 15),
+                ),
+              ],
             ),
-          ],
+            child: const CoursesMainFields(),
+          ),
         ),
-        const CoursesMainButton(),
-        const SizedBox(height: 20),
+        SizedBox(width: 50.w),
+        Expanded(
+          flex: 2,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: 300.w,
+                    height: 300.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        colors: [
+                          AppColors.scaffoldLight1.withOpacity(0.2),
+                          Colors.transparent,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    AppImages.accreditationImage,
+                    width: 400.w,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              const CoursesMainButton(),
+            ],
+          ),
+        ),
       ],
     );
   }

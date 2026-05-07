@@ -38,7 +38,7 @@ class ProfileImage extends StatelessWidget {
                         title: "upload_new_photo".tr(),
                         textStyle: Theme.of(context).textTheme.labelSmall!
                             .copyWith(
-                              fontSize: 16.sp,
+                              fontSize: 13.sp,
                               color:
                                   Theme.of(context).scaffoldBackgroundColor ==
                                       AppColors.white
@@ -49,7 +49,7 @@ class ProfileImage extends StatelessWidget {
                       CustomText(
                         title: "click_to_upload".tr(),
                         textStyle: Theme.of(context).textTheme.labelSmall!
-                            .copyWith(fontSize: 16.sp, color: AppColors.red),
+                            .copyWith(fontSize: 13.sp, color: AppColors.red),
                       ),
                     ],
                   ),

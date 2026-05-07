@@ -32,12 +32,12 @@ class KeepLoginWidget extends StatelessWidget {
           CustomText(
             title: "keepMeLoggedIn".tr(),
             textStyle: GoogleFonts.inter(
-              fontSize: 12.sp,
+              fontSize: 13.sp,
               color:
                   Theme.of(context).scaffoldBackgroundColor == AppColors.white
                   ? AppColors.colorButtonLight
                   : AppColors.white,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const Spacer(),
@@ -48,12 +48,12 @@ class KeepLoginWidget extends StatelessWidget {
             child: CustomText(
               title: "forgetPassword".tr(),
               textStyle: GoogleFonts.inter(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 color:
                     Theme.of(context).scaffoldBackgroundColor == AppColors.white
                     ? AppColors.colorButtonLight
                     : AppColors.white,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

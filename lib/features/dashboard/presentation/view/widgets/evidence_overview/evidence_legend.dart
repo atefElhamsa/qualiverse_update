@@ -23,7 +23,7 @@ class EvidenceLegend extends StatelessWidget {
             CustomText(
               title: 'status'.tr(),
               textStyle: GoogleFonts.inter(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.textGrey,
               ),
@@ -65,10 +65,10 @@ class EvidenceLegend extends StatelessWidget {
                       CustomText(
                         title: data[i].label.toLowerCase().tr(),
                         textStyle: GoogleFonts.inter(
-                          fontSize: 12.sp,
+                          fontSize: 13.sp,
                           fontWeight: isActive
                               ? FontWeight.w600
-                              : FontWeight.w400,
+                              : FontWeight.w600,
                           color: isActive ? data[i].color : AppColors.textBlack,
                         ),
                       ),

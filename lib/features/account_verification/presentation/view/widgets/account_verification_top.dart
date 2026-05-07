@@ -42,7 +42,7 @@ class AccountVerificationTop extends StatelessWidget {
                   child: CustomText(
                     title: "login".tr(),
                     textStyle: GoogleFonts.inter(
-                      fontSize: 16.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w900,
                       color: AppColors.loginButtonColor,
                     ),

@@ -36,7 +36,7 @@ class UpdateAndCancelButtons extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.headlineLarge!
                         .copyWith(
                           fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.white,
                         ),
                   ),
@@ -56,7 +56,7 @@ class UpdateAndCancelButtons extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.headlineLarge!
                         .copyWith(
                           fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           color: AppColors.white,
                         ),
                   ),

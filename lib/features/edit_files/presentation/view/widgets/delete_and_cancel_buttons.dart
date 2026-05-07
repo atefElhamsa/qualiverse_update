@@ -31,7 +31,7 @@ class DeleteAndCancelButtons extends StatelessWidget {
               title: isLoading ? "" : "delete".tr(),
               textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                 fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: AppColors.white,
               ),
             ),
@@ -64,7 +64,7 @@ class DeleteAndCancelButtons extends StatelessWidget {
               title: "cancel".tr(),
               textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
                 fontSize: 20.sp,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 color: AppColors.white,
               ),
             ),

@@ -48,7 +48,6 @@ class _SideBarItemState extends State<SideBarItem> {
             child:
                 AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
-                      padding: EdgeInsets.symmetric(vertical: 0.h),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? Colors.white.withOpacity(0.12)
@@ -76,7 +75,7 @@ class _SideBarItemState extends State<SideBarItem> {
                                 ? FontWeight.w800
                                 : FontWeight.w600,
                             fontSize: 14.sp,
-                            fontFamily: 'Tajawal',
+                            fontFamily: 'Almarai',
                           ),
                         ),
                       ),

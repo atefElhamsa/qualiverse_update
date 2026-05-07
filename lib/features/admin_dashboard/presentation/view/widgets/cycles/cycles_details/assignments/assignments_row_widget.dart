@@ -60,7 +60,7 @@ class AssignmentsRowWidget extends StatelessWidget {
         child: CustomText(
           textAlign: TextAlign.center,
           title: text,
-          textStyle: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack),
+          textStyle: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack),
         ),
       ),
     );
@@ -105,7 +105,7 @@ class AssignmentsRowWidget extends StatelessWidget {
           child: Text(
             translatedStatus,
             style: TextStyle(
-              fontSize: 12.sp,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w800,
               color: AppColors.white,
             ),

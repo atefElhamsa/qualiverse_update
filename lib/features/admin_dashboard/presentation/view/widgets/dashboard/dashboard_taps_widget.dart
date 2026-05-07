@@ -44,7 +44,7 @@ class DashboardTapsWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: AppColors.blue,
-                  fontSize: 18.sp,
+                  fontSize: 15.sp,
                 ),
               ),
               CustomText(

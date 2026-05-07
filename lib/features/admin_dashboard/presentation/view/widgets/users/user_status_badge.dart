@@ -32,7 +32,7 @@ class UserStatusBadge extends StatelessWidget {
           title: status.toLowerCase().tr(),
           textStyle: TextStyle(
             color: AppColors.white,
-            fontSize: 12.sp,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w600,
           ),
         ),

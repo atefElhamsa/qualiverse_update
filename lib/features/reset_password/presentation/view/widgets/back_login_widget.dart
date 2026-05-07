@@ -17,7 +17,7 @@ class BackLoginWidget extends StatelessWidget {
       child: CustomText(
         title: "backToLogin".tr(),
         textStyle: GoogleFonts.inter(
-          fontSize: 16.sp,
+          fontSize: 13.sp,
           color: AppColors.descResetColor,
           fontWeight: FontWeight.w900,
         ),

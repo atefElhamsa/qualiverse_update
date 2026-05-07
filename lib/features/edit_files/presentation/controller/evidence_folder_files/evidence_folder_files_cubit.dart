@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
+import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
 import 'package:qualiverse/features/edit_files/data/service/evidence_file_statistics_service.dart';
 import 'package:qualiverse/features/edit_files/data/service/evidence_folder_files_services.dart';
 import 'evidence_folder_files_state.dart';
@@ -18,6 +19,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
   List<EvidenceFileModel> allFiles = [];
   List<EvidenceFileModel> filteredFiles = [];
   List<EvidenceFileStatisticsModel> statisticsFiles = [];
+  StatisticsPreviewData? currentPreviewData;
 
   int? lastYearId;
   int? lastTermId;
@@ -26,6 +28,70 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
   int? lastCourseId;
   int? lastFolderId;
   EvidenceFolderType currentType = EvidenceFolderType.standard;
+
+  Future<void> previewStatisticsFile({
+    required MultipartFile file,
+    int? departmentId,
+    required int academicYearId,
+    required int termId,
+    required int levelId,
+  }) async {
+    try {
+      emit(StatisticsPreviewLoading());
+      final response = await EvidenceFileStatisticsService.previewStatistics(
+        file: file,
+        academicYearId: academicYearId,
+        departmentId: departmentId,
+        levelId: levelId,
+        termId: termId,
+        lang: 'ar',
+      );
+
+      if (response.isSuccess && response.data != null) {
+        currentPreviewData = response.data;
+        emit(StatisticsPreviewSuccess(previewData: response.data!));
+      } else {
+        emit(
+          StatisticsPreviewFailure(
+            error: response.error?.description ?? 'Failed to preview file',
+          ),
+        );
+      }
+    } catch (e) {
+      emit(StatisticsPreviewFailure(error: e.toString()));
+    }
+  }
+
+  Future<void> confirmStatisticsUpload({
+    required String previewId,
+    List<Map<String, dynamic>>? courseOverrides,
+    int? departmentId,
+    required int academicYearId,
+    required int termId,
+    required int levelId,
+  }) async {
+    try {
+      emit(ConfirmStatisticsLoading());
+      final success = await EvidenceFileStatisticsService.confirmStatistics(
+        previewId: previewId,
+        courseOverrides: courseOverrides,
+      );
+
+      if (success) {
+        emit(ConfirmStatisticsSuccess(message: 'Upload confirmed successfully'));
+        await getStatistics(
+          academicYearId: academicYearId,
+          termId: termId,
+          levelId: levelId,
+          departmentId: departmentId,
+        );
+      } else {
+        emit(ConfirmStatisticsFailure(error: 'Failed to confirm upload'));
+      }
+    } catch (e) {
+      emit(ConfirmStatisticsFailure(error: e.toString()));
+    }
+  }
 
   Future<void> getEvidenceFiles({required int folderId}) async {
     currentType = EvidenceFolderType.standard;

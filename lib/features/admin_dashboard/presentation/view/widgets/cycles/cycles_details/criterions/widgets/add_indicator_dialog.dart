@@ -160,9 +160,9 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
             child: CustomText(
               title: label,
               textStyle: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: AppColors.grey,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -170,9 +170,9 @@ class _AddIndicatorDialogState extends State<AddIndicatorDialog> {
             child: CustomText(
               title: value,
               textStyle: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: AppColors.mainBlack,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

@@ -78,29 +78,7 @@ class _EvidenceFileStatisticsScreenState
     super.dispose();
   }
 
-  Future<void> _pickAndUpload() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: true);
-    if (result == null || result.files.isEmpty) return;
 
-    final cubit = EvidenceFolderFilesCubit.get(context);
-
-    final multipartFiles = await Future.wait(
-      result.files
-          .where((f) => f.path != null)
-          .map((f) => dio.MultipartFile.fromFile(f.path!, filename: f.name)),
-    );
-
-    if (!mounted) return;
-    for (var file in multipartFiles) {
-      await cubit.uploadStatisticsFile(
-        file: file,
-        departmentId: widget.departmentId,
-        academicYearId: widget.academicYearId,
-        termId: widget.termId,
-        levelId: widget.levelId,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,8 +123,6 @@ class _EvidenceFileStatisticsScreenState
                         children: [
                           Column(
                             children: [
-                              _buildToolbar(context, isUploading),
-                              SizedBox(height: 15.h),
                               Expanded(
                                 child: _buildBody(context, state, cubit),
                               ),
@@ -189,7 +165,7 @@ class _EvidenceFileStatisticsScreenState
                 child: Icon(
                   Icons.arrow_back_ios_new_rounded,
                   color: const Color(0xFF4285F4),
-                  size: 16.sp,
+                  size: 13.sp,
                 ),
               ),
             ),
@@ -213,16 +189,16 @@ class _EvidenceFileStatisticsScreenState
             children: [
               Text(
                 'statistics'.tr(),
-                style: GoogleFonts.cairo(
-                  fontSize: 18.sp,
+                style: GoogleFonts.almarai(
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
                   color: const Color(0xFF1A1A1A),
                 ),
               ),
               Text(
                 '$count ${'files'.tr()}',
-                style: GoogleFonts.cairo(
-                  fontSize: 12.sp,
+                style: GoogleFonts.almarai(
+                  fontSize: 13.sp,
                   color: Colors.grey.shade500,
                 ),
               ),
@@ -233,86 +209,7 @@ class _EvidenceFileStatisticsScreenState
     );
   }
 
-  Widget _buildToolbar(BuildContext context, bool isUploading) {
-    final cubit = EvidenceFolderFilesCubit.get(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: isUploading ? null : _pickAndUpload,
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: Container(
-                height: 42.h,
-                padding: EdgeInsets.symmetric(horizontal: 18.w),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF4285F4),
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Row(
-                  children: [
-                    isUploading
-                        ? SizedBox(
-                            width: 16.w,
-                            height: 16.h,
-                            child: const CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : Icon(
-                            Icons.upload_file_rounded,
-                            color: Colors.white,
-                            size: 18.sp,
-                          ),
-                    SizedBox(width: 8.w),
-                    Text(
-                      'uploadFile'.tr(),
-                      style: GoogleFonts.cairo(
-                        color: Colors.white,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 15.w),
-          Expanded(
-            child: Container(
-              height: 42.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: TextField(
-                controller: _searchController,
-                onChanged: (v) => cubit.searchFiles(v),
-                decoration: InputDecoration(
-                  hintText: 'searchFile'.tr(),
-                  hintStyle: GoogleFonts.cairo(
-                    color: Colors.grey.shade400,
-                    fontSize: 13.sp,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search_rounded,
-                    color: Colors.grey.shade400,
-                    size: 18.sp,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 8.h),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildBody(
     BuildContext context,
@@ -352,7 +249,7 @@ class _EvidenceFileStatisticsScreenState
             SizedBox(height: 12.h),
             Text(
               'noDataFound'.tr(),
-              style: GoogleFonts.cairo(fontSize: 16.sp, color: Colors.grey),
+              style: GoogleFonts.almarai(fontSize: 13.sp, color: Colors.grey),
             ),
           ],
         ),
@@ -391,9 +288,9 @@ class _EvidenceFileStatisticsScreenState
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
         unselectedLabelColor: Colors.grey.shade600,
-        labelStyle: GoogleFonts.cairo(
+        labelStyle: GoogleFonts.almarai(
           fontWeight: FontWeight.bold,
-          fontSize: 14.sp,
+          fontSize: 15.sp,
         ),
         tabs: [
           Tab(text: "files".tr()),
@@ -441,8 +338,8 @@ class _EvidenceFileStatisticsScreenState
                   SizedBox(height: 12.h),
                   Text(
                     "noDataAvailable".tr(),
-                    style: GoogleFonts.cairo(
-                      fontSize: 16.sp,
+                    style: GoogleFonts.almarai(
+                      fontSize: 13.sp,
                       color: Colors.grey,
                     ),
                   ),
@@ -453,7 +350,7 @@ class _EvidenceFileStatisticsScreenState
                     label: Text("refresh".tr()),
                     style: TextButton.styleFrom(
                       foregroundColor: const Color(0xFF0F569E),
-                      textStyle: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                      textStyle: GoogleFonts.almarai(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

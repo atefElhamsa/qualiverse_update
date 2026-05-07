@@ -116,7 +116,7 @@ class CustomBaseTable<T> extends StatelessWidget {
             child: CustomText(
               title: col.label,
               textStyle: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
                 color: headerTextColor ?? AppColors.mainBlack,
               ),

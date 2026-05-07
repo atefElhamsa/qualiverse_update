@@ -22,7 +22,7 @@ class CoursesMainBody extends StatelessWidget {
             child: CustomText(
               title: "coursesFile".tr(),
               textStyle: Theme.of(context).textTheme.displayLarge!.copyWith(
-                fontSize: 50.sp,
+                fontSize: 42.sp,
               ), // Apply custom text style.
             ),
           ),

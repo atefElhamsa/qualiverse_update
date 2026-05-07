@@ -28,6 +28,10 @@ class EndPoints {
   static const String uploadEvidenceGeneral = "EvidenceFolder/upload/general";
   static const String uploadEvidenceStatistics =
       "EvidenceFolder/upload/statistics";
+  static const String previewStatistics =
+      "EvidenceFolder/upload/statistics/preview";
+  static const String confirmStatistics =
+      "EvidenceFolder/upload/statistics/confirm";
   static const String newCriterion = "Criterion/new";
   static const String createNewIndicator = "Indicator";
   static const String newCriterionFromExistingTemplate =

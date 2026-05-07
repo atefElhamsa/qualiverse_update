@@ -60,7 +60,7 @@ class PassingRateCard extends StatelessWidget {
                     GaugeAnnotation(
                       widget: Text(
                         "${percentage.toInt()}%",
-                        style: GoogleFonts.cairo(
+                        style: GoogleFonts.almarai(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.bold,
                           color: const Color(0xFF0F569E),
@@ -77,7 +77,7 @@ class PassingRateCard extends StatelessWidget {
           SizedBox(height: 10.h),
           Text(
             "$passedCount/$totalCount ${"studentsPassed".tr()}",
-            style: GoogleFonts.cairo(
+            style: GoogleFonts.almarai(
               fontSize: 11.sp,
               fontWeight: FontWeight.bold,
               color: Colors.grey.shade700,

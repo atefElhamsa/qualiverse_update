@@ -17,8 +17,8 @@ class GradeDistributionSection extends StatelessWidget {
         Center(
           child: Text(
             "gradeDistribution".tr(),
-            style: GoogleFonts.cairo(
-              fontSize: 18.sp,
+            style: GoogleFonts.almarai(
+              fontSize: 15.sp,
               fontWeight: FontWeight.bold,
               color: const Color(0xFF1A1A1A),
             ),
@@ -55,7 +55,7 @@ class GradeDistributionSection extends StatelessWidget {
       primaryXAxis: CategoryAxis(
         majorGridLines: const MajorGridLines(width: 0),
         axisLine: const AxisLine(width: 0),
-        labelStyle: GoogleFonts.cairo(
+        labelStyle: GoogleFonts.almarai(
           fontWeight: FontWeight.bold,
           color: const Color(0xFF1A1A1A),
           fontSize: 10.sp,
@@ -131,7 +131,7 @@ class GradeDistributionSection extends StatelessWidget {
             widget: Icon(
               specialGrades[grade.label],
               color: grade.color.withOpacity(0.8),
-              size: 18.sp,
+              size: 15.sp,
             ),
             coordinateUnit: CoordinateUnit.point,
             x: grade.label,

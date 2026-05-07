@@ -29,7 +29,7 @@ class LanguageItem extends StatelessWidget {
               leading: CustomText(
                 title: '${index + 1}.',
                 textStyle: GoogleFonts.inter(
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
@@ -37,7 +37,7 @@ class LanguageItem extends StatelessWidget {
               title: CustomText(
                 title: language.name.tr(),
                 textStyle: GoogleFonts.inter(
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
@@ -46,7 +46,7 @@ class LanguageItem extends StatelessWidget {
                   ? CustomText(
                       title: "appLanguageDescription".tr(),
                       textStyle: GoogleFonts.inter(
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),

@@ -27,7 +27,9 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
   void initState() {
     super.initState();
     _searchController.addListener(() {
-      setState(() => _searchQuery = _searchController.text.toLowerCase().trim());
+      setState(
+        () => _searchQuery = _searchController.text.toLowerCase().trim(),
+      );
     });
   }
 
@@ -49,10 +51,9 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
     );
 
     if (!mounted) return;
-    await FolderFilesCubit.get(context).uploadFiles(
-      folderId: widget.folderId,
-      files: multipartFiles,
-    );
+    await FolderFilesCubit.get(
+      context,
+    ).uploadFiles(folderId: widget.folderId, files: multipartFiles);
   }
 
   @override
@@ -80,17 +81,18 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
           final isUploading = state is UploadFilesLoading;
 
           // Filter files based on search query
-          final allFiles =
-              state is FolderFilesSuccess ? state.files : <FileModel>[];
+          final allFiles = state is FolderFilesSuccess
+              ? state.files
+              : <FileModel>[];
           final filteredFiles = _searchQuery.isEmpty
               ? allFiles
               : allFiles
-                  .where(
-                    (f) =>
-                        f.fileName.toLowerCase().contains(_searchQuery) ||
-                        f.fileType.toLowerCase().contains(_searchQuery),
-                  )
-                  .toList();
+                    .where(
+                      (f) =>
+                          f.fileName.toLowerCase().contains(_searchQuery) ||
+                          f.fileType.toLowerCase().contains(_searchQuery),
+                    )
+                    .toList();
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,8 +131,9 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
     if (state is FolderFilesFailure) {
       return RetryWidget(
         title: state.error,
-        onPressed: () => FolderFilesCubit.get(context)
-            .getFolderFiles(folderId: widget.folderId),
+        onPressed: () => FolderFilesCubit.get(
+          context,
+        ).getFolderFiles(folderId: widget.folderId),
       );
     }
 

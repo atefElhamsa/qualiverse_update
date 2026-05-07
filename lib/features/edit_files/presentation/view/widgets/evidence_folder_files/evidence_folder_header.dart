@@ -35,7 +35,7 @@ class EvidenceFolderHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Icon(Icons.arrow_back_ios_new_rounded,
-                    color: const Color(0xFF4285F4), size: 16.sp),
+                    color: const Color(0xFF4285F4), size: 13.sp),
               ),
             ),
           ),
@@ -53,14 +53,14 @@ class EvidenceFolderHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title.tr(),
-                  style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
+                  style: GoogleFonts.almarai(
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color(0xFF1A1A1A))),
               if (count != -1)
                 Text('$count ${'files'.tr()}',
-                    style: GoogleFonts.cairo(
-                        fontSize: 12.sp, color: Colors.grey.shade500)),
+                    style: GoogleFonts.almarai(
+                        fontSize: 13.sp, color: Colors.grey.shade500)),
             ],
           ),
         ],

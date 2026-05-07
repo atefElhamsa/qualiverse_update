@@ -30,7 +30,7 @@ class SignUpButton extends StatelessWidget {
                 child: CustomText(
                   title: "signUp".tr().toUpperCase(),
                   textStyle: GoogleFonts.inter(
-                    fontSize: 16.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w900,
                     color: AppColors.white,
                   ),

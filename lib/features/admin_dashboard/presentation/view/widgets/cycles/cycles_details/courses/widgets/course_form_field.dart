@@ -14,8 +14,8 @@ Widget buildFormField({required String label, required String hint, required Tex
         child: Center(
           child: TextField(
             controller: controller,
-            style: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack),
-            decoration: InputDecoration(enabledBorder: InputBorder.none, focusedBorder: InputBorder.none, hintText: hint, hintStyle: TextStyle(fontSize: 14.sp, color: AppColors.greyLight), border: InputBorder.none, isDense: true),
+            style: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack),
+            decoration: InputDecoration(enabledBorder: InputBorder.none, focusedBorder: InputBorder.none, hintText: hint, hintStyle: TextStyle(fontSize: 15.sp, color: AppColors.greyLight), border: InputBorder.none, isDense: true),
           ),
         ),
       ),
@@ -27,8 +27,8 @@ Widget _buildLabel(String label) {
   return RichText(
     text: TextSpan(
       text: '$label ',
-      style: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack, fontWeight: FontWeight.w500),
-      children: [TextSpan(text: '*', style: TextStyle(color: AppColors.red, fontSize: 14.sp))],
+      style: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack, fontWeight: FontWeight.w600),
+      children: [TextSpan(text: '*', style: TextStyle(color: AppColors.red, fontSize: 15.sp))],
     ),
   );
 }

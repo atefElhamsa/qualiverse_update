@@ -104,11 +104,11 @@ class DashboardTabsRow extends StatelessWidget {
           labelPadding: EdgeInsetsDirectional.only(end: 30.w),
           labelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
+            fontSize: 13.sp,
           ),
           unselectedLabelStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.normal,
-            fontSize: 16.sp,
+            fontSize: 13.sp,
           ),
           tabs: titles.map((title) => Tab(text: title.tr())).toList(),
         ),

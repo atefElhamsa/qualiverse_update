@@ -38,7 +38,7 @@ class DeadlineSection extends StatelessWidget {
                       : 'selectDeadline'.tr(),
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.bodyMedium!.copyWith(fontSize: 14.sp),
+                  ).textTheme.bodyMedium!.copyWith(fontSize: 15.sp),
                 ),
                 const MouseRegion(
                   cursor: SystemMouseCursors.click,

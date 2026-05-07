@@ -26,11 +26,11 @@ class CustomDropButtonAndTitle extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 8.w, bottom: 8.h),
+            padding: EdgeInsets.only(left: 8.w, bottom: 4.h),
             child: CustomText(
               title: title,
-              textStyle: GoogleFonts.tajawal(
-                fontSize: 20.sp,
+              textStyle: GoogleFonts.almarai(
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w700,
                 color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
                     ? AppColors.mainBlack

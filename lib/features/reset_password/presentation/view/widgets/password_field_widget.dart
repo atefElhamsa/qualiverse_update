@@ -19,7 +19,7 @@ class PasswordFieldWidget extends StatelessWidget {
           customTextLabel: CustomText(
             title: "newPassword".tr(),
             textStyle: GoogleFonts.inter(
-              fontSize: 16.sp,
+              fontSize: 13.sp,
               color: AppColors.aiModelColor,
               fontWeight: FontWeight.w300,
             ),

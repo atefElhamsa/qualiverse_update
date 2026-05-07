@@ -35,7 +35,7 @@ class AssignmentsHeader extends StatelessWidget {
         textAlign: TextAlign.center,
         title: title,
         textStyle: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 15.sp,
           fontWeight: FontWeight.bold,
           color: AppColors.mainBlack,
         ),

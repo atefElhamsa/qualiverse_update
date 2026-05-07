@@ -37,22 +37,23 @@ class ItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (!isArabic) buildIcon(context),
-      
+
                   if (!isArabic) SizedBox(width: 12.w),
-      
+
                   Expanded(
                     child: Text(
                       accreditationModel.name,
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall!.copyWith(height: 1.25),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        height: 1.25,
+                        fontSize: 14.sp,
+                      ),
                     ),
                   ),
-      
+
                   if (isArabic) SizedBox(width: 12.w),
-      
+
                   if (isArabic) buildIcon(context),
                 ],
               ),

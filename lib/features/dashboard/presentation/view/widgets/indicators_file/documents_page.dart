@@ -23,7 +23,7 @@ class DocumentsPage extends StatelessWidget {
                 child: CustomText(
                   title: 'noIndicatorsFound'.tr(),
                   textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontSize: 16.sp,
+                    fontSize: 13.sp,
                     color: AppColors.textGrey.withOpacity(0.5),
                   ),
                 ),

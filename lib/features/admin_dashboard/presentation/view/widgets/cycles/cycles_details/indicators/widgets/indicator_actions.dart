@@ -30,7 +30,7 @@ Widget indicatorActions(
               title: isAssigned ? "reassign".tr() : "assign".tr(),
               textAlign: TextAlign.center,
               textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,
               ),
@@ -84,7 +84,7 @@ Widget indicatorActionIcon({
             color: color,
             borderRadius: BorderRadius.circular(10.r),
           ),
-          child: Icon(icon, color: AppColors.white, size: 16.sp),
+          child: Icon(icon, color: AppColors.white, size: 13.sp),
         ),
       ),
     ),

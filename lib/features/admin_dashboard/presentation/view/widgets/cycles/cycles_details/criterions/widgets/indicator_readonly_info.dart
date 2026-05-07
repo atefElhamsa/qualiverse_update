@@ -12,8 +12,8 @@ class IndicatorReadonlyInfo extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 8.h),
       child: Row(
         children: [
-          SizedBox(width: 150.w, child: CustomText(title: label, textStyle: TextStyle(fontSize: 14.sp, color: AppColors.grey, fontWeight: FontWeight.w400))),
-          Expanded(child: CustomText(title: value, textStyle: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack, fontWeight: FontWeight.w500))),
+          SizedBox(width: 150.w, child: CustomText(title: label, textStyle: TextStyle(fontSize: 15.sp, color: AppColors.grey, fontWeight: FontWeight.w600))),
+          Expanded(child: CustomText(title: value, textStyle: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack, fontWeight: FontWeight.w600))),
         ],
       ),
     );

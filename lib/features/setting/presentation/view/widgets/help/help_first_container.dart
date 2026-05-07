@@ -21,7 +21,7 @@ class HelpFirstContainer extends StatelessWidget {
           CustomText(
             title: "aboutSystemDescription".tr(),
             textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               color: Theme.of(
                 context,
               ).colorScheme.onSecondary.withOpacity(0.75),

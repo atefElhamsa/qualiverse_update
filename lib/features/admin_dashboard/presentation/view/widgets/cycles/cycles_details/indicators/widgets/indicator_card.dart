@@ -40,7 +40,7 @@ Widget indicatorCard(
             title: cycleIndicator.description,
             textStyle: Theme.of(
               context,
-            ).textTheme.bodyMedium!.copyWith(fontSize: 12.sp),
+            ).textTheme.bodyMedium!.copyWith(fontSize: 13.sp),
           ),
           SizedBox(height: 8.h),
           Row(
@@ -52,7 +52,7 @@ Widget indicatorCard(
                   title: cycleIndicator.doctorName ?? '---',
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.bodySmall!.copyWith(fontSize: 12.sp),
+                  ).textTheme.bodySmall!.copyWith(fontSize: 13.sp),
                 ),
               ),
               const Icon(Icons.calendar_today_outlined, size: 16),
@@ -63,7 +63,7 @@ Widget indicatorCard(
                     : '---',
                 textStyle: Theme.of(
                   context,
-                ).textTheme.bodySmall!.copyWith(fontSize: 12.sp),
+                ).textTheme.bodySmall!.copyWith(fontSize: 13.sp),
               ),
             ],
           ),

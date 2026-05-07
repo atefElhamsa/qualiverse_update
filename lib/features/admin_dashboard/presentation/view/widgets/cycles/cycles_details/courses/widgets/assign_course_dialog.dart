@@ -145,7 +145,7 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
         title: title,
         textStyle: TextStyle(
           color: textColor,
-          fontSize: 14.sp,
+          fontSize: 15.sp,
           fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         ),
       ),

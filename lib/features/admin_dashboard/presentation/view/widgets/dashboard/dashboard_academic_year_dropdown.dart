@@ -55,7 +55,7 @@ class DashboardAcademicYearDropdown extends StatelessWidget {
                 value: selectedYearNumber,
                 hint: Text(
                   "selectedYear".tr(),
-                  style: TextStyle(fontSize: 14.sp, color: AppColors.textGrey),
+                  style: TextStyle(fontSize: 15.sp, color: AppColors.textGrey),
                 ),
                 isExpanded: true,
                 icon: Icon(
@@ -71,7 +71,7 @@ class DashboardAcademicYearDropdown extends StatelessWidget {
                     child: Text(
                       year.toString(),
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w600,
                         color: AppColors.blue,
                       ),

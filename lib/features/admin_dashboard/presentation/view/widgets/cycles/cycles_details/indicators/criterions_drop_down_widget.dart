@@ -15,17 +15,6 @@ class CriterionsDropDownWidget extends StatefulWidget {
 
 class _CriterionsDropDownWidgetState extends State<CriterionsDropDownWidget> {
   @override
-  void initState() {
-    super.initState();
-    final cubit = context.read<ProgramAccreditationCubit>();
-    if (cubit.programAccreditations.isEmpty) {
-      cubit.fetchProgramAccreditations(
-        academicYearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-      );
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProgramAccreditationCubit, ProgramAccreditationState>(
       builder: (context, state) {

@@ -29,6 +29,7 @@ class _SideBarState extends State<SideBar> {
         padding: EdgeInsets.symmetric(horizontal: 8.w),
         child: Column(
           children: [
+            SizedBox(height: 30.h),
             const CustomSidebarDrawer(),
             Expanded(
               child: SingleChildScrollView(

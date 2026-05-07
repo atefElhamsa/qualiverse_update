@@ -118,7 +118,7 @@ class _AnimatedDocRowState extends State<AnimatedDocRow>
                               textAlign: TextAlign.center,
                               textStyle: GoogleFonts.inter(
                                 color: AppColors.white,
-                                fontSize: 12.sp,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -129,8 +129,8 @@ class _AnimatedDocRowState extends State<AnimatedDocRow>
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.inter(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600,
                             color: Theme.of(context).colorScheme.onSecondary,
                           ),
                         ),

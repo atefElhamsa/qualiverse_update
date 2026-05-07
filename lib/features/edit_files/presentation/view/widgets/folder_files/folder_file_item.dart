@@ -52,7 +52,7 @@ class _FolderFileActionIconState extends State<FolderFileActionIcon> {
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(8.r),
             ),
-            child: Icon(widget.icon, color: widget.color, size: 18.sp),
+            child: Icon(widget.icon, color: widget.color, size: 15.sp),
           ),
         ),
       ),
@@ -121,7 +121,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
             SizedBox(width: 10.w),
             Text(
               'deleteFile'.tr(),
-              style: GoogleFonts.cairo(
+              style: GoogleFonts.almarai(
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w700,
               ),
@@ -130,18 +130,18 @@ class _FolderFileItemState extends State<FolderFileItem> {
         ),
         content: RichText(
           text: TextSpan(
-            style: GoogleFonts.cairo(
-              fontSize: 14.sp,
+            style: GoogleFonts.almarai(
+              fontSize: 15.sp,
               color: AppColors.greyLight,
             ),
             children: [
               TextSpan(text: 'confirmDeleteFile'.tr()),
               TextSpan(
                 text: ' "${widget.file.fileName}" ',
-                style: GoogleFonts.cairo(
+                style: GoogleFonts.almarai(
                   fontWeight: FontWeight.w700,
                   color: AppColors.mainBlack,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                 ),
               ),
               const TextSpan(text: '؟'),
@@ -157,10 +157,10 @@ class _FolderFileItemState extends State<FolderFileItem> {
             onPressed: () => Navigator.of(ctx).pop(false),
             child: Text(
               'cancel'.tr(),
-              style: GoogleFonts.cairo(
+              style: GoogleFonts.almarai(
                 color: AppColors.greyLight,
                 fontWeight: FontWeight.w600,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
               ),
             ),
           ),
@@ -177,9 +177,9 @@ class _FolderFileItemState extends State<FolderFileItem> {
             onPressed: () => Navigator.of(ctx).pop(true),
             child: Text(
               'delete'.tr(),
-              style: GoogleFonts.cairo(
+              style: GoogleFonts.almarai(
                 fontWeight: FontWeight.w700,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
               ),
             ),
           ),
@@ -278,7 +278,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
                   children: [
                     Text(
                       widget.file.fileName,
-                      style: GoogleFonts.cairo(
+                      style: GoogleFonts.almarai(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -290,8 +290,8 @@ class _FolderFileItemState extends State<FolderFileItem> {
                       children: [
                         Text(
                           widget.file.fileSize,
-                          style: GoogleFonts.cairo(
-                            fontSize: 12.sp,
+                          style: GoogleFonts.almarai(
+                            fontSize: 13.sp,
                             color: AppColors.greyLight,
                           ),
                         ),
@@ -307,8 +307,8 @@ class _FolderFileItemState extends State<FolderFileItem> {
                         SizedBox(width: 8.w),
                         Text(
                           widget.file.fileType.toUpperCase(),
-                          style: GoogleFonts.cairo(
-                            fontSize: 12.sp,
+                          style: GoogleFonts.almarai(
+                            fontSize: 13.sp,
                             color: _typeColor,
                             fontWeight: FontWeight.w600,
                           ),
@@ -326,7 +326,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
                             ),
                             child: Text(
                               'AI',
-                              style: GoogleFonts.cairo(
+                              style: GoogleFonts.almarai(
                                 fontSize: 10.sp,
                                 color: AppColors.aiModelColor,
                                 fontWeight: FontWeight.w700,

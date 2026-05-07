@@ -76,12 +76,12 @@ Widget buildFormField({
         child: Center(
           child: TextField(
             controller: controller,
-            style: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack),
+            style: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack),
             decoration: InputDecoration(
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               hintText: hint,
-              hintStyle: TextStyle(fontSize: 14.sp, color: AppColors.greyLight),
+              hintStyle: TextStyle(fontSize: 15.sp, color: AppColors.greyLight),
               border: InputBorder.none,
               isDense: true,
             ),
@@ -114,7 +114,7 @@ Widget buildActionButton({
       title: title,
       textStyle: TextStyle(
         color: textColor,
-        fontSize: 14.sp,
+        fontSize: 15.sp,
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       ),
     ),
@@ -126,14 +126,14 @@ Widget buildLabel(String label) {
     text: TextSpan(
       text: '$label ',
       style: TextStyle(
-        fontSize: 14.sp,
+        fontSize: 15.sp,
         color: AppColors.mainBlack,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
       children: [
         TextSpan(
           text: '*',
-          style: TextStyle(color: AppColors.red, fontSize: 14.sp),
+          style: TextStyle(color: AppColors.red, fontSize: 15.sp),
         ),
       ],
     ),

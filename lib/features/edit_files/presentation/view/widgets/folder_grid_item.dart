@@ -76,8 +76,8 @@ class _FolderGridItemState extends State<FolderGridItem> {
                   Expanded(
                     child: Text(
                       folderName,
-                      style: GoogleFonts.cairo(
-                        fontSize: 16.sp,
+                      style: GoogleFonts.almarai(
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w600,
                         color: _isHovered
                             ? const Color(0xFF0F569E)

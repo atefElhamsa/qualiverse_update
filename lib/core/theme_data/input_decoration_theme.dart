@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/utils/app_colors.dart';
 
 InputDecorationTheme getAppInputDecorationTheme() => InputDecorationTheme(
-  hintStyle: GoogleFonts.cairo(
-    fontSize: 16.sp,
-    fontWeight: FontWeight.w400,
+  hintStyle: GoogleFonts.almarai(
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w600,
     color: AppColors.grey,
   ),
   enabledBorder: _outlineInputBorder(AppColors.greyLight.withOpacity(0.75)),
@@ -16,9 +16,9 @@ InputDecorationTheme getAppInputDecorationTheme() => InputDecorationTheme(
     AppColors.greyLight.withOpacity(0.75),
   ),
   suffixIconColor: AppColors.mainBlack,
-  errorStyle: GoogleFonts.cairo(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
+  errorStyle: GoogleFonts.almarai(
+    fontSize: 15.sp,
+    fontWeight: FontWeight.w600,
     color: AppColors.red,
   ),
 );

@@ -98,15 +98,6 @@ class _DepartmentDropDownWidgetState extends State<DepartmentDropDownWidget> {
                         departmentCubit.selectDepartment(
                           department: selectedModel,
                         );
-                        context
-                            .read<ProgramAccreditationCubit>()
-                            .fetchProgramAccreditations(
-                              academicYearId: AcademicYearCubit.get(
-                                context,
-                              ).selectedAcademicYear!.id,
-                              departmentId: value,
-                            );
-                        context.read<CycleIndicatorCubit>().reset();
                       },
               ),
             ),

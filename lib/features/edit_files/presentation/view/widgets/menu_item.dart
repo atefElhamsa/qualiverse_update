@@ -29,10 +29,10 @@ class MenuItem extends StatelessWidget {
             const SizedBox(width: 10),
             CustomText(
               title: title.tr(),
-              textStyle: GoogleFonts.cairo(
+              textStyle: GoogleFonts.almarai(
                 color: AppColors.white,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

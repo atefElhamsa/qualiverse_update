@@ -32,7 +32,7 @@ class CustomFilterDropdown<T> extends StatelessWidget {
           hint: CustomText(
             title: hint,
             textStyle: GoogleFonts.inter(
-              fontSize: 12.sp,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w600,
               color: AppColors.mainBlack,
             ),

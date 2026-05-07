@@ -51,7 +51,7 @@ class DashboardViewAllRow extends StatelessWidget {
             textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
               color: AppColors.blue,
               fontWeight: FontWeight.w700,
-              fontSize: 12.sp,
+              fontSize: 13.sp,
             ),
           ),
           Icon(Icons.arrow_forward_ios, size: 10.sp, color: AppColors.blue),

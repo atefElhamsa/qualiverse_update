@@ -29,7 +29,7 @@ class CustomHomeLastWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               textStyle: Theme.of(context).textTheme.displaySmall!.copyWith(
                     fontWeight: FontWeight.w900,
-                    fontSize: 18.sp,
+                    fontSize: 15.sp,
                   ),
             ),
             SizedBox(height: 15.h),
@@ -38,7 +38,7 @@ class CustomHomeLastWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
+                    fontSize: 13.sp,
                     height: 1.4,
                   ),
             ),

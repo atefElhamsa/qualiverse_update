@@ -19,7 +19,7 @@ class LoginMemberWidget extends StatelessWidget {
             title: "alreadyMember".tr(),
             textStyle: Theme.of(
               context,
-            ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+            ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
           ),
           GestureDetector(
             onTap: () {
@@ -37,7 +37,7 @@ class LoginMemberWidget extends StatelessWidget {
                 child: CustomText(
                   title: "login".tr(),
                   textStyle: GoogleFonts.inter(
-                    fontSize: 16.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w900,
                     color: AppColors.loginButtonColor,
                   ),

@@ -81,14 +81,24 @@ class IndicatorsTopWidget extends StatelessWidget {
 
   void _fetchCriterions(BuildContext context) {
     final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
-    final deptId = DepartmentCubit.get(context).selectedDepartment?.id;
     final typesCubit = TypesCubit.get(context);
     final typeState = typesCubit.state;
 
     if (yearId != null &&
         typeState is TypesSuccess &&
         typeState.selectedIndex != -1) {
-      final typeId = typeState.types[typeState.selectedIndex].id;
+      final selectedType = typeState.types[typeState.selectedIndex];
+      final typeId = selectedType.id;
+      final typeName = selectedType.name.toLowerCase();
+
+      // Ensure deptId is null for institutional mode
+      int? deptId;
+      if (typeName.contains('institutional') || typeName.contains('مؤسسي')) {
+        deptId = null;
+      } else {
+        deptId = DepartmentCubit.get(context).selectedDepartment?.id;
+      }
+
       ProgramAccreditationCubit.get(context).fetchProgramAccreditations(
         academicYearId: yearId,
         departmentId: deptId,

@@ -49,10 +49,10 @@ PopupMenuItem<String> buildMenuItem({
         SizedBox(width: 10.w),
         CustomText(
           title: text.tr(),
-          textStyle: GoogleFonts.cairo(
+          textStyle: GoogleFonts.almarai(
             color: Colors.white,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],

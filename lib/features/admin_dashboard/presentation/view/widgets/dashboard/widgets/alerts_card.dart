@@ -24,7 +24,7 @@ class DashboardAlertsCard extends StatelessWidget {
             title: "alerts".tr(),
             textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
               fontWeight: FontWeight.w800,
-              fontSize: 16.sp,
+              fontSize: 13.sp,
               color: AppColors.mainBlack,
             ),
           ),
@@ -50,7 +50,7 @@ class DashboardAlertsCard extends StatelessWidget {
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(6.r),
                         ),
-                        child: Icon(a.icon, color: a.color, size: 16.sp),
+                        child: Icon(a.icon, color: a.color, size: 13.sp),
                       ),
                       SizedBox(width: 10.w),
                       Expanded(
@@ -62,7 +62,7 @@ class DashboardAlertsCard extends StatelessWidget {
                               textStyle: Theme.of(context).textTheme.bodyMedium!
                                   .copyWith(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 12.sp,
+                                    fontSize: 13.sp,
                                     color: AppColors.mainBlack,
                                   ),
                             ),
@@ -72,7 +72,7 @@ class DashboardAlertsCard extends StatelessWidget {
                                   .copyWith(
                                     color: AppColors.textGrey.withOpacity(0.7),
                                     fontSize: 10.sp,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w600,
                                   ),
                             ),
                           ],

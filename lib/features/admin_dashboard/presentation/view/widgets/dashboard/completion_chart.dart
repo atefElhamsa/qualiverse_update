@@ -47,14 +47,14 @@ class _CompletionChartState extends State<CompletionChart> {
             text: 'completionChart'.tr(),
             textStyle: Theme.of(
               context,
-            ).textTheme.bodyMedium!.copyWith(fontSize: 18.sp),
+            ).textTheme.bodyMedium!.copyWith(fontSize: 15.sp),
           ),
           primaryXAxis: CategoryAxis(
             majorGridLines: const MajorGridLines(width: 0),
             axisLine: const AxisLine(width: 0),
             labelStyle: Theme.of(
               context,
-            ).textTheme.bodyMedium!.copyWith(fontSize: 16.sp),
+            ).textTheme.bodyMedium!.copyWith(fontSize: 13.sp),
           ),
           primaryYAxis: NumericAxis(
             minimum: 0,

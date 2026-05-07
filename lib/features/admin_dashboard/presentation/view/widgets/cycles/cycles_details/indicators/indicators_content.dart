@@ -47,10 +47,18 @@ class _IndicatorsContentState extends State<IndicatorsContent> {
         }
       }
 
+      // Ensure deptId is null for institutional mode
+      int? deptId;
+      if (typeName.contains('institutional') || typeName.contains('مؤسسي')) {
+        deptId = null;
+      } else {
+        deptId = deptCubit.selectedDepartment?.id;
+      }
+
       // Initial fetch if no department change was needed
       ProgramAccreditationCubit.get(context).fetchProgramAccreditations(
         academicYearId: yearId,
-        departmentId: deptCubit.selectedDepartment?.id,
+        departmentId: deptId,
         accreditationTypeId: selectedType.id,
       );
     }
@@ -58,24 +66,34 @@ class _IndicatorsContentState extends State<IndicatorsContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DepartmentCubit, DepartmentState>(
-      listener: (context, state) {
-        if (state is DepartmentSuccess) {
-          final typeState = TypesCubit.get(context).state;
-          if (typeState is TypesSuccess && typeState.selectedIndex != -1) {
-            final typeName = typeState.types[typeState.selectedIndex].name
-                .toLowerCase();
-            if (typeName.contains('program') || typeName.contains('برامجي')) {
-              if (DepartmentCubit.get(context).selectedDepartment == null &&
-                  state.departments.isNotEmpty) {
-                DepartmentCubit.get(
-                  context,
-                ).selectDepartment(department: state.departments.first);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CycleTabsCubit, CycleTabsState>(
+          listener: (context, state) => _syncAndFetchInitialData(),
+        ),
+        BlocListener<TypesCubit, TypesState>(
+          listener: (context, state) => _syncAndFetchInitialData(),
+        ),
+        BlocListener<DepartmentCubit, DepartmentState>(
+          listener: (context, state) {
+            if (state is DepartmentSuccess) {
+              final typeState = TypesCubit.get(context).state;
+              if (typeState is TypesSuccess && typeState.selectedIndex != -1) {
+                final typeName = typeState.types[typeState.selectedIndex].name
+                    .toLowerCase();
+                if (typeName.contains('program') || typeName.contains('برامجي')) {
+                  if (DepartmentCubit.get(context).selectedDepartment == null &&
+                      state.departments.isNotEmpty) {
+                    DepartmentCubit.get(
+                      context,
+                    ).selectDepartment(department: state.departments.first);
+                  }
+                }
               }
             }
-          }
-        }
-      },
+          },
+        ),
+      ],
       child: Container(
         margin: EdgeInsetsDirectional.only(
           start: 30.w,

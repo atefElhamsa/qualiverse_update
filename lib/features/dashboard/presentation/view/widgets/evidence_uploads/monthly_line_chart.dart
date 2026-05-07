@@ -120,7 +120,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                   labelAlignment: LabelAlignment.center,
                   labelStyle:
                       Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     color:
                         Theme.of(context).scaffoldBackgroundColor ==
                                 AppColors.white
@@ -146,7 +146,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                       labelAlignment: ChartDataLabelAlignment.top,
                       textStyle: Theme.of(
                         context,
-                      ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                      ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
                     ),
                     markerSettings: const MarkerSettings(isVisible: false),
                   ),
@@ -167,8 +167,8 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                     CustomText(
                       title: 'totalUploads'.tr(),
                       textStyle: GoogleFonts.inter(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
                         color: AppColors.textGrey.withOpacity(0.2),
                       ),
                     ),

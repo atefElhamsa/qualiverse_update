@@ -25,8 +25,8 @@ class CreateAccountTextWidget extends StatelessWidget {
           CustomText(
             title: "createGreatDocuments".tr(),
             textStyle: GoogleFonts.inter(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w600,
               color: AppColors.greyLight.withOpacity(0.75),
             ),
           ),

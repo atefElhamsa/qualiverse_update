@@ -38,7 +38,7 @@ class BuilderWithApi extends StatelessWidget {
               customTextLabel: CustomText(
                 title: "emailAddress".tr(),
                 textStyle: GoogleFonts.inter(
-                  fontSize: 16.sp,
+                  fontSize: 13.sp,
                   color: AppColors.aiModelColor,
                   fontWeight: FontWeight.w300,
                 ),
@@ -71,7 +71,7 @@ class BuilderWithApi extends StatelessWidget {
                       child: CustomText(
                         title: "send".tr().toUpperCase(),
                         textStyle: GoogleFonts.inter(
-                          fontSize: 16.sp,
+                          fontSize: 13.sp,
                           fontWeight: FontWeight.w900,
                           color: AppColors.white,
                         ),

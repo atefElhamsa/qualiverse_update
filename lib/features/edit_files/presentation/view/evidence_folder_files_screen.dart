@@ -41,9 +41,9 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
     super.initState();
     _searchController = TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      EvidenceFolderFilesCubit.get(context).getEvidenceFiles(
-        folderId: widget.folderId,
-      );
+      EvidenceFolderFilesCubit.get(
+        context,
+      ).getEvidenceFiles(folderId: widget.folderId);
     });
   }
 
@@ -84,9 +84,9 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
         listener: (context, state) {
           if (state is UploadEvidenceFilesSuccess) {
             showSnackBar(context, state.message, AppColors.green);
-            EvidenceFolderFilesCubit.get(context).getEvidenceFiles(
-              folderId: widget.folderId,
-            );
+            EvidenceFolderFilesCubit.get(
+              context,
+            ).getEvidenceFiles(folderId: widget.folderId);
           }
           if (state is UploadEvidenceFilesFailure) {
             showSnackBar(context, state.error, AppColors.red);
@@ -116,9 +116,7 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
               if (isUploading)
                 Container(
                   color: Colors.white.withOpacity(0.4),
-                  child: const Center(
-                    child: CustomLoading(),
-                  ),
+                  child: const Center(child: CustomLoading()),
                 ),
             ],
           );
@@ -142,8 +140,11 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
                   color: const Color(0xFFE8F1FF),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: Icon(Icons.arrow_back_ios_new_rounded,
-                    color: const Color(0xFF4285F4), size: 16.sp),
+                child: Icon(
+                  Icons.arrow_back_ios_new_rounded,
+                  color: const Color(0xFF4285F4),
+                  size: 13.sp,
+                ),
               ),
             ),
           ),
@@ -154,21 +155,31 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
               color: const Color(0xFF0F569E),
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(Icons.folder_open_rounded,
-                color: Colors.white, size: 22.sp),
+            child: Icon(
+              Icons.folder_open_rounded,
+              color: Colors.white,
+              size: 22.sp,
+            ),
           ),
           SizedBox(width: 15.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget.folderName.tr(),
-                  style: GoogleFonts.cairo(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A1A1A))),
-              Text('$count ${'files'.tr()}',
-                  style: GoogleFonts.cairo(
-                      fontSize: 12.sp, color: Colors.grey.shade500)),
+              Text(
+                widget.folderName.tr(),
+                style: GoogleFonts.almarai(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF1A1A1A),
+                ),
+              ),
+              Text(
+                '$count ${'files'.tr()}',
+                style: GoogleFonts.almarai(
+                  fontSize: 13.sp,
+                  color: Colors.grey.shade500,
+                ),
+              ),
             ],
           ),
         ],
@@ -200,15 +211,21 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
                             width: 16.w,
                             height: 16.h,
                             child: const CircularProgressIndicator(
-                                color: Colors.white, strokeWidth: 2))
-                        : Icon(Icons.upload_file_rounded,
-                            color: Colors.white, size: 18.sp),
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Icon(
+                            Icons.upload_file_rounded,
+                            color: Colors.white,
+                            size: 15.sp,
+                          ),
                     SizedBox(width: 8.w),
                     Text(
                       'uploadFile'.tr(),
-                      style: GoogleFonts.cairo(
+                      style: GoogleFonts.almarai(
                         color: Colors.white,
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -231,10 +248,15 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
                 onChanged: (v) => cubit.searchFiles(v),
                 decoration: InputDecoration(
                   hintText: 'searchFile'.tr(),
-                  hintStyle: GoogleFonts.cairo(
-                      color: Colors.grey.shade400, fontSize: 13.sp),
-                  prefixIcon: Icon(Icons.search_rounded,
-                      color: Colors.grey.shade400, size: 18.sp),
+                  hintStyle: GoogleFonts.almarai(
+                    color: Colors.grey.shade400,
+                    fontSize: 13.sp,
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search_rounded,
+                    color: Colors.grey.shade400,
+                    size: 15.sp,
+                  ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 8.h),
                 ),
@@ -260,9 +282,7 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
           padding: EdgeInsets.all(40.w),
           child: RetryWidget(
             title: state.error,
-            onPressed: () => cubit.getEvidenceFiles(
-              folderId: widget.folderId,
-            ),
+            onPressed: () => cubit.getEvidenceFiles(folderId: widget.folderId),
           ),
         ),
       );
@@ -273,12 +293,16 @@ class _EvidenceFolderFilesScreenState extends State<EvidenceFolderFilesScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.folder_open_rounded,
-                size: 64.sp, color: Colors.grey.shade300),
+            Icon(
+              Icons.folder_open_rounded,
+              size: 64.sp,
+              color: Colors.grey.shade300,
+            ),
             SizedBox(height: 12.h),
-            Text('noDataFound'.tr(),
-                style: GoogleFonts.cairo(
-                    fontSize: 16.sp, color: Colors.grey)),
+            Text(
+              'noDataFound'.tr(),
+              style: GoogleFonts.almarai(fontSize: 13.sp, color: Colors.grey),
+            ),
           ],
         ),
       );

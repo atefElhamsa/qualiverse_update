@@ -111,7 +111,7 @@ class _EvidenceBarsState extends State<EvidenceBars>
                       textAlign: TextAlign.right,
                       textStyle: GoogleFonts.inter(
                         fontSize: 10.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color:
                             Theme.of(context).scaffoldBackgroundColor ==
                                 AppColors.white

@@ -23,8 +23,8 @@ class NotConfirmedWidget extends StatelessWidget {
           CustomText(
             title: "notConfirmedYet".tr(),
             textStyle: GoogleFonts.inter(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w600,
               color: AppColors.greyLight,
             ),
           ),
@@ -35,8 +35,8 @@ class NotConfirmedWidget extends StatelessWidget {
             child: CustomText(
               title: "resend".tr(),
               textStyle: GoogleFonts.inter(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
                 color: AppColors.red,
               ),
             ),

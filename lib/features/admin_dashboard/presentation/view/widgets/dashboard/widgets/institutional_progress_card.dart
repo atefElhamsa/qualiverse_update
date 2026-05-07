@@ -30,14 +30,14 @@ class InstitutionalProgressCard extends StatelessWidget {
                 title: 'institutionalIndicatorsProgress'.tr(),
                 textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontWeight: FontWeight.w800,
-                      fontSize: 18.sp,
+                      fontSize: 15.sp,
                       color: AppColors.mainBlack,
                     ),
               ),
               SizedBox(width: 8.w),
               Icon(
                 Icons.info_outline,
-                size: 16.sp,
+                size: 13.sp,
                 color: AppColors.textGrey.withOpacity(0.5),
               ),
             ],
@@ -80,8 +80,8 @@ class InstitutionalProgressCard extends StatelessWidget {
                           CustomText(
                             title: 'progress'.tr(),
                             textStyle: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w600,
                               color: AppColors.textGrey,
                             ),
                           ),
@@ -165,12 +165,12 @@ class InstitutionalProgressCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.info_outline, size: 16.sp, color: AppColors.textGrey.withOpacity(0.5)),
+              Icon(Icons.info_outline, size: 13.sp, color: AppColors.textGrey.withOpacity(0.5)),
               SizedBox(width: 10.w),
               CustomText(
                 title: 'institutionalPercentageNote'.tr(),
                 textStyle: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 13.sp,
                   color: AppColors.textGrey.withOpacity(0.6),
                   fontStyle: FontStyle.italic,
                 ),
@@ -202,7 +202,7 @@ class InstitutionalProgressCard extends StatelessWidget {
                 CustomText(
                   title: label,
                   textStyle: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textGrey,
                   ),

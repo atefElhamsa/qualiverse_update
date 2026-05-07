@@ -36,7 +36,7 @@ class NewCycleDialog extends StatelessWidget {
                       title: 'createNewCycle'.tr(),
                       textStyle: Theme.of(
                         context,
-                      ).textTheme.titleLarge!.copyWith(fontSize: 18.sp),
+                      ).textTheme.titleLarge!.copyWith(fontSize: 15.sp),
                     ),
                   ),
                   IconButton(
@@ -54,7 +54,7 @@ class NewCycleDialog extends StatelessWidget {
                 title: 'yearLabel'.tr(),
                 textStyle: Theme.of(
                   context,
-                ).textTheme.titleMedium!.copyWith(fontSize: 14.sp),
+                ).textTheme.titleMedium!.copyWith(fontSize: 15.sp),
               ),
               const SizedBox(height: 8),
               TextField(

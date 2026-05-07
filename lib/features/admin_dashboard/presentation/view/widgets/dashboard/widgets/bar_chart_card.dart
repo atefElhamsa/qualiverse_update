@@ -35,14 +35,14 @@ class DashboardBarChartCard extends StatelessWidget {
                     title: "$title (${'programmatic'.tr()})",
                     textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
                       fontWeight: FontWeight.w800,
-                      fontSize: 18.sp,
+                      fontSize: 15.sp,
                       color: AppColors.mainBlack,
                     ),
                   ),
                   SizedBox(width: 8.w),
                   Icon(
                     Icons.info_outline,
-                    size: 16.sp,
+                    size: 13.sp,
                     color: AppColors.textGrey.withOpacity(0.5),
                   ),
                 ],
@@ -97,7 +97,7 @@ class DashboardBarChartCard extends StatelessWidget {
                 ),
                 labelStyle: TextStyle(
                   fontSize: 11.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.textGrey,
                 ),
               ),
@@ -238,12 +238,12 @@ class DashboardBarChartCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.info_outline, size: 16.sp, color: AppColors.blue),
+              Icon(Icons.info_outline, size: 13.sp, color: AppColors.blue),
               SizedBox(width: 10.w),
               CustomText(
                 title: 'overallProgressCalculation'.tr(),
                 textStyle: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 13.sp,
                   color: AppColors.textGrey.withOpacity(0.6),
                   fontStyle: FontStyle.italic,
                 ),

@@ -35,7 +35,7 @@ class DropdownTrigger extends StatelessWidget {
             CustomText(
               title: label,
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 color: isPlaceholder ? AppColors.grey : null,
               ),
             ),

@@ -23,7 +23,7 @@ class TotalStudentsCard extends StatelessWidget {
           SizedBox(width: 15.w),
           Text(
             "$count",
-            style: GoogleFonts.cairo(
+            style: GoogleFonts.almarai(
               fontSize: 32.sp,
               fontWeight: FontWeight.bold,
               color: const Color(0xFF1A1A1A),

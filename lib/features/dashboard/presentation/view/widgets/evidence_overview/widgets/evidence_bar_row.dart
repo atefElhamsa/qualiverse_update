@@ -53,7 +53,7 @@ class EvidenceBarRow extends StatelessWidget {
         textAlign: TextAlign.right,
         textStyle: GoogleFonts.inter(
           fontSize: 10.sp,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
           color: isWhite
               ? AppColors.textGrey
               : AppColors.white.withOpacity(0.75),

@@ -30,10 +30,10 @@ class NewButton extends StatelessWidget {
             const SizedBox(width: 6),
             CustomText(
               title: title.tr(),
-              textStyle: GoogleFonts.cairo(
+              textStyle: GoogleFonts.almarai(
                 color: Colors.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

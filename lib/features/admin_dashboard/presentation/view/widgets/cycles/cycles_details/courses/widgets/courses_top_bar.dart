@@ -76,7 +76,7 @@ class _SearchField extends StatelessWidget {
           controller: controller,
           onChanged: onChanged,
           cursorColor: AppColors.mainBlack,
-          style: TextStyle(fontSize: 16.sp, color: AppColors.mainBlack),
+          style: TextStyle(fontSize: 13.sp, color: AppColors.mainBlack),
           decoration: InputDecoration(
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
@@ -86,7 +86,7 @@ class _SearchField extends StatelessWidget {
             hintStyle: TextStyle(
               fontSize: 15.sp,
               color: AppColors.grey,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
             prefixIcon: Icon(
               Icons.search,

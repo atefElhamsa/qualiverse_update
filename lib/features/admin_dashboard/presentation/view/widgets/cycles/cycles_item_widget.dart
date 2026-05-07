@@ -29,7 +29,7 @@ class CyclesItemWidget extends StatelessWidget {
                   title: academicYear.yearNumber.toString(),
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.titleMedium!.copyWith(fontSize: 16.sp),
+                  ).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
                 ),
               ),
               SizedBox(

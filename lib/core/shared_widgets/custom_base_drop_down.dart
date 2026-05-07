@@ -57,7 +57,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
                     fontSize: 15.sp,
                     color: isDisabled ? Colors.grey.shade400 : AppColors.grey,
                     overflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -75,7 +75,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
           style: TextStyle(
             fontSize: 15.sp,
             color: isDisabled ? Colors.grey.shade400 : AppColors.mainBlack,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
           items: items.map((item) {
             final val = itemValueBuilder(item);

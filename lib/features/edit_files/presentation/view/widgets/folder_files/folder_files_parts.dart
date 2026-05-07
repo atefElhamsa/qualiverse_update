@@ -40,7 +40,7 @@ class FolderFilesHeader extends StatelessWidget {
                 child: Icon(
                   isArabic ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
                   color: AppColors.progressColor,
-                  size: 18.sp,
+                  size: 15.sp,
                 ),
               ),
             ),
@@ -73,7 +73,7 @@ class FolderFilesHeader extends StatelessWidget {
               children: [
                 Text(
                   folderName,
-                  style: GoogleFonts.cairo(
+                  style: GoogleFonts.almarai(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
                     color: Theme.of(context).textTheme.titleLarge?.color,
@@ -83,7 +83,7 @@ class FolderFilesHeader extends StatelessWidget {
                 if (fileCount != null)
                   Text(
                     '$fileCount ${'files'.tr()}',
-                    style: GoogleFonts.cairo(
+                    style: GoogleFonts.almarai(
                       fontSize: 13.sp,
                       color: AppColors.greyLight,
                     ),
@@ -132,9 +132,9 @@ class FolderFilesToolbar extends StatelessWidget {
                 textAlign: isArabic ? TextAlign.right : TextAlign.left,
                 decoration: InputDecoration(
                   hintText: 'searchFile'.tr(),
-                  hintStyle: GoogleFonts.cairo(
+                  hintStyle: GoogleFonts.almarai(
                     color: AppColors.greyLight,
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                   ),
                   prefixIcon: Icon(
                     Icons.search,
@@ -148,7 +148,7 @@ class FolderFilesToolbar extends StatelessWidget {
                         : IconButton(
                             icon: Icon(
                               Icons.close,
-                              size: 18.sp,
+                              size: 15.sp,
                               color: AppColors.greyLight,
                             ),
                             onPressed: () => searchController.clear(),

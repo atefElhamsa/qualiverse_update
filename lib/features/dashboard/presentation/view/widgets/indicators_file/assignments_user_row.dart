@@ -75,8 +75,8 @@ class AssignmentsUserRow extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: GoogleFonts.inter(
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w600,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),

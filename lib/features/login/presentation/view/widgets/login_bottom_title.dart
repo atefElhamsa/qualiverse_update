@@ -18,7 +18,7 @@ class LoginBottomTitle extends StatelessWidget {
             title: "accreditationQualitySystem".tr(),
             textStyle: Theme.of(
               context,
-            ).textTheme.displayLarge!.copyWith(fontSize: 14.sp),
+            ).textTheme.displayLarge!.copyWith(fontSize: 15.sp),
           ),
           const Spacer(),
           SizedBox(
@@ -27,7 +27,7 @@ class LoginBottomTitle extends StatelessWidget {
               title: "loginBottomTitle".tr(),
               textAlign: TextAlign.right,
               textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 color: AppColors.greyLight.withOpacity(0.75),
               ),
             ),

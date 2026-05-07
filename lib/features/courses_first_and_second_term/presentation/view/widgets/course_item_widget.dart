@@ -47,7 +47,7 @@ class CourseItemWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     textStyle: Theme.of(
                       context,
-                    ).textTheme.bodySmall!.copyWith(fontSize: 18.sp),
+                    ).textTheme.bodySmall!.copyWith(fontSize: 15.sp),
                   ),
                 ),
               ),

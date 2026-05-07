@@ -21,7 +21,7 @@ class FirstAndLastNameFields extends StatelessWidget {
               customTextLabel: CustomText(
                 title: "firstName".tr(),
                 textStyle: GoogleFonts.inter(
-                  fontSize: 16.sp,
+                  fontSize: 13.sp,
                   color: AppColors.aiModelColor,
                   fontWeight: FontWeight.w300,
                 ),
@@ -45,7 +45,7 @@ class FirstAndLastNameFields extends StatelessWidget {
               customTextLabel: CustomText(
                 title: "lastName".tr(),
                 textStyle: GoogleFonts.inter(
-                  fontSize: 16.sp,
+                  fontSize: 13.sp,
                   color: AppColors.aiModelColor,
                   fontWeight: FontWeight.w300,
                 ),

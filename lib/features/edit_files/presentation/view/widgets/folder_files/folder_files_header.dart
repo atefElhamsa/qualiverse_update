@@ -35,7 +35,7 @@ class FolderFilesHeader extends StatelessWidget {
         child: Container(
           width: 40.w, height: 40.h,
           decoration: BoxDecoration(color: AppColors.progressColor.withOpacity(0.12), borderRadius: BorderRadius.circular(10.r)),
-          child: Icon(isArabic ? Icons.arrow_forward_ios : Icons.arrow_back_ios, color: AppColors.progressColor, size: 18.sp),
+          child: Icon(isArabic ? Icons.arrow_forward_ios : Icons.arrow_back_ios, color: AppColors.progressColor, size: 15.sp),
         ),
       ),
     );
@@ -57,8 +57,8 @@ class FolderFilesHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(folderName, style: GoogleFonts.cairo(fontSize: 20.sp, fontWeight: FontWeight.w700, color: Theme.of(context).textTheme.titleLarge?.color), overflow: TextOverflow.ellipsis),
-          if (fileCount != null) Text('$fileCount ${'files'.tr()}', style: GoogleFonts.cairo(fontSize: 13.sp, color: AppColors.greyLight)),
+          Text(folderName, style: GoogleFonts.almarai(fontSize: 20.sp, fontWeight: FontWeight.w700, color: Theme.of(context).textTheme.titleLarge?.color), overflow: TextOverflow.ellipsis),
+          if (fileCount != null) Text('$fileCount ${'files'.tr()}', style: GoogleFonts.almarai(fontSize: 13.sp, color: AppColors.greyLight)),
         ],
       ),
     );

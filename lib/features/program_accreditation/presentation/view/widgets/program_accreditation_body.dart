@@ -17,7 +17,9 @@ class ProgramAccreditationBody extends StatelessWidget {
           Center(
             child: CustomText(
               title: AppTexts.softwareAccreditationEnglish,
-              textStyle: Theme.of(context).textTheme.displayLarge!,
+              textStyle: Theme.of(
+                context,
+              ).textTheme.displayLarge!.copyWith(fontSize: 28.sp),
             ),
           ),
           const SizedBox(height: 10),
@@ -26,7 +28,7 @@ class ProgramAccreditationBody extends StatelessWidget {
               title: AppTexts.softwareAccreditationArabic,
               textStyle: Theme.of(
                 context,
-              ).textTheme.bodyMedium!.copyWith(fontSize: 32.sp),
+              ).textTheme.bodyMedium!.copyWith(fontSize: 24.sp),
             ),
           ),
           const SizedBox(height: 30),

@@ -77,8 +77,8 @@ class BarChartTooltipItem extends StatelessWidget {
         CustomText(
           title: "$label: ",
           textStyle: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w500,
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
             color: AppColors.textGrey,
           ),
         ),
@@ -87,7 +87,7 @@ class BarChartTooltipItem extends StatelessWidget {
               ? "$detailValue (${value.toStringAsFixed(0)}%)"
               : "${value.toStringAsFixed(0)}%",
           textStyle: TextStyle(
-            fontSize: 12.sp,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w800,
             color: AppColors.mainBlack,
           ),

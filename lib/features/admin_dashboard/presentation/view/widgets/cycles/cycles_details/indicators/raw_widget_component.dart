@@ -70,7 +70,7 @@ Widget buildCard(
             title: cycleIndicator.description,
             textStyle: Theme.of(
               context,
-            ).textTheme.bodyMedium!.copyWith(fontSize: 12.sp),
+            ).textTheme.bodyMedium!.copyWith(fontSize: 13.sp),
           ),
           SizedBox(height: 8.h),
 
@@ -83,7 +83,7 @@ Widget buildCard(
                   title: cycleIndicator.doctorName ?? '---',
                   textStyle: Theme.of(
                     context,
-                  ).textTheme.bodySmall!.copyWith(fontSize: 12.sp),
+                  ).textTheme.bodySmall!.copyWith(fontSize: 13.sp),
                 ),
               ),
               const Icon(Icons.calendar_today_outlined, size: 16),
@@ -94,7 +94,7 @@ Widget buildCard(
                     : '---',
                 textStyle: Theme.of(
                   context,
-                ).textTheme.bodySmall!.copyWith(fontSize: 12.sp),
+                ).textTheme.bodySmall!.copyWith(fontSize: 13.sp),
               ),
             ],
           ),
@@ -166,7 +166,7 @@ Widget actions(BuildContext context, CycleIndicatorModel cycleIndicator) {
               textStyle: Theme.of(
                 context,
               ).textTheme.titleMedium!.copyWith(
-                fontSize: 12.sp,
+                fontSize: 13.sp,
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,
               ),
@@ -220,7 +220,7 @@ Widget actionIcon({
             color: color,
             borderRadius: BorderRadius.circular(10.r),
           ),
-          child: Icon(icon, color: AppColors.white, size: 16.sp),
+          child: Icon(icon, color: AppColors.white, size: 13.sp),
         ),
       ),
     ),

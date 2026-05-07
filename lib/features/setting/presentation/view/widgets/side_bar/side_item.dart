@@ -53,7 +53,7 @@ class SideItem extends StatelessWidget {
                 title: sideItemModel.title.tr(),
                 textStyle: GoogleFonts.inter(
                   fontSize: 24.sp,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                   color:
                       Theme.of(context).scaffoldBackgroundColor ==
                           AppColors.white

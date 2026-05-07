@@ -81,7 +81,7 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                             hint: Text(
                               allDocsText,
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 15.sp,
                                 color: AppColors.greyLight,
                               ),
                             ),
@@ -91,8 +91,8 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                                 child: Text(
                                   allDocsText,
                                   style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -102,8 +102,8 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                                   child: Text(
                                     '${d.firstName} ${d.lastName}',
                                     style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
@@ -151,7 +151,7 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                             hint: Text(
                               allStatusesText,
                               style: TextStyle(
-                                fontSize: 14.sp,
+                                fontSize: 15.sp,
                                 color: AppColors.greyLight,
                               ),
                             ),
@@ -161,8 +161,8 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                                 child: Text(
                                   allStatusesText,
                                   style: TextStyle(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -172,8 +172,8 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
                                   child: Text(
                                     _translateStatus(s.name),
                                     style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
@@ -202,12 +202,12 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
   Widget _buildLabel(String title, IconData icon) {
     return Row(
       children: [
-        Icon(icon, size: 18.sp, color: AppColors.blue),
+        Icon(icon, size: 15.sp, color: AppColors.blue),
         SizedBox(width: 8.w),
         CustomText(
           title: title,
           textStyle: TextStyle(
-            fontSize: 14.sp,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w600,
             color: AppColors.mainBlack,
           ),

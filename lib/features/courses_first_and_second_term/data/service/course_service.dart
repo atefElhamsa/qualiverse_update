@@ -9,6 +9,7 @@ class CourseService {
     required int levelId,
     required int termId,
     int? departmentId,
+    String? lang,
   }) async {
     try {
       final response = await dio.get(
@@ -18,6 +19,7 @@ class CourseService {
           termId: termId,
           departmentId: departmentId,
         ),
+        options: lang != null ? Options(headers: {'Accept-Language': lang}) : null,
       );
       final Map<String, dynamic> body = response.data;
       final result = CoursesResponseModel.fromJson(body);

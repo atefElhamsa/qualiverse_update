@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/accreditation_type_drop_down_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
@@ -13,7 +13,9 @@ class CoursesMainFields extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SelectedAcademicYearWidget(),
+        SizedBox(height: 20.h),
         const SelectedLevelWidget(),
+        SizedBox(height: 20.h),
         BlocListener<LevelCubit, LevelState>(
           listener: (context, state) {
             if (state is LevelSuccess && state.selectedLevel != null) {
@@ -34,6 +36,7 @@ class CoursesMainFields extends StatelessWidget {
           },
           child: const SelectedDepartmentWidget(checkLevel: true),
         ),
+        SizedBox(height: 20.h),
         const SelectedSemesterWidget(),
       ],
     );

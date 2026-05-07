@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CoursesFirstAndSecondTermBody extends StatelessWidget {
-  const CoursesFirstAndSecondTermBody({super.key, required this.title});
+  const CoursesFirstAndSecondTermBody({
+    super.key,
+    required this.title,
+    required this.courseArgs,
+  });
 
   final String title;
+  final CourseArgs courseArgs;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class CoursesFirstAndSecondTermBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FirstTermTopAndTitle(tile: title),
+          FirstTermTopAndTitle(tile: title, courseArgs: courseArgs),
           const SizedBox(height: 22),
           const CoursesList(),
         ],

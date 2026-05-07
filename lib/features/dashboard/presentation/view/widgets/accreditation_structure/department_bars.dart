@@ -95,7 +95,7 @@ class DepartmentBarState extends State<DepartmentBar> {
             textAlign: TextAlign.center,
             textStyle: GoogleFonts.inter(
               fontSize: 11.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               color:
                   Theme.of(context).scaffoldBackgroundColor == AppColors.white
                   ? AppColors.textGrey

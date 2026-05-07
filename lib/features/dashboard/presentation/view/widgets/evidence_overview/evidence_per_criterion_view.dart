@@ -44,7 +44,7 @@ class EvidencePerCriterionView extends StatelessWidget {
                 title: 'evidencePerCriterion'.tr(),
                 textStyle: Theme.of(
                   context,
-                ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
               ),
               const SizedBox(height: 10),
               Row(
@@ -56,7 +56,7 @@ class EvidencePerCriterionView extends StatelessWidget {
                       title: 'criterionName'.tr(),
                       textStyle: Theme.of(
                         context,
-                      ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                      ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
                     ),
                   ),
                   const SizedBox(width: 6),

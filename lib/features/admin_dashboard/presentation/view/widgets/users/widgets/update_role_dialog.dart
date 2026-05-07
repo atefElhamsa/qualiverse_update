@@ -70,9 +70,9 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
               CustomText(
                 title: '${'user'.tr()}: ${widget.user.fullName}',
                 textStyle: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(height: 24.h),
@@ -97,13 +97,13 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                           value: selectedRole,
                           isExpanded: true,
                           icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.tooltipBehavior),
-                          hint: Text('selectType'.tr(), style: TextStyle(fontSize: 14.sp)),
+                          hint: Text('selectType'.tr(), style: TextStyle(fontSize: 15.sp)),
                           items: state.roles.map((role) {
                             return DropdownMenuItem(
                               value: role,
                               child: Text(
                                 (role.name.toLowerCase() + "Role").tr(),
-                                style: TextStyle(fontSize: 14.sp, color: AppColors.mainBlack),
+                                style: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack),
                               ),
                             );
                           }).toList(),
@@ -126,7 +126,7 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                     ),
                     child: Text(
                       'cancel'.tr(),
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 15.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -157,7 +157,7 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                               )
                             : Text(
                                 'updateRole'.tr(),
-                                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                               ),
                       );
                     },

@@ -42,10 +42,10 @@ class EvidenceFolderToolbar extends StatelessWidget {
                 onChanged: onSearchChanged,
                 decoration: InputDecoration(
                   hintText: 'Search file...',
-                  hintStyle: GoogleFonts.cairo(
+                  hintStyle: GoogleFonts.almarai(
                       color: Colors.grey.shade400, fontSize: 13.sp),
                   prefixIcon: Icon(Icons.search_rounded,
-                      color: Colors.grey.shade400, size: 18.sp),
+                      color: Colors.grey.shade400, size: 15.sp),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 8.h),
                 ),

@@ -76,15 +76,15 @@ class AttendanceSummaryCard extends StatelessWidget {
       children: [
         Text(
           "attendedExam".tr().toUpperCase(),
-          style: GoogleFonts.cairo(
-            fontSize: 12.sp,
+          style: GoogleFonts.almarai(
+            fontSize: 13.sp,
             fontWeight: FontWeight.bold,
             color: Colors.grey,
           ),
         ),
         Text(
           "$attended/$total",
-          style: GoogleFonts.cairo(
+          style: GoogleFonts.almarai(
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -119,7 +119,7 @@ class _SmallStatBadge extends StatelessWidget {
         children: [
           Text(
             label,
-            style: GoogleFonts.cairo(
+            style: GoogleFonts.almarai(
               fontSize: 9.sp,
               fontWeight: FontWeight.bold,
               color: textColor,
@@ -127,8 +127,8 @@ class _SmallStatBadge extends StatelessWidget {
           ),
           Text(
             "($value)",
-            style: GoogleFonts.cairo(
-              fontSize: 14.sp,
+            style: GoogleFonts.almarai(
+              fontSize: 15.sp,
               fontWeight: FontWeight.bold,
               color: textColor,
             ),

@@ -33,7 +33,7 @@ class DashboardHeader extends StatelessWidget {
             Text(
               data.courseName,
               textAlign: TextAlign.center,
-              style: GoogleFonts.cairo(
+              style: GoogleFonts.almarai(
                 fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
                 color: primaryColor,
@@ -47,8 +47,8 @@ class DashboardHeader extends StatelessWidget {
             ),
             Text(
               "${"courseStatistics".tr()} - ${"academicYearStatistics".tr()} ${data.academicYearNumber}",
-              style: GoogleFonts.cairo(
-                fontSize: 14.sp,
+              style: GoogleFonts.almarai(
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
                 color: Colors.grey.shade600,
                 letterSpacing: 1.2,

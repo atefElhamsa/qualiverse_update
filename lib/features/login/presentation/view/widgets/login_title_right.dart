@@ -22,7 +22,7 @@ class LoginTitleRight extends StatelessWidget {
             title: "accreditationQualitySystem".tr(),
             textStyle: Theme.of(
               context,
-            ).textTheme.headlineLarge!.copyWith(fontSize: 12.sp),
+            ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
           ),
         ),
       ],

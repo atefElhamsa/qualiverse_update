@@ -15,8 +15,8 @@ class ContainerLanguageTopAndButton extends StatelessWidget {
         CustomText(
           title: "websitesInYourLanguages".tr(),
           textStyle: GoogleFonts.inter(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
             color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
                 ? AppColors.black
                 : AppColors.white,
@@ -49,7 +49,7 @@ class ContainerLanguageTopAndButton extends StatelessWidget {
                   title: "addLanguages".tr(),
                   textStyle: Theme.of(context).textTheme.headlineLarge!
                       .copyWith(
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         color:
                             Theme.of(context).scaffoldBackgroundColor ==
                                 AppColors.white

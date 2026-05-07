@@ -43,8 +43,8 @@ class BaseCard extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: GoogleFonts.cairo(
-            fontSize: 12.sp,
+          style: GoogleFonts.almarai(
+            fontSize: 13.sp,
             fontWeight: FontWeight.bold,
             color: const Color(0xFF0F569E),
           ),

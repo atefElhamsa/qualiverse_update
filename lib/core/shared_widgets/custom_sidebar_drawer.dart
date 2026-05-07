@@ -12,7 +12,7 @@ class CustomSidebarDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final _ = context.locale;
     return Padding(
-      padding: EdgeInsets.only(top: 10.h, bottom: 20.h),
+      padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
       child: Column(
         children: [
           Container(
@@ -34,7 +34,7 @@ class CustomSidebarDrawer extends StatelessWidget {
             textStyle: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w900,
-              fontFamily: 'Tajawal',
+              fontFamily: 'Almarai',
               color: Colors.white,
             ),
           ),

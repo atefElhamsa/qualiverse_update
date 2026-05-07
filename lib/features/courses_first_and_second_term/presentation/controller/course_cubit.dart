@@ -21,6 +21,7 @@ class CourseCubit extends Cubit<CourseState> {
     required int levelId,
     required int semesterId,
     int? departmentId,
+    String? lang,
   }) async {
     emit(CourseLoading());
     try {
@@ -29,6 +30,7 @@ class CourseCubit extends Cubit<CourseState> {
         levelId: levelId,
         termId: semesterId,
         departmentId: departmentId,
+        lang: lang,
       );
       courses = data.courses!;
       emit(CourseSuccess(courses: courses, selectedCourse: selectedCourse));

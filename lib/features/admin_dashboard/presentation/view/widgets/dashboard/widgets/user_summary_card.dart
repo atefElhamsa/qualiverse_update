@@ -16,7 +16,7 @@ class DashboardUserSummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(title: "usersSummary".tr(), textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800, fontSize: 16.sp, color: AppColors.mainBlack)),
+          CustomText(title: "usersSummary".tr(), textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w800, fontSize: 13.sp, color: AppColors.mainBlack)),
           SizedBox(height: 16.h),
           Expanded(
             child: Row(
@@ -28,11 +28,11 @@ class DashboardUserSummaryCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(padding: EdgeInsets.all(6.w), decoration: BoxDecoration(color: AppColors.white, shape: BoxShape.circle), child: Icon(item.icon, color: item.color, size: 18.sp)),
+                      Container(padding: EdgeInsets.all(6.w), decoration: BoxDecoration(color: AppColors.white, shape: BoxShape.circle), child: Icon(item.icon, color: item.color, size: 15.sp)),
                       SizedBox(height: 6.h),
-                      CustomText(title: item.title.tr(), textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.textGrey, fontWeight: FontWeight.w600, fontSize: 12.sp)),
+                      CustomText(title: item.title.tr(), textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.textGrey, fontWeight: FontWeight.w600, fontSize: 13.sp)),
                       FittedBox(child: CustomText(title: item.value, textStyle: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w800, color: AppColors.mainBlack, fontSize: 20.sp))),
-                      CustomText(title: item.subtitle.tr(), textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.textGrey.withOpacity(0.5), fontSize: 10.sp, fontWeight: FontWeight.w400)),
+                      CustomText(title: item.subtitle.tr(), textStyle: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.textGrey.withOpacity(0.5), fontSize: 10.sp, fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),

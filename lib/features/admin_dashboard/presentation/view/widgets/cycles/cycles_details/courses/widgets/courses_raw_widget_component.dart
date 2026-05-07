@@ -71,7 +71,7 @@ Widget infoChip(IconData icon, String text) {
       SizedBox(width: 4.w),
       CustomText(
         title: text,
-        textStyle: TextStyle(fontSize: 12.sp, color: AppColors.mainBlack),
+        textStyle: TextStyle(fontSize: 13.sp, color: AppColors.mainBlack),
       ),
     ],
   );

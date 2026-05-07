@@ -64,7 +64,7 @@ class EvidenceSummaryCards extends StatelessWidget {
                   CustomText(
                     title: item["title"].toString().tr(),
                     textStyle: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w600,
                       color: (item['textColor'] as Color).withOpacity(0.8),
                     ),

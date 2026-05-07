@@ -46,7 +46,7 @@ class CoursesPerDepartmentView extends StatelessWidget {
                 title: 'coursesPerDepartment'.tr(),
                 textStyle: Theme.of(
                   context,
-                ).textTheme.headlineLarge!.copyWith(fontSize: 16.sp),
+                ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
               ),
               const SizedBox(height: 12),
               Row(

@@ -40,7 +40,7 @@ class FolderFilesToolbar extends StatelessWidget {
         textAlign: isArabic ? TextAlign.right : TextAlign.left,
         decoration: InputDecoration(
           hintText: 'searchFile'.tr(),
-          hintStyle: GoogleFonts.cairo(color: AppColors.greyLight, fontSize: 14.sp),
+          hintStyle: GoogleFonts.almarai(color: AppColors.greyLight, fontSize: 15.sp),
           prefixIcon: Icon(Icons.search, color: AppColors.greyLight, size: 20.sp),
           suffixIcon: _buildClearButton(),
           border: InputBorder.none,
@@ -55,7 +55,7 @@ class FolderFilesToolbar extends StatelessWidget {
       valueListenable: searchController,
       builder: (_, value, __) => value.text.isEmpty
           ? const SizedBox.shrink()
-          : IconButton(icon: Icon(Icons.close, size: 18.sp, color: AppColors.greyLight), onPressed: () => searchController.clear()),
+          : IconButton(icon: Icon(Icons.close, size: 15.sp, color: AppColors.greyLight), onPressed: () => searchController.clear()),
     );
   }
 }

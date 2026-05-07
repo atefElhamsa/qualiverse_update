@@ -531,5 +531,20 @@
   "totalFilesUploaded": "إجمالي الملفات المرفوعة",
   "allLevels": "جميع المستويات",
   "allTypes": "جميع الأنواع",
-  "totalUsers": "إجمالي المستخدمين"
+  "totalUsers": "إجمالي المستخدمين",
+  "uploadStatisticsFile": "رفع ملف الإحصائيات",
+  "previewResults": "نتائج المعاينة",
+  "reviewMatchesBeforeConfirming": "يرجى مراجعة مطابقة المواد أدناه قبل تأكيد عملية الرفع.",
+  "coursesList": "قائمة المواد",
+  "fileCourseName": "المادة في الملف",
+  "confirmUpload": "تأكيد الرفع",
+  "matchedCount": "تمت مطابقتها",
+  "unmatchedCount": "لم يتم مطابقتها",
+  "matchedSystemCourse": "المقرر المطابق في النظام",
+  "matchScore": "نسبة المطابقة",
+  "fromFile": "من الملف المرفوع",
+  "attentionRequired": "تنبيه هام",
+  "unmatchedRowsWarning": "توجد بعض الصفوف التي لم يتم مطابقتها تلقائياً، يرجى اختيار المقرر المناسب لها يدوياً.",
+  "matched": "مطابق",
+  "unmatched": "غير مطابق"
 }

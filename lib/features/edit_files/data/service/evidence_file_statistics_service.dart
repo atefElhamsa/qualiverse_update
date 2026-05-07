@@ -3,9 +3,69 @@ import 'package:qualiverse/core/network/api_client.dart';
 import 'package:qualiverse/core/utils/end_points.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
+import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
 
 class EvidenceFileStatisticsService {
   static final Dio dio = ApiClient.dio;
+
+  static Future<StatisticsPreviewResponse> previewStatistics({
+    required MultipartFile file,
+    required int academicYearId,
+    int? departmentId,
+    required int levelId,
+    required int termId,
+    String? lang,
+  }) async {
+    try {
+      final formData = FormData.fromMap({
+        "File": file,
+        "AcademicYearId": academicYearId,
+        "TermId": termId,
+        "LevelId": levelId,
+        if (departmentId != null) "DepartmentId": departmentId,
+      });
+
+      final response = await dio.post(
+        EndPoints.previewStatistics,
+        data: formData,
+        options: lang != null ? Options(headers: {'Accept-Language': lang}) : null,
+      );
+
+      return StatisticsPreviewResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) throw Exception('Unauthorized');
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
+
+  static Future<bool> confirmStatistics({
+    required String previewId,
+    List<Map<String, dynamic>>? courseOverrides,
+  }) async {
+    try {
+      final response = await dio.post(
+        EndPoints.confirmStatistics,
+        data: {
+          "previewId": previewId,
+          "courseOverrides": courseOverrides ?? [],
+        },
+      );
+      return response.data['isSuccess'] ?? false;
+    } catch (e) {
+      return false;
+    }
+  }
 
   static Future<EvidenceFileStatisticsModelResponse> getEvidenceFileStatistics({
     required int academicYearId,
@@ -38,7 +98,8 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -72,7 +133,6 @@ class EvidenceFileStatisticsService {
         data: formData,
       );
       final Map<String, dynamic> body = response.data;
-      
 
       if (body['isSuccess'] == true) {
         return 'File uploaded successfully';
@@ -81,7 +141,9 @@ class EvidenceFileStatisticsService {
         if (errorData is Map && errorData.containsKey('description')) {
           throw Exception(errorData['description']);
         }
-        throw Exception(errorData?.toString() ?? 'Failed to upload evidence files');
+        throw Exception(
+          errorData?.toString() ?? 'Failed to upload evidence files',
+        );
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
@@ -89,7 +151,8 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -131,7 +194,8 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -177,7 +241,9 @@ class EvidenceFileStatisticsService {
         if (errorData is Map && errorData.containsKey('description')) {
           throw Exception(errorData['description']);
         }
-        throw Exception(errorData?.toString() ?? 'Failed to upload evidence files');
+        throw Exception(
+          errorData?.toString() ?? 'Failed to upload evidence files',
+        );
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
@@ -185,7 +251,8 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }

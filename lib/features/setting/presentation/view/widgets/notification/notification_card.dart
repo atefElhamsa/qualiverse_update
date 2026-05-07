@@ -64,7 +64,7 @@ class NotificationCard extends StatelessWidget {
                       child: Text(
                         notification.title,
                         style: TextStyle(
-                          fontSize: 14.sp,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w700,
                           color: titleColor,
                           letterSpacing: -0.2,
@@ -76,7 +76,7 @@ class NotificationCard extends StatelessWidget {
                       notification.timeAgo,
                       style: TextStyle(
                         fontSize: 11.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: subtitleColor.withOpacity(0.8),
                       ),
                     ),
@@ -109,7 +109,7 @@ class NotificationCard extends StatelessWidget {
                           notification.formattedCreatedOn,
                           style: TextStyle(
                             fontSize: 10.sp,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w600,
                             color: subtitleColor.withOpacity(0.5),
                           ),
                         ),

@@ -2,7 +2,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/shared_widgets_model/drop_button_model.dart';
+
+import '../../routing/all_routes_imports.dart';
 
 class CustomDropButton extends StatelessWidget {
   const CustomDropButton({super.key, required this.dropButtonModel});
@@ -25,9 +26,9 @@ class CustomDropButton extends StatelessWidget {
           dropButtonModel.hintText,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: GoogleFonts.tajawal(
-            fontSize: dropButtonModel.hintSize ?? 18.sp,
-            color: Colors.grey,
+          style: GoogleFonts.almarai(
+            fontSize: dropButtonModel.hintSize ?? 15.sp,
+            color: Colors.grey[700],
           ),
         ),
         items: dropButtonModel.listOfData.map((data) {
@@ -35,16 +36,17 @@ class CustomDropButton extends StatelessWidget {
             value: data,
             child: Text(
               data.toString(),
-              style: GoogleFonts.tajawal(
-                fontSize: 18.sp,
+              style: GoogleFonts.almarai(
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
+                color: AppColors.mainBlack,
               ),
             ),
           );
         }).toList(),
         onChanged: dropButtonModel.onChanged,
         buttonStyleData: ButtonStyleData(
-          height: 65.h,
+          height: 55.h,
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.1),

@@ -29,7 +29,7 @@ class DropdownItem extends StatelessWidget {
           child: CustomText(
             title: name,
             textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),

@@ -52,7 +52,7 @@ class ResetRightPartWidget extends StatelessWidget {
                                 textStyle: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
-                                    .copyWith(fontSize: 14.sp),
+                                    .copyWith(fontSize: 15.sp),
                               ),
                             ),
                     ],

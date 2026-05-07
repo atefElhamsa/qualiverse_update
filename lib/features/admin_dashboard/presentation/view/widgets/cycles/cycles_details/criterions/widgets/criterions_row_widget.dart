@@ -102,7 +102,7 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                 child: CustomText(
                   title: widget.criterion.accreditation,
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     color: (widget.criterion.accreditation == 'Program' ||
                             widget.criterion.accreditation == 'program'.tr())
                         ? const Color(0xFF2C5C8A)
@@ -160,7 +160,7 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                       ),
                       child: Icon(
                         Icons.add,
-                        size: 16.sp,
+                        size: 13.sp,
                         color: _isEnabled
                             ? AppColors.mainBlack
                             : AppColors.grey,
@@ -186,7 +186,7 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                 child: CustomText(
                   title: _isEnabled ? 'enabled'.tr() : 'disabled'.tr(),
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     color: AppColors.white,
                   ),
                 ),

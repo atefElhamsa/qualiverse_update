@@ -1,5 +1,6 @@
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
 import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
+import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
 
 abstract class EvidenceFolderFilesState {}
 
@@ -54,3 +55,29 @@ class GetEvidenceStatisticsFailure extends EvidenceFolderFilesState {
   final String error;
   GetEvidenceStatisticsFailure({required this.error});
 }
+
+// Statistics Preview States
+class StatisticsPreviewLoading extends EvidenceFolderFilesState {}
+
+class StatisticsPreviewSuccess extends EvidenceFolderFilesState {
+  final StatisticsPreviewData previewData;
+  StatisticsPreviewSuccess({required this.previewData});
+}
+
+class StatisticsPreviewFailure extends EvidenceFolderFilesState {
+  final String error;
+  StatisticsPreviewFailure({required this.error});
+}
+
+class ConfirmStatisticsLoading extends EvidenceFolderFilesState {}
+
+class ConfirmStatisticsSuccess extends EvidenceFolderFilesState {
+  final String message;
+  ConfirmStatisticsSuccess({required this.message});
+}
+
+class ConfirmStatisticsFailure extends EvidenceFolderFilesState {
+  final String error;
+  ConfirmStatisticsFailure({required this.error});
+}
+

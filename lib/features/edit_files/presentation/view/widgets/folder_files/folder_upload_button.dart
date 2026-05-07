@@ -65,11 +65,11 @@ class _FolderUploadButtonState extends State<FolderUploadButton> {
                   ),
                 )
               else
-                Icon(Icons.upload_file, color: Colors.white, size: 18.sp),
+                Icon(Icons.upload_file, color: Colors.white, size: 15.sp),
               SizedBox(width: 8.w),
               Text(
                 widget.isLoading ? 'uploading'.tr() : 'uploadFile'.tr(),
-                style: GoogleFonts.cairo(
+                style: GoogleFonts.almarai(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,

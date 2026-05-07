@@ -25,7 +25,21 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
     if (!mounted) return;
 
     final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id;
-    final departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
+    final typesCubit = TypesCubit.get(context);
+    final typeState = typesCubit.state;
+
+    int? departmentId;
+    if (typeState is TypesSuccess && typeState.selectedIndex != -1) {
+      final typeName = typeState.types[typeState.selectedIndex].name.toLowerCase();
+      if (typeName.contains('institutional') || typeName.contains('مؤسسي')) {
+        departmentId = null;
+      } else {
+        departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
+      }
+    } else {
+      departmentId = DepartmentCubit.get(context).selectedDepartment?.id;
+    }
+
     final criterionId = ProgramAccreditationCubit.get(
       context,
     ).selectedProgramAccreditation?.id;
@@ -83,7 +97,7 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
                 child: CustomText(
                   title: 'pleaseSelectTheCriterion'.tr(),
                   textStyle: Theme.of(context).textTheme.headlineLarge!
-                      .copyWith(color: AppColors.grey, fontSize: 18.sp),
+                      .copyWith(color: AppColors.grey, fontSize: 15.sp),
                 ),
               ),
             );

@@ -177,8 +177,8 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
           CustomText(
             title: '${'academicYear'.tr()}: $academicYear',
             textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 15.sp,
+              fontWeight: FontWeight.w600,
               color: AppColors.mainBlack,
             ),
           ),

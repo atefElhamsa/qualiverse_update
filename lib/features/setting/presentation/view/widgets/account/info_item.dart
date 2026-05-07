@@ -46,7 +46,7 @@ class InfoItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.inter(
                   fontSize: 20.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color:
                       Theme.of(context).scaffoldBackgroundColor ==
                           AppColors.white
@@ -64,7 +64,7 @@ class InfoItem extends StatelessWidget {
                     title: "change".tr(),
                     textStyle: GoogleFonts.inter(
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color:
                           Theme.of(context).scaffoldBackgroundColor ==
                               AppColors.white

@@ -48,7 +48,7 @@ class NotificationListView extends StatelessWidget {
                         child: CustomText(
                           title: "no_notifications".tr(),
                           textStyle: TextStyle(
-                            fontSize: 16.sp,
+                            fontSize: 13.sp,
                             color: AppColors.greyLight,
                           ),
                         ),
@@ -95,7 +95,7 @@ class _ViewMoreButton extends StatelessWidget {
                 child: CustomText(
                   title: "view_more".tr(),
                   textStyle: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
                     color: AppColors.progressColor,
                   ),

@@ -128,8 +128,8 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                   children: [
                     Text(
                       widget.file.fileName,
-                      style: GoogleFonts.cairo(
-                        fontSize: 14.sp,
+                      style: GoogleFonts.almarai(
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w600,
                         color: _isItemHovered ? const Color(0xFF0F569E) : const Color(0xFF333333),
                       ),
@@ -140,7 +140,7 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                       children: [
                         Text(
                           widget.file.fileSize,
-                          style: GoogleFonts.cairo(
+                          style: GoogleFonts.almarai(
                             fontSize: 11.sp,
                             color: Colors.grey.shade500,
                           ),
@@ -151,7 +151,7 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                         ),
                         Text(
                           widget.file.fileType.toUpperCase(),
-                          style: GoogleFonts.cairo(
+                          style: GoogleFonts.almarai(
                             fontSize: 11.sp,
                             color: fileTypeData.mainColor,
                             fontWeight: FontWeight.bold,
@@ -272,7 +272,7 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                 SizedBox(width: 15.w),
                 Text(
                   'deleteFile'.tr(),
-                  style: GoogleFonts.cairo(
+                  style: GoogleFonts.almarai(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF1A1A1A),
@@ -283,7 +283,7 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
             SizedBox(height: 20.h),
             RichText(
               text: TextSpan(
-                style: GoogleFonts.cairo(
+                style: GoogleFonts.almarai(
                   fontSize: 15.sp,
                   color: Colors.grey.shade600,
                 ),
@@ -312,8 +312,8 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                     cursor: SystemMouseCursors.click,
                     child: Text(
                       'cancel'.tr(),
-                      style: GoogleFonts.cairo(
-                        fontSize: 16.sp,
+                      style: GoogleFonts.almarai(
+                        fontSize: 13.sp,
                         color: _isCancelHovered
                             ? const Color(0xFF1A1A1A)
                             : Colors.grey.shade500,
@@ -348,9 +348,9 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                       ),
                       child: Text(
                         'delete'.tr(),
-                        style: GoogleFonts.cairo(
+                        style: GoogleFonts.almarai(
                           color: Colors.white,
-                          fontSize: 16.sp,
+                          fontSize: 13.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
