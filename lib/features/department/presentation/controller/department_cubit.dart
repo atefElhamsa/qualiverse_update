@@ -28,7 +28,12 @@ class DepartmentCubit extends Cubit<DepartmentState> {
       final data = await DepartmentService.getDepartments();
       departments = data;
       
-      if (selectedDepartment == null && departments.isNotEmpty) {
+      if (selectedDepartment != null) {
+        selectedDepartment = departments.firstWhere(
+          (e) => e.id == selectedDepartment!.id,
+          orElse: () => departments.isNotEmpty ? departments.first : departments.first,
+        );
+      } else if (departments.isNotEmpty) {
         selectedDepartment = departments.first;
       }
 

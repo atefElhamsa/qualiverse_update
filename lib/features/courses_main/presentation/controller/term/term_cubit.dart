@@ -22,7 +22,12 @@ class TermCubit extends Cubit<TermState> {
       final data = await TermService.getTerms();
       terms = data;
 
-      if (selectedTerm == null && terms.isNotEmpty) {
+      if (selectedTerm != null) {
+        selectedTerm = terms.firstWhere(
+          (e) => e.id == selectedTerm!.id,
+          orElse: () => terms.isNotEmpty ? terms.first : terms.first,
+        );
+      } else if (terms.isNotEmpty) {
         selectedTerm = terms.first;
       }
 

@@ -18,6 +18,14 @@ class AssignmentStatusCubit extends Cubit<AssignmentStatusState> {
     try {
       final response = await AssignmentStatusService.getAssignmentStatuses();
       statuses = response.data;
+      if (selectedStatus != null) {
+        selectedStatus = statuses.firstWhere(
+          (e) => e.value == selectedStatus!.value,
+          orElse: () => statuses.isNotEmpty ? statuses.first : statuses.first,
+        );
+      } else if (statuses.isNotEmpty) {
+        selectedStatus = statuses.first;
+      }
       emit(AssignmentStatusSuccess(statuses: statuses));
     } catch (e) {
       emit(AssignmentStatusError(error: e.toString()));

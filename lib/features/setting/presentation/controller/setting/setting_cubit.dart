@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/routing/app_routes.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignment_status_cubit.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/roles_cubit.dart';
+import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
+
+import '../../../../../routing/all_routes_imports.dart';
 
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit() : super(SettingInitial());
@@ -21,18 +22,17 @@ class SettingCubit extends Cubit<SettingState> {
 
   // INIT
   Future<void> initSetting({required BuildContext context}) async {
-    // ===== LANGUAGE =====
     final savedLang = CashHelper.getData(key: KeysTexts.lang);
     final deviceLang =
         WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 
     languageCode = savedLang ?? deviceLang;
-    // غير اللغة فقط لو مختلفة
+
+    ApiClient.dio.options.headers['Accept-Language'] = languageCode;
+
     if (context.locale.languageCode != languageCode) {
       await context.setLocale(Locale(languageCode));
     }
-
-
 
     // ===== USER DATA =====
     password = CashHelper.getData(key: KeysTexts.userPassword);
@@ -76,14 +76,32 @@ class SettingCubit extends Cubit<SettingState> {
     await CashHelper.saveData(key: KeysTexts.lang, value: lang);
 
     if (context.mounted) {
-      context.pushReplacementNamed(AppRoutes.homeScreen);
+      ApiClient.dio.options.headers['Accept-Language'] = lang;
+      await _refreshDataAfterLanguageChange(context, lang: lang);
     }
 
     sortPreferredLanguages();
     emit(LanguageChangedState());
   }
 
-
+  Future<void> _refreshDataAfterLanguageChange(
+    BuildContext context, {
+    String? lang,
+  }) async {
+    await Future.wait([
+      context.read<AcademicYearCubit>().fetchAcademicYears(),
+      context.read<DepartmentCubit>().fetchDepartments(),
+      context.read<AssignmentStatusCubit>().fetchStatuses(),
+      context.read<LevelCubit>().fetchLevels(),
+      context.read<TermCubit>().fetchTerms(),
+      context.read<TypesCubit>().fetchTypes(),
+      context.read<RolesCubit>().getRoles(),
+      context.read<DashboardCubit>().getDashboard(),
+      context.read<MeCubit>().getMyInfo(),
+      context.read<UsersCubit>().fetchUsers(),
+      context.read<NotificationsCubit>().getRecentNotifications(),
+    ]);
+  }
 
   // REFRESH USER DATA
   void refreshUserData() {

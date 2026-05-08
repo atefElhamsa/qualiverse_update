@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
           builder: (_, _) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
+              key: ValueKey(context.locale.languageCode),
               theme: AppThemeData.lightTheme,
               themeMode: ThemeMode.light,
               routerConfig: RouterGenerator.mainRoutingInOurApp,

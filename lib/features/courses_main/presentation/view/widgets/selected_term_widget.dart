@@ -23,13 +23,13 @@ class SelectedSemesterWidget extends StatelessWidget {
           );
         }
         if (state is TermSuccess) {
-          final semesterCubit = TermCubit.get(context);
-          final List<String> semesterNames = state.terms.map((e) => e.name).toList();
-          final String? selectedSemesterName = state.selectedTerm?.name;
+          final termCubit = TermCubit.get(context);
+          final List<String> termNames = state.terms.map((e) => e.name).toList();
+          final String? selectedTermName = state.selectedTerm?.name;
           return CustomDropButtonAndTitle(
             dropButtonModel: DropButtonModel(
-              selectedData: selectedSemesterName,
-              listOfData: semesterNames,
+              selectedData: selectedTermName,
+              listOfData: termNames,
               hintText: "chooseTerm".tr(),
               hintSize: 20.sp,
               onChanged: (value) {
@@ -37,7 +37,7 @@ class SelectedSemesterWidget extends StatelessWidget {
                 final selectedModel = state.terms.firstWhere(
                   (d) => d.name == value,
                 );
-                semesterCubit.selectTerm(term: selectedModel);
+                termCubit.selectTerm(term: selectedModel);
               },
             ),
             title: "term".tr(),

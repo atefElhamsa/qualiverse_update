@@ -41,10 +41,9 @@ class _StatisticsPreviewDialogState extends State<StatisticsPreviewDialog> {
     selectedMappings = {
       for (var row in widget.data.rows) row.rowIndex: row.matchedCourseId,
     };
-    
-    // Fetch courses if they are not already loaded for this context
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
+        CourseCubit.get(context).reset();
         CourseCubit.get(context).fetchCourses(
           yearId: widget.courseArgs.yearId,
           levelId: widget.courseArgs.levelId,

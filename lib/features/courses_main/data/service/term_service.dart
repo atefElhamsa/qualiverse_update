@@ -31,7 +31,8 @@ class TermService {
       }
 
       // Server error
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }

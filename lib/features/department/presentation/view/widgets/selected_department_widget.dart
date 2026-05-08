@@ -14,7 +14,9 @@ class SelectedDepartmentWidget extends StatelessWidget {
     return BlocBuilder<LevelCubit, LevelState>(
       builder: (context, levelState) {
         bool isDisabled = false;
-        if (checkLevel && levelState is LevelSuccess && levelState.selectedLevel != null) {
+        if (checkLevel &&
+            levelState is LevelSuccess &&
+            levelState.selectedLevel != null) {
           if (levelState.selectedLevel!.levelNumber <= 2) {
             isDisabled = true;
           }
@@ -34,8 +36,9 @@ class SelectedDepartmentWidget extends StatelessWidget {
             }
             if (state is DepartmentSuccess) {
               final departmentCubit = DepartmentCubit.get(context);
-              final List<String> departmentNames =
-                  state.departments.map((e) => e.name).toList();
+              final List<String> departmentNames = state.departments
+                  .map((e) => e.name)
+                  .toList();
               final String? selectedDepartmentName =
                   state.selectedDepartment?.name;
 

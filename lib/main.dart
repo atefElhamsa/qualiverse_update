@@ -66,7 +66,7 @@ void main() async {
         BlocProvider(create: (context) => LevelCubit()..fetchLevels()),
         BlocProvider(create: (context) => TermCubit()..fetchTerms()),
         BlocProvider(create: (context) => TemplateCubit()),
-        BlocProvider(create: (context) => TypesCubit()..fetchTypes()),
+        BlocProvider(create: (context) => TypesCubit()),
         BlocProvider(create: (context) => RolesCubit()..getRoles()),
         BlocProvider(create: (context) => UpdateUserRoleCubit()),
         BlocProvider(create: (context) => DashboardCubit()..getDashboard()),
