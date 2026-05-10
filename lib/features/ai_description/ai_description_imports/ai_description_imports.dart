@@ -1,3 +1,8 @@
 export 'package:qualiverse/features/ai_description/presentation/view/ai_description_screen.dart';
+export 'package:qualiverse/features/ai_description/presentation/view/ai_description_result_screen.dart';
+export 'package:qualiverse/features/ai_description/data/models/ai_description_result_model.dart';
 export 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_description_body.dart';
 export 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_description_top.dart';
+export 'package:qualiverse/features/ai_description/presentation/view/ai_course_selection_screen.dart';
+export 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_course_selection_body.dart';
+export 'package:qualiverse/features/ai_description/presentation/view/widgets/selected_course_widget.dart';

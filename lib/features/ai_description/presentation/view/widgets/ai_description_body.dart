@@ -1,10 +1,12 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/routing/app_routes.dart';
 
 class AiDescriptionBody extends StatefulWidget {
   const AiDescriptionBody({super.key});
@@ -14,26 +16,20 @@ class AiDescriptionBody extends StatefulWidget {
 }
 
 class _AiDescriptionBodyState extends State<AiDescriptionBody> {
-  // List to store uploaded files.
   List<File?> uploadedFilesSpecification = List<File?>.filled(
     2,
     null,
     growable: false,
   );
 
-  // Maximum number of files that can be uploaded.
   final int maxFiles = 2;
 
-  // Counter for the number of files that have been uploaded.
   int countUploadedFileDone = 0;
-
-  // Calculate the progress based on the uploaded files.
   double get progress {
     if (uploadedFilesSpecification.isEmpty) return 0;
     return countUploadedFileDone / maxFiles;
   }
 
-  // Function to pick a file from the device.
   Future<void> pickFile(int index) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: false,
@@ -66,29 +62,90 @@ class _AiDescriptionBodyState extends State<AiDescriptionBody> {
     ];
     return CustomScaffold(
       widget: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const AiDescriptionTop(),
-          CustomText(
-            title: "youMustUploadTwoFilesInPdfWordTypeOnly".tr(),
-            textStyle: Theme.of(context).textTheme.labelSmall!,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 45.w),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.red.withOpacity(0.06),
+                    blurRadius: 20,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+                border: Border.all(color: AppColors.red.withOpacity(0.04)),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.info_rounded, color: AppColors.red, size: 20.sp),
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: Text(
+                      "youMustUploadTwoFilesInPdfWordTypeOnly".tr(),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: AppColors.red.withOpacity(0.8),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          const SizedBox(height: 10),
-          // Display the list of file items.
-          ListFileItemWidget(fileItemModels: fileItemModels),
-          const SizedBox(height: 20),
-          // Display the number of uploaded files and buttons.
-          StartEndNumberFileCompleted(
-            countUploadedFileDone: countUploadedFileDone,
-            maxFiles: maxFiles,
+          const SizedBox(height: 8),
+          // Upload Area
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            child: ListFileItemWidget(fileItemModels: fileItemModels),
           ),
-          const SizedBox(height: 10),
-          // Display the progress bar.
-          LinearProgressWidget(value: progress),
-          // Display the buttons for editing and approving.
-          const SizedBox(height: 10),
-          const EditApprovedButtons(),
+          const SizedBox(height: 12),
+          // Compact Floating Action Bar
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 30,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: StartEndNumberFileCompleted(
+                          countUploadedFileDone: countUploadedFileDone,
+                          maxFiles: maxFiles,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      EditApprovedButtons(
+                        onApprovedPressed: () {
+                          context.push(AppRoutes.aiDescriptionResultScreen);
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  LinearProgressWidget(value: progress),
+                ],
+              ),
+            ),
+          ),
           const SizedBox(height: 10),
         ],
       ),

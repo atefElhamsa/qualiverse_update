@@ -28,6 +28,8 @@ class RouterGenerator {
       ScreensRoutes.aiMainRoute(),
       ScreensRoutes.aiReportRoute(),
       ScreensRoutes.aiDescriptionRoute(),
+      ScreensRoutes.aiCourseSelectionRoute(),
+      ScreensRoutes.aiDescriptionResultRoute(),
       ScreensRoutes.coursesFirstAndSecondTermRoute(),
       ScreensRoutes.editFilesRoute(),
       ScreensRoutes.indicatorRoute(),

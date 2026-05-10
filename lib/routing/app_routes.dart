@@ -36,6 +36,9 @@ class AppRoutes {
   // Route for the AI description screen.
   static const String aiDescriptionScreen = '/ai_description';
 
+  // Route for the AI course selection screen.
+  static const String aiCourseSelectionScreen = '/ai_course_selection';
+
   // Route for the courses first term screen.
   static const String coursesFirstAndSecondTermScreen =
       '/courses_first_and_second_term';
@@ -85,4 +88,7 @@ class AppRoutes {
 
   // Route for the evidence folder files screen
   static const String evidenceFolderFilesScreen = '/evidence_folder_files';
+
+  // Route for the AI description result preview
+  static const String aiDescriptionResultScreen = '/ai_description_result';
 }

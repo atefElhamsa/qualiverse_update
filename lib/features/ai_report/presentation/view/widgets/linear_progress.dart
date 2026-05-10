@@ -28,14 +28,17 @@ class _LinearProgressWidgetState extends State<LinearProgressWidget> {
           stopIndicatorColor: AppColors.green,
           valueColor: const AlwaysStoppedAnimation(Colors.green),
         ),
-        const SizedBox(height: 10),
-        CustomText(
-          title: "doneSuccessfully".tr(),
-          textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 24.sp,
-            color: AppColors.green,
+        if (widget.value == 1.0) ...[
+          const SizedBox(height: 10),
+          CustomText(
+            title: "doneSuccessfully".tr(),
+            textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontSize: 20.sp,
+              color: AppColors.green,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

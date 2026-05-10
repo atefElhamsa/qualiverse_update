@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:qualiverse/features/ai_description/presentation/view/ai_description_result_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
 
 import 'all_routes_imports.dart';
@@ -12,6 +13,30 @@ class ScreensRoutes {
         context: context,
         state: state,
         child: const AiDescriptionScreen(),
+      ),
+    );
+  }
+
+  static GoRoute aiCourseSelectionRoute() {
+    return GoRoute(
+      path: AppRoutes.aiCourseSelectionScreen,
+      name: AppRoutes.aiCourseSelectionScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AiCourseSelectionScreen(),
+      ),
+    );
+  }
+
+  static GoRoute aiDescriptionResultRoute() {
+    return GoRoute(
+      path: AppRoutes.aiDescriptionResultScreen,
+      name: AppRoutes.aiDescriptionResultScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AiDescriptionResultScreen(),
       ),
     );
   }

@@ -27,10 +27,10 @@ class FileItemWidget extends StatelessWidget {
                 width: 380.w,
                 child: DottedBorder(
                   options: RoundedRectDottedBorderOptions(
-                    radius: Radius.circular(40.r),
-                    strokeWidth: 2,
-                    color: AppColors.greyLight,
-                    dashPattern: const [6, 6],
+                    radius: Radius.circular(30.r),
+                    strokeWidth: 2.5,
+                    color: AppColors.scaffoldLight1.withOpacity(0.3),
+                    dashPattern: const [8, 5],
                   ),
                   child: Center(
                     child: fileItemModel.file == null
@@ -44,6 +44,7 @@ class FileItemWidget extends StatelessWidget {
               const SizedBox(height: 10),
               CustomText(
                 title: fileItemModel.aboutFile!,
+                textAlign: TextAlign.center,
                 textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 24.sp,
                   color: AppColors.greyLight,

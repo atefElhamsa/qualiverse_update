@@ -11,52 +11,72 @@ class AiMainButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Return a Row widget to display buttons horizontally.
     return Row(
-      // Center the buttons horizontally.
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // SizedBox to control the size of the first button.
-        SizedBox(
-          // Set the height and width of the button using screen utilities.
-          height: 68.h,
-          width: 164.w,
-          child: CustomButton(
-            buttonModel: ButtonModel(
-              onPressed: () {
-                context.pushNamed(AppRoutes.aiReportScreen);
-              },
-              backgroundColor: AppColors.scaffoldLight1,
-              radius: 20,
-              customText: CustomText(
-                title: "report".tr(),
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-              ),
-            ),
+        _buildPremiumButton(
+          context,
+          title: "report".tr(),
+          onPressed: () => context.pushNamed(AppRoutes.aiReportScreen),
+          gradient: const LinearGradient(
+            colors: [Color(0xFF64B5F6), Color(0xFF1E88E5)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
-        // SizedBox to add space between the buttons.
-        const SizedBox(width: 20),
-        // SizedBox to control the size of the second button.
-        SizedBox(
-          // Set the height and width of the button using screen utilities.
-          height: 68.h,
-          width: 200.w,
-          child: CustomButton(
-            buttonModel: ButtonModel(
-              onPressed: () {
-                context.pushNamed(AppRoutes.aiDescriptionScreen);
-              },
-              backgroundColor: AppColors.colorButtonLight,
-              radius: 20,
-              customText: CustomText(
-                title: "description".tr(),
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-              ),
-            ),
+        const SizedBox(width: 30),
+        _buildPremiumButton(
+          context,
+          title: "specification".tr(),
+          onPressed: () => context.pushNamed(AppRoutes.aiCourseSelectionScreen),
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1E3A8A), Color(0xFF1E40AF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPremiumButton(
+    BuildContext context, {
+    required String title,
+    required VoidCallback onPressed,
+    required Gradient gradient,
+  }) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onPressed,
+        behavior: HitTestBehavior.opaque,
+        child: Container(
+          height: 65.h,
+          constraints: BoxConstraints(minWidth: 200.w),
+          padding: EdgeInsets.symmetric(horizontal: 35.w),
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(20.r),
+            boxShadow: [
+              BoxShadow(
+                color: (gradient as LinearGradient).colors.last.withOpacity(0.3),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
