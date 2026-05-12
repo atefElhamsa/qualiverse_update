@@ -313,16 +313,26 @@ Start-Sleep -Seconds 1
       onStatusChanged('جاري إغلاق البرنامج لبدء التثبيت...');
       await Future.delayed(const Duration(seconds: 1));
 
-      // 3. Start PowerShell with Window visible for debugging
-      await Process.start('powershell.exe', [
-        '-NoProfile',
-        '-ExecutionPolicy',
-        'Bypass',
-        '-WindowStyle',
-        'Normal',
-        '-File',
-        scriptPath
-      ], mode: ProcessStartMode.detached);
+      // 3. Start PowerShell using cmd.exe /c start for better compatibility with spaces
+      try {
+        debugPrint('Launching updater via CMD: $scriptPath');
+        
+        // استخدام cmd /c start بيخلي الويندوز يفتح نافذة جديدة بشكل أضمن
+        await Process.run('cmd.exe', [
+          '/c',
+          'start',
+          'powershell.exe',
+          '-NoProfile',
+          '-ExecutionPolicy',
+          'Bypass',
+          '-File',
+          scriptPath
+        ]);
+      } catch (e) {
+        debugPrint('Failed to start CMD/PowerShell: $e');
+        onStatusChanged('فشل بدء التثبيت: $e');
+        return;
+      }
 
       exit(0);
     } catch (e) {
