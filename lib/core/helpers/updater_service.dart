@@ -7,13 +7,25 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
 class UpdaterService {
+  static Map<String, String> get _headers => {
+    'User-Agent': 'QualiVerse-Updater',
+    'Accept': 'application/json',
+  };
+
   static String get _versionUrl =>
       'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/version.json?t=${DateTime.now().millisecondsSinceEpoch}';
 
   static Future<void> checkForUpdate(BuildContext context) async {
     try {
-      final response = await http.get(Uri.parse(_versionUrl));
-      if (response.statusCode != 200) return;
+      debugPrint('Checking for update at: $_versionUrl');
+      final response = await http.get(
+        Uri.parse(_versionUrl),
+        headers: _headers,
+      );
+      if (response.statusCode != 200) {
+        debugPrint('Update check failed with status: ${response.statusCode}');
+        return;
+      }
 
       final data = jsonDecode(response.body);
       final latestVersion = data['version'] as String;
@@ -39,8 +51,14 @@ class UpdaterService {
       String cleanLatest = latest.split('+')[0].split('-')[0];
       String cleanCurrent = current.split('+')[0].split('-')[0];
 
-      final l = cleanLatest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-      final c = cleanCurrent.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      final l = cleanLatest
+          .split('.')
+          .map((e) => int.tryParse(e) ?? 0)
+          .toList();
+      final c = cleanCurrent
+          .split('.')
+          .map((e) => int.tryParse(e) ?? 0)
+          .toList();
 
       int len = l.length > c.length ? l.length : c.length;
       for (int i = 0; i < len; i++) {
@@ -109,7 +127,9 @@ class UpdaterService {
                     const SizedBox(height: 20),
                     const LinearProgressIndicator(
                       backgroundColor: Colors.grey,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.blueAccent,
+                      ),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -166,7 +186,9 @@ class UpdaterService {
   }
 
   static Future<void> _downloadAndInstall(
-      String url, Function(String) onStatusChanged) async {
+    String url,
+    Function(String) onStatusChanged,
+  ) async {
     final currentExePath = Platform.resolvedExecutable;
     final installDir = File(currentExePath).parent.path;
     final exeName = p.basename(currentExePath);
@@ -181,11 +203,17 @@ class UpdaterService {
       // 1. Download
       onStatusChanged('جاري تحميل التحديث...');
       debugPrint('بدء تحميل التحديث من: $url');
-      
+
+      // إضافة باراميتر عشوائي لتخطي الكاش الخاص بـ GitHub
+      final finalUrl = url.contains('?')
+          ? '$url&t=${DateTime.now().millisecondsSinceEpoch}'
+          : '$url?t=${DateTime.now().millisecondsSinceEpoch}';
+
       final client = http.Client();
-      final request = http.Request('GET', Uri.parse(url));
+      final request = http.Request('GET', Uri.parse(finalUrl));
+      request.headers.addAll(_headers);
       final response = await client.send(request);
-      
+
       if (response.statusCode != 200) {
         client.close();
         throw Exception('Failed to download file: ${response.statusCode}');
@@ -200,9 +228,11 @@ class UpdaterService {
         await for (var chunk in response.stream) {
           downloaded += chunk.length;
           sink.add(chunk);
-          
+
           if (contentLength != null && contentLength > 0) {
-            final percent = (downloaded / contentLength * 100).toStringAsFixed(0);
+            final percent = (downloaded / contentLength * 100).toStringAsFixed(
+              0,
+            );
             onStatusChanged('جاري التحميل ($percent%)...');
           } else {
             final mb = (downloaded / (1024 * 1024)).toStringAsFixed(1);
@@ -213,12 +243,13 @@ class UpdaterService {
         await sink.close();
         client.close();
       }
-      
+
       debugPrint('اكتمل التحميل: $zipPath');
 
       // 2. Create a robust PowerShell script
       // Note: We use double quotes for all paths to handle spaces in usernames
-      final scriptContent = '''
+      final scriptContent =
+          '''
 \$logFile = "$logPath"
 "--- Update started at \$(Get-Date) ---" | Out-File \$logFile
 "Install Dir: $installDir" | Out-File \$logFile -Append
@@ -228,15 +259,30 @@ function Write-Log(\$msg) {
     Write-Host \$msg
 }
 
+# 0. Unblock the zip file just in case
+Write-Log "Unblocking ZIP file..."
+Unblock-File -Path "$zipPath" -ErrorAction SilentlyContinue
+
 # 1. Kill the process and wait a bit
 Write-Log "Closing $exeName..."
 \$processName = "$exeName".Replace(".exe", "")
-# إغلاق البرنامج وأي عملية مرتبطة بالمجلد ده
+
+# المحاولة الأولى للإغلاق بشكل لطيف
 Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 3
+
+# الانتظار للتأكد من انتهاء العملية
+Write-Log "Waiting for process to exit..."
+\$retryCount = 0
+while (\$retryCount -lt 5) {
+    \$activeProcess = Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" }
+    if (!\$activeProcess) { break }
+    Write-Log "Process still active, waiting..."
+    Start-Sleep -Seconds 1
+    \$retryCount++
+}
 
 # 2. Extract ZIP
-Write-Log "Extracting files..."
+Write-Log "Extracting files to $extractPath ..."
 if (Test-Path "$extractPath") { 
     Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue 
 }
@@ -247,11 +293,11 @@ try {
     Write-Log "Extraction successful."
 } catch {
     Write-Log "Extraction failed: \$(\$_.Exception.Message)"
-    Read-Host "Press Enter to exit"
+    Read-Host "Error during extraction. Press Enter to exit."
     exit
 }
 
-# 3. Find source directory (handle nested folders in zip)
+# 3. Find source directory
 Write-Log "Searching for $exeName in extracted files..."
 \$sourceDir = "$extractPath"
 \$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
@@ -260,51 +306,49 @@ if (\$exeInExtract) {
     Write-Log "SUCCESS: Found $exeName in: \$sourceDir"
 } else {
     Write-Log "ERROR: Could not find $exeName in update files at $extractPath"
-    Read-Host "Press Enter to exit"
+    Read-Host "Update files missing core EXE. Press Enter to exit."
     exit
 }
 
 # 4. Clean old files in installation directory
-Write-Log "Cleaning old version..."
-# مسح كل شيء عدا ملفات معينة نريد الإبقاء عليها
-Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" } | ForEach-Object {
+Write-Log "Cleaning old version in $installDir ..."
+Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" -and \$_.Name -ne "update_script.ps1" } | ForEach-Object {
     try {
         \$itemPath = \$_.FullName
         if (Test-Path \$itemPath) {
-            Remove-Item \$itemPath -Recurse -Force -ErrorAction SilentlyContinue
+            Remove-Item \$itemPath -Recurse -Force -ErrorAction Stop
         }
     } catch {
-        Write-Log "Warning: Busy file \$(\$_.Name)"
+        Write-Log "Warning: Could not delete \$(\$_.Name). It might be in use or protected."
     }
 }
 
 # 5. Copy new files
 Write-Log "Copying from \$sourceDir to $installDir"
 try {
-    # التأكد من وجود ملفات في المصدر
-    \$filesCount = (Get-ChildItem -Path "\$sourceDir" -Recurse).Count
-    Write-Log "Found \$filesCount files to copy."
-    
+    # نسخ المحتويات مع Force للتغلب على الملفات الموجودة
     Copy-Item -Path "\$sourceDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
     Write-Log "SUCCESS: Copy complete."
 } catch {
     Write-Log "ERROR: Copy failed: \$(\$_.Exception.Message)"
-    Read-Host "Press Enter to exit"
+    Write-Log "Try running the app as Administrator."
+    Read-Host "Copy failed. Press Enter to exit."
     exit
 }
 
 # 6. Restart app
-Write-Log "Restarting..."
+Write-Log "Restarting application..."
 Start-Process "$currentExePath"
 
 # 7. Cleanup
 Write-Log "Cleaning up temp files..."
+Start-Sleep -Seconds 2
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
+# نترك المجلد المستخرج للحظة للتأكد من أن البرنامج بدأ
 Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
 Write-Log "Update complete!"
-# مسح السكريبت نفسه بعد ثانية من الانتهاء
 Start-Sleep -Seconds 1
-Remove-Item "\$scriptPath" -Force -ErrorAction SilentlyContinue
+# السكريبت سيغلق نفسه
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
@@ -315,18 +359,18 @@ Remove-Item "\$scriptPath" -Force -ErrorAction SilentlyContinue
       // 3. Start PowerShell using cmd.exe /c start for better compatibility with spaces
       try {
         debugPrint('Launching updater via CMD: $scriptPath');
-        
+
         // استخدام "" كعنوان فارغ هو الحل السحري للمسافات في أمر start
         await Process.run('cmd.exe', [
           '/c',
           'start',
-          '',
+          '""', // عنوان النافذة فارغ
           'powershell.exe',
           '-NoProfile',
           '-ExecutionPolicy',
           'Bypass',
           '-File',
-          scriptPath
+          '"$scriptPath"', // إضافة اقتباسات حول المسار
         ]);
       } catch (e) {
         debugPrint('Failed to start CMD/PowerShell: $e');
