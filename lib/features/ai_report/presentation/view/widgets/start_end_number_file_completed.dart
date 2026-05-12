@@ -8,7 +8,7 @@ import 'package:qualiverse/features/ai_description/presentation/controller/ai_de
 import '../../../../ai_description/presentation/controller/ai_description_cubit.dart';
 
 class StartEndNumberFileCompleted extends StatefulWidget {
-  StartEndNumberFileCompleted({
+  const StartEndNumberFileCompleted({
     super.key,
     required this.countUploadedFileDone,
     required this.maxFiles,
@@ -16,10 +16,10 @@ class StartEndNumberFileCompleted extends StatefulWidget {
   });
 
   // Counter for the number of files that have been uploaded.
-  int countUploadedFileDone;
+  final int countUploadedFileDone;
 
   // Maximum number of files that can be uploaded.
-  int maxFiles;
+  final int maxFiles;
 
   final int courseId;
 

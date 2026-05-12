@@ -1,5 +1,4 @@
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class HomeLastBodyModel {
   final String image;
@@ -14,23 +13,23 @@ class HomeLastBodyModel {
 }
 
 final List<HomeLastBodyModel> homeLastItems = [
-  HomeLastBodyModel(
+  const HomeLastBodyModel(
     image: AppImages.basicModels,
     title: 'basicModels',
     description: 'AccessToOfficialQualityProcessTemplates',
   ),
-  HomeLastBodyModel(
+  const HomeLastBodyModel(
     image: AppImages.reportDescription,
     title: "reportDescription",
     description: "FollowAccreditationAndQualityProceduresStepByStep",
   ),
-  HomeLastBodyModel(
+  const HomeLastBodyModel(
     image: AppImages.accreditation,
     title: "accreditation",
     description:
         "PresentingAcademicAndInstitutionalQualityStandardsInASimplifiedManner",
   ),
-  HomeLastBodyModel(
+  const HomeLastBodyModel(
     image: AppImages.evaluationMethods,
     title: "evaluationMethods",
     description:
