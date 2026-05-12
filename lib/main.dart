@@ -16,11 +16,11 @@ void main() async {
   try {
     String feedURL = 'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/appcast.xml';
     await autoUpdater.setFeedURL(feedURL);
-    await autoUpdater.checkForUpdates(inBackground: true);
     await autoUpdater.setScheduledCheckInterval(3600);
   } catch (e) {
     debugPrint('auto_updater error: $e');
   }
+
   Bloc.observer = MyBlocObserver();
   runApp(
     MultiBlocProvider(
