@@ -94,24 +94,24 @@ class UpdaterService {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(statusText, style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 15),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                  Center(
                     child: Text(
-                      notes,
-                      style: TextStyle(color: Colors.grey[800], fontSize: 14),
+                      statusText,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.blueAccent,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   if (isDownloading) ...[
                     const SizedBox(height: 20),
-                    const LinearProgressIndicator(),
+                    const LinearProgressIndicator(
+                      backgroundColor: Colors.grey,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                    ),
                     const SizedBox(height: 10),
-                    const Center(child: Text('جاري التحميل والتثبيت...')),
                   ],
                 ],
               ),
@@ -143,7 +143,7 @@ class UpdaterService {
                         } catch (e) {
                           setState(() {
                             isDownloading = false;
-                            statusText = 'فشل التحديث: تأكد من اتصال الإنترنت';
+                            statusText = 'فشل: $e';
                           });
                           debugPrint('Download error: $e');
                         }
@@ -167,17 +167,15 @@ class UpdaterService {
 
   static Future<void> _downloadAndInstall(
       String url, Function(String) onStatusChanged) async {
+    final currentExePath = Platform.resolvedExecutable;
+    final installDir = File(currentExePath).parent.path;
+    final exeName = p.basename(currentExePath);
+
     final tempDir = await getTemporaryDirectory();
-    
-    // استخدام p.join لضمان المسارات الصحيحة على ويندوز
     final zipPath = p.join(tempDir.path, 'update.zip');
     final extractPath = p.join(tempDir.path, 'update_extracted');
     final logPath = p.join(tempDir.path, 'update_log.txt');
     final scriptPath = p.join(tempDir.path, 'update_script.ps1');
-
-    final currentExePath = Platform.resolvedExecutable;
-    final installDir = File(currentExePath).parent.path;
-    final exeName = p.basename(currentExePath);
 
     try {
       // 1. Download
@@ -304,8 +302,9 @@ Write-Log "Cleaning up temp files..."
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
 Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
 Write-Log "Update complete!"
-Read-Host "التحديث انتهى. اضغط Enter للإغلاق..."
+# مسح السكريبت نفسه بعد ثانية من الانتهاء
 Start-Sleep -Seconds 1
+Remove-Item "\$scriptPath" -Force -ErrorAction SilentlyContinue
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
@@ -317,10 +316,11 @@ Start-Sleep -Seconds 1
       try {
         debugPrint('Launching updater via CMD: $scriptPath');
         
-        // استخدام cmd /c start بيخلي الويندوز يفتح نافذة جديدة بشكل أضمن
+        // استخدام "" كعنوان فارغ هو الحل السحري للمسافات في أمر start
         await Process.run('cmd.exe', [
           '/c',
           'start',
+          '',
           'powershell.exe',
           '-NoProfile',
           '-ExecutionPolicy',
