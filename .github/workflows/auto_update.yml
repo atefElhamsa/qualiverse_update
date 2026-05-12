@@ -59,7 +59,7 @@ jobs:
             Set-Content -Path $issPath -Value $issContent
 
             # 3. تشغيل Inno Setup للعملاء الجدد
-            iscc "windows/runner/installer.iss" /O"build"
+            iscc "windows/runner/installer.iss" /O"${{ github.workspace }}\build"
 
             Write-Host "Installer created successfully ✅"
           } else {
