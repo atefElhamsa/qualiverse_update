@@ -22,6 +22,7 @@ void main() async {
             if (LoginStorage.hasToken) {
               cubit.getUnreadCount();
               cubit.startPolling();
+              
             }
             return cubit;
           },

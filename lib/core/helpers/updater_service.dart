@@ -304,7 +304,8 @@ Write-Log "Cleaning up temp files..."
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
 Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
 Write-Log "Update complete!"
-Start-Sleep -Seconds 2
+Read-Host "التحديث انتهى. اضغط Enter للإغلاق..."
+Start-Sleep -Seconds 1
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
@@ -317,8 +318,10 @@ Start-Sleep -Seconds 2
         '-NoProfile',
         '-ExecutionPolicy',
         'Bypass',
-        '-Command',
-        'Start-Process powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs'
+        '-WindowStyle',
+        'Normal',
+        '-File',
+        scriptPath
       ], mode: ProcessStartMode.detached);
 
       exit(0);
