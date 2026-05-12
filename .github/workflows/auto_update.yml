@@ -40,7 +40,7 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Install Inno Setup
-        run: choco install innosetup
+        run: choco install innosetup -y
 
       - name: Build Installer and Zip
         shell: pwsh
