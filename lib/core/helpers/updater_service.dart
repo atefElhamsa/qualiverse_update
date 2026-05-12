@@ -254,10 +254,15 @@ class UpdaterService {
 
       final scriptContent = '''
 \$logFile = "$logPath"
-"Starting update at \$(Get-Date)" | Out-File \$logFile
+"--- New Update Attempt at \$(Get-Date) ---" | Out-File \$logFile -Append
 "Current PID: $currentPid" | Out-File \$logFile -Append
 "Install Dir: $installDir" | Out-File \$logFile -Append
 "New Files Dir: $newFilesDir" | Out-File \$logFile -Append
+
+# Force stop the process if it's still hanging
+try {
+    Stop-Process -Id $currentPid -Force -ErrorAction SilentlyContinue
+} catch {}
 
 # Wait for the app to close
 "Waiting for process $currentPid to exit..." | Out-File \$logFile -Append
@@ -319,7 +324,7 @@ try {
       // 5. Run the script and exit
       await Process.start('powershell', [
         '-WindowStyle',
-        'Hidden',
+        'Normal', // جعلناها Normal بدلاً من Hidden لنرى الأخطاء إن وجدت
         '-ExecutionPolicy',
         'Bypass',
         '-File',

@@ -348,7 +348,7 @@ class AiDescriptionService {
         data: formData,
         options: Options(contentType: 'multipart/form-data'),
       );
-      final dynamic body = response.data;
+      final Map<String, dynamic> body = response.data;
       final result = AiGenericResponseModel.fromJson(body);
       if (!result.isSuccess) {
         throw Exception(result.error?.description ?? 'Upload Failed');
