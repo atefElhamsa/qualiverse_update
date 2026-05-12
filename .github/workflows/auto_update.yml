@@ -122,23 +122,21 @@ jobs:
 
           # إنشاء ملف appcast.xml لـ auto_updater
           $date = Get-Date -Format "r"
-          $xml = @"
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
-    <channel>
-        <title>QualiVerse</title>
-        <item>
-            <title>Version $version</title>
-            <description>New update is available.</description>
-            <pubDate>$date</pubDate>
-            <enclosure url="https://github.com/atefElhamsa/qualiverse_update/releases/download/v$version/qualiverse_setup.exe"
-                       sparkle:version="$version"
-                       sparkle:os="windows"
-                       type="application/octet-stream" />
-        </item>
-    </channel>
-</rss>
-"@
+          $xml = "<?xml version=`"1.0`" encoding=`"utf-8`"?>`n" +
+                 "<rss version=`"2.0`" xmlns:sparkle=`"http://www.andymatuschak.org/xml-namespaces/sparkle`">`n" +
+                 "    <channel>`n" +
+                 "        <title>QualiVerse</title>`n" +
+                 "        <item>`n" +
+                 "            <title>Version $version</title>`n" +
+                 "            <description>New update is available.</description>`n" +
+                 "            <pubDate>$date</pubDate>`n" +
+                 "            <enclosure url=`"https://github.com/atefElhamsa/qualiverse_update/releases/download/v$version/qualiverse_setup.exe`"`n" +
+                 "                       sparkle:version=`"$version`"`n" +
+                 "                       sparkle:os=`"windows`"`n" +
+                 "                       type=`"application/octet-stream`" />`n" +
+                 "        </item>`n" +
+                 "    </channel>`n" +
+                 "</rss>"
           $xml | Set-Content appcast.xml -Encoding UTF8
 
           git config user.name "github-actions"
