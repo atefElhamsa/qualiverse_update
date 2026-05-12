@@ -291,18 +291,17 @@ Unblock-File -Path "$zipPath" -ErrorAction SilentlyContinue
 Write-Log "Closing $exeName..."
 \$processName = "$exeName".Replace(".exe", "")
 
-# المحاولة الأولى للإغلاق بشكل لطيف
+# المحاولة الأولى للإغلاق
 Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" } | Stop-Process -Force -ErrorAction SilentlyContinue
 
-# الانتظار للتأكد من انتهاء العملية
-Write-Log "Waiting for process to exit..."
-\$retryCount = 0
-while (\$retryCount -lt 5) {
-    \$activeProcess = Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" }
-    if (!\$activeProcess) { break }
-    Write-Log "Process still active, waiting..."
+# الانتظار والتأكد
+Write-Log "Confirming process is closed..."
+Start-Sleep -Seconds 2
+\$activeProcess = Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" }
+if (\$activeProcess) {
+    Write-Log "Process still alive, trying harder..."
+    taskkill /F /IM "$exeName" /T
     Start-Sleep -Seconds 1
-    \$retryCount++
 }
 
 # 2. Extract ZIP
@@ -385,16 +384,18 @@ Start-Sleep -Seconds 1
         debugPrint('Launching updater via CMD: $scriptPath');
 
         // استخدام "" كعنوان فارغ هو الحل السحري للمسافات في أمر start
+        // إضافة -NoExit عشان لو حصل غلط السكريبت ميفضلش مفتوح ونشوف السبب
         await Process.run('cmd.exe', [
           '/c',
           'start',
-          '""', // عنوان النافذة فارغ
+          '"QualiVerse Updater"', 
           'powershell.exe',
           '-NoProfile',
+          '-NoExit', 
           '-ExecutionPolicy',
           'Bypass',
           '-File',
-          '"$scriptPath"', // إضافة اقتباسات حول المسار
+          scriptPath, 
         ]);
       } catch (e) {
         debugPrint('Failed to start CMD/PowerShell: $e');
