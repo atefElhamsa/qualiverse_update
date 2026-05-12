@@ -17,11 +17,11 @@ class HomeBody extends StatelessWidget {
     return CustomScaffold(
       widget: Column(
         children: [
-          // HomeBodyFirstPart(
-          //   screenWidth: screenWidth,
-          //   screenHeight: screenHeight,
-          //   isDrawerVisible: isDrawerVisible,
-          // ),
+          HomeBodyFirstPart(
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
+            isDrawerVisible: isDrawerVisible,
+          ),
           HomeBodySecondPart(
             screenWidth: screenWidth,
             screenHeight: screenHeight,
