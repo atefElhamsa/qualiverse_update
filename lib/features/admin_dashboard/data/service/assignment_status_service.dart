@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/assignment_state_model.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AssignmentStatusService {

@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/ai_description_result_screen.dart';
 import 'package:qualiverse/features/edit_files/presentation/view/evidence_folder_files_screen.dart';
 
 import 'all_routes_imports.dart';
@@ -9,11 +8,14 @@ class ScreensRoutes {
     return GoRoute(
       path: AppRoutes.aiDescriptionScreen,
       name: AppRoutes.aiDescriptionScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AiDescriptionScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final courseId = state.extra as int;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiDescriptionScreen(courseId: courseId),
+        );
+      },
     );
   }
 

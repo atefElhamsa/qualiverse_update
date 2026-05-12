@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
-import 'package:qualiverse/core/shared_widgets/custom_text.dart';
-import 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
-import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'notification_popup.dart';
-import 'package:qualiverse/features/home/presentation/controller/notification_count_state.dart';
-import 'package:qualiverse/features/setting/presentation/controller/setting/setting_cubit.dart';
-import 'package:qualiverse/routing/app_routes.dart';
-import 'package:qualiverse/routing/router_generator.dart';
 
 class NotificationIconWithBadge extends StatelessWidget {
   final int notificationCount;

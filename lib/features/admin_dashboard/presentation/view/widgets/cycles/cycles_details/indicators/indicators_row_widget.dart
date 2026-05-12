@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/raw_widget_component.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
 

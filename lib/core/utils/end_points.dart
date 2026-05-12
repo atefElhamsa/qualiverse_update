@@ -39,6 +39,32 @@ class EndPoints {
 
   static const String assignmentsStatus = "Enum/AssignmentStatus";
   static const String unreadNotificationCount = "Notification/unread-count";
+  static const String startGeneration = "CourseDescriptionGenerations/start";
+
+  static const String uploadFiles = "CourseDescriptionGenerations/upload-files";
+
+  static String confirmFiles(String id) =>
+      "CourseDescriptionGenerations/$id/confirm-files";
+
+  static String submitCourse(String id) =>
+      "CourseDescriptionGenerations/submit-course?id=$id";
+
+  static String generationStatus(String id) =>
+      "CourseDescriptionGenerations/$id/status";
+
+  static String submitDetails(String id) =>
+      "CourseDescriptionGenerations/submit-details?id=$id";
+
+  static String downloadFiles(String id, int fileType) =>
+      "CourseDescriptionGenerations/$id/download?fileType=$fileType";
+
+  static String uploadCustomDescription(String id) =>
+      "CourseDescriptionGenerations/$id/upload-custom";
+
+  static String confirmGeneration(String id) =>
+      "CourseDescriptionGenerations/$id/confirm";
+
+  static const String courseFileTypeOptions = "Enum/CourseFileType";
 
   static String accreditations({
     required int academicYearId,

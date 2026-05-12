@@ -1,14 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/shared_widgets/custom_button.dart';
-import 'package:qualiverse/core/shared_widgets/custom_text.dart';
-import 'package:qualiverse/core/shared_widgets_model/button_model.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/cycle_indicator_model.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/assign_indicator_dialog.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/delete_indicator_dialog.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/indicators/remove_assign_indicator_dialog.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 Widget indicatorActions(
   BuildContext context,

@@ -1,9 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/dashboard/data/models/assignments_user_model.dart';
+import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/routing/app_routes.dart';
 import 'assignments_user_header_row.dart';
 
 class AssignmentsUserRow extends StatelessWidget {
@@ -18,6 +22,7 @@ class AssignmentsUserRow extends StatelessWidget {
       DateFormat('yyyy-MM-dd').format(assignment.deadline),
       assignment.status,
       assignment.daysRemaining.toString(),
+      assignment.isOverdue.toString(),
     ];
 
     return Container(
@@ -38,39 +43,135 @@ class AssignmentsUserRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Row(
         children: List.generate(getAssignmentsHeaders().length, (i) {
+          // Status Badge
           if (i == 3) {
             return Expanded(
               flex: kAssignmentsFlex[i],
               child: _buildStatusBadge(assignment.status),
             );
           }
+          // Overdue Icon
           if (i == 5) {
+            return Expanded(
+              flex: kAssignmentsFlex[i],
+              child: assignment.isOverdue
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.warning_rounded,
+                          color: AppColors.red,
+                          size: 16.sp,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          'overdue'.tr(),
+                          style: GoogleFonts.inter(
+                            color: AppColors.red,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.check_circle_rounded,
+                          color: AppColors.green,
+                          size: 16.sp,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          'onTime'.tr(),
+                          style: GoogleFonts.inter(
+                            color: AppColors.green,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+            );
+          }
+          // Actions
+          if (i == 6) {
             return Expanded(
               flex: kAssignmentsFlex[i],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.file_upload_outlined,
-                      color: AppColors.viewAndDeleteIconColor,
-                      size: 20.sp,
+                    Tooltip(
+                      message: 'uploadFile'.tr(),
+                      child: InkWell(
+                        onTap: () async {
+                          try {
+                            await context
+                                .read<IndicatorsCubit>()
+                                .pickAndUploadIndicatorFile(
+                                  indicatorId: assignment.indicatorId,
+                                  criterionId: assignment.criterionId,
+                                );
+                            if (context.mounted) {
+                              context.pushNamed(
+                                AppRoutes.indicatorsScreen,
+                                extra: IndicatorsArgs(
+                                  accreditationModel: AccreditationModel(
+                                    id: assignment.criterionId,
+                                    name: '',
+                                  ),
+                                  title: assignment.indicatorName,
+                                  index: 0,
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            // Error is handled by Cubit and shown via SnackBar in DashboardBody
+                          }
+                        },
+                        child: Icon(
+                          Icons.file_upload_outlined,
+                          color: AppColors.viewAndDeleteIconColor,
+                          size: 20.sp,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 8.w),
-                    Icon(
-                      Icons.visibility_outlined,
-                      color: AppColors.viewAndDeleteIconColor,
-                      size: 20.sp,
+                    Tooltip(
+                      message: 'view'.tr(),
+                      child: InkWell(
+                        onTap: () {
+                          context.pushNamed(
+                            AppRoutes.indicatorsScreen,
+                            extra: IndicatorsArgs(
+                              accreditationModel: AccreditationModel(
+                                id: assignment.criterionId,
+                                name: '',
+                              ),
+                              title: assignment.indicatorName,
+                              index: 0,
+                            ),
+                          );
+                        },
+                        child: Icon(
+                          Icons.visibility_outlined,
+                          color: AppColors.viewAndDeleteIconColor,
+                          size: 20.sp,
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             );
           }
+          // Text Columns
           return Expanded(
             flex: kAssignmentsFlex[i],
             child: Text(
-              cells[i],
+              cells[i].toString(),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

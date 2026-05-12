@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../data/service/criterions_service.dart';
-import 'criterions_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CriterionsCubit extends Cubit<CriterionsState> {
   CriterionsCubit() : super(CriterionsInitial());

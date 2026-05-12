@@ -1,6 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/approve_reject_assignment_model.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/assignment_indicator_admin_model.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AssignmentIndicatorAdminService {

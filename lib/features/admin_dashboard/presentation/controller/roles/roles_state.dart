@@ -1,4 +1,4 @@
-import 'package:qualiverse/features/admin_dashboard/data/model/role_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 sealed class RolesState {}
 

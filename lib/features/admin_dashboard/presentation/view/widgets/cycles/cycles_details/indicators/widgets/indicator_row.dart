@@ -1,10 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/shared_widgets/custom_text.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/cycle_indicator_model.dart';
-import 'indicator_status_badge.dart';
-import 'indicator_actions.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 Widget indicatorRow(
   BuildContext context,

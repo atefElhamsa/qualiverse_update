@@ -161,7 +161,10 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                 AppColors.red,
               );
             } else {
-              context.pushNamed(AppRoutes.aiDescriptionScreen);
+              context.pushNamed(
+                AppRoutes.aiDescriptionScreen,
+                extra: selectedCourse.id,
+              );
             }
           },
           backgroundColor: AppColors.scaffoldLight1,

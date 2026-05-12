@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class LinearProgressWidget extends StatefulWidget {
-  LinearProgressWidget({super.key, required this.value});
+  const LinearProgressWidget({super.key, required this.value});
 
-  double value;
+  final double value;
 
   @override
   State<LinearProgressWidget> createState() => _LinearProgressWidgetState();

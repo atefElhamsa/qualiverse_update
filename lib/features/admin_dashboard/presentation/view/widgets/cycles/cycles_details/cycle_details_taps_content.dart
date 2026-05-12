@@ -1,11 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/assignments/assignments_content.dart';
 
 import '../../../../../../../routing/all_routes_imports.dart';
-import '../../../../controller/cycles/assignments/assignment_status_cubit.dart';
-import '../../../../controller/cycles/assignments/assignments_cubit.dart';
 
 class CycleDetailsTapsContent extends StatelessWidget {
   const CycleDetailsTapsContent({super.key});

@@ -61,6 +61,18 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
   void initState() {
     super.initState();
     selectedDeadline = widget.cycleIndicator.deadline;
+    if (widget.cycleIndicator.doctorId != null) {
+      final name = widget.cycleIndicator.doctorName ?? '';
+      final names = name.split(' ');
+      selectedDoctor = UserManagementModel(
+        id: widget.cycleIndicator.doctorId!,
+        firstName: names.isNotEmpty ? names.first : '',
+        lastName: names.length > 1 ? names.sublist(1).join(' ') : '',
+        email: '',
+        isActive: true,
+        roles: ['doctor'],
+      );
+    }
   }
 
   void toggleDropdown() => setState(() => dropdownOpen = !dropdownOpen);

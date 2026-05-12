@@ -1,15 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignment_status_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignments_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/roles_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/roles/update_user_role_cubit.dart';
+import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-import 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
-import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
 import 'bloc_observer.dart';
 import 'my_app.dart';
 
@@ -46,6 +40,7 @@ void main() async {
         BlocProvider(create: (context) => CreateFolderCubit()),
         BlocProvider(create: (context) => DeleteFolderCubit()),
         BlocProvider(create: (context) => IndicatorsCubit()),
+        BlocProvider(create: (context) => AiDescriptionCubit()),
         BlocProvider(create: (context) => UsersCubit()..fetchUsers()),
         BlocProvider(
           create: (context) => AcademicYearCubit()..fetchAcademicYears(),

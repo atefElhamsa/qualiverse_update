@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets/custom_base_drop_down.dart';
 import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/create_criterion_dialog_widgets.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/create_criterion_dialog_widgets.dart'
+    hide buildLabel;
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import '../../courses/widgets/department_drop_down_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void showCreateCriterionDialog(BuildContext context) {
@@ -49,8 +49,8 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
 
     if (typeId != null) {
       context.read<CriterionsCubit>().fetchTemplateCriteria(
-            accreditationTypeId: typeId,
-          );
+        accreditationTypeId: typeId,
+      );
     }
   }
 
@@ -86,11 +86,11 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
       }
 
       context.read<CriterionsCubit>().createCriterionFromExistingTemplate(
-            criterionTemplateId: selectedTemplate!.id,
-            accreditationTypeId: selectedTypeId!,
-            departmentId: selectedDeptId!,
-            academicYearId: yearId,
-          );
+        criterionTemplateId: selectedTemplate!.id,
+        accreditationTypeId: selectedTypeId!,
+        departmentId: selectedDeptId!,
+        academicYearId: yearId,
+      );
     } else {
       if (arabicNameController.text.isEmpty ||
           englishNameController.text.isEmpty) {
@@ -99,12 +99,12 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
       }
 
       context.read<CriterionsCubit>().createNewCriterion(
-            nameAr: arabicNameController.text,
-            nameEn: englishNameController.text,
-            accreditationTypeId: selectedTypeId!,
-            departmentId: selectedDeptId!,
-            academicYearId: yearId,
-          );
+        nameAr: arabicNameController.text,
+        nameEn: englishNameController.text,
+        accreditationTypeId: selectedTypeId!,
+        departmentId: selectedDeptId!,
+        academicYearId: yearId,
+      );
     }
   }
 
@@ -133,18 +133,16 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
                     SizedBox(height: 8.h),
                     BlocBuilder<TypesCubit, TypesState>(
                       builder: (context, state) {
-                        final types =
-                            state is TypesSuccess
-                                ? state.types
-                                : <TypeModel>[];
+                        final types = state is TypesSuccess
+                            ? state.types
+                            : <TypeModel>[];
                         return CustomBaseDropDown<TypeModel>(
                           items: types,
                           itemLabelBuilder: (t) => t.name,
                           itemValueBuilder: (t) => t.id,
-                          value:
-                              types
-                                  .where((t) => t.id == selectedTypeId)
-                                  .firstOrNull,
+                          value: types
+                              .where((t) => t.id == selectedTypeId)
+                              .firstOrNull,
                           hint: 'selectType'.tr(),
                           height: 45.h,
                           onChanged: (val) => _onTypeChanged(val as int?),
@@ -212,8 +210,9 @@ class _CreateCriterionDialogState extends State<CreateCriterionDialog>
             if (state is CriterionCreateSuccess) {
               showSnackBar(context, state.message, AppColors.green);
               Navigator.pop(context);
-              final yearId =
-                  AcademicYearCubit.get(context).selectedAcademicYear?.id;
+              final yearId = AcademicYearCubit.get(
+                context,
+              ).selectedAcademicYear?.id;
               if (yearId != null) {
                 context.read<CriterionsCubit>().fetchCriterions(
                   academicYearId: yearId,

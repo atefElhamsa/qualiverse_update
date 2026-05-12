@@ -42,7 +42,7 @@ class SelectedCourseWidget extends StatelessWidget {
           final List<CourseModel> courses = (state is CourseSuccess)
               ? state.courses
               : [];
-          final List<String> courseNames = courses.map((e) => e.name!).toList();
+          final List<String> courseNames = courses.map((e) => e.name).toList();
           final String? selectedCourseName = courseCubit.selectedCourse?.name;
 
           return CustomDropButtonAndTitle(

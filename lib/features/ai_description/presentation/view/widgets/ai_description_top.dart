@@ -15,7 +15,7 @@ class AiDescriptionTop extends StatelessWidget {
         children: [
           const FirstTermTop(),
           Positioned(
-            top: 70.h,
+            top: 80.h,
             left: 0,
             right: 0,
             child: Column(
@@ -41,7 +41,10 @@ class AiDescriptionTop extends StatelessWidget {
                 ),
                 SizedBox(height: 12.h),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 10.h,
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -61,7 +64,9 @@ class AiDescriptionTop extends StatelessWidget {
                       fontSize: 18.sp,
                       color: const Color(0xFF0D47A1),
                       fontWeight: FontWeight.w800,
-                      letterSpacing: context.locale.languageCode == 'ar' ? 0 : 3.0,
+                      letterSpacing: context.locale.languageCode == 'ar'
+                          ? 0
+                          : 3.0,
                       height: context.locale.languageCode == 'ar' ? 1.4 : 1.1,
                     ),
                   ),

@@ -13,44 +13,47 @@ class FileItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GestureDetector(
-        // check if file is null
-        onTap: fileItemModel.file == null ? fileItemModel.onTap : null,
-        child: SizedBox(
-          width: 380.w,
-          // choose between file not found and file found
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 201.h,
-                width: 380.w,
-                child: DottedBorder(
-                  options: RoundedRectDottedBorderOptions(
-                    radius: Radius.circular(30.r),
-                    strokeWidth: 2.5,
-                    color: AppColors.scaffoldLight1.withOpacity(0.3),
-                    dashPattern: const [8, 5],
-                  ),
-                  child: Center(
-                    child: fileItemModel.file == null
-                        ? AiReportNotFoundFile(
-                            titleFile: fileItemModel.titleFile,
-                          )
-                        : AiReportFoundFile(file: fileItemModel.file),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          // check if file is null
+          onTap: fileItemModel.file == null ? fileItemModel.onTap : null,
+          child: SizedBox(
+            width: 380.w,
+            // choose between file not found and file found
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 201.h,
+                  width: 380.w,
+                  child: DottedBorder(
+                    options: RoundedRectDottedBorderOptions(
+                      radius: Radius.circular(30.r),
+                      strokeWidth: 2.5,
+                      color: AppColors.scaffoldLight1.withOpacity(0.3),
+                      dashPattern: const [8, 5],
+                    ),
+                    child: Center(
+                      child: fileItemModel.file == null
+                          ? AiReportNotFoundFile(
+                              titleFile: fileItemModel.titleFile,
+                            )
+                          : AiReportFoundFile(file: fileItemModel.file),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              CustomText(
-                title: fileItemModel.aboutFile!,
-                textAlign: TextAlign.center,
-                textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 24.sp,
-                  color: AppColors.greyLight,
+                const SizedBox(height: 10),
+                CustomText(
+                  title: fileItemModel.aboutFile!,
+                  textAlign: TextAlign.center,
+                  textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: 24.sp,
+                    color: AppColors.greyLight,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

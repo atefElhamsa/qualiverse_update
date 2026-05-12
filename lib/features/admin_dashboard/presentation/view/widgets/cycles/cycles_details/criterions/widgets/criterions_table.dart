@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/criterion_item_model.dart';
-import 'criterions_header.dart';
-import 'criterions_row_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CriterionsTable extends StatelessWidget {

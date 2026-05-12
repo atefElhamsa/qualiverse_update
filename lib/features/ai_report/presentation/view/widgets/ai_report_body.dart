@@ -86,10 +86,10 @@ class _AiReportBodyState extends State<AiReportBody> {
           ListFileItemWidget(fileItemModels: fileItemModels),
           const SizedBox(height: 20),
           // Display the number of uploaded files and buttons.
-          StartEndNumberFileCompleted(
-            countUploadedFileDone: countUploadedFileDone,
-            maxFiles: maxFiles,
-          ),
+          // StartEndNumberFileCompleted(
+          //   countUploadedFileDone: countUploadedFileDone,
+          //   maxFiles: maxFiles,
+          // ),
           const SizedBox(height: 10),
           // Display the progress bar.
           LinearProgressWidget(value: progress),

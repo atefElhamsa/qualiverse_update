@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/assignment_state_model.dart';
-import 'package:qualiverse/features/admin_dashboard/data/service/assignment_status_service.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignment_status_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AssignmentStatusCubit extends Cubit<AssignmentStatusState> {
   AssignmentStatusCubit() : super(AssignmentStatusInitial());
@@ -21,10 +19,8 @@ class AssignmentStatusCubit extends Cubit<AssignmentStatusState> {
       if (selectedStatus != null) {
         selectedStatus = statuses.firstWhere(
           (e) => e.value == selectedStatus!.value,
-          orElse: () => statuses.isNotEmpty ? statuses.first : statuses.first,
+          orElse: () => statuses.first,
         );
-      } else if (statuses.isNotEmpty) {
-        selectedStatus = statuses.first;
       }
       emit(AssignmentStatusSuccess(statuses: statuses));
     } catch (e) {

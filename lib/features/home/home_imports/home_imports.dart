@@ -1,5 +1,9 @@
 export 'package:qualiverse/features/home/data/models/home_last_body_model.dart';
 export 'package:qualiverse/features/home/data/models/side_bar_item_model.dart';
+export 'package:qualiverse/features/home/presentation/controller/notification_count_cubit.dart';
+export 'package:qualiverse/features/home/presentation/controller/notification_count_state.dart';
+export 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
+export 'package:qualiverse/features/home/presentation/controller/notifications_state.dart';
 export 'package:qualiverse/features/home/presentation/view/home_screen.dart';
 export 'package:qualiverse/features/home/presentation/view/side_bar.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/custom_home_last_widget.dart';

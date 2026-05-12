@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class AiCourseSelectionScreen extends StatelessWidget {

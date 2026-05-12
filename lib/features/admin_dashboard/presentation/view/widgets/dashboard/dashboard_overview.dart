@@ -2,11 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/dashboard/widgets/bar_chart_card.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/dashboard/widgets/dashboard_mini_badge.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/dashboard/widgets/department_bar_data.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/dashboard/widgets/institutional_progress_card.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/dashboard/widgets/summary_card.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../../../routing/all_routes_imports.dart';
 

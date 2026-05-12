@@ -5,7 +5,7 @@ import 'package:qualiverse/core/shared_widgets/custom_base_drop_down.dart';
 import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
-import 'create_course_dialog_widgets.dart';
+import 'create_course_dialog_widgets.dart' hide buildLabel;
 import 'package:easy_localization/easy_localization.dart';
 
 void showCreateCourseDialog(BuildContext context) {

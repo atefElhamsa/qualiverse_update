@@ -4,13 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-const kAssignmentsFlex = [3, 5, 3, 2, 2, 1];
+const kAssignmentsFlex = [3, 5, 3, 2, 2, 2, 1];
 List<String> getAssignmentsHeaders() => [
   'indicator'.tr(),
   'description'.tr(),
   'deadline'.tr(),
   'status'.tr(),
   'daysRemaining'.tr(),
+  'isOverdue'.tr(),
   'action'.tr(),
 ];
 

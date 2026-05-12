@@ -6,6 +6,7 @@ import 'facilities_step.dart';
 import 'learning_hours_step.dart';
 import 'resources_step.dart';
 import 'schedule_step.dart';
+import 'download_files_step.dart';
 
 class AiDescriptionStepsContent extends StatelessWidget {
   const AiDescriptionStepsContent({super.key});
@@ -18,7 +19,7 @@ class AiDescriptionStepsContent extends StatelessWidget {
         final currentPage = context.read<AiDescriptionCubit>().currentPage;
         switch (currentPage) {
           case 0:
-            return const BasicInfoStep();
+            return const DownloadFilesStep();
           case 1:
             return const ScheduleStep();
           case 2:
@@ -27,6 +28,8 @@ class AiDescriptionStepsContent extends StatelessWidget {
             return const ResourcesStep();
           case 4:
             return const FacilitiesStep();
+          case 5:
+            return const DownloadFilesStep();
           default:
             return const SizedBox();
         }

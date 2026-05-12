@@ -26,7 +26,10 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     );
   }
 
-  Future<void> fetchIndicators({required int criterionId, bool silent = false}) async {
+  Future<void> fetchIndicators({
+    required int criterionId,
+    bool silent = false,
+  }) async {
     if (!silent) emit(IndicatorsLoading());
 
     try {
@@ -48,7 +51,12 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       } else {
         handleActionError(e);
         if (indicators.isNotEmpty) {
-          emit(IndicatorsSuccess(indicators: indicators, selectedIndicator: selectedIndicator));
+          emit(
+            IndicatorsSuccess(
+              indicators: indicators,
+              selectedIndicator: selectedIndicator,
+            ),
+          );
         }
       }
     }
@@ -79,7 +87,12 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     } catch (e) {
       handleActionError(e);
       if (indicators.isNotEmpty) {
-        emit(IndicatorsSuccess(indicators: indicators, selectedIndicator: selectedIndicator));
+        emit(
+          IndicatorsSuccess(
+            indicators: indicators,
+            selectedIndicator: selectedIndicator,
+          ),
+        );
       }
     }
   }
@@ -114,17 +127,19 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
       ).timeout(const Duration(seconds: 30));
 
       emit(FileIndicatorDeleteSuccess(message: result));
-      
+
       Future.delayed(const Duration(milliseconds: 300), () {
         fetchIndicators(criterionId: criterionId, silent: true);
       });
     } catch (e) {
       handleActionError(e);
       if (indicators.isNotEmpty) {
-        emit(IndicatorsSuccess(
-          indicators: indicators,
-          selectedIndicator: selectedIndicator,
-        ));
+        emit(
+          IndicatorsSuccess(
+            indicators: indicators,
+            selectedIndicator: selectedIndicator,
+          ),
+        );
       } else {
         emit(IndicatorsInitial());
       }
@@ -189,6 +204,10 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
     }
 
     // If it's a plain string error from IndicatorsService
-    emit(IndicatorActionError(message: msg.isNotEmpty ? msg : 'Something went wrong'));
+    emit(
+      IndicatorActionError(
+        message: msg.isNotEmpty ? msg : 'Something went wrong',
+      ),
+    );
   }
 }

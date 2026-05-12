@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/data/service/role_service.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 sealed class UpdateUserRoleState {}
 

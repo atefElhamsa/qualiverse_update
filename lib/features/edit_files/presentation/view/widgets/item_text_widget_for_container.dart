@@ -79,13 +79,17 @@ class _ItemTextWidgetForContainerState extends State<ItemTextWidgetForContainer>
                   ),
                 ),
               ),
-              EditDeleteDownloadList(
-                onTap: () {
-                  CourseFolderCubit.get(
-                    context,
-                  ).selectCourseFolder(courseFolder: widget.courseFolderModel);
-                },
-              ),
+              if (folderName != 'Report' &&
+                  folderName != 'Description' &&
+                  folderName != 'التقرير' &&
+                  folderName != 'توصيف المقرر')
+                EditDeleteDownloadList(
+                  onTap: () {
+                    CourseFolderCubit.get(
+                      context,
+                    ).selectCourseFolder(courseFolder: widget.courseFolderModel);
+                  },
+                ),
             ],
           ),
         ),

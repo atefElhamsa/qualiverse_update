@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/user_management_model.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_table_header.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/users/user_table_raw.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class UserManagementTable extends StatelessWidget {
   final List<UserManagementModel> users;

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/shared_widgets/custom_dialog.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/criterions/widgets/create_criterion_dialog_widgets.dart';
+import 'package:qualiverse/features/admin_dashboard/presentation/view/widgets/cycles/cycles_details/courses/widgets/create_course_dialog_widgets.dart' hide buildFormField;
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/indicators/cycle_indicator_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 void showAddIndicatorDialog(BuildContext context, CriterionItemModel criterion) {

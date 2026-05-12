@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'package:qualiverse/routing/app_routes.dart';
 import 'ai_action_button.dart';
 
 class AiDescriptionNavigationRow extends StatelessWidget {
@@ -38,31 +36,12 @@ class AiDescriptionNavigationRow extends StatelessWidget {
                     : Icons.check_circle_rounded,
                 onTap: cubit.currentPage < 4
                     ? () => cubit.nextPage()
-                    : () => _showFinalSuccess(context),
+                    : () => cubit.submitDetails(),
               ),
             ],
           ),
         );
       },
-    );
-  }
-
-  void _showFinalSuccess(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        title: Text("doneSuccessfully".tr()),
-        content: Text("submittedSuccessfully".tr()),
-        actions: [
-          TextButton(
-            onPressed: () => context.go(AppRoutes.homeScreen),
-            child: Text("ok".tr()),
-          ),
-        ],
-      ),
     );
   }
 }

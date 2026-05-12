@@ -2,9 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/admin_dashboard/data/model/assignment_indicator_admin_model.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
@@ -155,7 +152,14 @@ class AssignmentsRowWidget extends StatelessWidget {
                   ),
                 ),
               )
-            : const Text('-', style: TextStyle(color: AppColors.mainGrey)),
+            : Text(
+                'onTime'.tr(),
+                style: TextStyle(
+                  color: AppColors.green,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }
@@ -187,7 +191,7 @@ class AssignmentsRowWidget extends StatelessWidget {
                 }
 
                 final status = assignment.status.toLowerCase();
-                if (status == 'submitted' || status == 'pending') {
+                if (status == 'submitted') {
                   final isAr = context.locale.languageCode == 'ar';
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,

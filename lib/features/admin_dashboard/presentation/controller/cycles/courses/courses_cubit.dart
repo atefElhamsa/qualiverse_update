@@ -2,8 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/data/service/cycles_courses_service.dart';
-import 'courses_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CoursesCubit extends Cubit<CoursesState> {
   CoursesCubit() : super(CoursesInitial());

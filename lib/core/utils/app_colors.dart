@@ -116,4 +116,13 @@ class AppColors {
   static const Color dividerColor = Color(0xFFEEEEEE);
   static const Color completedColor = Color(0xFF2ECC71);
   static const Color inProgressColor = Color(0xFFF0A500);
+
+  // AI Description specific colors
+  static const Color aiPrimary = Color(0xFF2E4596);
+  static const Color aiTitle = Color(0xFF0F172A);
+  static const Color aiPdf = Color(0xFFE53935);
+  static const Color aiDocx = Color(0xFF1976D2);
+  static const Color aiSuccess = Color(0xFF10B981);
+  static const Color aiBorder = Color(0xFFF1F5F9);
+  static const Color aiBoxBg = Color(0xFFF9FAFB);
 }

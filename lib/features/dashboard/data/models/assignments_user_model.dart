@@ -25,6 +25,7 @@ class AssignmentsUserModel {
 class AssignmentData {
   final int id;
   final int indicatorId;
+  final int criterionId;
   final String indicatorName;
   final String description;
   final DateTime deadline;
@@ -35,6 +36,7 @@ class AssignmentData {
   AssignmentData({
     required this.id,
     required this.indicatorId,
+    required this.criterionId,
     required this.indicatorName,
     required this.description,
     required this.deadline,
@@ -47,6 +49,7 @@ class AssignmentData {
     return AssignmentData(
       id: json['id'],
       indicatorId: json['indicatorId'],
+      criterionId: json['criterionId'] ?? 0,
       indicatorName: json['indicatorName'],
       description: json['description'],
       deadline: DateTime.parse(json['deadline']),
