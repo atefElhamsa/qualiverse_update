@@ -35,8 +35,12 @@ class UpdaterService {
 
   static bool _isNewer(String latest, String current) {
     try {
-      final l = latest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-      final c = current.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      // تنظيف إصدارات البرنامج من أي زيادات مثل +13 أو -beta
+      String cleanLatest = latest.split('+')[0].split('-')[0];
+      String cleanCurrent = current.split('+')[0].split('-')[0];
+
+      final l = cleanLatest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      final c = cleanCurrent.split('.').map((e) => int.tryParse(e) ?? 0).toList();
 
       int len = l.length > c.length ? l.length : c.length;
       for (int i = 0; i < len; i++) {
@@ -220,7 +224,6 @@ class UpdaterService {
 \$logFile = "$logPath"
 "--- Update started at \$(Get-Date) ---" | Out-File \$logFile
 "Install Dir: $installDir" | Out-File \$logFile -Append
-"EXE Name: $exeName" | Out-File \$logFile -Append
 
 function Write-Log(\$msg) {
     "\$msg" | Out-File \$logFile -Append
@@ -230,9 +233,8 @@ function Write-Log(\$msg) {
 # 1. Kill the process and wait a bit
 Write-Log "Closing $exeName..."
 \$processName = "$exeName".Replace(".exe", "")
-try {
-    Stop-Process -Name "\$processName" -Force -ErrorAction SilentlyContinue
-} catch {}
+# إغلاق البرنامج وأي عملية مرتبطة بالمجلد ده
+Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" } | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 3
 
 # 2. Extract ZIP
@@ -252,34 +254,43 @@ try {
 }
 
 # 3. Find source directory (handle nested folders in zip)
+Write-Log "Searching for $exeName in extracted files..."
 \$sourceDir = "$extractPath"
 \$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
 if (\$exeInExtract) {
     \$sourceDir = \$exeInExtract.Directory.FullName
-    Write-Log "Found files in: \$sourceDir"
+    Write-Log "SUCCESS: Found $exeName in: \$sourceDir"
 } else {
-    Write-Log "Error: Could not find $exeName in update files."
+    Write-Log "ERROR: Could not find $exeName in update files at $extractPath"
     Read-Host "Press Enter to exit"
     exit
 }
 
 # 4. Clean old files in installation directory
 Write-Log "Cleaning old version..."
+# مسح كل شيء عدا ملفات معينة نريد الإبقاء عليها
 Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" } | ForEach-Object {
     try {
-        Remove-Item \$_.FullName -Recurse -Force -ErrorAction SilentlyContinue
+        \$itemPath = \$_.FullName
+        if (Test-Path \$itemPath) {
+            Remove-Item \$itemPath -Recurse -Force -ErrorAction SilentlyContinue
+        }
     } catch {
         Write-Log "Warning: Busy file \$(\$_.Name)"
     }
 }
 
 # 5. Copy new files
-Write-Log "Installing new version..."
+Write-Log "Copying from \$sourceDir to $installDir"
 try {
+    # التأكد من وجود ملفات في المصدر
+    \$filesCount = (Get-ChildItem -Path "\$sourceDir" -Recurse).Count
+    Write-Log "Found \$filesCount files to copy."
+    
     Copy-Item -Path "\$sourceDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
-    Write-Log "Copy successful."
+    Write-Log "SUCCESS: Copy complete."
 } catch {
-    Write-Log "Copy failed: \$(\$_.Exception.Message)"
+    Write-Log "ERROR: Copy failed: \$(\$_.Exception.Message)"
     Read-Host "Press Enter to exit"
     exit
 }
@@ -291,6 +302,7 @@ Start-Process "$currentExePath"
 # 7. Cleanup
 Write-Log "Cleaning up temp files..."
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
+Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
 Write-Log "Update complete!"
 Start-Sleep -Seconds 2
 ''';
@@ -305,10 +317,8 @@ Start-Sleep -Seconds 2
         '-NoProfile',
         '-ExecutionPolicy',
         'Bypass',
-        '-WindowStyle',
-        'Normal', // نجعله ظاهراً هذه المرة ليرى المستخدم التقدم
-        '-File',
-        scriptPath
+        '-Command',
+        'Start-Process powershell.exe -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" -Verb RunAs'
       ], mode: ProcessStartMode.detached);
 
       exit(0);
