@@ -6,8 +6,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
 class UpdaterService {
-  static const String _versionUrl =
-      'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/version.json';
+  static String get _versionUrl =>
+      'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/version.json?t=${DateTime.now().millisecondsSinceEpoch}';
 
   static Future<void> checkForUpdate(BuildContext context) async {
     try {
@@ -23,10 +23,17 @@ class UpdaterService {
       final info = await PackageInfo.fromPlatform();
       final currentVersion = info.version;
 
+      debugPrint('--- Update Check ---');
+      debugPrint('Current Version: $currentVersion');
+      debugPrint('Latest Version: $latestVersion');
+
       if (_isNewer(latestVersion, currentVersion)) {
+        debugPrint('New version detected! Showing dialog...');
         if (context.mounted) {
           await _showUpdateDialog(context, latestVersion, downloadUrl, force, notes);
         }
+      } else {
+        debugPrint('No new version found.');
       }
     } catch (e) {
       debugPrint('Update check failed: $e');
@@ -34,11 +41,20 @@ class UpdaterService {
   }
 
   static bool _isNewer(String latest, String current) {
-    final l = latest.split('.').map(int.parse).toList();
-    final c = current.split('.').map(int.parse).toList();
-    for (int i = 0; i < l.length; i++) {
-      if (l[i] > c[i]) return true;
-      if (l[i] < c[i]) return false;
+    try {
+      final l = latest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      final c = current.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+
+      int len = l.length > c.length ? l.length : c.length;
+      for (int i = 0; i < len; i++) {
+        int lVal = i < l.length ? l[i] : 0;
+        int cVal = i < c.length ? c[i] : 0;
+
+        if (lVal > cVal) return true;
+        if (lVal < cVal) return false;
+      }
+    } catch (e) {
+      debugPrint('Error comparing versions: $e');
     }
     return false;
   }
