@@ -17,23 +17,15 @@ class UpdaterService {
       final data = jsonDecode(response.body);
       final latestVersion = data['version'] as String;
       final downloadUrl = data['url'] as String;
-      final force = data['force'] as bool;
       final notes = data['notes'] as String;
 
       final info = await PackageInfo.fromPlatform();
       final currentVersion = info.version;
 
-      debugPrint('--- Update Check ---');
-      debugPrint('Current Version: $currentVersion');
-      debugPrint('Latest Version: $latestVersion');
-
       if (_isNewer(latestVersion, currentVersion)) {
-        debugPrint('New version detected! Showing dialog...');
         if (context.mounted) {
-          await _showUpdateDialog(context, latestVersion, downloadUrl, force, notes);
+          await _showUpdateDialog(context, latestVersion, downloadUrl, notes);
         }
-      } else {
-        debugPrint('No new version found.');
       }
     } catch (e) {
       debugPrint('Update check failed: $e');
@@ -63,29 +55,103 @@ class UpdaterService {
     BuildContext context,
     String version,
     String url,
-    bool force,
     String notes,
   ) async {
+    bool isDownloading = false;
+    String statusText = 'يوجد إصدار جديد متاح للتحميل';
+
     await showDialog(
       context: context,
-      barrierDismissible: !force,
-      builder: (_) => PopScope(
-        canPop: !force,
-        child: AlertDialog(
-          title: Text('تحديث متاح 🚀 v$version'),
-          content: Text(notes),
-          actions: [
-            if (!force)
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('لاحقاً'),
+      barrierDismissible: false,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          return PopScope(
+            canPop: false,
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
-            ElevatedButton(
-              onPressed: () => _downloadAndInstall(url),
-              child: const Text('تحديث الآن'),
+              title: Row(
+                children: [
+                  const Icon(
+                    Icons.system_update,
+                    color: Colors.blueAccent,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    'تحديث جديد v$version',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(statusText, style: const TextStyle(fontSize: 16)),
+                  const SizedBox(height: 15),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      notes,
+                      style: TextStyle(color: Colors.grey[800], fontSize: 14),
+                    ),
+                  ),
+                  if (isDownloading) ...[
+                    const SizedBox(height: 20),
+                    const LinearProgressIndicator(),
+                    const SizedBox(height: 10),
+                    const Center(child: Text('جاري التحميل والتثبيت...')),
+                  ],
+                ],
+              ),
+              actions: [
+                if (!isDownloading)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          isDownloading = true;
+                          statusText =
+                              'يرجى عدم إغلاق البرنامج حتى اكتمال التحديث';
+                        });
+                        try {
+                          await _downloadAndInstall(url);
+                        } catch (e) {
+                          setState(() {
+                            isDownloading = false;
+                            statusText = 'فشل التحديث: تأكد من اتصال الإنترنت';
+                          });
+                          debugPrint('Download error: $e');
+                        }
+                      },
+                      child: const Text(
+                        'تحديث الآن',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -95,23 +161,33 @@ class UpdaterService {
     final zipPath = '${dir.path}/update.zip';
     final extractPath = '${dir.path}/update_extracted';
 
+    // 1. Download
     final response = await http.get(Uri.parse(url));
+    if (response.statusCode != 200) throw Exception('Failed to download file');
     await File(zipPath).writeAsBytes(response.bodyBytes);
 
-    await Process.run('powershell', [
-      '-Command',
-      'Expand-Archive -Path "$zipPath" -DestinationPath "$extractPath" -Force',
-    ]);
+    // 2. Extract
+    if (Platform.isWindows) {
+      await Process.run('powershell', [
+        '-Command',
+        'Expand-Archive -Path "$zipPath" -DestinationPath "$extractPath" -Force',
+      ]);
 
-    final exeFiles = Directory(extractPath)
-        .listSync()
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.exe'))
-        .toList();
+      // 3. Find EXE and Run
+      final entities = await Directory(
+        extractPath,
+      ).list(recursive: true).toList();
+      final exeFiles = entities
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.exe'))
+          .toList();
 
-    if (exeFiles.isNotEmpty) {
-      await Process.start(exeFiles.first.path, [], runInShell: true);
-      exit(0);
+      if (exeFiles.isNotEmpty) {
+        await Process.start(exeFiles.first.path, [], runInShell: true);
+        exit(0);
+      } else {
+        throw Exception('لم يتم العثور على ملف التشغيل داخل التحديث');
+      }
     }
   }
 }
