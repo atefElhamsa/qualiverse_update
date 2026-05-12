@@ -92,7 +92,14 @@ jobs:
           git checkout main
           git pull origin main --rebase
 
+          # اسحب الـ version من pubspec.yaml أوتوماتيك
+          $pubspec = Get-Content "../pubspec.yaml" -Raw
+          $fullVersion = [regex]::Match($pubspec, 'version:\s+(\S+)').Groups[1].Value
+          $version = ($fullVersion -split '\+')[0]
+
+          # حدّث الـ JSON كامل
           $json = Get-Content version.json | ConvertFrom-Json
+          $json.version = $version
           $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/dev/qualiverse_release.zip"
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
@@ -100,7 +107,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add version.json
-          git commit -m "Update dev download URL" || Write-Host "No changes"
+          git commit -m "chore: update version to $version" || Write-Host "No changes"
           git push origin main
         env:
           GH_PAT: ${{ secrets.GH_PAT }}

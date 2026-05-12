@@ -1,6 +1,6 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.0",
   "force": false,
-  "url": "https://github.com/atefElhamsa/qualiverse_update/releases/download/v1.0.1/Release.zip",
+  "url": "https://github.com/atefElhamsa/qualiverse_update/releases/download/dev/qualiverse_release.zip",
   "notes": "Bug fixes and performance improvements"
 }
