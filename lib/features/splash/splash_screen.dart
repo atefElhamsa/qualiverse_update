@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qualiverse/core/helpers/updater_service.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,10 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _initializeApp() async {
-    // 1. فحص التحديث أولاً (سينتظر إذا كان هناك تحديث)
-    await UpdaterService.checkForUpdate(context);
-
-    // 2. الانتظار قليلاً لضمان رؤية الأنميشن (اختياري)
+    // الانتظار قليلاً لضمان رؤية الأنميشن
     await Future.delayed(const Duration(milliseconds: 2500));
 
     // 3. الانتقال للصفحة التالية

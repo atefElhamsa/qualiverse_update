@@ -39,13 +39,26 @@ jobs:
           $version = ($fullVersion -split '\+')[0]
           echo "version=$version" >> $env:GITHUB_OUTPUT
 
-      - name: Zip Release
+      - name: Build Installer and Zip
         shell: pwsh
         run: |
           if (Test-Path "build/windows/x64/runner/Release") {
+            # 1. عمل ملف Zip للعملاء القدامى
             cd build/windows/x64/runner/Release
             tar -a -c -f ../../../../../build/qualiverse_release.zip *
             Write-Host "Release zipped using tar ✅"
+            cd ../../../../..
+
+            # 2. تعديل رقم الإصدار في ملف الانستولر
+            $issPath = "windows/runner/installer.iss"
+            $issContent = Get-Content $issPath
+            $issContent = $issContent -replace 'AppVersion=.*', "AppVersion=${{ steps.get_version.outputs.version }}"
+            Set-Content -Path $issPath -Value $issContent
+
+            # 3. تشغيل Inno Setup للعملاء الجدد
+            & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "windows/runner/installer.iss" /O"build"
+
+            Write-Host "Installer created successfully ✅"
           } else {
             Write-Error "Release folder not found ❌"
             exit 1
@@ -78,7 +91,9 @@ jobs:
           tag_name: v${{ steps.get_version.outputs.version }}
           name: Release v${{ steps.get_version.outputs.version }}
           prerelease: false
-          files: build/qualiverse_release.zip
+          files: |
+            build/qualiverse_setup.exe
+            build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
@@ -96,16 +111,36 @@ jobs:
           # اسحب الـ version من pubspec.yaml أوتوماتيك
           $version = "${{ steps.get_version.outputs.version }}"
 
-          # حدّث الـ JSON كامل
+          # حدّث الـ JSON للعملاء القدامى (يجب أن يبقى zip لتجنب تعطل الكود القديم عندهم)
           $json = Get-Content version.json | ConvertFrom-Json
           $json.version = $version
           $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/v$version/qualiverse_release.zip"
-
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
+
+          # إنشاء ملف appcast.xml لـ auto_updater
+          $date = Get-Date -Format "r"
+          $xml = @"
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>QualiVerse</title>
+        <item>
+            <title>Version $version</title>
+            <description>New update is available.</description>
+            <pubDate>$date</pubDate>
+            <enclosure url="https://github.com/atefElhamsa/qualiverse_update/releases/download/v$version/qualiverse_setup.exe"
+                       sparkle:version="$version"
+                       sparkle:os="windows"
+                       type="application/octet-stream" />
+        </item>
+    </channel>
+</rss>
+"@
+          $xml | Set-Content appcast.xml -Encoding UTF8
 
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add version.json
+          git add version.json appcast.xml
           git commit -m "chore: update version to $version" || Write-Host "No changes"
           git push origin main
         env:

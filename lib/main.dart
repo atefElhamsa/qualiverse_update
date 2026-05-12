@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-
+import 'package:auto_updater/auto_updater.dart';
 import 'bloc_observer.dart';
 import 'my_app.dart';
 
@@ -12,6 +12,15 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CashHelper.init();
   await LoginStorage.loadFromCache();
+
+  try {
+    String feedURL = 'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/appcast.xml';
+    await autoUpdater.setFeedURL(feedURL);
+    await autoUpdater.checkForUpdates(inBackground: true);
+    await autoUpdater.setScheduledCheckInterval(3600);
+  } catch (e) {
+    debugPrint('auto_updater error: $e');
+  }
   Bloc.observer = MyBlocObserver();
   runApp(
     MultiBlocProvider(
