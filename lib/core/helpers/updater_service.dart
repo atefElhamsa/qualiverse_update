@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 class UpdaterService {
   static String get _versionUrl =>
@@ -163,14 +164,16 @@ class UpdaterService {
   static Future<void> _downloadAndInstall(
       String url, Function(String) onStatusChanged) async {
     final tempDir = await getTemporaryDirectory();
-    final zipPath = '${tempDir.path}\\update.zip';
-    final extractPath = '${tempDir.path}\\update_extracted';
-    final logPath = '${tempDir.path}\\update_log.txt';
     
-    // Ensure backslashes for PowerShell
+    // استخدام p.join لضمان المسارات الصحيحة على ويندوز
+    final zipPath = p.join(tempDir.path, 'update.zip');
+    final extractPath = p.join(tempDir.path, 'update_extracted');
+    final logPath = p.join(tempDir.path, 'update_log.txt');
+    final scriptPath = p.join(tempDir.path, 'update_script.ps1');
+
     final currentExePath = Platform.resolvedExecutable;
     final installDir = File(currentExePath).parent.path;
-    final exeName = File(currentExePath).path.split(Platform.pathSeparator).last;
+    final exeName = p.basename(currentExePath);
 
     try {
       // 1. Download
@@ -211,16 +214,8 @@ class UpdaterService {
       
       debugPrint('اكتمل التحميل: $zipPath');
 
-      // 2. Identify script path
-      final scriptPath = '${tempDir.path}\\update_script.ps1';
-      
-      // 3. Create a more robust PowerShell script
-      // This script will:
-      // - Kill any instance of the app
-      // - Extract the zip to a temp folder
-      // - Clean the installation directory
-      // - Copy new files
-      // - Restart the app
+      // 2. Create a robust PowerShell script
+      // Note: We use double quotes for all paths to handle spaces in usernames
       final scriptContent = '''
 \$logFile = "$logPath"
 "--- Update started at \$(Get-Date) ---" | Out-File \$logFile
@@ -232,15 +227,19 @@ function Write-Log(\$msg) {
     Write-Host \$msg
 }
 
-# 1. Kill the process and wait
-Write-Log "Killing processes named $exeName..."
+# 1. Kill the process and wait a bit
+Write-Log "Closing $exeName..."
 \$processName = "$exeName".Replace(".exe", "")
-Stop-Process -Name "\$processName" -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 2
+try {
+    Stop-Process -Name "\$processName" -Force -ErrorAction SilentlyContinue
+} catch {}
+Start-Sleep -Seconds 3
 
 # 2. Extract ZIP
-Write-Log "Extracting ZIP..."
-if (Test-Path "$extractPath") { Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue }
+Write-Log "Extracting files..."
+if (Test-Path "$extractPath") { 
+    Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue 
+}
 New-Item -ItemType Directory -Path "$extractPath" -Force | Out-Null
 
 try {
@@ -248,61 +247,66 @@ try {
     Write-Log "Extraction successful."
 } catch {
     Write-Log "Extraction failed: \$(\$_.Exception.Message)"
+    Read-Host "Press Enter to exit"
     exit
 }
 
-# 3. Find the new files (handle subfolders in ZIP)
+# 3. Find source directory (handle nested folders in zip)
 \$sourceDir = "$extractPath"
 \$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
 if (\$exeInExtract) {
     \$sourceDir = \$exeInExtract.Directory.FullName
-    Write-Log "Found new files in: \$sourceDir"
+    Write-Log "Found files in: \$sourceDir"
 } else {
-    Write-Log "Error: Could not find $exeName in extracted files."
+    Write-Log "Error: Could not find $exeName in update files."
+    Read-Host "Press Enter to exit"
     exit
 }
 
-# 4. Clean old files (except data folder if needed, or just everything)
-Write-Log "Cleaning old files in $installDir..."
-Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" } | ForEach-Object {
+# 4. Clean old files in installation directory
+Write-Log "Cleaning old version..."
+Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" } | ForEach-Object {
     try {
         Remove-Item \$_.FullName -Recurse -Force -ErrorAction SilentlyContinue
     } catch {
-        Write-Log "Warning: Could not delete \$(\$_.Name)"
+        Write-Log "Warning: Busy file \$(\$_.Name)"
     }
 }
 
 # 5. Copy new files
-Write-Log "Copying new files..."
+Write-Log "Installing new version..."
 try {
     Copy-Item -Path "\$sourceDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
     Write-Log "Copy successful."
 } catch {
     Write-Log "Copy failed: \$(\$_.Exception.Message)"
+    Read-Host "Press Enter to exit"
     exit
 }
 
-# 6. Restart
-Write-Log "Restarting app..."
+# 6. Restart app
+Write-Log "Restarting..."
 Start-Process "$currentExePath"
 
-# 7. Cleanup temp files
-Write-Log "Cleanup..."
+# 7. Cleanup
+Write-Log "Cleaning up temp files..."
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
-Write-Log "Update complete."
+Write-Log "Update complete!"
+Start-Sleep -Seconds 2
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
-      debugPrint('Update script created.');
 
-      onStatusChanged('جاري إغلاق البرنامج وتطبيق التحديث...');
+      onStatusChanged('جاري إغلاق البرنامج لبدء التثبيت...');
       await Future.delayed(const Duration(seconds: 1));
 
-      // 4. Start PowerShell script detached
+      // 3. Start PowerShell with Window visible for debugging
       await Process.start('powershell.exe', [
         '-NoProfile',
         '-ExecutionPolicy',
         'Bypass',
+        '-WindowStyle',
+        'Normal', // نجعله ظاهراً هذه المرة ليرى المستخدم التقدم
         '-File',
         scriptPath
       ], mode: ProcessStartMode.detached);
