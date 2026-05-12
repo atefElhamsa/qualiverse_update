@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 
 class UpdaterService {
   static Map<String, String> get _headers => {
-    'User-Agent': 'QualiVerse-Updater',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     'Accept': 'application/json',
   };
 
@@ -18,10 +18,13 @@ class UpdaterService {
   static Future<void> checkForUpdate(BuildContext context) async {
     try {
       debugPrint('Checking for update at: $_versionUrl');
+      
+      // إضافة Timeout للطلب عشان لو الشبكة معلقة ميفضلش الـ Splash واقف
       final response = await http.get(
         Uri.parse(_versionUrl),
         headers: _headers,
-      );
+      ).timeout(const Duration(seconds: 10));
+
       if (response.statusCode != 200) {
         debugPrint('Update check failed with status: ${response.statusCode}');
         return;
@@ -35,13 +38,34 @@ class UpdaterService {
       final info = await PackageInfo.fromPlatform();
       final currentVersion = info.version;
 
+      debugPrint('Current Version: $currentVersion');
+      debugPrint('Latest Version: $latestVersion');
+
       if (_isNewer(latestVersion, currentVersion)) {
         if (context.mounted) {
           await _showUpdateDialog(context, latestVersion, downloadUrl, notes);
         }
+      } else {
+        debugPrint('No update needed: Current version is up to date.');
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('البرنامج محدث (حالي: $currentVersion - سيرفر: $latestVersion)'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
       }
     } catch (e) {
       debugPrint('Update check failed: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('فشل فحص التحديث: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

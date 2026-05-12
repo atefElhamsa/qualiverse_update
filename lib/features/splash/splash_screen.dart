@@ -27,7 +27,9 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     initAnimations();
     startAnimations();
-    _initializeApp();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeApp();
+    });
   }
 
   Future<void> _initializeApp() async {
