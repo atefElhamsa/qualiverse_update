@@ -322,14 +322,14 @@ try {
       debugPrint('Update log will be at: $logPath');
 
       // 5. Run the script and exit
-      await Process.start('powershell', [
+      await Process.start('powershell.exe', [
         '-WindowStyle',
-        'Normal', // جعلناها Normal بدلاً من Hidden لنرى الأخطاء إن وجدت
+        'Normal',
         '-ExecutionPolicy',
         'Bypass',
         '-File',
         scriptPath,
-      ], runInShell: true);
+      ], mode: ProcessStartMode.detached);
 
       exit(0);
     }
