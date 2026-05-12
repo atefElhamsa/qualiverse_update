@@ -162,12 +162,19 @@ class UpdaterService {
 
   static Future<void> _downloadAndInstall(
       String url, Function(String) onStatusChanged) async {
-    final dir = await getTemporaryDirectory();
-    final zipPath = '${dir.path}/update.zip';
-    final extractPath = '${dir.path}/update_extracted';
+    final tempDir = await getTemporaryDirectory();
+    final zipPath = '${tempDir.path}\\update.zip';
+    final extractPath = '${tempDir.path}\\update_extracted';
+    final logPath = '${tempDir.path}\\update_log.txt';
+    
+    // Ensure backslashes for PowerShell
+    final currentExePath = Platform.resolvedExecutable;
+    final installDir = File(currentExePath).parent.path;
+    final exeName = File(currentExePath).path.split(Platform.pathSeparator).last;
 
+    try {
       // 1. Download
-      onStatusChanged('جاري التحميل (0%)...');
+      onStatusChanged('جاري تحميل التحديث...');
       debugPrint('بدء تحميل التحديث من: $url');
       
       final client = http.Client();
@@ -191,9 +198,8 @@ class UpdaterService {
           
           if (contentLength != null && contentLength > 0) {
             final percent = (downloaded / contentLength * 100).toStringAsFixed(0);
-            onStatusChanged('جاري تحميل ملفات التحديث ($percent%)...');
+            onStatusChanged('جاري التحميل ($percent%)...');
           } else {
-            // إذا لم يوفر السيرفر حجم الملف، نظهر الحجم المحمل بالميجابايت
             final mb = (downloaded / (1024 * 1024)).toStringAsFixed(1);
             onStatusChanged('جاري التحميل ($mb MB)...');
           }
@@ -203,135 +209,108 @@ class UpdaterService {
         client.close();
       }
       
-      debugPrint('اكتمل التحميل بنجاح.');
+      debugPrint('اكتمل التحميل: $zipPath');
 
-      // 2. Extract
-      onStatusChanged('جاري فك ضغط الملفات...');
-      if (Platform.isWindows) {
-        debugPrint('بدء فك الضغط...');
-        // Clean old extraction if exists
-        if (await Directory(extractPath).exists()) {
-          await Directory(extractPath).delete(recursive: true);
-        }
-        await Directory(extractPath).create(recursive: true);
-
-        // استخدام tar بدلاً من Expand-Archive لأنه أسرع بمراحل في ويندوز
-        await Process.run('tar', [
-          '-xf',
-          zipPath,
-          '-C',
-          extractPath,
-        ]);
-        debugPrint('اكتمل فك الضغط بنجاح.');
-
-        onStatusChanged('جاري تجهيز السكربت النهائي لإعادة التشغيل...');
-
-      // 3. Identify paths
-      final currentExePath = Platform.resolvedExecutable;
-      final installDir = File(currentExePath).parent.path;
-
-      // Find the new EXE in the extracted folder
-      final entities = await Directory(
-        extractPath,
-      ).list(recursive: true).toList();
-      final exeFiles = entities
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.exe'))
-          .toList();
-
-      if (exeFiles.isEmpty) {
-        throw Exception('لم يتم العثور على ملف التشغيل داخل التحديث');
-      }
-
-      // The extracted folder might have the files directly or in a subfolder
-      // We want the folder containing the EXE and its DLLs
-      final newFilesDir = exeFiles.first.parent.path;
-
-      // 4. Create a PowerShell script to replace files after exit
-      final scriptPath = '${dir.path}\\update_script.ps1';
-      final logPath = '${dir.path}\\update_log.txt';
-      final currentPid = pid;
-
+      // 2. Identify script path
+      final scriptPath = '${tempDir.path}\\update_script.ps1';
+      
+      // 3. Create a more robust PowerShell script
+      // This script will:
+      // - Kill any instance of the app
+      // - Extract the zip to a temp folder
+      // - Clean the installation directory
+      // - Copy new files
+      // - Restart the app
       final scriptContent = '''
 \$logFile = "$logPath"
-"--- New Update Attempt at \$(Get-Date) ---" | Out-File \$logFile -Append
-"Current PID: $currentPid" | Out-File \$logFile -Append
+"--- Update started at \$(Get-Date) ---" | Out-File \$logFile
 "Install Dir: $installDir" | Out-File \$logFile -Append
-"New Files Dir: $newFilesDir" | Out-File \$logFile -Append
+"EXE Name: $exeName" | Out-File \$logFile -Append
 
-# Force stop the process if it's still hanging
-try {
-    Stop-Process -Id $currentPid -Force -ErrorAction SilentlyContinue
-} catch {}
-
-# Wait for the app to close
-"Waiting for process $currentPid to exit..." | Out-File \$logFile -Append
-while (Get-Process -Id $currentPid -ErrorAction SilentlyContinue) {
-    Start-Sleep -Milliseconds 500
+function Write-Log(\$msg) {
+    "\$msg" | Out-File \$logFile -Append
+    Write-Host \$msg
 }
 
-# Give it a bit more time to ensure all file handles are released
-"Process exited. Waiting 2 seconds for file handles to release..." | Out-File \$logFile -Append
+# 1. Kill the process and wait
+Write-Log "Killing processes named $exeName..."
+\$processName = "$exeName".Replace(".exe", "")
+Stop-Process -Name "\$processName" -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 
-# Delete old files in the installation directory
-"Cleaning installation directory..." | Out-File \$logFile -Append
-Get-ChildItem -Path "$installDir" -Recurse | Sort-Object -Property FullName -Descending | ForEach-Object {
+# 2. Extract ZIP
+Write-Log "Extracting ZIP..."
+if (Test-Path "$extractPath") { Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue }
+New-Item -ItemType Directory -Path "$extractPath" -Force | Out-Null
+
+try {
+    Expand-Archive -Path "$zipPath" -DestinationPath "$extractPath" -Force -ErrorAction Stop
+    Write-Log "Extraction successful."
+} catch {
+    Write-Log "Extraction failed: \$(\$_.Exception.Message)"
+    exit
+}
+
+# 3. Find the new files (handle subfolders in ZIP)
+\$sourceDir = "$extractPath"
+\$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
+if (\$exeInExtract) {
+    \$sourceDir = \$exeInExtract.Directory.FullName
+    Write-Log "Found new files in: \$sourceDir"
+} else {
+    Write-Log "Error: Could not find $exeName in extracted files."
+    exit
+}
+
+# 4. Clean old files (except data folder if needed, or just everything)
+Write-Log "Cleaning old files in $installDir..."
+Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" } | ForEach-Object {
     try {
-        Remove-Item -Path \$_.FullName -Force -Recurse -ErrorAction Stop
-        "Deleted: \$(\$_.FullName)" | Out-File \$logFile -Append
+        Remove-Item \$_.FullName -Recurse -Force -ErrorAction SilentlyContinue
     } catch {
-        "Failed to delete: \$(\$_.FullName). Error: \$(\$_.Exception.Message)" | Out-File \$logFile -Append
+        Write-Log "Warning: Could not delete \$(\$_.Name)"
     }
 }
 
-# Copy new files to install directory
-"Copying new files..." | Out-File \$logFile -Append
+# 5. Copy new files
+Write-Log "Copying new files..."
 try {
-    Copy-Item -Path "$newFilesDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
-    "Copy successful." | Out-File \$logFile -Append
+    Copy-Item -Path "\$sourceDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
+    Write-Log "Copy successful."
 } catch {
-    "Copy failed. Error: \$(\$_.Exception.Message)" | Out-File \$logFile -Append
+    Write-Log "Copy failed: \$(\$_.Exception.Message)"
+    exit
 }
 
-# Restart the app from the original location
-"Restarting app: $currentExePath" | Out-File \$logFile -Append
-try {
-    Start-Process "$currentExePath"
-    "Restart command issued." | Out-File \$logFile -Append
-} catch {
-    "Failed to restart app. Error: \$(\$_.Exception.Message)" | Out-File \$logFile -Append
-}
+# 6. Restart
+Write-Log "Restarting app..."
+Start-Process "$currentExePath"
 
-# Clean up temporary files
-"Cleaning up temp files..." | Out-File \$logFile -Append
-try {
-    Remove-Item -Path "$zipPath" -Force -ErrorAction SilentlyContinue
-    Remove-Item -Path "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
-    "Cleanup finished." | Out-File \$logFile -Append
-} catch {
-    "Cleanup failed." | Out-File \$logFile -Append
-}
-
-"Update process completed at \$(Get-Date)" | Out-File \$logFile -Append
+# 7. Cleanup temp files
+Write-Log "Cleanup..."
+Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
+Write-Log "Update complete."
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
+      debugPrint('Update script created.');
 
-      debugPrint('Update script created at: $scriptPath');
-      debugPrint('Update log will be at: $logPath');
+      onStatusChanged('جاري إغلاق البرنامج وتطبيق التحديث...');
+      await Future.delayed(const Duration(seconds: 1));
 
-      // 5. Run the script and exit
+      // 4. Start PowerShell script detached
       await Process.start('powershell.exe', [
-        '-WindowStyle',
-        'Normal',
+        '-NoProfile',
         '-ExecutionPolicy',
         'Bypass',
         '-File',
-        scriptPath,
+        scriptPath
       ], mode: ProcessStartMode.detached);
 
       exit(0);
+    } catch (e) {
+      debugPrint('Update error: $e');
+      rethrow;
     }
   }
 }
