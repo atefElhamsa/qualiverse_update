@@ -183,8 +183,9 @@ class UpdaterService {
       final installDir = File(currentExePath).parent.path;
 
       // Find the new EXE in the extracted folder
-      final entities =
-          await Directory(extractPath).list(recursive: true).toList();
+      final entities = await Directory(
+        extractPath,
+      ).list(recursive: true).toList();
       final exeFiles = entities
           .whereType<File>()
           .where((f) => f.path.endsWith('.exe'))
@@ -202,20 +203,31 @@ class UpdaterService {
       final scriptPath = '${dir.path}/update_script.ps1';
       final currentPid = pid;
 
-      final scriptContent = '''
+      final scriptContent =
+          '''
 \$processId = $currentPid
 # Wait for the app to close
 while (Get-Process -Id \$processId -ErrorAction SilentlyContinue) {
     Start-Sleep -Milliseconds 500
 }
 
+# Give it a second to ensure all file handles are released
+Start-Sleep -Seconds 1
+
+# Delete old files in the installation directory to ensure a clean update
+Get-ChildItem -Path "$installDir" | ForEach-Object {
+    try {
+        Remove-Item -Path \$_.FullName -Recurse -Force -ErrorAction SilentlyContinue
+    } catch {}
+}
+
 # Copy new files to install directory
-Copy-Item -Path "$newFilesDir\\*" -Destination "$installDir" -Recurse -Force
+Copy-Item -Path "$newFilesDir\*" -Destination "$installDir" -Recurse -Force
 
 # Restart the app from the original location
 Start-Process "$currentExePath"
 
-# Clean up (optional, script will be in temp anyway)
+# Clean up temporary files
 Remove-Item -Path "$zipPath" -Force
 Remove-Item -Path "$extractPath" -Recurse -Force
 ''';
@@ -229,7 +241,7 @@ Remove-Item -Path "$extractPath" -Recurse -Force
         '-ExecutionPolicy',
         'Bypass',
         '-File',
-        scriptPath
+        scriptPath,
       ], runInShell: true);
 
       exit(0);
