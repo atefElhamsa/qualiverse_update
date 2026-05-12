@@ -267,7 +267,7 @@ class UpdaterService {
       // 2. Create a robust PowerShell script
       // Note: We use double quotes for all paths to handle spaces in usernames
       final scriptContent =
-          '''
+        '''
 \$logFile = "$logPath"
 "--- Update started at \$(Get-Date) ---" | Out-File \$logFile
 "Install Dir: $installDir" | Out-File \$logFile -Append
@@ -277,93 +277,75 @@ function Write-Log(\$msg) {
     Write-Host \$msg
 }
 
-# 0. Unblock the zip file just in case
-Write-Log "Unblocking ZIP file..."
-Unblock-File -Path "$zipPath" -ErrorAction SilentlyContinue
-
-# 1. Kill the process and wait a bit
-Write-Log "Closing $exeName..."
-\$processName = "$exeName".Replace(".exe", "")
-
-# المحاولة الأولى للإغلاق
-Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-
-# الانتظار والتأكد
-Write-Log "Confirming process is closed..."
-Start-Sleep -Seconds 2
-\$activeProcess = Get-Process | Where-Object { \$_.Name -eq "\$processName" -or \$_.Path -like "*$installDir*" }
-if (\$activeProcess) {
-    Write-Log "Process still alive, trying harder..."
-    taskkill /F /IM "$exeName" /T
-    Start-Sleep -Seconds 1
-}
-
-# 2. Extract ZIP
-Write-Log "Extracting files to $extractPath ..."
-if (Test-Path "$extractPath") { 
-    Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue 
-}
-New-Item -ItemType Directory -Path "$extractPath" -Force | Out-Null
-
 try {
+    # 0. Unblock the zip file just in case
+    Write-Log "Unblocking ZIP file..."
+    Unblock-File -Path "$zipPath" -ErrorAction SilentlyContinue
+
+    # 1. Kill the process
+    Write-Log "Closing $exeName..."
+    \$processName = "$exeName".Replace(".exe", "")
+    Get-Process -Name \$processName -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    
+    Write-Log "Confirming process is closed..."
+    Start-Sleep -Seconds 2
+    
+    # Force kill if still running
+    taskkill /F /IM "$exeName" /T 2>&1 | Out-Null
+    Start-Sleep -Seconds 1
+
+    # 2. Extract ZIP
+    Write-Log "Extracting files to $extractPath ..."
+    if (Test-Path "$extractPath") { 
+        Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue 
+    }
+    New-Item -ItemType Directory -Path "$extractPath" -Force | Out-Null
+
     Expand-Archive -Path "$zipPath" -DestinationPath "$extractPath" -Force -ErrorAction Stop
     Write-Log "Extraction successful."
-} catch {
-    Write-Log "Extraction failed: \$(\$_.Exception.Message)"
-    Read-Host "Error during extraction. Press Enter to exit."
-    exit
-}
 
-# 3. Find source directory
-Write-Log "Searching for $exeName in extracted files..."
-\$sourceDir = "$extractPath"
-\$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
-if (\$exeInExtract) {
-    \$sourceDir = \$exeInExtract.Directory.FullName
-    Write-Log "SUCCESS: Found $exeName in: \$sourceDir"
-} else {
-    Write-Log "ERROR: Could not find $exeName in update files at $extractPath"
-    Read-Host "Update files missing core EXE. Press Enter to exit."
-    exit
-}
-
-# 4. Clean old files in installation directory
-Write-Log "Cleaning old version in $installDir ..."
-Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" -and \$_.Name -ne "update_script.ps1" } | ForEach-Object {
-    try {
-        \$itemPath = \$_.FullName
-        if (Test-Path \$itemPath) {
-            Remove-Item \$itemPath -Recurse -Force -ErrorAction Stop
-        }
-    } catch {
-        Write-Log "Warning: Could not delete \$(\$_.Name). It might be in use or protected."
+    # 3. Find source directory
+    Write-Log "Searching for $exeName in extracted files..."
+    \$sourceDir = "$extractPath"
+    \$exeInExtract = Get-ChildItem -Path "$extractPath" -Filter "$exeName" -Recurse | Select-Object -First 1
+    
+    if (\$exeInExtract) {
+        \$sourceDir = \$exeInExtract.Directory.FullName
+        Write-Log "SUCCESS: Found $exeName in: \$sourceDir"
+    } else {
+        throw "Could not find $exeName in update files at $extractPath"
     }
-}
 
-# 5. Copy new files
-Write-Log "Copying from \$sourceDir to $installDir"
-try {
-    # نسخ المحتويات مع Force للتغلب على الملفات الموجودة
+    # 4. Clean old files
+    Write-Log "Cleaning old version in $installDir ..."
+    Get-ChildItem -Path "$installDir" | Where-Object { \$_.Name -ne "update_log.txt" -and \$_.Name -ne "data_backup" -and \$_.Name -ne "update_script.ps1" } | ForEach-Object {
+        try {
+            Remove-Item \$_.FullName -Recurse -Force -ErrorAction Stop
+        } catch {
+            Write-Log "Warning: Could not delete \$(\$_.Name)"
+        }
+    }
+
+    # 5. Copy new files
+    Write-Log "Copying from \$sourceDir to $installDir"
     Copy-Item -Path "\$sourceDir\\*" -Destination "$installDir" -Recurse -Force -ErrorAction Stop
     Write-Log "SUCCESS: Copy complete."
-} catch {
-    Write-Log "ERROR: Copy failed: \$(\$_.Exception.Message)"
-    Write-Log "Try running the app as Administrator."
-    Read-Host "Copy failed. Press Enter to exit."
-    exit
-}
 
-# 5. Restart the application
-Write-Log "Restarting application..."
-Start-Process "$currentExePath"
-Write-Log "Update complete!"
-Start-Sleep -Seconds 1
-Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
-# نترك المجلد المستخرج للحظة للتأكد من أن البرنامج بدأ
-Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
-Write-Log "Update complete!"
-Start-Sleep -Seconds 1
-# السكريبت سيغلق نفسه
+    # 6. Restart the application
+    Write-Log "Restarting application..."
+    Start-Process "$currentExePath"
+    
+    # Cleanup
+    Start-Sleep -Seconds 1
+    Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
+    Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Log "Update complete! Window will close automatically."
+    Start-Sleep -Seconds 2
+} catch {
+    Write-Log "ERROR OCCURRED: \$_"
+    Write-Log "The update failed. Please run the app as Administrator or check the log at \$logFile"
+    Read-Host "Press Enter to exit"
+}
 ''';
 
       await File(scriptPath).writeAsString(scriptContent);
@@ -375,20 +357,16 @@ Start-Sleep -Seconds 1
       try {
         debugPrint('Launching updater: $scriptPath');
 
-        // العودة للطريقة اللي كانت بتفتح الـ CMD بس مع تعديل الكوتس
-        await Process.run('cmd.exe', [
-          '/c',
-          'start',
-          '',
-          'powershell.exe',
+        // نفتح نافذة PowerShell جديدة بشكل موثوق تماماً بدون الاعتماد على CMD
+        await Process.run('powershell.exe', [
           '-NoProfile',
           '-ExecutionPolicy',
           'Bypass',
-          '-File',
-          scriptPath,
+          '-Command',
+          'Start-Process powershell.exe -ArgumentList \'-NoProfile\', \'-ExecutionPolicy\', \'Bypass\', \'-File\', \'${scriptPath.replaceAll("'", "''")}\''
         ]);
       } catch (e) {
-        debugPrint('Failed to start CMD/PowerShell: $e');
+        debugPrint('Failed to start PowerShell: $e');
         onStatusChanged('فشل بدء التثبيت: $e');
         return;
       }
