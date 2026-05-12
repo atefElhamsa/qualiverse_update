@@ -39,6 +39,9 @@ jobs:
           $version = ($fullVersion -split '\+')[0]
           echo "version=$version" >> $env:GITHUB_OUTPUT
 
+      - name: Install Inno Setup
+        run: choco install innosetup
+
       - name: Build Installer and Zip
         shell: pwsh
         run: |
@@ -56,7 +59,7 @@ jobs:
             Set-Content -Path $issPath -Value $issContent
 
             # 3. تشغيل Inno Setup للعملاء الجدد
-            & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "windows/runner/installer.iss" /O"build"
+            iscc "windows/runner/installer.iss" /O"build"
 
             Write-Host "Installer created successfully ✅"
           } else {
