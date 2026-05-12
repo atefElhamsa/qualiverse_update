@@ -98,7 +98,10 @@ class IndicatorsCubit extends Cubit<IndicatorsState> {
   }
 
   String buildFileUrl(String filePath) {
-    return "${EndPoints.baseUrlToOpenFile}/$filePath";
+    if (!filePath.startsWith('http')) {
+      return "${EndPoints.baseUrlToOpenFile}/$filePath";
+    }
+    return filePath;
   }
 
   Future<void> openIndicatorFile(String filePath) async {

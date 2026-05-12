@@ -75,11 +75,11 @@ class DashboardTabsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final titles = [
       'overview',
-      'coursesHealth',
-      'indicators',
-      'files',
-      'doctors',
-      'activity',
+      // 'coursesHealth',
+      // 'indicators',
+      // 'files',
+      // 'doctors',
+      // 'activity',
     ];
 
     final cubit = AdminDashboardCubit.get(context);

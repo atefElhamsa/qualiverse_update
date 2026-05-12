@@ -105,12 +105,14 @@ class AssignmentsUserRow extends StatelessWidget {
                   children: [
                     Tooltip(
                       message: 'uploadFile'.tr(),
-                      child: InkWell(
-                        onTap: () async {
-                          try {
-                            await context
-                                .read<IndicatorsCubit>()
-                                .pickAndUploadIndicatorFile(
+                      child: assignment.status.toLowerCase() == 'approved'
+                          ? null
+                          : InkWell(
+                              onTap: () async {
+                                try {
+                                  await context
+                                      .read<IndicatorsCubit>()
+                                      .pickAndUploadIndicatorFile(
                                   indicatorId: assignment.indicatorId,
                                   criterionId: assignment.criterionId,
                                 );
