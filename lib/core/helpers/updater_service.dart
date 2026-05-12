@@ -168,26 +168,71 @@ class UpdaterService {
 
     // 2. Extract
     if (Platform.isWindows) {
+      // Clean old extraction if exists
+      if (await Directory(extractPath).exists()) {
+        await Directory(extractPath).delete(recursive: true);
+      }
+
       await Process.run('powershell', [
         '-Command',
         'Expand-Archive -Path "$zipPath" -DestinationPath "$extractPath" -Force',
       ]);
 
-      // 3. Find EXE and Run
-      final entities = await Directory(
-        extractPath,
-      ).list(recursive: true).toList();
+      // 3. Identify paths
+      final currentExePath = Platform.resolvedExecutable;
+      final installDir = File(currentExePath).parent.path;
+
+      // Find the new EXE in the extracted folder
+      final entities =
+          await Directory(extractPath).list(recursive: true).toList();
       final exeFiles = entities
           .whereType<File>()
           .where((f) => f.path.endsWith('.exe'))
           .toList();
 
-      if (exeFiles.isNotEmpty) {
-        await Process.start(exeFiles.first.path, [], runInShell: true);
-        exit(0);
-      } else {
+      if (exeFiles.isEmpty) {
         throw Exception('لم يتم العثور على ملف التشغيل داخل التحديث');
       }
+
+      // The extracted folder might have the files directly or in a subfolder
+      // We want the folder containing the EXE and its DLLs
+      final newFilesDir = exeFiles.first.parent.path;
+
+      // 4. Create a PowerShell script to replace files after exit
+      final scriptPath = '${dir.path}/update_script.ps1';
+      final currentPid = pid;
+
+      final scriptContent = '''
+\$processId = $currentPid
+# Wait for the app to close
+while (Get-Process -Id \$processId -ErrorAction SilentlyContinue) {
+    Start-Sleep -Milliseconds 500
+}
+
+# Copy new files to install directory
+Copy-Item -Path "$newFilesDir\\*" -Destination "$installDir" -Recurse -Force
+
+# Restart the app from the original location
+Start-Process "$currentExePath"
+
+# Clean up (optional, script will be in temp anyway)
+Remove-Item -Path "$zipPath" -Force
+Remove-Item -Path "$extractPath" -Recurse -Force
+''';
+
+      await File(scriptPath).writeAsString(scriptContent);
+
+      // 5. Run the script and exit
+      await Process.start('powershell', [
+        '-WindowStyle',
+        'Hidden',
+        '-ExecutionPolicy',
+        'Bypass',
+        '-File',
+        scriptPath
+      ], runInShell: true);
+
+      exit(0);
     }
   }
 }
