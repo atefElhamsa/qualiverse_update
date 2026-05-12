@@ -30,15 +30,22 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
+      - name: Get version from pubspec
+        id: get_version
+        shell: pwsh
+        run: |
+          $pubspec = Get-Content "pubspec.yaml" -Raw
+          $fullVersion = [regex]::Match($pubspec, 'version:\s+(\S+)').Groups[1].Value
+          $version = ($fullVersion -split '\+')[0]
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+
       - name: Zip Release
         shell: pwsh
         run: |
-          $releasePath = "build\windows\x64\runner\Release\*"
-          $zipPath = "build/qualiverse_release.zip"
-
-          if (Test-Path $releasePath) {
-            Compress-Archive -Path $releasePath -DestinationPath $zipPath -Force
-            Write-Host "Release zipped ✅"
+          if (Test-Path "build/windows/x64/runner/Release") {
+            cd build/windows/x64/runner/Release
+            tar -a -c -f ../../../../../build/qualiverse_release.zip *
+            Write-Host "Release zipped using tar ✅"
           } else {
             Write-Error "Release folder not found ❌"
             exit 1
@@ -53,30 +60,23 @@ jobs:
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
-      - name: Reset dev tag
+      - name: Create version tag
         shell: pwsh
         run: |
-          git tag -d dev 2>$null
-          git push origin :refs/tags/dev 2>$null
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-
-      - name: Create dev tag
-        shell: pwsh
-        run: |
-          git tag dev
-          git push origin refs/tags/dev
+          $tag = "v${{ steps.get_version.outputs.version }}"
+          git tag $tag
+          git push origin refs/tags/$tag
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
 
-      - name: Create / Update Dev Release
+      - name: Create / Update Release
         uses: softprops/action-gh-release@v1
         with:
           repository: atefElhamsa/qualiverse_update
-          tag_name: dev
-          name: Dev Build
-          prerelease: true
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Release v${{ steps.get_version.outputs.version }}
+          prerelease: false
           files: build/qualiverse_release.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
@@ -93,14 +93,12 @@ jobs:
           git pull origin main --rebase
 
           # اسحب الـ version من pubspec.yaml أوتوماتيك
-          $pubspec = Get-Content "../pubspec.yaml" -Raw
-          $fullVersion = [regex]::Match($pubspec, 'version:\s+(\S+)').Groups[1].Value
-          $version = ($fullVersion -split '\+')[0]
+          $version = "${{ steps.get_version.outputs.version }}"
 
           # حدّث الـ JSON كامل
           $json = Get-Content version.json | ConvertFrom-Json
           $json.version = $version
-          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/dev/qualiverse_release.zip"
+          $json.url = "https://github.com/atefElhamsa/qualiverse_update/releases/download/v$version/qualiverse_release.zip"
 
           $json | ConvertTo-Json -Depth 10 | Set-Content version.json
 

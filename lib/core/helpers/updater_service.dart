@@ -71,25 +71,25 @@ class UpdaterService {
 
   static bool _isNewer(String latest, String current) {
     try {
-      // تنظيف إصدارات البرنامج من أي زيادات مثل +13 أو -beta
-      String cleanLatest = latest.split('+')[0].split('-')[0];
-      String cleanCurrent = current.split('+')[0].split('-')[0];
+      debugPrint('Comparing versions: Server($latest) vs Local($current)');
+      
+      String cleanLatest = latest.split('+')[0].split('-')[0].trim();
+      String cleanCurrent = current.split('+')[0].split('-')[0].trim();
 
-      final l = cleanLatest
-          .split('.')
-          .map((e) => int.tryParse(e) ?? 0)
-          .toList();
-      final c = cleanCurrent
-          .split('.')
-          .map((e) => int.tryParse(e) ?? 0)
-          .toList();
+      if (cleanLatest == cleanCurrent) return false;
+
+      final l = cleanLatest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      final c = cleanCurrent.split('.').map((e) => int.tryParse(e) ?? 0).toList();
 
       int len = l.length > c.length ? l.length : c.length;
       for (int i = 0; i < len; i++) {
         int lVal = i < l.length ? l[i] : 0;
         int cVal = i < c.length ? c[i] : 0;
 
-        if (lVal > cVal) return true;
+        if (lVal > cVal) {
+          debugPrint('Update found: $lVal > $cVal');
+          return true;
+        }
         if (lVal < cVal) return false;
       }
     } catch (e) {
