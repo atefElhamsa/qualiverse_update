@@ -5,10 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class UpdaterService {
   static Map<String, String> get _headers => {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     'Accept': 'application/json',
   };
 
@@ -18,12 +20,11 @@ class UpdaterService {
   static Future<void> checkForUpdate(BuildContext context) async {
     try {
       debugPrint('Checking for update at: $_versionUrl');
-      
+
       // إضافة Timeout للطلب عشان لو الشبكة معلقة ميفضلش الـ Splash واقف
-      final response = await http.get(
-        Uri.parse(_versionUrl),
-        headers: _headers,
-      ).timeout(const Duration(seconds: 10));
+      final response = await http
+          .get(Uri.parse(_versionUrl), headers: _headers)
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode != 200) {
         debugPrint('Update check failed with status: ${response.statusCode}');
@@ -45,41 +46,29 @@ class UpdaterService {
         if (context.mounted) {
           await _showUpdateDialog(context, latestVersion, downloadUrl, notes);
         }
-      } else {
-        debugPrint('No update needed: Current version is up to date.');
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('البرنامج محدث (حالي: $currentVersion - سيرفر: $latestVersion)'),
-              backgroundColor: Colors.green,
-            ),
-          );
-        }
       }
     } catch (e) {
       debugPrint('Update check failed: $e');
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('فشل فحص التحديث: $e'),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
     }
   }
 
   static bool _isNewer(String latest, String current) {
     try {
       debugPrint('Comparing versions: Server($latest) vs Local($current)');
-      
+
       String cleanLatest = latest.split('+')[0].split('-')[0].trim();
       String cleanCurrent = current.split('+')[0].split('-')[0].trim();
 
       if (cleanLatest == cleanCurrent) return false;
 
-      final l = cleanLatest.split('.').map((e) => int.tryParse(e) ?? 0).toList();
-      final c = cleanCurrent.split('.').map((e) => int.tryParse(e) ?? 0).toList();
+      final l = cleanLatest
+          .split('.')
+          .map((e) => int.tryParse(e) ?? 0)
+          .toList();
+      final c = cleanCurrent
+          .split('.')
+          .map((e) => int.tryParse(e) ?? 0)
+          .toList();
 
       int len = l.length > c.length ? l.length : c.length;
       for (int i = 0; i < len; i++) {
@@ -115,38 +104,43 @@ class UpdaterService {
           return PopScope(
             canPop: false,
             child: AlertDialog(
+              constraints: const BoxConstraints(
+                minWidth: 400,
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              title: Row(
+              title: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.system_update,
                     color: Colors.blueAccent,
                     size: 28,
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10),
                   Text(
-                    'تحديث جديد v$version',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    'تحديث جديد',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                 ],
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Text(
+                  Text(
                       statusText,
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: Colors.blueAccent,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                  ),
+                  
                   if (isDownloading) ...[
                     const SizedBox(height: 20),
                     const LinearProgressIndicator(
@@ -257,10 +251,10 @@ class UpdaterService {
             final percent = (downloaded / contentLength * 100).toStringAsFixed(
               0,
             );
-            onStatusChanged('جاري التحميل ($percent%)...');
+            onStatusChanged('جاري التحميل... ($percent%)');
           } else {
             final mb = (downloaded / (1024 * 1024)).toStringAsFixed(1);
-            onStatusChanged('جاري التحميل ($mb MB)...');
+            onStatusChanged('جاري التحميل... ($mb MB)');
           }
         }
       } finally {
@@ -359,13 +353,11 @@ try {
     exit
 }
 
-# 6. Restart app
+# 5. Restart the application
 Write-Log "Restarting application..."
 Start-Process "$currentExePath"
-
-# 7. Cleanup
-Write-Log "Cleaning up temp files..."
-Start-Sleep -Seconds 2
+Write-Log "Update complete!"
+Start-Sleep -Seconds 1
 Remove-Item "$zipPath" -Force -ErrorAction SilentlyContinue
 # نترك المجلد المستخرج للحظة للتأكد من أن البرنامج بدأ
 Remove-Item "$extractPath" -Recurse -Force -ErrorAction SilentlyContinue
@@ -379,23 +371,21 @@ Start-Sleep -Seconds 1
       onStatusChanged('جاري إغلاق البرنامج لبدء التثبيت...');
       await Future.delayed(const Duration(seconds: 1));
 
-      // 3. Start PowerShell using cmd.exe /c start for better compatibility with spaces
+      // 3. Start PowerShell in a new visible window
       try {
-        debugPrint('Launching updater via CMD: $scriptPath');
+        debugPrint('Launching updater: $scriptPath');
 
-        // استخدام "" كعنوان فارغ هو الحل السحري للمسافات في أمر start
-        // إضافة -NoExit عشان لو حصل غلط السكريبت ميفضلش مفتوح ونشوف السبب
+        // العودة للطريقة اللي كانت بتفتح الـ CMD بس مع تعديل الكوتس
         await Process.run('cmd.exe', [
           '/c',
           'start',
-          '"QualiVerse Updater"', 
+          '',
           'powershell.exe',
           '-NoProfile',
-          '-NoExit', 
           '-ExecutionPolicy',
           'Bypass',
           '-File',
-          scriptPath, 
+          scriptPath,
         ]);
       } catch (e) {
         debugPrint('Failed to start CMD/PowerShell: $e');
