@@ -64,8 +64,9 @@ jobs:
         shell: pwsh
         run: |
           $tag = "v${{ steps.get_version.outputs.version }}"
-          git tag $tag
-          git push origin refs/tags/$tag
+          # امسح التاج لو موجود محلياً أو بعيداً وارفعه من جديد
+          git tag -f $tag
+          git push origin refs/tags/$tag --force
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
