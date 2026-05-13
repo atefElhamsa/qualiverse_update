@@ -56,7 +56,7 @@ class AiDescriptionResultScreen extends StatelessWidget {
             showSnackBar(context, state.message, AppColors.red);
           } else if (state is AiDescriptionFinalConfirmSuccess) {
             showSnackBar(context, state.message, AppColors.green);
-            context.pop(); // Go back to main AI page or somewhere else
+            context.pop();
           } else if (state is AiDescriptionFinalConfirmError) {
             showSnackBar(context, state.message, AppColors.red);
           }
@@ -73,32 +73,27 @@ class AiDescriptionResultScreen extends StatelessWidget {
             return Stack(
               children: [
                 CustomScaffold(
-                  widget: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      children: [
-                        const AiDescriptionTop(),
-                        if (!cubit.isCourseGenerated) ...[
+                  widget: Column(
+                    children: [
+                      const AiDescriptionTop(),
+                      if (!cubit.isCourseGenerated) ...[
+                        const AiDescriptionSubmitStep(),
+                      ] else ...[
+                        if (cubit.currentPage < 5) ...[
+                          AiStepIndicator(
+                            currentPage: cubit.currentPage,
+                            totalSteps: 5,
+                          ),
+                          SizedBox(height: 20.h),
+                          const AiDescriptionStepsContent(),
                           SizedBox(height: 30.h),
-                          const AiDescriptionSubmitStep(),
-                          const SizedBox(height: 50),
+                          const AiDescriptionNavigationRow(),
                         ] else ...[
-                          if (cubit.currentPage < 5) ...[
-                            AiStepIndicator(
-                              currentPage: cubit.currentPage,
-                              totalSteps: 5,
-                            ),
-                            SizedBox(height: 20.h),
-                            const AiDescriptionStepsContent(),
-                            SizedBox(height: 30.h),
-                            const AiDescriptionNavigationRow(),
-                          ] else ...[
-                            const AiDescriptionStepsContent(),
-                          ],
-                          SizedBox(height: 50.h),
+                          const AiDescriptionStepsContent(),
                         ],
+                        SizedBox(height: 40.h),
                       ],
-                    ),
+                    ],
                   ),
                 ),
                 if (isProcessing) const AiDescriptionLoadingOverlay(),

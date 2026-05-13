@@ -8,6 +8,9 @@ class PremiumInputField extends StatelessWidget {
   final String hint;
   final double? fontSize;
   final double? labelFontSize;
+  final VoidCallback? onTap;
+  final bool readOnly;
+  final int? maxLines;
 
   const PremiumInputField({
     super.key,
@@ -17,6 +20,9 @@ class PremiumInputField extends StatelessWidget {
     required this.hint,
     this.fontSize,
     this.labelFontSize,
+    this.onTap,
+    this.readOnly = false,
+    this.maxLines = 1,
   });
 
   @override
@@ -54,6 +60,9 @@ class PremiumInputField extends StatelessWidget {
             ),
             child: TextFormField(
               controller: controller,
+              readOnly: readOnly,
+              maxLines: maxLines,
+              onTap: onTap,
               style: TextStyle(
                 fontSize: fontSize ?? 16.sp,
                 fontWeight: FontWeight.w600,

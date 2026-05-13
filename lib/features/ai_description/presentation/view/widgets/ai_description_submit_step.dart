@@ -13,126 +13,121 @@ class AiDescriptionSubmitStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AiDescriptionCubit>();
 
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CustomText(
-              title: "finalizeGeneration".tr(),
-              textStyle: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.colorButtonLight,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10.h),
-            CustomText(
-              title: "pleaseReviewAndSubmit".tr(),
-              textStyle: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.normal,
-                color: Colors.grey,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 40.h),
-
-            // Side by Side Fields
-            Row(
-              children: [
-                Expanded(
-                  child: PremiumInputField(
-                    label: "courseName".tr(),
-                    controller: cubit.titleController,
-                    icon: Icons.title_rounded,
-                    hint: "enterCourseName".tr(),
-                  ),
+    return BlocListener<AiDescriptionCubit, AiDescriptionState>(
+      listener: (context, state) {},
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CustomText(
+                title: "finalizeGeneration".tr(),
+                textStyle: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.colorButtonLight,
                 ),
-                SizedBox(width: 25.w),
-                Expanded(
-                  child: PremiumInputField(
-                    label: "courseSchedule".tr(),
-                    controller: cubit.totalHoursController,
-                    icon: Icons.schedule_rounded,
-                    hint: "enterCourseSchedule".tr(),
-                  ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10.h),
+              CustomText(
+                title: "pleaseReviewAndSubmit".tr(),
+                textStyle: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.grey,
                 ),
-              ],
-            ),
-            SizedBox(height: 50.h),
+                textAlign: TextAlign.center,
+              ),
+              // Stacked Fields
+              PremiumInputField(
+                label: "courseName".tr(),
+                controller: cubit.titleController,
+                icon: Icons.title_rounded,
+                hint: "enterCourseName".tr(),
+                maxLines: 1,
+              ),
+              SizedBox(height: 15.h),
+              PremiumInputField(
+                label: "courseSchedule".tr(),
+                controller: cubit.totalHoursController,
+                icon: Icons.schedule_rounded,
+                hint: "enterCourseSchedule".tr(),
+                maxLines: 4,
+              ),
+              SizedBox(height: 20.h),
 
-            BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
-              builder: (context, state) {
-                final bool isLoading = state is AiDescriptionSubmitLoading;
+              BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
+                builder: (context, state) {
+                  final bool isLoading = state is AiDescriptionSubmitLoading;
 
-                if (isLoading) {
-                  return Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 25.h,
-                      horizontal: 20.w,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.colorButtonLight.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(15.r),
-                      border: Border.all(
-                        color: AppColors.colorButtonLight.withOpacity(0.3),
+                  if (isLoading) {
+                    return Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 25.h,
+                        horizontal: 20.w,
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 35.h,
-                          width: 35.h,
-                          child: const CircularProgressIndicator(
-                            color: AppColors.colorButtonLight,
-                            strokeWidth: 3,
-                          ),
+                      decoration: BoxDecoration(
+                        color: AppColors.colorButtonLight.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(15.r),
+                        border: Border.all(
+                          color: AppColors.colorButtonLight.withOpacity(0.3),
                         ),
-                        SizedBox(height: 15.h),
-                        CustomText(
-                          title: "aiGeneratingWait".tr(),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            height: 35.h,
+                            width: 35.h,
+                            child: const CircularProgressIndicator(
+                              color: AppColors.colorButtonLight,
+                              strokeWidth: 3,
+                            ),
+                          ),
+                          SizedBox(height: 15.h),
+                          CustomText(
+                            title: "aiGeneratingWait".tr(),
+                            textStyle: TextStyle(
+                              color: AppColors.colorButtonLight,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return SizedBox(
+                    width: 300.w,
+                    child: CustomButton(
+                      buttonModel: ButtonModel(
+                        onPressed: () => cubit.submitCourse(),
+                        backgroundColor: AppColors.colorButtonLight,
+                        radius: 15.r,
+                        space: 15.h,
+                        customText: CustomText(
+                          title: "submitAndGenerate".tr(),
                           textStyle: TextStyle(
-                            color: AppColors.colorButtonLight,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                            height: 1.5,
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
-                  );
-                }
-
-                return SizedBox(
-                  width: 300.w,
-                  child: CustomButton(
-                    buttonModel: ButtonModel(
-                      onPressed: () => cubit.submitCourse(),
-                      backgroundColor: AppColors.colorButtonLight,
-                      radius: 15.r,
-                      space: 15.h,
-                      customText: CustomText(
-                        title: "submitAndGenerate".tr(),
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

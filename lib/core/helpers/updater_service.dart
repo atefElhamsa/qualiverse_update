@@ -192,10 +192,10 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
               ),
             ),
             const SizedBox(height: 12),
-            Text(
-              'إصدار ${widget.latestVersion} متاح الآن.\nيحتوي هذا التحديث على تحسينات هامة ولا يمكنك المتابعة بدون التحديث.',
+            const Text(
+              'إصدار جديد متاح الآن.\nيحتوي هذا التحديث على تحسينات هامة ولا يمكنك المتابعة بدون التحديث.',
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 color: Colors.black87,
                 height: 1.5,

@@ -29,7 +29,11 @@ class ApproveRejectAssignmentCubit extends Cubit<ApproveRejectAssignmentState> {
         );
       }
     } catch (e) {
-      emit(ApproveRejectAssignmentError(error: e.toString().replaceFirst('Exception: ', '').trim()));
+      emit(
+        ApproveRejectAssignmentError(
+          error: e.toString().replaceFirst('Exception: ', '').trim(),
+        ),
+      );
     }
   }
 
@@ -54,7 +58,11 @@ class ApproveRejectAssignmentCubit extends Cubit<ApproveRejectAssignmentState> {
         );
       }
     } catch (e) {
-      emit(ApproveRejectAssignmentError(error: e.toString().replaceFirst('Exception: ', '').trim()));
+      emit(
+        ApproveRejectAssignmentError(
+          error: e.toString().replaceFirst('Exception: ', '').trim(),
+        ),
+      );
     }
   }
 }

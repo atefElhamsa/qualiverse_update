@@ -48,7 +48,7 @@ class HomeAnimation {
         CustomText(
           title: "accreditationQualitySystem".tr(),
           textStyle: Theme.of(context).textTheme.displayMedium!.copyWith(
-                fontSize: isMobile ? 26.sp : 42.sp,
+                fontSize: isMobile ? 26.sp : 36.sp,
                 fontWeight: FontWeight.w900,
                 height: 1.2,
                 fontFamily: 'Almarai',

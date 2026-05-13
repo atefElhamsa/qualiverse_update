@@ -27,7 +27,9 @@ class BuildTextContent extends StatelessWidget {
             children: [
               CustomText(
                 title: "accreditationQualitySystem".tr(),
-                textStyle: Theme.of(context).textTheme.titleLarge!,
+                textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  fontSize: 36.sp,
+                ),
               ),
               SizedBox(height: 8.h),
               CustomText(

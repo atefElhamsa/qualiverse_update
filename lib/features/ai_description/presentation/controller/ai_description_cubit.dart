@@ -204,6 +204,10 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
   Future<void> submitCourse() async {
     if (generationId == null) return;
+    if (titleController.text.trim().isEmpty) {
+      emit(AiDescriptionSubmitError("pleaseEnterCourseName".tr()));
+      return;
+    }
 
     emit(AiDescriptionSubmitLoading());
     try {

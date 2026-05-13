@@ -8,6 +8,7 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/dashboard/data/models/assignments_user_model.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 import 'package:qualiverse/routing/app_routes.dart';
+import 'package:qualiverse/features/dashboard/presentation/controller/assignmets/assignments_user_cubit.dart';
 import 'assignments_user_header_row.dart';
 
 class AssignmentsUserRow extends StatelessWidget {
@@ -113,39 +114,39 @@ class AssignmentsUserRow extends StatelessWidget {
                                   await context
                                       .read<IndicatorsCubit>()
                                       .pickAndUploadIndicatorFile(
-                                  indicatorId: assignment.indicatorId,
-                                  criterionId: assignment.criterionId,
-                                );
-                            if (context.mounted) {
-                              context.pushNamed(
-                                AppRoutes.indicatorsScreen,
-                                extra: IndicatorsArgs(
-                                  accreditationModel: AccreditationModel(
-                                    id: assignment.criterionId,
-                                    name: '',
-                                  ),
-                                  title: assignment.indicatorName,
-                                  index: 0,
-                                ),
-                              );
-                            }
-                          } catch (e) {
-                            // Error is handled by Cubit and shown via SnackBar in DashboardBody
-                          }
-                        },
-                        child: Icon(
-                          Icons.file_upload_outlined,
-                          color: AppColors.viewAndDeleteIconColor,
-                          size: 20.sp,
-                        ),
-                      ),
+                                        indicatorId: assignment.indicatorId,
+                                        criterionId: assignment.criterionId,
+                                      );
+                                  if (context.mounted) {
+                                    final yearId = context
+                                        .read<AcademicYearCubit>()
+                                        .selectedAcademicYear
+                                        ?.id;
+                                    if (yearId != null) {
+                                      context
+                                          .read<AssignmentsUserCubit>()
+                                          .getAssignments(
+                                            academicYearId: yearId,
+                                          );
+                                    }
+                                  }
+                                } catch (e) {
+                                  // Error is handled by Cubit and shown via SnackBar in DashboardBody
+                                }
+                              },
+                              child: Icon(
+                                Icons.file_upload_outlined,
+                                color: AppColors.viewAndDeleteIconColor,
+                                size: 20.sp,
+                              ),
+                            ),
                     ),
                     SizedBox(width: 8.w),
                     Tooltip(
                       message: 'view'.tr(),
                       child: InkWell(
-                        onTap: () {
-                          context.pushNamed(
+                        onTap: () async {
+                          await context.pushNamed(
                             AppRoutes.indicatorsScreen,
                             extra: IndicatorsArgs(
                               accreditationModel: AccreditationModel(
@@ -156,6 +157,18 @@ class AssignmentsUserRow extends StatelessWidget {
                               index: 0,
                             ),
                           );
+
+                          if (context.mounted) {
+                            final yearId = context
+                                .read<AcademicYearCubit>()
+                                .selectedAcademicYear
+                                ?.id;
+                            if (yearId != null) {
+                              context
+                                  .read<AssignmentsUserCubit>()
+                                  .getAssignments(academicYearId: yearId);
+                            }
+                          }
                         },
                         child: Icon(
                           Icons.visibility_outlined,

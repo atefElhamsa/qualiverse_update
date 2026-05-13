@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/core/utils/date_picker_utils.dart';
 import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
+import 'premium_dropdown_field.dart';
 import 'premium_input_field.dart';
 import 'step_wrapper.dart';
 
@@ -12,6 +14,32 @@ class BasicInfoStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<AiDescriptionCubit>();
+
+    // Dynamic initial values for Faculty
+    if (cubit.facultyController.text.isEmpty ||
+        cubit.facultyController.text ==
+            "Faculty of Computers and Information" ||
+        cubit.facultyController.text == "كلية حاسبات ومعلومات") {
+      cubit.facultyController.text = "facultyInitialValue".tr();
+    }
+
+    // Dynamic initial values for University
+    if (cubit.uniController.text.isEmpty ||
+        cubit.uniController.text == "Tanta University" ||
+        cubit.uniController.text == "جامعة طنطا") {
+      cubit.uniController.text = "uniInitialValue".tr();
+    }
+
+    // Dynamic initial values for Course Type
+    if (cubit.typeController.text.isEmpty ||
+        cubit.typeController.text == "Theoretical" ||
+        cubit.typeController.text == "نظري") {
+      cubit.typeController.text = "theoretical".tr();
+    } else if (cubit.typeController.text == "Practical" ||
+        cubit.typeController.text == "عملي") {
+      cubit.typeController.text = "practical".tr();
+    }
+
     return StepWrapper(
       title: "basicInfo".tr(),
       icon: Icons.assignment_rounded,
@@ -50,9 +78,13 @@ class BasicInfoStep extends StatelessWidget {
               ),
               SizedBox(width: 20.w),
               Expanded(
-                child: PremiumInputField(
+                child: PremiumDropdownField(
                   label: "courseType".tr(),
                   controller: cubit.typeController,
+                  items: ["theoretical".tr(), "practical".tr()],
+                  onChanged: (val) {
+                    cubit.typeController.text = val;
+                  },
                   icon: Icons.category_rounded,
                   hint: "enterType".tr(),
                 ),
@@ -118,6 +150,15 @@ class BasicInfoStep extends StatelessWidget {
                   controller: cubit.dateController,
                   icon: Icons.calendar_today_rounded,
                   hint: "enterDate".tr(),
+                  readOnly: true,
+                  onTap: () async {
+                    final date = await showPremiumDatePicker(context);
+                    if (date != null) {
+                      cubit.dateController.text = DateFormat(
+                        'yyyy-MM-dd',
+                      ).format(date);
+                    }
+                  },
                 ),
               ),
             ],

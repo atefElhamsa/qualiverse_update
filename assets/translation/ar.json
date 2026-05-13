@@ -622,5 +622,10 @@
     "downloadFiles": "تحميل الملفات",
     "preparing": "جاري التحضير...",
     "downloadUrlReady": "رابط التحميل جاهز!",
-    "customDescriptionUploaded": "تم رفع التوصيف المخصص بنجاح!"
+    "customDescriptionUploaded": "تم رفع التوصيف المخصص بنجاح!",
+    "facultyInitialValue": "كلية حاسبات ومعلومات",
+    "uniInitialValue": "جامعة طنطا",
+    "practical": "عملي",
+    "pleaseEnterCourseName": "يرجى إدخال اسم المقرر",
+    "pleaseEnterCourseSchedule": "يرجى إدخال جدول المقرر"
 }

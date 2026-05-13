@@ -554,7 +554,8 @@
     "facilities": "Facilities & Labs",
     "totalWeeklyHours": "Total Weekly Hours",
     "theoretical": "Theoretical",
-    "training": "Training",
+    "pleaseEnterCourseName": "Please enter the course name",
+    "pleaseEnterCourseSchedule": "Please enter the course schedule",
     "selfLearning": "Self Learning",
     "mainReference": "Main Reference",
     "learningPlatforms": "Learning Platforms",
@@ -623,5 +624,8 @@
     "downloadFiles": "Download Files",
     "preparing": "Preparing...",
     "downloadUrlReady": "Download URL is ready!",
-    "customDescriptionUploaded": "Custom description uploaded successfully!"
+    "customDescriptionUploaded": "Custom description uploaded successfully!",
+    "facultyInitialValue": "Faculty of Computers and Information",
+    "uniInitialValue": "Tanta University",
+    "practical": "Practical"
 }
