@@ -12,9 +12,6 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CashHelper.init();
   await LoginStorage.loadFromCache();
-
-
-
   Bloc.observer = MyBlocObserver();
   runApp(
     MultiBlocProvider(
@@ -25,7 +22,6 @@ void main() async {
             if (LoginStorage.hasToken) {
               cubit.getUnreadCount();
               cubit.startPolling();
-              
             }
             return cubit;
           },
