@@ -11,17 +11,22 @@ class AccreditationBody extends StatelessWidget {
     final inherited = HomeBodyInherited.of(context);
     return BlocProvider(
       create: (context) => TypesCubit()..fetchTypes(),
-      child: CustomScaffold(
-        widget: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomScaffoldTop(controller: inherited.controller),
-            const SizedBox(height: 10),
-            const AccreditationDefinition(),
-            const SizedBox(height: 20),
-            const AccreditationBottomBody(),
-          ],
-        ),
+      child: Builder(
+        builder: (context) {
+          return CustomScaffold(
+            onRefresh: () => TypesCubit.get(context).fetchTypes(),
+            widget: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomScaffoldTop(controller: inherited.controller),
+                const SizedBox(height: 10),
+                const AccreditationDefinition(),
+                const SizedBox(height: 20),
+                const AccreditationBottomBody(),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

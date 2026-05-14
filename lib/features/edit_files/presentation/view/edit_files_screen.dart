@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder/evidence_folder_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EditFilesScreen extends StatelessWidget {
   const EditFilesScreen({super.key, required this.courseFolderArgs});

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
+
+import '../utils/app_colors.dart';
 
 // Defines the application's theme data for both light and dark modes.
 class AppThemeData {

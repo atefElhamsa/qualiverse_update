@@ -22,7 +22,7 @@ class _InstitutionalAccreditationBodyState
     });
   }
 
-  void _checkAndFetch() {
+  Future<void> _checkAndFetch() async {
     final yearCubit = context.read<AcademicYearCubit>();
     final yearState = yearCubit.state;
     
@@ -73,6 +73,7 @@ class _InstitutionalAccreditationBodyState
         _checkAndFetch();
       },
       child: CustomScaffold(
+        onRefresh: () => _checkAndFetch(),
         widget: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

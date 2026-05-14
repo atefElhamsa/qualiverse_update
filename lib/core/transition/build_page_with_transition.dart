@@ -1,7 +1,3 @@
-// transitions.dart – ULTRA ANIMATIONS PACK 🔥
-// Ahmed x ChatGPT Motion System
-// ---------------------------------------------------------------
-
 import 'dart:math' as math;
 import 'dart:ui';
 

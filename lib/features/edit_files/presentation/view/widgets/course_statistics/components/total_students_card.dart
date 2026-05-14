@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'base_card.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class TotalStudentsCard extends StatelessWidget {
   final int count;

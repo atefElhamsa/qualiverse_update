@@ -34,14 +34,21 @@ class ProgramAccreditationScreen extends StatelessWidget {
     }
 
     return BlocProvider(
-      create: (context) => ProgramAccreditationCubit()
-        ..fetchProgramAccreditations(
+      create: (context) =>
+          ProgramAccreditationCubit()..fetchProgramAccreditations(
+            academicYearId: academicYearId,
+            departmentId: departmentId,
+            accreditationTypeId: typeId,
+            isAdmin: isAdmin,
+          ),
+      child: MainWrapper(
+        child: ProgramAccreditationBody(
           academicYearId: academicYearId,
           departmentId: departmentId,
-          accreditationTypeId: typeId,
+          typeId: typeId,
           isAdmin: isAdmin,
         ),
-      child: const MainWrapper(child: ProgramAccreditationBody()),
+      ),
     );
   }
 }

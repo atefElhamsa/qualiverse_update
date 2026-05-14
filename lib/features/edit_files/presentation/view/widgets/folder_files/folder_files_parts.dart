@@ -2,11 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/edit_files/data/models/file_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/view/widgets/folder_files/folder_file_item.dart';
-import 'package:qualiverse/features/edit_files/presentation/view/widgets/folder_files/folder_files_empty_state.dart';
-import 'package:qualiverse/features/edit_files/presentation/view/widgets/folder_files/folder_upload_button.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FolderFilesHeader extends StatelessWidget {
   final String folderName;

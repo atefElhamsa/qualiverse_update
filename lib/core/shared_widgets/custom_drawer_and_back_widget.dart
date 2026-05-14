@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-
-import 'custom_drawer.dart';
-import 'custom_icon_back.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 // Widget that combines a custom drawer and a back icon.
 class CustomDrawerAndBackWidget extends StatelessWidget {

@@ -2,10 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/home/data/models/notification_model.dart';
-import 'package:qualiverse/features/home/presentation/controller/notifications_cubit.dart';
-import 'package:qualiverse/features/home/presentation/controller/notifications_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class NotificationPopup extends StatelessWidget {
   final VoidCallback? onViewAll;
@@ -97,8 +94,9 @@ class _NotificationsList extends StatelessWidget {
       child: BlocBuilder<NotificationsCubit, NotificationsState>(
         builder: (context, state) {
           if (state is NotificationsLoading) return const _LoadingState();
-          if (state is NotificationsError)
+          if (state is NotificationsError) {
             return _ErrorState(message: state.message);
+          }
 
           final notifications = (state is NotificationsSuccess)
               ? state.notifications

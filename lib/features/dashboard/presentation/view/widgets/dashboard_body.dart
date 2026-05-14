@@ -110,12 +110,15 @@ class DashboardBody extends StatelessWidget {
                 ),
                 BlocProvider(create: (context) => AssignmentsUserCubit()),
               ],
-              child: const DashboardScaffold(
-                widget: SingleChildScrollView(
+              child: DashboardScaffold(
+                widget: const SingleChildScrollView(
                   child: Column(
                     children: [DashboardTopAndTitle(), DashboardTabs()],
                   ),
                 ),
+                onRefresh: () {
+                  return context.read<DashboardCubit>().getDashboard();
+                },
               ),
             );
           }

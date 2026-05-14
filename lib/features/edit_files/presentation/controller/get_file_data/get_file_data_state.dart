@@ -1,4 +1,4 @@
-import 'package:qualiverse/features/edit_files/data/models/get_file_data_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 sealed class GetFileDataState {}
 

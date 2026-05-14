@@ -2,10 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/helpers/file_download_helper.dart';
-import 'package:qualiverse/core/utils/end_points.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EvidenceFolderFileItem extends StatefulWidget {
@@ -288,7 +285,7 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                   color: Colors.grey.shade600,
                 ),
                 children: [
-                  TextSpan(text: 'deleteFileMessage'.tr() + ' '),
+                  TextSpan(text: '${'deleteFileMessage'.tr()} '),
                   TextSpan(
                     text: '"${widget.fileName}"',
                     style: const TextStyle(

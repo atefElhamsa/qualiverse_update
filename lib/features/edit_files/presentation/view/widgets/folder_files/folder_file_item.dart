@@ -3,64 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/core/helpers/file_download_helper.dart';
-import 'package:qualiverse/features/edit_files/data/models/file_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/folder_files/folder_files_cubit.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/folder_files/folder_files_state.dart';
-import 'package:qualiverse/features/indicators/presentation/controller/indicators_cubit.dart';
-import 'package:qualiverse/features/login/presentation/view/widgets/error_widget.dart';
-
-class FolderFileActionIcon extends StatefulWidget {
-  final IconData icon;
-  final String tooltip;
-  final Color color;
-  final VoidCallback onTap;
-
-  const FolderFileActionIcon({
-    super.key,
-    required this.icon,
-    required this.tooltip,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  State<FolderFileActionIcon> createState() => _FolderFileActionIconState();
-}
-
-class _FolderFileActionIconState extends State<FolderFileActionIcon> {
-  bool _hovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: widget.tooltip,
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        onEnter: (_) => setState(() => _hovered = true),
-        onExit: (_) => setState(() => _hovered = false),
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            width: 34.w,
-            height: 34.h,
-            decoration: BoxDecoration(
-              color: _hovered
-                  ? widget.color.withOpacity(0.15)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Icon(widget.icon, color: widget.color, size: 15.sp),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FolderFileItem extends StatefulWidget {
   final FileModel file;

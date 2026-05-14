@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'base_card.dart';
-
+import 'package:qualiverse/routing/all_routes_imports.dart';
 class PassingRateCard extends StatelessWidget {
   final String passPercentage;
   final int passedCount;

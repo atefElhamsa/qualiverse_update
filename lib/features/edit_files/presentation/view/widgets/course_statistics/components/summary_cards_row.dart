@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/edit_files/data/models/get_file_data_model.dart';
-import 'attendance_summary_card.dart';
-import 'passing_rate_card.dart';
-import 'total_students_card.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class SummaryCardsRow extends StatelessWidget {
   final GetFileDataModel data;

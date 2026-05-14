@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
-import '../utils/app_colors.dart';
-
-// Define a custom scaffold widget.
 class CustomScaffold extends StatelessWidget {
-  // Constructor for CustomScaffold.
-  const CustomScaffold({super.key, required this.widget});
-
-  // The widget to be displayed within the scaffold.
+  const CustomScaffold({super.key, required this.widget, this.onRefresh});
   final Widget widget;
-
-  // Build method to create the widget's UI.
+  final Future<void> Function()? onRefresh;
   @override
   Widget build(BuildContext context) {
-    // Get screen dimensions.
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    // Get current locale.
     Locale locale = WidgetsBinding.instance.platformDispatcher.locale;
+    final scrollView = SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: widget,
+    );
     return Container(
       width: screenWidth,
       height: screenHeight,
@@ -45,8 +41,13 @@ class CustomScaffold extends StatelessWidget {
               : AppColors.mainBlack,
           borderRadius: BorderRadius.circular(23.r),
         ),
-        // Make the content scrollable.
-        child: SingleChildScrollView(child: widget),
+        child: onRefresh != null
+            ? RefreshIndicator(
+                onRefresh: onRefresh!,
+                color: AppColors.colorButtonLight,
+                child: scrollView,
+              )
+            : scrollView,
       ),
     );
   }

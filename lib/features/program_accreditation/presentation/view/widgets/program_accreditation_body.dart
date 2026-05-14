@@ -4,12 +4,30 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class ProgramAccreditationBody extends StatelessWidget {
-  const ProgramAccreditationBody({super.key});
+  const ProgramAccreditationBody({
+    required this.academicYearId,
+    required this.departmentId,
+    required this.typeId,
+    required this.isAdmin,
+    super.key,
+  });
+  final int academicYearId;
+  final int? departmentId;
+  final int? typeId;
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) {
     final inherited = HomeBodyInherited.of(context);
     return CustomScaffold(
+      onRefresh: () async {
+        await ProgramAccreditationCubit.get(context).fetchProgramAccreditations(
+          academicYearId: academicYearId,
+          departmentId: departmentId,
+          accreditationTypeId: typeId,
+          isAdmin: isAdmin,
+        );
+      },
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

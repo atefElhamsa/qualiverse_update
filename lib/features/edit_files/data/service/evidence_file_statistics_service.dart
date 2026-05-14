@@ -1,9 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:qualiverse/core/network/api_client.dart';
-import 'package:qualiverse/core/utils/end_points.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
-import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EvidenceFileStatisticsService {
   static final Dio dio = ApiClient.dio;

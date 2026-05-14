@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-
-import '../utils/app_images.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 // A custom drawer widget.
 class CustomDrawer extends StatelessWidget {

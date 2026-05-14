@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'notification_popup.dart';
 
 class NotificationIconWithBadge extends StatelessWidget {
   final int notificationCount;

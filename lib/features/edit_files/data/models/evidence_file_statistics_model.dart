@@ -1,5 +1,4 @@
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'evidence_file_model.dart';
 
 class EvidenceFileStatisticsModelResponse {
   final List<EvidenceFileStatisticsModel>? data;

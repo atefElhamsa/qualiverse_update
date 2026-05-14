@@ -1,12 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_statistics_model.dart';
-import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
-import 'package:qualiverse/features/edit_files/data/service/evidence_file_statistics_service.dart';
-import 'package:qualiverse/features/edit_files/data/service/evidence_folder_files_services.dart';
-import 'evidence_folder_files_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 enum EvidenceFolderType { standard, statistics, general }
 
@@ -78,7 +73,9 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
       );
 
       if (success) {
-        emit(ConfirmStatisticsSuccess(message: 'Upload confirmed successfully'));
+        emit(
+          ConfirmStatisticsSuccess(message: 'Upload confirmed successfully'),
+        );
         await getStatistics(
           academicYearId: academicYearId,
           termId: termId,

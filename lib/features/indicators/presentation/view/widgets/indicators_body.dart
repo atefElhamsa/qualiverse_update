@@ -12,6 +12,9 @@ class IndicatorsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      onRefresh: () => context.read<IndicatorsCubit>().fetchIndicators(
+        criterionId: indicatorsArgs.accreditationModel.id,
+      ),
       widget: BlocBuilder<IndicatorsCubit, IndicatorsState>(
         buildWhen: (previous, current) =>
             current is IndicatorsSuccess ||

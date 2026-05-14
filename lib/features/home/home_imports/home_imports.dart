@@ -17,3 +17,4 @@ export 'package:qualiverse/features/home/presentation/view/widgets/log_out_widge
 export 'package:qualiverse/features/home/presentation/view/widgets/main_wrapper.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_item.dart';
 export 'package:qualiverse/features/home/presentation/view/widgets/side_bar_menu.dart';
+export 'package:qualiverse/features/home/data/models/notification_model.dart';

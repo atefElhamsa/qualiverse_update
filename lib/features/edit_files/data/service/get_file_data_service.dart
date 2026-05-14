@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-import '../models/get_file_data_model.dart';
-
 class GetFileDataService {
   static final Dio dio = ApiClient.dio;
 

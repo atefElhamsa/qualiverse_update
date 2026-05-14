@@ -12,6 +12,10 @@ class DepartmentBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final inherited = HomeBodyInherited.of(context);
     return CustomScaffold(
+      onRefresh: () async {
+        DepartmentCubit.get(context).fetchDepartments();
+        AcademicYearCubit.get(context).fetchAcademicYears();
+      },
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

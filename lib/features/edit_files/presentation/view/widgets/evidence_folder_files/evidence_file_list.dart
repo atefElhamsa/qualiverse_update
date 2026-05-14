@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/edit_files/presentation/view/widgets/evidence_folder_files/evidence_folder_file_item.dart';
-import 'package:qualiverse/features/edit_files/data/models/evidence_file_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EvidenceFileList extends StatelessWidget {
   final List<EvidenceFileModel> files;

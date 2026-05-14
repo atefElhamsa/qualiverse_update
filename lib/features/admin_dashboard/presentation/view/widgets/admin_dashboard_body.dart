@@ -7,18 +7,19 @@ class AdminDashboardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDrawerVisible = HomeBodyInherited.of(context).isDrawerVisible;
     return CustomScaffoldSetting(
       widget: LayoutBuilder(
         builder: (context, constraints) {
           return SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SideBarAdminWidget(),
-                Expanded(child: AdminDashboardContent()),
+                if (!isDrawerVisible) const SideBarAdminWidget(),
+                const Expanded(child: AdminDashboardContent()),
               ],
             ),
           );

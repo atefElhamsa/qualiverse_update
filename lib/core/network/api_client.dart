@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../../routing/all_routes_imports.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class ApiClient {
   static BaseOptions baseOptions() => BaseOptions(

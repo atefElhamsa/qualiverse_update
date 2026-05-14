@@ -32,3 +32,5 @@ export 'package:qualiverse/core/utils/app_texts.dart';
 export 'package:qualiverse/core/utils/end_points.dart';
 export 'package:qualiverse/core/utils/my_validators.dart';
 export 'package:qualiverse/core/shared_widgets/notification_icon_with_badge.dart';
+export 'package:qualiverse/core/helpers/file_download_helper.dart';
+export 'package:qualiverse/core/shared_widgets/notification_popup.dart';

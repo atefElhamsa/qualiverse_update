@@ -6,3 +6,4 @@ export 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_
 export 'package:qualiverse/features/ai_description/presentation/view/ai_course_selection_screen.dart';
 export 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_course_selection_body.dart';
 export 'package:qualiverse/features/ai_description/presentation/view/widgets/selected_course_widget.dart';
+export 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';

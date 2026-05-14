@@ -1,4 +1,4 @@
-import 'package:qualiverse/features/edit_files/data/models/evidence_folder_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 abstract class EvidenceFolderState {}
 

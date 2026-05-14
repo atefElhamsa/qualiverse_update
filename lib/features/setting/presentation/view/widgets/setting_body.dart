@@ -7,17 +7,18 @@ class SettingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDrawerVisible = HomeBodyInherited.of(context).isDrawerVisible;
     return CustomScaffoldSetting(
       widget: LayoutBuilder(
         builder: (context, constraints) {
           return SizedBox(
             width: constraints.maxWidth,
             height: constraints.maxHeight,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SideBarWidget(),
-                Expanded(child: SettingContent()),
+                if (!isDrawerVisible) const SideBarWidget(),
+                const Expanded(child: SettingContent()),
               ],
             ),
           );

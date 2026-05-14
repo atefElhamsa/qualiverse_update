@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import '../../../../routing/all_routes_imports.dart';
-import '../models/evidence_file_model.dart';
-import '../models/evidence_folder_model.dart';
 
 class EvidenceFolderFilesServices {
   static final Dio dio = ApiClient.dio;

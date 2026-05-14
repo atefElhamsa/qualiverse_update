@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/all_core_imports/all_core_imports.dart';
 
 class DashboardScaffold extends StatelessWidget {
-  const DashboardScaffold({super.key, required this.widget});
+  const DashboardScaffold({super.key, required this.widget, this.onRefresh});
   final Widget widget;
+  final Future<void> Function()? onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,14 @@ class DashboardScaffold extends StatelessWidget {
               )
             : null,
         // Make the content scrollable.
-        child: widget,
+        child: RefreshIndicator(
+          onRefresh: () async {
+            if (onRefresh != null) {
+              await onRefresh!();
+            }
+          },
+          child: widget,
+        ),
       ),
     );
   }

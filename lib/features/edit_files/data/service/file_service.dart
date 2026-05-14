@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-
-import '../../../../routing/all_routes_imports.dart';
-import '../models/upload_file_to_folder_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FileService {
   static final Dio dio = ApiClient.dio;

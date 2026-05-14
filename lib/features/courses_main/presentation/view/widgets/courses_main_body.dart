@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
@@ -12,6 +13,13 @@ class CoursesMainBody extends StatelessWidget {
     final inherited = HomeBodyInherited.of(context);
     final isDrawerVisible = inherited.isDrawerVisible;
     return CustomScaffold(
+      onRefresh: () async {
+        context.read<AcademicYearCubit>().fetchAcademicYears();
+        context.read<LevelCubit>().fetchLevels();
+        context.read<DepartmentCubit>().fetchDepartments();
+        context.read<TermCubit>().fetchTerms();
+        
+      },
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

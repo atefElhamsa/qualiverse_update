@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/edit_files/data/models/get_file_data_model.dart';
-import 'components/dashboard_header.dart';
-import 'components/grade_distribution_section.dart';
-import 'components/summary_cards_row.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class CourseStatisticsDashboard extends StatelessWidget {
   final GetFileDataModel data;
