@@ -3,11 +3,11 @@
     <channel>
         <title>QualiVerse</title>
         <item>
-            <title>Version 1.0.38</title>
+            <title>Version 1.0.39</title>
             <description>New update is available.</description>
-            <pubDate>Fri, 15 May 2026 11:47:21 GMT</pubDate>
-            <enclosure url="https://github.com/atefElhamsa/qualiverse_update/releases/download/v1.0.38/qualiverse_setup.exe"
-                       sparkle:version="1.0.38"
+            <pubDate>Fri, 15 May 2026 11:56:35 GMT</pubDate>
+            <enclosure url="https://github.com/atefElhamsa/qualiverse_update/releases/download/v1.0.39/qualiverse_setup.exe"
+                       sparkle:version="1.0.39"
                        sparkle:os="windows"
                        type="application/octet-stream" />
         </item>
