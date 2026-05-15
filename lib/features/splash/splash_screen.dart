@@ -46,8 +46,15 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> navigateToLogin() async {
+    final bool onboardingShown =
+        CashHelper.getData(key: KeysTexts.onboardingShown) == "true";
+
     if (!LoginStorage.hasToken) {
-      context.pushReplacementNamed(AppRoutes.onboardingScreen);
+      if (onboardingShown) {
+        context.pushReplacementNamed(AppRoutes.loginScreen);
+      } else {
+        context.pushReplacementNamed(AppRoutes.onboardingScreen);
+      }
       return;
     }
 
@@ -58,7 +65,11 @@ class _SplashScreenState extends State<SplashScreen>
     } catch (e) {
       await LoginStorage.clear();
       if (!mounted) return;
-      context.pushReplacementNamed(AppRoutes.onboardingScreen);
+      if (onboardingShown) {
+        context.pushReplacementNamed(AppRoutes.loginScreen);
+      } else {
+        context.pushReplacementNamed(AppRoutes.onboardingScreen);
+      }
     }
   }
 

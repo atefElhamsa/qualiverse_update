@@ -6,4 +6,5 @@ class KeysTexts {
   static const String theme = "theme";
   static const String userPassword = "user_password";
   static const String preferredLanguages = "preferred_languages";
+  static const String onboardingShown = "onboarding_shown";
 }

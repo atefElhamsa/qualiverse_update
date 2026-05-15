@@ -33,6 +33,10 @@ class NextButton extends StatelessWidget {
                 buttonModel: ButtonModel(
                   onPressed: () {
                     if (currentIndex == onboardingList.length - 1) {
+                      CashHelper.saveData(
+                        key: KeysTexts.onboardingShown,
+                        value: "true",
+                      );
                       context.pushNamed(AppRoutes.loginScreen);
                     } else {
                       pageController.nextPage(
