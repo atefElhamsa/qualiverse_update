@@ -5,7 +5,7 @@
         <item>
             <title>Version 1.0.38</title>
             <description>New update is available.</description>
-            <pubDate>Fri, 15 May 2026 09:28:12 GMT</pubDate>
+            <pubDate>Fri, 15 May 2026 11:47:21 GMT</pubDate>
             <enclosure url="https://github.com/atefElhamsa/qualiverse_update/releases/download/v1.0.38/qualiverse_setup.exe"
                        sparkle:version="1.0.38"
                        sparkle:os="windows"
