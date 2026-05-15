@@ -627,5 +627,6 @@
     "customDescriptionUploaded": "Custom description uploaded successfully!",
     "facultyInitialValue": "Faculty of Computers and Information",
     "uniInitialValue": "Tanta University",
-    "practical": "Practical"
+    "practical": "Practical",
+    "pleaseClickStartFirst": "Please Click 'Start' First"
 }

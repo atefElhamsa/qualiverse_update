@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../../routing/all_routes_imports.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class BasicInfoDepartment extends StatelessWidget {
   const BasicInfoDepartment({super.key});
@@ -26,7 +25,7 @@ class BasicInfoDepartment extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 70.h),
+                padding: EdgeInsets.only(top: 50.h),
                 child: CustomText(
                   title: "basicInfo".tr(),
                   textStyle: Theme.of(context).textTheme.headlineLarge!
@@ -38,8 +37,7 @@ class BasicInfoDepartment extends StatelessWidget {
               InfoItem(
                 label: "name".tr(),
                 value: "${meModel.firstName} ${meModel.lastName}",
-                showChange: true,
-                onPressed: () {},
+                showChange: false,
               ),
               InfoItem(
                 label: "gender".tr(),
@@ -49,8 +47,7 @@ class BasicInfoDepartment extends StatelessWidget {
               InfoItem(
                 label: "email".tr(),
                 value: meModel.email,
-                showChange: true,
-                onPressed: () {},
+                showChange: false,
               ),
             ],
           );

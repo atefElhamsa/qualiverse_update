@@ -76,6 +76,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   late TextEditingController otherFacController;
 
   // Schedule Controller
+  late TextEditingController scheduleController;
   late TextEditingController totalHoursController;
 
   void _initControllers() {
@@ -103,7 +104,8 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     virtualLabsController = TextEditingController();
     otherFacController = TextEditingController();
 
-    totalHoursController = TextEditingController();
+    totalHoursController = TextEditingController(text: "3");
+    scheduleController = TextEditingController();
 
     // Init first 2 weeks controllers
     weekControllers = [];
@@ -160,7 +162,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   // Step 1: Just Upload
   Future<void> uploadAiFiles() async {
     if (generationId == null) {
-      emit(AiDescriptionUploadError('Please click start first'));
+      emit(AiDescriptionUploadError("pleaseClickStartFirst".tr()));
       return;
     }
 
@@ -201,6 +203,10 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   }
 
   bool isCourseGenerated = false;
+  Future<void> submit() async {
+    isCourseGenerated = true;
+    emit(AiDescriptionSubmitSuccess());
+  }
 
   Future<void> submitCourse() async {
     if (generationId == null) return;

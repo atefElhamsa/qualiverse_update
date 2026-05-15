@@ -45,7 +45,7 @@ class FileItemWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 CustomText(
-                  title: fileItemModel.aboutFile!,
+                  title: fileItemModel.aboutFile ?? "",
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                     fontSize: 24.sp,

@@ -26,10 +26,9 @@ class HomeBodyFirstPart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (!isDrawerVisible)
-            CustomScaffoldHome(controller: inherited.controller)
-                .animate()
-                .fadeIn(duration: 500.ms)
-                .slideX(begin: -0.2, end: 0)
+            CustomScaffoldHome(
+              controller: inherited.controller,
+            ).animate().fadeIn(duration: 500.ms).slideX(begin: -0.2, end: 0)
           else
             const SizedBox(),
           const Spacer(),
@@ -49,10 +48,9 @@ class HomeBodyFirstPart extends StatelessWidget {
             ),
           ).animate().fadeIn(delay: 100.ms).scale(curve: Curves.easeOutBack),
           const SizedBox(width: 8),
-          const NotificationIconWithBadge(notificationCount: 3)
-              .animate()
-              .fadeIn(delay: 200.ms)
-              .scale(curve: Curves.easeOutBack),
+          const NotificationIconWithBadge(
+            notificationCount: 3,
+          ).animate().fadeIn(delay: 200.ms).scale(curve: Curves.easeOutBack),
           const SizedBox(width: 16),
           _buildPillButton(
             context,
@@ -94,10 +92,10 @@ class HomeBodyFirstPart extends StatelessWidget {
             child: CustomText(
               title: title.tr(),
               textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.white,
-                  ),
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w800,
+                color: AppColors.white,
+              ),
             ),
           ),
         ),

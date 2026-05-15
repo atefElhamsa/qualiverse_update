@@ -19,9 +19,7 @@ class FileDownloadHelper {
           : '${EndPoints.baseUrlToOpenFile}/${filePath.startsWith('/') ? filePath.substring(1) : filePath}';
 
       // Get file extension
-      final ext = fileName.contains('.')
-          ? fileName.split('.').last
-          : null;
+      final ext = fileName.contains('.') ? fileName.split('.').last : null;
 
       // Let user choose save location
       final savePath = await FilePicker.platform.saveFile(

@@ -52,7 +52,7 @@ class AiDescriptionSubmitStep extends StatelessWidget {
               SizedBox(height: 15.h),
               PremiumInputField(
                 label: "courseSchedule".tr(),
-                controller: cubit.totalHoursController,
+                controller: cubit.scheduleController,
                 icon: Icons.schedule_rounded,
                 hint: "enterCourseSchedule".tr(),
                 maxLines: 4,
@@ -108,7 +108,7 @@ class AiDescriptionSubmitStep extends StatelessWidget {
                     width: 300.w,
                     child: CustomButton(
                       buttonModel: ButtonModel(
-                        onPressed: () => cubit.submitCourse(),
+                        onPressed: () => cubit.submit(),
                         backgroundColor: AppColors.colorButtonLight,
                         radius: 15.r,
                         space: 15.h,

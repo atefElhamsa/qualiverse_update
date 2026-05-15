@@ -29,7 +29,7 @@ class AiDescriptionFileUploadSection extends StatelessWidget {
           FileItemWidget(
             fileItemModel: FileItemModel(
               titleFile: "${"programFile".tr()} *",
-              aboutFile: "courseSynonyms".tr(),
+              // aboutFile: "courseSynonyms".tr(),
               onTap: onPickProgram,
               file: programFile,
             ),
@@ -38,7 +38,7 @@ class AiDescriptionFileUploadSection extends StatelessWidget {
           FileItemWidget(
             fileItemModel: FileItemModel(
               titleFile: "${"templateFile".tr()} *",
-              aboutFile: "basicSentence".tr(),
+              // aboutFile: "basicSentence".tr(),
               onTap: onPickTemplate,
               file: templateFile,
             ),

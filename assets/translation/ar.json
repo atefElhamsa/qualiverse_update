@@ -627,5 +627,6 @@
     "uniInitialValue": "جامعة طنطا",
     "practical": "عملي",
     "pleaseEnterCourseName": "يرجى إدخال اسم المقرر",
-    "pleaseEnterCourseSchedule": "يرجى إدخال جدول المقرر"
+    "pleaseEnterCourseSchedule": "يرجى إدخال جدول المقرر",
+    "pleaseClickStartFirst":"يرجى الضغط على 'ابدأ' أولاً"
 }
