@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiCourseSelectionScreen extends StatelessWidget {
   const AiCourseSelectionScreen({super.key});

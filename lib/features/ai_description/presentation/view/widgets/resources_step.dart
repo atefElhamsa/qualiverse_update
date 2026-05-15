@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'premium_input_field.dart';
-import 'step_wrapper.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class ResourcesStep extends StatelessWidget {
   const ResourcesStep({super.key});

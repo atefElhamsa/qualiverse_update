@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/download_action_button.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/file_box_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FileSectionWidget extends StatelessWidget {
   final String title;

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-
-import 'basic_info_step.dart';
-import 'download_files_step.dart';
-import 'facilities_step.dart';
-import 'learning_hours_step.dart';
-import 'resources_step.dart';
-import 'schedule_step.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionStepsContent extends StatelessWidget {
   const AiDescriptionStepsContent({super.key});

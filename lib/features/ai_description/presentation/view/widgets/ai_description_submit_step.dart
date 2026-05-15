@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'premium_input_field.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionSubmitStep extends StatelessWidget {
   const AiDescriptionSubmitStep({super.key});
@@ -51,10 +49,10 @@ class AiDescriptionSubmitStep extends StatelessWidget {
               ),
               SizedBox(height: 15.h),
               PremiumInputField(
-                label: "courseSchedule".tr(),
-                controller: cubit.scheduleController,
-                icon: Icons.schedule_rounded,
-                hint: "enterCourseSchedule".tr(),
+                label: "courseDescription".tr(),
+                controller: cubit.descriptionController,
+                icon: Icons.description_rounded,
+                hint: "enterCourseDescription".tr(),
                 maxLines: 4,
               ),
               SizedBox(height: 20.h),
@@ -108,7 +106,7 @@ class AiDescriptionSubmitStep extends StatelessWidget {
                     width: 300.w,
                     child: CustomButton(
                       buttonModel: ButtonModel(
-                        onPressed: () => cubit.submit(),
+                        onPressed: () => cubit.submitCourse(),
                         backgroundColor: AppColors.colorButtonLight,
                         radius: 15.r,
                         space: 15.h,

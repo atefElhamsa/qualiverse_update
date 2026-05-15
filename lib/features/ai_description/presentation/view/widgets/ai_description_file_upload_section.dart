@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_report/data/models/file_item_model.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/file_item_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionFileUploadSection extends StatelessWidget {
   final VoidCallback onPickProgram;

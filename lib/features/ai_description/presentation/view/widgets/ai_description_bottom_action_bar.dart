@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/edit_approved_buttons.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/linear_progress.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/start_end_number_file_completed.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionBottomActionBar extends StatelessWidget {
   final int courseId;

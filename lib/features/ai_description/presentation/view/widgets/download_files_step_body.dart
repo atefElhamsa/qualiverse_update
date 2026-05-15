@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_description_submit_button.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/file_section_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class DownloadFilesStepBody extends StatelessWidget {

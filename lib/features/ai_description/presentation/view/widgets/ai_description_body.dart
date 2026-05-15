@@ -5,17 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/routing/app_routes.dart';
-
-// Modularized Widgets
-import 'ai_description_warning_message.dart';
-import 'ai_description_file_upload_section.dart';
-import 'ai_description_bottom_action_bar.dart';
-import 'ai_description_loading_overlay.dart';
-import 'ai_description_confirm_dialog.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionBody extends StatelessWidget {
   final int courseId;

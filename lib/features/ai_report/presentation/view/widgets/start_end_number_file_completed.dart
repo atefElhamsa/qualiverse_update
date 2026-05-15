@@ -2,10 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart' as ai;
-
-import '../../../../ai_description/presentation/controller/ai_description_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class StartEndNumberFileCompleted extends StatefulWidget {
   const StartEndNumberFileCompleted({
@@ -32,11 +29,11 @@ class _StartEndNumberFileCompletedState
     extends State<StartEndNumberFileCompleted> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AiDescriptionCubit, ai.AiDescriptionState>(
+    return BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
       builder: (context, state) {
         final cubit = context.read<AiDescriptionCubit>();
         final bool isStarted = cubit.isGenerationStarted;
-        final bool isLoading = state is ai.AiDescriptionStartLoading;
+        final bool isLoading = state is AiDescriptionStartLoading;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -2,11 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/utils/date_picker_utils.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'premium_dropdown_field.dart';
-import 'premium_input_field.dart';
-import 'step_wrapper.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class BasicInfoStep extends StatelessWidget {
   const BasicInfoStep({super.key});
@@ -15,30 +11,7 @@ class BasicInfoStep extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<AiDescriptionCubit>();
 
-    // Dynamic initial values for Faculty
-    if (cubit.facultyController.text.isEmpty ||
-        cubit.facultyController.text ==
-            "Faculty of Computers and Information" ||
-        cubit.facultyController.text == "كلية حاسبات ومعلومات") {
-      cubit.facultyController.text = "facultyInitialValue".tr();
-    }
-
-    // Dynamic initial values for University
-    if (cubit.uniController.text.isEmpty ||
-        cubit.uniController.text == "Tanta University" ||
-        cubit.uniController.text == "جامعة طنطا") {
-      cubit.uniController.text = "uniInitialValue".tr();
-    }
-
-    // Dynamic initial values for Course Type
-    if (cubit.typeController.text.isEmpty ||
-        cubit.typeController.text == "Theoretical" ||
-        cubit.typeController.text == "نظري") {
-      cubit.typeController.text = "theoretical".tr();
-    } else if (cubit.typeController.text == "Practical" ||
-        cubit.typeController.text == "عملي") {
-      cubit.typeController.text = "practical".tr();
-    }
+    cubit.initializeLocalizedValues();
 
     return StepWrapper(
       title: "basicInfo".tr(),
@@ -69,9 +42,19 @@ class BasicInfoStep extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: PremiumInputField(
+                child: PremiumDropdownField(
                   label: "department".tr(),
                   controller: cubit.deptController,
+                  items: [
+                    "Computer Science",
+                    "Information Technology",
+                    "Software Engineering",
+                    "Information System",
+                    "Data Analysis and Artificial Intelligence",
+                  ],
+                  onChanged: (val) {
+                    cubit.deptController.text = val;
+                  },
                   icon: Icons.account_tree_rounded,
                   hint: "enterDept".tr(),
                 ),
@@ -81,7 +64,7 @@ class BasicInfoStep extends StatelessWidget {
                 child: PremiumDropdownField(
                   label: "courseType".tr(),
                   controller: cubit.typeController,
-                  items: ["theoretical".tr(), "practical".tr()],
+                  items: ["Theoretical", "Practical"],
                   onChanged: (val) {
                     cubit.typeController.text = val;
                   },
@@ -115,9 +98,13 @@ class BasicInfoStep extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: PremiumInputField(
+                child: PremiumDropdownField(
                   label: "academicLevel".tr(),
                   controller: cubit.levelController,
+                  items: ["Level 1", "Level 2", "Level 3", "Level 4"],
+                  onChanged: (val) {
+                    cubit.levelController.text = val;
+                  },
                   icon: Icons.layers_rounded,
                   hint: "enterLevel".tr(),
                 ),

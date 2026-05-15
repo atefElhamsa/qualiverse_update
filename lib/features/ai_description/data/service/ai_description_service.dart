@@ -1,10 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:qualiverse/features/ai_description/data/models/ai_start_generation_model.dart';
-import 'package:qualiverse/features/ai_description/data/models/ai_generation_status_model.dart';
-import 'package:qualiverse/features/ai_description/data/models/ai_download_file_model.dart';
-import 'package:qualiverse/features/ai_description/data/models/ai_course_file_type_model.dart';
-import 'package:qualiverse/features/ai_description/data/models/ai_generic_response_model.dart';
+
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionService {

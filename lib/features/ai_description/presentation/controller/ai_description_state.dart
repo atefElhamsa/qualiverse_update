@@ -1,4 +1,4 @@
-part of 'ai_description_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 sealed class AiDescriptionState {}
 

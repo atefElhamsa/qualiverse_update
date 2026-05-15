@@ -11,6 +11,7 @@ class PremiumInputField extends StatelessWidget {
   final VoidCallback? onTap;
   final bool readOnly;
   final int? maxLines;
+  final Widget? suffixIcon;
 
   const PremiumInputField({
     super.key,
@@ -23,6 +24,7 @@ class PremiumInputField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
     this.maxLines = 1,
+    this.suffixIcon,
   });
 
   @override
@@ -45,17 +47,18 @@ class PremiumInputField extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFEEF2F6),
+              color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(16.r),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: const Color(0xFF0D47A1).withOpacity(0.06),
+                  blurRadius: 15,
+                  offset: const Offset(0, 6),
                 ),
               ],
               border: Border.all(
-                color: const Color(0xFF0D47A1).withOpacity(0.15),
+                color: const Color(0xFF0D47A1).withOpacity(0.1),
+                width: 1.2,
               ),
             ),
             child: TextFormField(
@@ -71,18 +74,19 @@ class PremiumInputField extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: Colors.grey.shade500,
+                  color: Colors.grey.shade400,
                   fontSize: (fontSize ?? 16.sp) - 2.sp,
                   fontWeight: FontWeight.w400,
                 ),
                 prefixIcon: Icon(
                   icon,
-                  color: const Color(0xFF0D47A1).withOpacity(0.7),
+                  color: const Color(0xFF0D47A1).withOpacity(0.6),
                   size: (fontSize ?? 16.sp) + 4.sp,
                 ),
+                suffixIcon: suffixIcon,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 18.w,
-                  vertical: 12.h,
+                  vertical: 14.h,
                 ),
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
@@ -90,7 +94,7 @@ class PremiumInputField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16.r),
                   borderSide: const BorderSide(
                     color: Color(0xFF0D47A1),
-                    width: 1.8,
+                    width: 1.5,
                   ),
                 ),
                 filled: true,

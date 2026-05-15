@@ -612,8 +612,8 @@
     "finalizeGeneration": "إنهاء عملية التوليد",
     "pleaseReviewAndSubmit": "يرجى مراجعة التفاصيل والإرسال لبدء عملية التوليد.",
     "enterCourseName": "أدخل اسم المادة",
-    "courseSchedule": "جدول المادة",
-    "enterCourseSchedule": "أدخل جدول/ساعات المادة",
+    "courseDescription": "وصف المادة",
+    "enterCourseDescription": "أدخل وصف المادة",
     "submitAndGenerate": "إرسال وبدء التوليد",
     "generationStartedSuccessfully": "بدأت عملية التوليد بنجاح!",
     "aiGeneratingWait": "الذكاء الاصطناعي يقوم الآن بتوليد المواصفات...\nقد تستغرق هذه العملية بعض الوقت، يرجى الانتظار.",
@@ -623,10 +623,12 @@
     "preparing": "جاري التحضير...",
     "downloadUrlReady": "رابط التحميل جاهز!",
     "customDescriptionUploaded": "تم رفع التوصيف المخصص بنجاح!",
-    "facultyInitialValue": "كلية حاسبات ومعلومات",
-    "uniInitialValue": "جامعة طنطا",
-    "practical": "عملي",
     "pleaseEnterCourseName": "يرجى إدخال اسم المقرر",
     "pleaseEnterCourseSchedule": "يرجى إدخال جدول المقرر",
-    "pleaseClickStartFirst":"يرجى الضغط على 'ابدأ' أولاً"
+    "pleaseClickStartFirst": "يرجى الضغط على 'ابدأ' أولاً",
+    "selectDevices": "اختر الأجهزة",
+    "selectSupplies": "اختر المستلزمات",
+    "selectSoftware": "اختر البرامج",
+    "selectLabs": "اختر المختبرات",
+    "selectVirtualLabs": "اختر المختبرات الافتراضية"
 }

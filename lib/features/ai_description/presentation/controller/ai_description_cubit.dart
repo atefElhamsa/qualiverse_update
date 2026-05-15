@@ -2,10 +2,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/service/ai_description_service.dart';
-import '../../data/models/ai_course_file_type_model.dart';
-
-part 'ai_description_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class WeekControllers {
   final TextEditingController theoretical = TextEditingController(text: "2");
@@ -76,7 +73,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   late TextEditingController otherFacController;
 
   // Schedule Controller
-  late TextEditingController scheduleController;
+  late TextEditingController descriptionController;
   late TextEditingController totalHoursController;
 
   void _initControllers() {
@@ -105,7 +102,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     otherFacController = TextEditingController();
 
     totalHoursController = TextEditingController(text: "3");
-    scheduleController = TextEditingController();
+    descriptionController = TextEditingController();
 
     // Init first 2 weeks controllers
     weekControllers = [];
@@ -203,10 +200,6 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   }
 
   bool isCourseGenerated = false;
-  Future<void> submit() async {
-    isCourseGenerated = true;
-    emit(AiDescriptionSubmitSuccess());
-  }
 
   Future<void> submitCourse() async {
     if (generationId == null) return;

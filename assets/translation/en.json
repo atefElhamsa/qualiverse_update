@@ -614,8 +614,8 @@
     "finalizeGeneration": "Finalize Generation",
     "pleaseReviewAndSubmit": "Please review the details below and submit to finalize the course specification.",
     "enterCourseName": "Enter Course Name",
-    "courseSchedule": "Course Schedule",
-    "enterCourseSchedule": "Enter Course Schedule",
+    "courseDescription": "Course Description",
+    "enterCourseDescription": "Enter Course Description",
     "submitAndGenerate": "Submit & Generate",
     "generationStartedSuccessfully": "Generation started successfully!",
     "aiGeneratingWait": "AI is currently generating the course specification...\nThis might take a few moments, please wait.",
@@ -625,8 +625,10 @@
     "preparing": "Preparing...",
     "downloadUrlReady": "Download URL is ready!",
     "customDescriptionUploaded": "Custom description uploaded successfully!",
-    "facultyInitialValue": "Faculty of Computers and Information",
-    "uniInitialValue": "Tanta University",
-    "practical": "Practical",
-    "pleaseClickStartFirst": "Please Click 'Start' First"
+    "pleaseClickStartFirst": "Please Click 'Start' First",
+    "selectDevices": "Select Devices",
+    "selectSupplies": "Select Supplies",
+    "selectSoftware": "Select Software",
+    "selectLabs": "Select Labs",
+    "selectVirtualLabs": "Select Virtual Labs"
 }

@@ -5,12 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
-import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/download_files_step_body.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/download_options_sheet.dart';
-import 'package:qualiverse/features/login/presentation/view/widgets/error_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
+
 
 class DownloadFilesStep extends StatelessWidget {
   const DownloadFilesStep({super.key});

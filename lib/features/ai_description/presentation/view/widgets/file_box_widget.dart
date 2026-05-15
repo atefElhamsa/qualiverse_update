@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:qualiverse/core/utils/app_colors.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class FileBoxWidget extends StatelessWidget {
   final String title;
