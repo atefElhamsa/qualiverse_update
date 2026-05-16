@@ -64,6 +64,7 @@ class AiDescriptionSubmitStep extends StatelessWidget {
                   if (isLoading) {
                     return Container(
                       width: double.infinity,
+                      margin: EdgeInsets.only(bottom: 20.h),
                       padding: EdgeInsets.symmetric(
                         vertical: 25.h,
                         horizontal: 20.w,
