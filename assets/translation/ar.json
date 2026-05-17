@@ -615,6 +615,8 @@
     "courseDescription": "وصف المادة",
     "enterCourseDescription": "أدخل وصف المادة",
     "submitAndGenerate": "إرسال وبدء التوليد",
+    "submitAndFinish": "إرسال وإنهاء الجلسة",
+    "returnedToAiFiles": "الرجوع لملفات الذكاء الاصطناعي",
     "generationStartedSuccessfully": "بدأت عملية التوليد بنجاح!",
     "aiGeneratingWait": "الذكاء الاصطناعي يقوم الآن بتوليد المواصفات...\nقد تستغرق هذه العملية بعض الوقت، يرجى الانتظار.",
     "addWeek": "إضافة أسبوع جديد",

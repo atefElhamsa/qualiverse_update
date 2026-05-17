@@ -25,7 +25,7 @@ class AiDescriptionSubmitButton extends StatelessWidget {
           elevation: 4,
         ),
         child: Text(
-          "submit".tr(),
+          "submitAndFinish".tr(),
           style: GoogleFonts.almarai(
             fontSize: 22.sp,
             fontWeight: FontWeight.bold,

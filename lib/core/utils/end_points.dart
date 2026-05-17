@@ -64,6 +64,9 @@ class EndPoints {
   static String confirmGeneration(String id) =>
       "CourseDescriptionGenerations/$id/confirm";
 
+  static String endGeneration(String id) =>
+      "CourseDescriptionGenerations/$id/end";
+
   static const String courseFileTypeOptions = "Enum/CourseFileType";
 
   static String accreditations({

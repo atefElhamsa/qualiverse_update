@@ -132,10 +132,20 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   File? programFile;
   File? templateFile;
 
+  File? customDocxFile;
+  File? customPdfFile;
+  bool get hasUploadedCustomFiles =>
+      customDocxFile != null && customPdfFile != null;
+
   String? pdfUrl;
   String? docxUrl;
   String? pdfName;
   String? docxName;
+
+  String? aiPdfUrl;
+  String? aiDocxUrl;
+  String? aiPdfName;
+  String? aiDocxName;
 
   void updateProgramFile(File file) {
     programFile = file;
@@ -401,15 +411,33 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
       if (docxRes.isSuccess && docxRes.data != null) {
         docxUrl = docxRes.data!.url;
         docxName = docxRes.data!.fileName;
+        if (aiDocxUrl == null) {
+          aiDocxUrl = docxUrl;
+          aiDocxName = docxName;
+        }
       }
       if (pdfRes.isSuccess && pdfRes.data != null) {
         pdfUrl = pdfRes.data!.url;
         pdfName = pdfRes.data!.fileName;
+        if (aiPdfUrl == null) {
+          aiPdfUrl = pdfUrl;
+          aiPdfName = pdfName;
+        }
       }
       emit(AiDescriptionFileUpdated());
     } catch (e) {
       // Handle error
     }
+  }
+
+  void revertToAiFiles() {
+    customDocxFile = null;
+    customPdfFile = null;
+    docxUrl = aiDocxUrl;
+    docxName = aiDocxName;
+    pdfUrl = aiPdfUrl;
+    pdfName = aiPdfName;
+    emit(AiDescriptionFileUpdated());
   }
 
   Future<void> downloadFile(int fileType) async {
@@ -432,6 +460,9 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
   Future<void> uploadCustomFile({required File docx, required File pdf}) async {
     if (generationId == null) return;
+    customDocxFile = docx;
+    customPdfFile = pdf;
+    emit(AiDescriptionFileUpdated());
     emit(AiDescriptionCustomUploadLoading());
     try {
       final result = await AiDescriptionService.uploadCustomDescription(
@@ -464,6 +495,11 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
         pdfUrl: pdfUrl!,
       );
       if (result.isSuccess) {
+        try {
+          await AiDescriptionService.endGeneration(generationId: generationId!);
+        } catch (e) {
+          // Log or handle end session error gracefully so as not to block confirm success
+        }
         emit(
           AiDescriptionFinalConfirmSuccess(
             result.data ?? "Description stored successfully",

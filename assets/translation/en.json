@@ -617,6 +617,8 @@
     "courseDescription": "Course Description",
     "enterCourseDescription": "Enter Course Description",
     "submitAndGenerate": "Submit & Generate",
+    "submitAndFinish": "Submit & Finish",
+    "returnedToAiFiles": "Returned to AI Files",
     "generationStartedSuccessfully": "Generation started successfully!",
     "aiGeneratingWait": "AI is currently generating the course specification...\nThis might take a few moments, please wait.",
     "addWeek": "Add New Week",

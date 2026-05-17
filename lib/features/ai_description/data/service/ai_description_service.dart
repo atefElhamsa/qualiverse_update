@@ -420,6 +420,46 @@ class AiDescriptionService {
     }
   }
 
+  static Future<AiGenericResponseModel> endGeneration({
+    required String generationId,
+  }) async {
+    try {
+      final response = await dio.post(
+        EndPoints.endGeneration(generationId),
+      );
+      final dynamic body = response.data;
+      final result = AiGenericResponseModel.fromJson(body);
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? 'End Generation Failed');
+      }
+      return result;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) throw Exception('Unauthorized');
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+
+      var errorData = e.response?.data?['error'];
+      String errorMessage = 'Server Error';
+
+      if (errorData is Map) {
+        errorMessage =
+            errorData['description'] ??
+            errorData['message'] ??
+            errorData.toString();
+      } else if (errorData is String) {
+        errorMessage = errorData;
+      } else if (e.response?.data?['message'] != null) {
+        errorMessage = e.response?.data?['message'];
+      }
+
+      throw Exception(errorMessage);
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
+
   static Future<List<AiCourseFileTypeModel>> getCourseFileTypes() async {
     try {
       final response = await dio.get(EndPoints.courseFileTypeOptions);

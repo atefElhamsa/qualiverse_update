@@ -39,55 +39,50 @@ class _StartEndNumberFileCompletedState
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Start and end buttons
-            SizedBox(
-              width: 100.w,
-              height: 48.h,
-              child: CustomButton(
-                buttonModel: ButtonModel(
-                  onPressed: () {
-                    // Logic for End button if needed
-                  },
-                  backgroundColor: AppColors.greyLight,
-                  radius: 32,
-                  customText: CustomText(
-                    title: "end".tr(),
-                    textStyle: Theme.of(
-                      context,
-                    ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            SizedBox(
-              width: 144.w,
-              height: 48.h,
-              child: isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : CustomButton(
-                      buttonModel: ButtonModel(
-                        onPressed: isStarted
-                            ? null
-                            : () {
-                                cubit.startAiGeneration(
-                                  courseId: widget.courseId,
-                                );
-                              },
-                        backgroundColor: isStarted
-                            ? AppColors.grey
-                            : AppColors.colorButtonLight,
-                        radius: 32,
-                        customText: CustomText(
-                          title: "start".tr(),
-                          textStyle: Theme.of(
-                            context,
-                          ).textTheme.headlineLarge!.copyWith(
-                                color: AppColors.white,
-                              ),
+            // SizedBox(
+            //   width: 100.w,
+            //   height: 48.h,
+            //   child: CustomButton(
+            //     buttonModel: ButtonModel(
+            //       onPressed: () {
+            //         // Logic for End button if needed
+            //       },
+            //       backgroundColor: AppColors.greyLight,
+            //       radius: 32,
+            //       customText: CustomText(
+            //         title: "end".tr(),
+            //         textStyle: Theme.of(
+            //           context,
+            //         ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            if (!isStarted) ...[
+              const SizedBox(width: 10),
+              SizedBox(
+                width: 144.w,
+                height: 48.h,
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : CustomButton(
+                        buttonModel: ButtonModel(
+                          onPressed: () {
+                            cubit.startAiGeneration(courseId: widget.courseId);
+                          },
+                          backgroundColor: AppColors.colorButtonLight,
+                          radius: 32,
+                          customText: CustomText(
+                            title: "start".tr(),
+                            textStyle: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(color: AppColors.white),
+                          ),
                         ),
                       ),
-                    ),
-            ),
+              ),
+            ],
             const Spacer(),
             // Number of files completed
             Row(
