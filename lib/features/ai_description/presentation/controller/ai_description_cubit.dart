@@ -523,6 +523,65 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     }
   }
 
+  void reset() {
+    generationId = null;
+    currentPage = 0;
+    learningWeeksCount = 15;
+    
+    programFile = null;
+    templateFile = null;
+    customDocxFile = null;
+    customPdfFile = null;
+    
+    pdfUrl = null;
+    docxUrl = null;
+    pdfName = null;
+    docxName = null;
+    aiPdfUrl = null;
+    aiDocxUrl = null;
+    aiPdfName = null;
+    aiDocxName = null;
+    
+    isCourseGenerated = false;
+
+    titleController.clear();
+    codeController.clear();
+    deptController.clear();
+    typeController.clear();
+    levelController.clear();
+    programController.clear();
+    facultyController.clear();
+    uniController.clear();
+    coordinatorController.clear();
+    dateController.clear();
+
+    mainRefController.clear();
+    otherRefsController.clear();
+    electronicController.clear();
+    platformsController.clear();
+    otherResController.clear();
+
+    devicesController.clear();
+    suppliesController.clear();
+    softwareController.clear();
+    labsController.clear();
+    virtualLabsController.clear();
+    otherFacController.clear();
+
+    totalHoursController.text = "3";
+    descriptionController.clear();
+
+    for (var controller in weekControllers) {
+      controller.dispose();
+    }
+    weekControllers = [];
+    for (int i = 0; i < learningWeeksCount; i++) {
+      weekControllers.add(WeekControllers());
+    }
+    
+    emit(AiDescriptionInitial());
+  }
+
   @override
   Future<void> close() {
     titleController.dispose();

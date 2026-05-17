@@ -47,6 +47,7 @@ class AiDescriptionResultScreen extends StatelessWidget {
             showSnackBar(context, state.message, AppColors.red);
           } else if (state is AiDescriptionFinalConfirmSuccess) {
             showSnackBar(context, state.message, AppColors.green);
+            context.read<AiDescriptionCubit>().reset();
             context.pop();
           } else if (state is AiDescriptionFinalConfirmError) {
             showSnackBar(context, state.message, AppColors.red);
