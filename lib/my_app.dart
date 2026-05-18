@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qualiverse/core/shared_widgets/responsive_warning_widget.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class MyApp extends StatefulWidget {
@@ -42,6 +43,16 @@ class _MyAppState extends State<MyApp> {
               localizationsDelegates: context.localizationDelegates,
               supportedLocales: context.supportedLocales,
               locale: context.locale,
+              builder: (context, child) {
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < 1200) {
+                      return const ResponsiveWarningWidget();
+                    }
+                    return child!;
+                  },
+                );
+              },
             );
           },
         );
