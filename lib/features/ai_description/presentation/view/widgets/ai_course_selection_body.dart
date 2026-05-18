@@ -109,7 +109,7 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                                 }
                               }
                             },
-                            child: const SelectedDepartmentWidget(),
+                            child: const SelectedDepartmentWidget(checkLevel: true),
                           ),
                         ),
                         SizedBox(width: 20.w),

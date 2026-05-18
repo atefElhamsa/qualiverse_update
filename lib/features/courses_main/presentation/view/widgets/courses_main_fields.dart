@@ -64,7 +64,7 @@ class CoursesMainFields extends StatelessWidget {
               },
             ),
           ],
-          child: const SelectedDepartmentWidget(),
+          child: const SelectedDepartmentWidget(checkLevel: true),
         ),
         SizedBox(height: 20.h),
         const SelectedSemesterWidget(),

@@ -16,7 +16,8 @@ class SelectedDepartmentWidget extends StatelessWidget {
         final level = levelState is LevelSuccess
             ? levelState.selectedLevel
             : null;
-        final bool isLevel1Or2 = level != null && level.levelNumber <= 2;
+        final bool isLevel1Or2 =
+            checkLevel && level != null && level.levelNumber <= 2;
 
         return BlocBuilder<DepartmentCubit, DepartmentState>(
           builder: (context, state) {
