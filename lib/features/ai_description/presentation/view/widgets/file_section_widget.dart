@@ -9,7 +9,7 @@ class FileSectionWidget extends StatelessWidget {
   final bool isReady;
   final String actionTitle;
   final IconData actionIcon;
-  final VoidCallback onAction;
+  final VoidCallback? onAction;
 
   const FileSectionWidget({
     super.key,
@@ -19,7 +19,7 @@ class FileSectionWidget extends StatelessWidget {
     required this.isReady,
     required this.actionTitle,
     required this.actionIcon,
-    required this.onAction,
+    this.onAction,
   });
 
   @override

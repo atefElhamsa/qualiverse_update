@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
@@ -34,12 +35,50 @@ class FileItemWidget extends StatelessWidget {
                       color: AppColors.scaffoldLight1.withOpacity(0.3),
                       dashPattern: const [8, 5],
                     ),
-                    child: Center(
-                      child: fileItemModel.file == null
-                          ? AiReportNotFoundFile(
-                              titleFile: fileItemModel.titleFile,
-                            )
-                          : AiReportFoundFile(file: fileItemModel.file),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: fileItemModel.file == null
+                              ? AiReportNotFoundFile(
+                                  titleFile: fileItemModel.titleFile,
+                                )
+                              : AiReportFoundFile(file: fileItemModel.file),
+                        ),
+                        if (fileItemModel.file != null)
+                          Positioned(
+                            top: 10.h,
+                            right: 10.w,
+                            child: Tooltip(
+                              message: "changeFile".tr(),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                  onTap: fileItemModel.onTap,
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.r),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.colorTapAdminDashboard,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.05),
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Icon(
+                                      Icons.edit,
+                                      color: AppColors.colorButtonLight,
+                                      size: 20.sp,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),

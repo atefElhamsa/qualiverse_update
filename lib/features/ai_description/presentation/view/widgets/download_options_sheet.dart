@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +17,7 @@ class DownloadOptionsSheet extends StatelessWidget {
           context,
           icon: Icons.picture_as_pdf,
           color: AppColors.red,
-          title: "Download PDF",
+          title: "downloadPDF".tr(),
           onTap: () {
             Navigator.pop(context);
             if (cubit.pdfUrl != null) {
@@ -30,7 +31,7 @@ class DownloadOptionsSheet extends StatelessWidget {
           context,
           icon: Icons.description,
           color: AppColors.blue,
-          title: "Download DOCX",
+          title: "downloadWord".tr(),
           onTap: () {
             Navigator.pop(context);
             if (cubit.docxUrl != null) {

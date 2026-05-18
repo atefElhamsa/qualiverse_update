@@ -24,6 +24,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   }
 
   String? generationId;
+  bool isUploaded = false;
   bool get isGenerationStarted => generationId != null;
 
   int currentPage = 0;
@@ -134,8 +135,9 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
   File? customDocxFile;
   File? customPdfFile;
+  bool hasUnsavedCustomFiles = false;
   bool get hasUploadedCustomFiles =>
-      customDocxFile != null && customPdfFile != null;
+      customDocxFile != null && customPdfFile != null && !hasUnsavedCustomFiles;
 
   String? pdfUrl;
   String? docxUrl;
@@ -149,11 +151,13 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
   void updateProgramFile(File file) {
     programFile = file;
+    isUploaded = false;
     emit(AiDescriptionFileUpdated());
   }
 
   void updateTemplateFile(File file) {
     templateFile = file;
+    isUploaded = false;
     emit(AiDescriptionFileUpdated());
   }
 
@@ -185,6 +189,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
         programFile: programFile!,
         templateFile: templateFile!,
       );
+      isUploaded = true;
       // New state to trigger the dialog in UI
       emit(AiDescriptionUploadSuccess());
     } catch (e) {
@@ -210,6 +215,8 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   }
 
   bool isCourseGenerated = false;
+  Future<void>? _generationFuture;
+  bool isGenerationCompleted = false;
 
   Future<void> submitCourse() async {
     if (generationId == null) return;
@@ -226,6 +233,20 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
         courseSchedule: totalHoursController.text.trim(),
       );
 
+      isCourseGenerated = true;
+      isGenerationCompleted = false;
+      _generationFuture = _pollGenerationStatus();
+
+      emit(AiDescriptionSubmitSuccess());
+    } catch (e) {
+      String msg = e.toString().replaceFirst('Exception: ', '').trim();
+      if (msg.isEmpty) msg = 'Submission Failed. Please try again.';
+      emit(AiDescriptionSubmitError(msg));
+    }
+  }
+
+  Future<void> _pollGenerationStatus() async {
+    try {
       bool isFinished = false;
       while (!isFinished) {
         final statusResult = await AiDescriptionService.checkGenerationStatus(
@@ -234,23 +255,18 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
         final status = statusResult.data?.status;
 
         if (status == 'Generating') {
-          await Future.delayed(const Duration(seconds: 20));
+          await Future.delayed(const Duration(seconds: 10));
         } else if (status == 'Failed' || status == 'Error') {
           throw Exception(statusResult.data?.error ?? 'Generation failed');
         } else if (status == 'Complete') {
           isFinished = true;
-          isCourseGenerated = true;
         } else {
           isFinished = true;
-          isCourseGenerated = true;
         }
       }
-
-      emit(AiDescriptionSubmitSuccess());
+      isGenerationCompleted = true;
     } catch (e) {
-      String msg = e.toString().replaceFirst('Exception: ', '').trim();
-      if (msg.isEmpty) msg = 'Submission Failed. Please try again.';
-      emit(AiDescriptionSubmitError(msg));
+      isGenerationCompleted = false;
     }
   }
 
@@ -399,6 +415,9 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   Future<void> getGeneratedFileUrls() async {
     if (generationId == null) return;
     try {
+      if (_generationFuture != null && !isGenerationCompleted) {
+        await _generationFuture;
+      }
       final docxRes = await AiDescriptionService.downloadFiles(
         generationId: generationId!,
         fileType: 0,
@@ -437,6 +456,14 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     docxName = aiDocxName;
     pdfUrl = aiPdfUrl;
     pdfName = aiPdfName;
+    hasUnsavedCustomFiles = false;
+    emit(AiDescriptionFileUpdated());
+  }
+
+  void selectCustomFiles({required File docx, required File pdf}) {
+    customDocxFile = docx;
+    customPdfFile = pdf;
+    hasUnsavedCustomFiles = true;
     emit(AiDescriptionFileUpdated());
   }
 
@@ -471,6 +498,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
         pdfFile: pdf,
       );
       if (result.isSuccess) {
+        hasUnsavedCustomFiles = false;
         emit(AiDescriptionCustomUploadSuccess());
         // After successful upload, refresh URLs
         getGeneratedFileUrls();
@@ -513,6 +541,24 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     }
   }
 
+  Future<void> endGeneration() async {
+    if (generationId == null) return;
+    try {
+      await AiDescriptionService.endGeneration(generationId: generationId!);
+    } catch (e) {
+      // Ignore error for end generation
+    } finally {
+      generationId = null;
+      isUploaded = false;
+      programFile = null;
+      templateFile = null;
+      _generationFuture = null;
+      isGenerationCompleted = false;
+      isCourseGenerated = false;
+      emit(AiDescriptionInitial());
+    }
+  }
+
   Future<void> getFileTypes() async {
     emit(AiDescriptionFileTypesLoading());
     try {
@@ -525,14 +571,18 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
   void reset() {
     generationId = null;
+    isUploaded = false;
     currentPage = 0;
     learningWeeksCount = 15;
-    
+    _generationFuture = null;
+    isGenerationCompleted = false;
+    hasUnsavedCustomFiles = false;
+
     programFile = null;
     templateFile = null;
     customDocxFile = null;
     customPdfFile = null;
-    
+
     pdfUrl = null;
     docxUrl = null;
     pdfName = null;
@@ -541,7 +591,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     aiDocxUrl = null;
     aiPdfName = null;
     aiDocxName = null;
-    
+
     isCourseGenerated = false;
 
     titleController.clear();
@@ -578,7 +628,7 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     for (int i = 0; i < learningWeeksCount; i++) {
       weekControllers.add(WeekControllers());
     }
-    
+
     emit(AiDescriptionInitial());
   }
 

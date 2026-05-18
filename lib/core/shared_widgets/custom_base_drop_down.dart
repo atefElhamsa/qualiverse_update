@@ -14,6 +14,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
   final bool isLoading;
   final Widget? prefixIcon;
   final bool isDisabled;
+  final bool Function(T)? isItemDisabled;
 
   const CustomBaseDropDown({
     super.key,
@@ -28,6 +29,7 @@ class CustomBaseDropDown<T> extends StatelessWidget {
     this.isLoading = false,
     this.prefixIcon,
     this.isDisabled = false,
+    this.isItemDisabled,
   });
 
   @override
@@ -80,11 +82,16 @@ class CustomBaseDropDown<T> extends StatelessWidget {
           items: items.map((item) {
             final val = itemValueBuilder(item);
             final label = itemLabelBuilder(item);
+            final disabled = isItemDisabled?.call(item) ?? false;
             return DropdownMenuItem<dynamic>(
               value: val,
+              enabled: !disabled,
               child: Text(
                 label,
                 overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: disabled ? Colors.grey.shade400 : null,
+                ),
               ),
             );
           }).toList(),

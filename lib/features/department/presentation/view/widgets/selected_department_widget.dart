@@ -13,14 +13,11 @@ class SelectedDepartmentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LevelCubit, LevelState>(
       builder: (context, levelState) {
-        bool isDisabled = false;
-        if (checkLevel &&
-            levelState is LevelSuccess &&
-            levelState.selectedLevel != null) {
-          if (levelState.selectedLevel!.levelNumber <= 2) {
-            isDisabled = true;
-          }
-        }
+        final level = levelState is LevelSuccess
+            ? levelState.selectedLevel
+            : null;
+        final bool isLevel1Or2 = level != null && level.levelNumber <= 2;
+
         return BlocBuilder<DepartmentCubit, DepartmentState>(
           builder: (context, state) {
             if (state is DepartmentLoading) {
@@ -36,29 +33,40 @@ class SelectedDepartmentWidget extends StatelessWidget {
             }
             if (state is DepartmentSuccess) {
               final departmentCubit = DepartmentCubit.get(context);
+
               final List<String> departmentNames = state.departments
                   .map((e) => e.name)
                   .toList();
+
+              bool isDataAnalysis(String name) {
+                final lower = name.toLowerCase();
+                return lower.contains("data analysis") ||
+                    lower.contains("تحليل البيانات");
+              }
+
+              final List<String> disabledDepts = isLevel1Or2
+                  ? departmentNames
+                        .where((name) => !isDataAnalysis(name))
+                        .toList()
+                  : [];
+
               final String? selectedDepartmentName =
                   state.selectedDepartment?.name;
 
               return CustomDropButtonAndTitle(
                 dropButtonModel: DropButtonModel(
-                  selectedData: isDisabled ? null : selectedDepartmentName,
-                  listOfData: isDisabled ? [] : departmentNames,
+                  selectedData: selectedDepartmentName,
+                  listOfData: departmentNames,
+                  disabledItems: disabledDepts,
                   hintText: "selectTheDepartment".tr(),
                   hintSize: 20.sp,
-                  onChanged: isDisabled
-                      ? null
-                      : (value) {
-                          if (value == null) return;
-                          final selectedModel = state.departments.firstWhere(
-                            (d) => d.name == value,
-                          );
-                          departmentCubit.selectDepartment(
-                            department: selectedModel,
-                          );
-                        },
+                  onChanged: (value) {
+                    if (value == null) return;
+                    final selectedModel = state.departments.firstWhere(
+                      (d) => d.name == value,
+                    );
+                    departmentCubit.selectDepartment(department: selectedModel);
+                  },
                 ),
                 title: "department".tr(),
               );

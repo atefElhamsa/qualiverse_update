@@ -41,7 +41,9 @@ class CoursesMainButton extends StatelessWidget {
                     yearId: year.id,
                     levelId: level.id,
                     termModel: semester,
-                    departmentId: level.levelNumber <= 2 ? null : department?.id,
+                    departmentId: level.levelNumber <= 2
+                        ? null
+                        : department?.id,
                   ),
                 );
               }
@@ -50,13 +52,11 @@ class CoursesMainButton extends StatelessWidget {
             radius: 32,
             customText: CustomText(
               title: "next".tr(),
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineMedium!.copyWith(
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18.sp,
-                  ),
+              textStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                color: AppColors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 18.sp,
+              ),
             ),
           ),
         ),

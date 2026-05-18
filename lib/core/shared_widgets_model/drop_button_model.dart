@@ -15,6 +15,9 @@ class DropButtonModel {
 
   final ValueChanged<dynamic>? onChanged;
 
+  // A list of items that should be disabled in the dropdown.
+  final List? disabledItems;
+
   // Constructor for the DropButtonModel.
   DropButtonModel({
     required this.selectedData,
@@ -22,5 +25,6 @@ class DropButtonModel {
     required this.hintText,
     this.hintSize,
     this.onChanged,
+    this.disabledItems,
   });
 }

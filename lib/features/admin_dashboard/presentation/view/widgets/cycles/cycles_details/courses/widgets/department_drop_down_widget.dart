@@ -22,10 +22,12 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
   });
 
   @override
-  State<CoursesDepartmentDropDownWidget> createState() => _CoursesDepartmentDropDownWidgetState();
+  State<CoursesDepartmentDropDownWidget> createState() =>
+      _CoursesDepartmentDropDownWidgetState();
 }
 
-class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropDownWidget> {
+class _CoursesDepartmentDropDownWidgetState
+    extends State<CoursesDepartmentDropDownWidget> {
   @override
   void initState() {
     super.initState();
@@ -54,15 +56,14 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
           return BlocBuilder<LevelCubit, LevelState>(
             builder: (context, levelState) {
               bool isDisabled = widget.isDisabled ?? false;
-              if (widget.isDisabled == null &&
-                  levelState is LevelSuccess &&
-                  levelState.selectedLevel != null) {
-                if (levelState.selectedLevel!.levelNumber <= 2) {
-                  isDisabled = true;
-                }
-              }
+
+              final level = levelState is LevelSuccess
+                  ? levelState.selectedLevel
+                  : null;
+              final bool isLevel1Or2 = level != null && level.levelNumber <= 2;
 
               final departments = state.departments;
+
               final isValid = departments.any(
                 (e) => e.id == state.selectedDepartment?.id,
               );
@@ -84,6 +85,14 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
                 height: widget.height,
                 isExpanded: widget.isExpanded,
                 isDisabled: isDisabled,
+                isItemDisabled: (item) {
+                  if (!isLevel1Or2) return false;
+                  final lower = item.name.toLowerCase();
+                  final isDataAnalysis =
+                      lower.contains("data analysis") ||
+                      lower.contains("تحليل البيانات");
+                  return !isDataAnalysis;
+                },
                 onChanged: (value) {
                   if (value == null) return;
                   if (widget.onChanged != null) {
@@ -93,9 +102,9 @@ class _CoursesDepartmentDropDownWidgetState extends State<CoursesDepartmentDropD
                   final selectedModel = departments.firstWhere(
                     (d) => d.id == value,
                   );
-                  DepartmentCubit.get(context).selectDepartment(
-                    department: selectedModel,
-                  );
+                  DepartmentCubit.get(
+                    context,
+                  ).selectDepartment(department: selectedModel);
                 },
               );
             },

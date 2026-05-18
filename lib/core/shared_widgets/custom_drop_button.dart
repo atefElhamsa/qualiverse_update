@@ -32,14 +32,19 @@ class CustomDropButton extends StatelessWidget {
           ),
         ),
         items: dropButtonModel.listOfData.map((data) {
+          final isItemDisabled =
+              dropButtonModel.disabledItems?.contains(data) ?? false;
           return DropdownMenuItem(
             value: data,
+            enabled: !isItemDisabled,
             child: Text(
               data.toString(),
               style: GoogleFonts.almarai(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
-                color: AppColors.mainBlack,
+                color: isItemDisabled
+                    ? Colors.grey.shade400
+                    : AppColors.mainBlack,
               ),
             ),
           );

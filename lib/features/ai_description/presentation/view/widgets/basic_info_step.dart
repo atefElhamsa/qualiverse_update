@@ -42,22 +42,22 @@ class BasicInfoStep extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: PremiumDropdownField(
-                  label: "department".tr(),
-                  controller: cubit.deptController,
+                    child: PremiumDropdownField(
+                      label: "department".tr(),
+                      controller: cubit.deptController,
                   items: [
-                    "Computer Science",
-                    "Information Technology",
-                    "Software Engineering",
-                    "Information System",
-                    "Data Analysis and Artificial Intelligence",
-                  ],
-                  onChanged: (val) {
-                    cubit.deptController.text = val;
-                  },
-                  icon: Icons.account_tree_rounded,
+                        "Computer Science",
+                        "Information Technology",
+                        "Software Engineering",
+                        "Information System",
+                        "Data Analysis and Artificial Intelligence",
+                      ],
+                      onChanged: (val) {
+                        cubit.deptController.text = val;
+                      },
+                      icon: Icons.account_tree_rounded,
                   hint: "enterDept".tr(),
-                ),
+                    ),
               ),
               SizedBox(width: 20.w),
               Expanded(

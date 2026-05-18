@@ -36,12 +36,8 @@ class AiDescriptionBody extends StatelessWidget {
   // --- Logic & Event Handlers ---
 
   void _onStateChanged(BuildContext context, AiDescriptionState state) {
-    if (state is AiDescriptionStartSuccess) {
-      showSnackBar(context, "sessionStartedSuccessfully".tr(), AppColors.green);
-    } else if (state is AiDescriptionStartError) {
+    if (state is AiDescriptionStartError) {
       showSnackBar(context, state.message, AppColors.red);
-    } else if (state is AiDescriptionUploadSuccess) {
-      _showConfirmDialog(context);
     } else if (state is AiDescriptionUploadError) {
       showSnackBar(context, state.message, AppColors.red);
     } else if (state is AiDescriptionConfirmSuccess) {
@@ -81,9 +77,6 @@ class AiDescriptionBody extends StatelessWidget {
       isProgram
           ? cubit.updateProgramFile(file)
           : cubit.updateTemplateFile(file);
-      if (cubit.programFile != null && cubit.templateFile != null) {
-        cubit.uploadAiFiles();
-      }
     }
   }
 
@@ -103,7 +96,11 @@ class AiDescriptionBody extends StatelessWidget {
           templateFile: cubit.templateFile,
         ),
         SizedBox(height: 12.h),
-        AiDescriptionBottomActionBar(courseId: courseId, cubit: cubit),
+        AiDescriptionBottomActionBar(
+          courseId: courseId,
+          cubit: cubit,
+          onApprovedPressed: () => _showConfirmDialog(context),
+        ),
       ],
     );
   }

@@ -7,7 +7,14 @@ import 'package:qualiverse/routing/app_routes.dart';
 
 class EditApprovedButtons extends StatelessWidget {
   final VoidCallback? onApprovedPressed;
-  const EditApprovedButtons({super.key, this.onApprovedPressed});
+  final String? title;
+  final IconData? icon;
+  const EditApprovedButtons({
+    super.key,
+    this.onApprovedPressed,
+    this.title,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +41,22 @@ class EditApprovedButtons extends StatelessWidget {
                 ],
               ),
               alignment: Alignment.center,
-              child: Text(
-                "approved".tr(),
-                style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                      color: AppColors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (icon != null) ...[
+                    Icon(icon, color: AppColors.white, size: 20.sp),
+                    SizedBox(width: 8.w),
+                  ],
+                  Text(
+                    title ?? "approved".tr(),
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                          color: AppColors.white,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ],
               ),
             ),
           ),

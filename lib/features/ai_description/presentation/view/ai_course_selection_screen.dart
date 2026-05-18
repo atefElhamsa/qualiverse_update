@@ -1,8 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
-class AiCourseSelectionScreen extends StatelessWidget {
+class AiCourseSelectionScreen extends StatefulWidget {
   const AiCourseSelectionScreen({super.key});
+
+  @override
+  State<AiCourseSelectionScreen> createState() => _AiCourseSelectionScreenState();
+}
+
+class _AiCourseSelectionScreenState extends State<AiCourseSelectionScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final academicYearCubit = AcademicYearCubit.get(context);
+        if (academicYearCubit.academicYears.isNotEmpty) {
+          academicYearCubit.selectAcademicYear(
+            academicYear: academicYearCubit.academicYears.first,
+          );
+        }
+        final levelCubit = LevelCubit.get(context);
+        LevelModel? firstLevel;
+        if (levelCubit.levels.isNotEmpty) {
+          firstLevel = levelCubit.levels.first;
+          levelCubit.selectLevel(level: firstLevel);
+        }
+        final deptCubit = DepartmentCubit.get(context);
+        if (deptCubit.departments.isNotEmpty) {
+          if (firstLevel != null && firstLevel.levelNumber <= 2) {
+            deptCubit.selectDepartment(department: null);
+          } else {
+            deptCubit.selectDepartment(
+              department: deptCubit.departments.first,
+            );
+          }
+        }
+        final termCubit = TermCubit.get(context);
+        if (termCubit.terms.isNotEmpty) {
+          termCubit.selectTerm(term: termCubit.terms.first);
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

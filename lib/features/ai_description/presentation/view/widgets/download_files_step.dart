@@ -69,7 +69,7 @@ class DownloadFilesStep extends StatelessWidget {
       }
 
       if (docx != null && pdf != null) {
-        cubit.uploadCustomFile(docx: docx, pdf: pdf);
+        cubit.selectCustomFiles(docx: docx, pdf: pdf);
       } else {
         showSnackBar(context, "pleaseSelectBothFiles".tr(), AppColors.red);
       }

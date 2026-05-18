@@ -565,7 +565,6 @@
     "skillLabs": "Skill Labs",
     "courseSpecification": "AI Course Specification",
     "back": "Back",
-    "submit": "Submit",
     "courseTitle": "Course Title",
     "courseCode": "Course Code",
     "department": "Department",
@@ -617,7 +616,7 @@
     "courseDescription": "Course Description",
     "enterCourseDescription": "Enter Course Description",
     "submitAndGenerate": "Submit & Generate",
-    "submitAndFinish": "Submit & Finish",
+    "submit": "Submit",
     "returnedToAiFiles": "Returned to AI Files",
     "generationStartedSuccessfully": "Generation started successfully!",
     "aiGeneratingWait": "AI is currently generating the course specification...\nThis might take a few moments, please wait.",
@@ -632,5 +631,8 @@
     "selectSupplies": "Select Supplies",
     "selectSoftware": "Select Software",
     "selectLabs": "Select Labs",
-    "selectVirtualLabs": "Select Virtual Labs"
+    "selectVirtualLabs": "Select Virtual Labs",
+    "changeFile": "Change File",
+    "downloadPDF": "Download PDF",
+    "downloadWord": "Download Word"
 }

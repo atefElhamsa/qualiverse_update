@@ -38,17 +38,17 @@ extension AiDescriptionInitialHelper on AiDescriptionCubit {
 
     // Dynamic initial values for Department
     final dept = deptController.text;
-    if (dept.isEmpty || dept == "Computer Science") {
-      deptController.text = "Computer Science";
-    } else if (dept == "Information Technology") {
-      deptController.text = "Information Technology";
-    } else if (dept == "Software Engineering") {
-      deptController.text = "Software Engineering";
-    } else if (dept == "Information System") {
-      deptController.text = "Information System";
-    } else if (dept == "Data Analysis and Artificial Intelligence") {
-      deptController.text = "Data Analysis and Artificial Intelligence";
-    }
+      if (dept.isEmpty || dept == "Computer Science") {
+        deptController.text = "Computer Science";
+      } else if (dept == "Information Technology") {
+        deptController.text = "Information Technology";
+      } else if (dept == "Software Engineering") {
+        deptController.text = "Software Engineering";
+      } else if (dept == "Information System") {
+        deptController.text = "Information System";
+      } else if (dept == "Data Analysis and Artificial Intelligence") {
+        deptController.text = "Data Analysis and Artificial Intelligence";
+      }
 
     // Dynamic initial values for Date
     if (dateController.text.isEmpty) {

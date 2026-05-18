@@ -11,7 +11,8 @@ class CoursesTableBuilderWidget extends StatefulWidget {
   const CoursesTableBuilderWidget({super.key, this.searchQuery = ''});
 
   @override
-  State<CoursesTableBuilderWidget> createState() => _CoursesTableBuilderWidgetState();
+  State<CoursesTableBuilderWidget> createState() =>
+      _CoursesTableBuilderWidgetState();
 }
 
 class _CoursesTableBuilderWidgetState extends State<CoursesTableBuilderWidget> {
@@ -33,7 +34,7 @@ class _CoursesTableBuilderWidgetState extends State<CoursesTableBuilderWidget> {
     if (year != null && level != null && term != null) {
       CoursesCubit.get(context).getCourses(
         academicYearId: year.id,
-        departmentId: level.levelNumber <= 2 ? null : department?.id,
+        departmentId: department?.id,
         levelId: level.id,
         termId: term.id,
       );
@@ -86,9 +87,7 @@ class _CoursesTableBuilderWidgetState extends State<CoursesTableBuilderWidget> {
             }
             return CoursesTable(courses: filtered);
           }
-          return EmptyView(
-            message: 'selectCourseFilters'.tr(),
-          );
+          return EmptyView(message: 'selectCourseFilters'.tr());
         },
       ),
     );

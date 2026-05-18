@@ -38,51 +38,60 @@ class _StartEndNumberFileCompletedState
         return Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // Start and end buttons
-            // SizedBox(
-            //   width: 100.w,
-            //   height: 48.h,
-            //   child: CustomButton(
-            //     buttonModel: ButtonModel(
-            //       onPressed: () {
-            //         // Logic for End button if needed
-            //       },
-            //       backgroundColor: AppColors.greyLight,
-            //       radius: 32,
-            //       customText: CustomText(
-            //         title: "end".tr(),
-            //         textStyle: Theme.of(
-            //           context,
-            //         ).textTheme.headlineLarge!.copyWith(color: AppColors.white),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            if (!isStarted) ...[
-              const SizedBox(width: 10),
-              SizedBox(
-                width: 144.w,
-                height: 48.h,
-                child: isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : CustomButton(
-                        buttonModel: ButtonModel(
-                          onPressed: () {
-                            cubit.startAiGeneration(courseId: widget.courseId);
-                          },
-                          backgroundColor: AppColors.colorButtonLight,
-                          radius: 32,
-                          customText: CustomText(
-                            title: "start".tr(),
-                            textStyle: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(color: AppColors.white),
-                          ),
+            SizedBox(
+              width: 154.w,
+              height: 48.h,
+              child: isStarted
+                  ? CustomButton(
+                      buttonModel: ButtonModel(
+                        onPressed: () {
+                          cubit.endGeneration();
+                        },
+                        backgroundColor: AppColors.red,
+                        radius: 32,
+                        customText: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.stop_circle_outlined, color: AppColors.white, size: 20.sp),
+                            SizedBox(width: 8.w),
+                            CustomText(
+                              title: "end".tr(),
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(color: AppColors.white, fontSize: 18.sp),
+                            ),
+                          ],
                         ),
                       ),
-              ),
-            ],
+                    )
+                  : (isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : CustomButton(
+                          buttonModel: ButtonModel(
+                            onPressed: () {
+                              cubit.startAiGeneration(courseId: widget.courseId);
+                            },
+                            backgroundColor: AppColors.colorButtonLight,
+                            radius: 32,
+                            customText: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.play_circle_outline, color: AppColors.white, size: 20.sp),
+                                SizedBox(width: 8.w),
+                                CustomText(
+                                  title: "start".tr(),
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(color: AppColors.white, fontSize: 18.sp),
+                                ),
+                              ],
+                              
+                            ),
+                          ),
+                        )),
+            ),
             const Spacer(),
             // Number of files completed
             Row(

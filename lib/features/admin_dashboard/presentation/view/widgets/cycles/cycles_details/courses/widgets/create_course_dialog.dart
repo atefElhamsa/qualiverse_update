@@ -102,7 +102,13 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
       });
     } catch (e) {
       setState(() => isLoadingCourses = false);
-      if (mounted) showSnackBar(context, e.toString().replaceFirst('Exception: ', '').trim(), AppColors.red);
+      if (mounted) {
+        showSnackBar(
+          context,
+          e.toString().replaceFirst('Exception: ', '').trim(),
+          AppColors.red,
+        );
+      }
     }
   }
 
@@ -197,8 +203,7 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
             isExpanded: true,
             selectedId: selectedDeptId,
             useCubitSelection: false,
-            isDisabled: selectedLevelId != null && 
-                       LevelCubit.get(context).levels.any((l) => l.id == selectedLevelId && l.levelNumber <= 2),
+            isDisabled: false,
             onChanged: (id) => setState(() {
               selectedDeptId = id;
               fetchCourses();
@@ -213,11 +218,23 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
             selectedId: selectedLevelId,
             useCubitSelection: false,
             onChanged: (id) {
-              final level = LevelCubit.get(context).levels.firstWhere((l) => l.id == id);
+              final level = LevelCubit.get(
+                context,
+              ).levels.firstWhere((l) => l.id == id);
               setState(() {
                 selectedLevelId = id;
+                final deptCubit = DepartmentCubit.get(context);
+                final selectedDept = deptCubit.departments
+                    .where((d) => d.id == selectedDeptId)
+                    .firstOrNull;
                 if (level.levelNumber <= 2) {
-                  selectedDeptId = null;
+                  final deptName = selectedDept?.name.toLowerCase() ?? '';
+                  final isDataAnalysis =
+                      deptName.contains("data analysis") ||
+                      deptName.contains("تحليل البيانات");
+                  if (selectedDept != null && !isDataAnalysis) {
+                    selectedDeptId = null;
+                  }
                 }
                 fetchCourses();
               });

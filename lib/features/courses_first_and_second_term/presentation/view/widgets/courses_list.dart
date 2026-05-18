@@ -16,11 +16,12 @@ class CoursesList extends StatelessWidget {
           return RetryWidget(
             title: state.message,
             onPressed: () {
+              final level = LevelCubit.get(context).selectedLevel!;
               CourseCubit.get(context).fetchCourses(
                 yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
-                levelId: LevelCubit.get(context).selectedLevel!.id,
+                levelId: level.id,
                 semesterId: TermCubit.get(context).selectedTerm!.id,
-                departmentId: LevelCubit.get(context).selectedLevel!.levelNumber <= 2
+                departmentId: level.levelNumber <= 2
                     ? null
                     : DepartmentCubit.get(context).selectedDepartment?.id,
               );

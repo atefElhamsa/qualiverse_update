@@ -21,11 +21,19 @@ class CoursesTopBar extends StatelessWidget {
         if (state is LevelSuccess && state.selectedLevel != null) {
           final deptCubit = DepartmentCubit.get(context);
           if (state.selectedLevel!.levelNumber <= 2) {
-            deptCubit.selectDepartment(department: null);
+            final deptName =
+                deptCubit.selectedDepartment?.name.toLowerCase() ?? '';
+            final isDataAnalysis =
+                deptName.contains("data analysis") ||
+                deptName.contains("تحليل البيانات");
+            if (deptCubit.selectedDepartment != null && !isDataAnalysis) {
+              deptCubit.selectDepartment(department: null);
+            }
           } else {
             if (deptCubit.selectedDepartment == null &&
                 deptCubit.state is DepartmentSuccess) {
-              final departments = (deptCubit.state as DepartmentSuccess).departments;
+              final departments =
+                  (deptCubit.state as DepartmentSuccess).departments;
               if (departments.isNotEmpty) {
                 deptCubit.selectDepartment(department: departments.first);
               }

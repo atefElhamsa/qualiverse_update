@@ -11,11 +11,22 @@ class AiDescriptionScreen extends StatefulWidget {
 }
 
 class _AiDescriptionScreenState extends State<AiDescriptionScreen> {
+  late final AiDescriptionCubit _cubit;
+
   @override
   void initState() {
     super.initState();
-    // Reset the AI description state when starting a new session
-    context.read<AiDescriptionCubit>().reset();
+    _cubit = context.read<AiDescriptionCubit>();
+    _cubit.reset();
+  }
+
+  @override
+  void dispose() {
+    if (_cubit.isGenerationStarted &&
+        _cubit.state is! AiDescriptionConfirmSuccess) {
+      _cubit.endGeneration();
+    }
+    super.dispose();
   }
 
   @override

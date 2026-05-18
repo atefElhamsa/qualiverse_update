@@ -31,7 +31,7 @@ class SelectedCourseWidget extends StatelessWidget {
                   yearId: year.id,
                   levelId: level.id,
                   semesterId: semester.id,
-                  departmentId: level.levelNumber <= 2 ? null : department?.id,
+                  departmentId: department?.id,
                 );
               }
             },

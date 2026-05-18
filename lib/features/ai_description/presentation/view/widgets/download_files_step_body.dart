@@ -53,16 +53,10 @@ class DownloadFilesStepBody extends StatelessWidget {
               : (cubit.pdfName ?? "evaluation.pdf"),
           icon: Icons.picture_as_pdf_rounded,
           iconColor: AppColors.aiPdf,
-          isReady: cubit.pdfUrl != null,
-          actionTitle: cubit.hasUploadedCustomFiles
-              ? "returnedToAiFiles".tr()
-              : "edit".tr(),
-          actionIcon: cubit.hasUploadedCustomFiles
-              ? Icons.settings_backup_restore_rounded
-              : Icons.edit_note_rounded,
-          onAction: cubit.hasUploadedCustomFiles
-              ? () => cubit.revertToAiFiles()
-              : onEdit,
+          isReady: cubit.pdfUrl != null || cubit.customPdfFile != null,
+          actionTitle: "edit".tr(),
+          actionIcon: Icons.edit_note_rounded,
+          onAction: cubit.hasUploadedCustomFiles ? null : onEdit,
         ),
         // DOCX Section
         FileSectionWidget(
@@ -71,7 +65,7 @@ class DownloadFilesStepBody extends StatelessWidget {
               : (cubit.docxName ?? "evaluation.docx"),
           icon: Icons.description_rounded,
           iconColor: AppColors.aiDocx,
-          isReady: cubit.docxUrl != null,
+          isReady: cubit.docxUrl != null || cubit.customDocxFile != null,
           actionTitle: "download".tr(),
           actionIcon: Icons.file_download_outlined,
           onAction: onDownload,
