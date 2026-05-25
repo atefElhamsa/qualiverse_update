@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignments_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignments_state.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'assignments_header.dart';
-import 'assignments_row_widget.dart';
 
 class AssignmentsTable extends StatelessWidget {
   const AssignmentsTable({super.key});
@@ -37,7 +33,7 @@ class AssignmentsTable extends StatelessWidget {
         if (state is AssignmentsLoaded) {
           final assignments = state.assignments;
           return assignments.isEmpty
-                ? Center(
+              ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: CustomText(

@@ -27,9 +27,9 @@ class MenuOverlay extends StatelessWidget {
           children: [
             CompositedTransformFollower(
               link: layerLink,
-              offset: locale == Locale('ar')
-                  ? Offset(-100, 60)
-                  : Offset(40, 60),
+              offset: locale == const Locale('ar')
+                  ? const Offset(-100, 60)
+                  : const Offset(40, 60),
               child: Material(
                 color: AppColors.transparent,
                 child: Container(

@@ -16,7 +16,7 @@ class MatchScoreBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(30.r),
       ),
       child: Text(
-        "${score}%",
+        "$score%",
         style: GoogleFonts.almarai(
           fontSize: 12.sp,
           fontWeight: FontWeight.w800,

@@ -7,9 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 import 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/statistics_preview_dialog.dart';
-import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_state.dart';
 
 class FirstTermTopAndTitle extends StatelessWidget {
   const FirstTermTopAndTitle({

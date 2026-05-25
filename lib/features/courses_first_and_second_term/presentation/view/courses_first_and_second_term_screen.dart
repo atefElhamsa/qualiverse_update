@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
 
 class CoursesFirstAndSecondTermScreen extends StatelessWidget {
   const CoursesFirstAndSecondTermScreen({super.key, required this.courseArgs});

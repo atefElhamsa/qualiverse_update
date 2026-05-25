@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'courses_header.dart';
-import 'courses_row_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class CoursesTable extends StatelessWidget {

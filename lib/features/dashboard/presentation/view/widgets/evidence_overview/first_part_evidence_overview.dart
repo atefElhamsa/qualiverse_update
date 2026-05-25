@@ -9,7 +9,7 @@ class FirstPartEvidenceOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,

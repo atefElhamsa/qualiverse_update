@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
 class UserManagementScreen extends StatefulWidget {
   const UserManagementScreen({super.key});
 
@@ -178,7 +177,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
                     (role) => DropdownMenuItem(
                       value: role,
                       child: Text(
-                        role == 'All' ? 'all'.tr() : (role + "Role").tr(),
+                        role == 'All' ? 'all'.tr() : ("${role}Role").tr(),
                       ),
                     ),
                   )

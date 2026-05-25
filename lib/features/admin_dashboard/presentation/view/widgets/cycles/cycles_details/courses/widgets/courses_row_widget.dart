@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'courses_raw_widget_component.dart';
 
 class CoursesRowWidget extends StatelessWidget {
   const CoursesRowWidget({

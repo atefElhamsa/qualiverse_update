@@ -22,10 +22,7 @@ class UserManagementToolbar extends StatelessWidget {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
-      children: [
-        _buildSearchField(),
-        _buildRoleDropdown(),
-      ],
+      children: [_buildSearchField(), _buildRoleDropdown()],
     );
   }
 
@@ -52,13 +49,25 @@ class UserManagementToolbar extends StatelessWidget {
     return Container(
       height: 40,
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(border: Border.all(color: const Color(0xFFCCCCCC)), borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFCCCCCC)),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: selectedRole,
           icon: const Icon(Icons.keyboard_arrow_down, size: 18),
           style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
-          items: roles.map((role) => DropdownMenuItem(value: role, child: Text(role == 'All' ? 'all'.tr() : (role + "Role").tr()))).toList(),
+          items: roles
+              .map(
+                (role) => DropdownMenuItem(
+                  value: role,
+                  child: Text(
+                    role == 'All' ? 'all'.tr() : ("${role}Role").tr(),
+                  ),
+                ),
+              )
+              .toList(),
           onChanged: (val) => onRoleChanged(val!),
         ),
       ),
@@ -66,6 +75,9 @@ class UserManagementToolbar extends StatelessWidget {
   }
 
   OutlineInputBorder _border({Color color = const Color(0xFFCCCCCC)}) {
-    return OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: color));
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(color: color),
+    );
   }
 }

@@ -33,9 +33,4 @@ class LogoutCubit extends Cubit<LogoutState> {
       );
     }
   }
-
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

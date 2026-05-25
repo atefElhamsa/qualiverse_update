@@ -128,7 +128,7 @@ class ErrorView extends StatelessWidget {
 class EmptyView extends StatelessWidget {
   final String message;
 
-  const EmptyView({required this.message});
+  const EmptyView({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

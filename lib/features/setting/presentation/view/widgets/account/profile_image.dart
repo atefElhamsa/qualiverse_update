@@ -59,7 +59,7 @@ class ProfileImage extends StatelessWidget {
           ],
         ),
         SizedBox(height: 8.h),
-        Divider(thickness: 1, color: AppColors.mainBlack),
+        const Divider(thickness: 1, color: AppColors.mainBlack),
         SizedBox(height: 8.h),
       ],
     );

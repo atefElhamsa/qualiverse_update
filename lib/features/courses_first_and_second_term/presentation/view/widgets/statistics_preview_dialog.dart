@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/features/edit_files/data/models/statistics_preview_model.dart';
-import 'package:qualiverse/features/edit_files/presentation/controller/evidence_folder_files/evidence_folder_files_cubit.dart';
 
 // Import Components
 import 'statistics_preview_components/summary_cards.dart';

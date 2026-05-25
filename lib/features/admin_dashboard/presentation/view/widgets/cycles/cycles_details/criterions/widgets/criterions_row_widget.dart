@@ -48,12 +48,12 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
         onTap: () {},
         hoverColor: const Color(0xFFF9FAFB),
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColors.white,
             border: Border(
-              bottom: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-              left: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
-              right: const BorderSide(color: Color(0xFFE5E7EB), width: 1),
+              bottom: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+              left: BorderSide(color: Color(0xFFE5E7EB), width: 1),
+              right: BorderSide(color: Color(0xFFE5E7EB), width: 1),
             ),
           ),
           child: _buildRow(context),
@@ -92,7 +92,8 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                 decoration: BoxDecoration(
-                  color: (widget.criterion.accreditation == 'Program' ||
+                  color:
+                      (widget.criterion.accreditation == 'Program' ||
                           widget.criterion.accreditation == 'program'.tr())
                       ? const Color(0xFFD6E4F0)
                       : const Color(0xFFEAD6F0),
@@ -102,7 +103,8 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                   title: widget.criterion.accreditation,
                   textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                     fontSize: 13.sp,
-                    color: (widget.criterion.accreditation == 'Program' ||
+                    color:
+                        (widget.criterion.accreditation == 'Program' ||
                             widget.criterion.accreditation == 'program'.tr())
                         ? const Color(0xFF2C5C8A)
                         : const Color(0xFF8A2C8A),
@@ -146,7 +148,8 @@ class _CriterionsRowWidgetState extends State<CriterionsRowWidget> {
                       : SystemMouseCursors.basic,
                   child: GestureDetector(
                     onTap: _isEnabled
-                        ? () => showAddIndicatorDialog(context, widget.criterion)
+                        ? () =>
+                              showAddIndicatorDialog(context, widget.criterion)
                         : null,
                     child: Container(
                       width: 24.w,

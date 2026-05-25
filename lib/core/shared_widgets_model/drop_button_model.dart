@@ -18,6 +18,9 @@ class DropButtonModel {
   // A list of items that should be disabled in the dropdown.
   final List? disabledItems;
 
+  // Whether to show the clear button when a value is selected.
+  final bool showClearButton;
+
   // Constructor for the DropButtonModel.
   DropButtonModel({
     required this.selectedData,
@@ -26,5 +29,6 @@ class DropButtonModel {
     this.hintSize,
     this.onChanged,
     this.disabledItems,
+    this.showClearButton = false,
   });
 }

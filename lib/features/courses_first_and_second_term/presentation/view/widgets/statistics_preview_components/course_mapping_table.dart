@@ -45,7 +45,7 @@ class CourseMappingTable extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: DataTable(
-            headingRowColor: MaterialStateProperty.all(const Color(0xFFF8FAFC)),
+            headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
             dataRowHeight: 85.h,
             headingRowHeight: 60.h,
             columnSpacing: 40.w,
@@ -64,7 +64,7 @@ class CourseMappingTable extends StatelessWidget {
               final isEven = index % 2 == 0;
 
               return DataRow(
-                color: MaterialStateProperty.all(
+                color: WidgetStateProperty.all(
                   isEven ? Colors.white : const Color(0xFFFBFCFE),
                 ),
                 cells: [

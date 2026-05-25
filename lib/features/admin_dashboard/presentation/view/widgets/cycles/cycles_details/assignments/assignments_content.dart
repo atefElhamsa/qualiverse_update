@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_state.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/assignments_cubit.dart';
-import 'package:qualiverse/features/admin_dashboard/presentation/controller/cycles/assignments/approve_reject_assignment_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-import 'assignments_top_widget.dart';
-import 'assignments_table.dart';
 
 class AssignmentsContent extends StatefulWidget {
   const AssignmentsContent({super.key});

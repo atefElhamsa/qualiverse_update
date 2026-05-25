@@ -46,7 +46,7 @@ class UserTableRow extends StatelessWidget {
               ),
               Expanded(
                 child: CustomText(
-                  title: (user.role.toLowerCase() + "Role").tr(),
+                  title: ("${user.role.toLowerCase()}Role").tr(),
                   textAlign: TextAlign.center,
                   textStyle: Theme.of(
                     context,
@@ -76,7 +76,9 @@ class UserTableRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Tooltip(
-                      message: user.role.toLowerCase() == 'admin' ? '' : 'edit'.tr(),
+                      message: user.role.toLowerCase() == 'admin'
+                          ? ''
+                          : 'edit'.tr(),
                       child: MouseRegion(
                         cursor: user.role.toLowerCase() == 'admin'
                             ? SystemMouseCursors.basic
@@ -85,9 +87,9 @@ class UserTableRow extends StatelessWidget {
                           onTap: user.role.toLowerCase() == 'admin'
                               ? null
                               : () => showUpdateRoleDialog(
-                                    context: context,
-                                    user: user,
-                                  ),
+                                  context: context,
+                                  user: user,
+                                ),
                           child: Icon(
                             Icons.edit_outlined,
                             color: user.role.toLowerCase() == 'admin'
@@ -100,7 +102,9 @@ class UserTableRow extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Tooltip(
-                      message: user.role.toLowerCase() == 'admin' ? '' : 'deleteUser'.tr(),
+                      message: user.role.toLowerCase() == 'admin'
+                          ? ''
+                          : 'deleteUser'.tr(),
                       child: MouseRegion(
                         cursor: user.role.toLowerCase() == 'admin'
                             ? SystemMouseCursors.basic
@@ -109,9 +113,9 @@ class UserTableRow extends StatelessWidget {
                           onTap: user.role.toLowerCase() == 'admin'
                               ? null
                               : () => showDeleteUserDialog(
-                                    context: context,
-                                    user: user,
-                                  ),
+                                  context: context,
+                                  user: user,
+                                ),
                           child: Icon(
                             Icons.delete_outline,
                             color: user.role.toLowerCase() == 'admin'

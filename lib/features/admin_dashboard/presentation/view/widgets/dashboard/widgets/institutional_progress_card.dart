@@ -29,10 +29,10 @@ class InstitutionalProgressCard extends StatelessWidget {
               CustomText(
                 title: 'institutionalIndicatorsProgress'.tr(),
                 textStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 15.sp,
-                      color: AppColors.mainBlack,
-                    ),
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15.sp,
+                  color: AppColors.mainBlack,
+                ),
               ),
               SizedBox(width: 8.w),
               Icon(
@@ -62,7 +62,9 @@ class InstitutionalProgressCard extends StatelessWidget {
                           value: percentage / 100,
                           strokeWidth: 15.w,
                           backgroundColor: const Color(0xFFE2E8F0),
-                          valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            AppColors.blue,
+                          ),
                           strokeCap: StrokeCap.round,
                         ),
                       ),
@@ -140,7 +142,9 @@ class InstitutionalProgressCard extends StatelessWidget {
                             value: percentage / 100,
                             minHeight: 12.h,
                             backgroundColor: const Color(0xFFE2E8F0),
-                            valueColor: AlwaysStoppedAnimation<Color>(AppColors.blue),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                              AppColors.blue,
+                            ),
                           ),
                         ),
                         SizedBox(height: 12.h),
@@ -165,7 +169,11 @@ class InstitutionalProgressCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.info_outline, size: 13.sp, color: AppColors.textGrey.withOpacity(0.5)),
+              Icon(
+                Icons.info_outline,
+                size: 13.sp,
+                color: AppColors.textGrey.withOpacity(0.5),
+              ),
               SizedBox(width: 10.w),
               CustomText(
                 title: 'institutionalPercentageNote'.tr(),
@@ -182,7 +190,13 @@ class InstitutionalProgressCard extends StatelessWidget {
     ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.1, end: 0);
   }
 
-  Widget _infoDetailCard(BuildContext context, String label, String value, IconData icon, Color color) {
+  Widget _infoDetailCard(
+    BuildContext context,
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
       decoration: BoxDecoration(

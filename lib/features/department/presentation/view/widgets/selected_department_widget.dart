@@ -61,8 +61,12 @@ class SelectedDepartmentWidget extends StatelessWidget {
                   disabledItems: disabledDepts,
                   hintText: "selectTheDepartment".tr(),
                   hintSize: 20.sp,
+                  showClearButton: isLevel1Or2,
                   onChanged: (value) {
-                    if (value == null) return;
+                    if (value == null) {
+                      departmentCubit.selectDepartment(department: null);
+                      return;
+                    }
                     final selectedModel = state.departments.firstWhere(
                       (d) => d.name == value,
                     );

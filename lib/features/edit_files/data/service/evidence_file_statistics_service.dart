@@ -18,13 +18,15 @@ class EvidenceFileStatisticsService {
         "AcademicYearId": academicYearId,
         "TermId": termId,
         "LevelId": levelId,
-        if (departmentId != null) "DepartmentId": departmentId,
+        "DepartmentId": ?departmentId,
       });
 
       final response = await dio.post(
         EndPoints.previewStatistics,
         data: formData,
-        options: lang != null ? Options(headers: {'Accept-Language': lang}) : null,
+        options: lang != null
+            ? Options(headers: {'Accept-Language': lang})
+            : null,
       );
 
       return StatisticsPreviewResponse.fromJson(response.data);

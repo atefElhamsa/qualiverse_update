@@ -75,14 +75,27 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
               BlocBuilder<RolesCubit, RolesState>(
                 builder: (context, state) {
                   if (state is RolesLoading) {
-                    return const Center(child: Padding(padding: EdgeInsets.all(20.0), child: CustomLoading()));
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: CustomLoading(),
+                      ),
+                    );
                   }
                   if (state is RolesFailure) {
-                    return Center(child: Text(state.errorMessage, style: const TextStyle(color: Colors.red)));
+                    return Center(
+                      child: Text(
+                        state.errorMessage,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    );
                   }
                   if (state is RolesSuccess) {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 4.h,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey[50],
                         border: Border.all(color: Colors.grey[300]!),
@@ -92,18 +105,28 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                         child: DropdownButton<RoleModel>(
                           value: selectedRole,
                           isExpanded: true,
-                          icon: Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.tooltipBehavior),
-                          hint: Text('selectType'.tr(), style: TextStyle(fontSize: 15.sp)),
+                          icon: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: AppColors.tooltipBehavior,
+                          ),
+                          hint: Text(
+                            'selectType'.tr(),
+                            style: TextStyle(fontSize: 15.sp),
+                          ),
                           items: state.roles.map((role) {
                             return DropdownMenuItem(
                               value: role,
                               child: Text(
-                                (role.name.toLowerCase() + "Role").tr(),
-                                style: TextStyle(fontSize: 15.sp, color: AppColors.mainBlack),
+                                ("${role.name.toLowerCase()}Role").tr(),
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  color: AppColors.mainBlack,
+                                ),
                               ),
                             );
                           }).toList(),
-                          onChanged: (val) => setState(() => selectedRole = val),
+                          onChanged: (val) =>
+                              setState(() => selectedRole = val),
                         ),
                       ),
                     );
@@ -118,11 +141,18 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                   TextButton(
                     onPressed: () => Navigator.pop(context),
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 12.h,
+                      ),
                     ),
                     child: Text(
                       'cancel'.tr(),
-                      style: TextStyle(color: Colors.grey[600], fontSize: 15.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -134,26 +164,37 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                             ? null
                             : () {
                                 context.read<UpdateUserRoleCubit>().updateRole(
-                                      userId: widget.user.id,
-                                      roleId: selectedRole!.id,
-                                    );
+                                  userId: widget.user.id,
+                                  roleId: selectedRole!.id,
+                                );
                               },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.tooltipBehavior,
                           foregroundColor: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 12.h),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 32.w,
+                            vertical: 12.h,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           elevation: 0,
                         ),
                         child: isLoading
                             ? SizedBox(
                                 width: 20.w,
                                 height: 20.w,
-                                child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
                               )
                             : Text(
                                 'updateRole'.tr(),
-                                style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                       );
                     },
