@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'delete_academic_year_dialog.dart';
 
 class CyclesItemWidget extends StatelessWidget {
   const CyclesItemWidget({
@@ -59,6 +60,35 @@ class CyclesItemWidget extends StatelessWidget {
                     textStyle: Theme.of(
                       context,
                     ).textTheme.titleMedium!.copyWith(fontSize: 13.sp),
+                  ),
+                ),
+              ),
+              SizedBox(width: 8.w),
+              SizedBox(
+                height: 36.h,
+                width: 80.w,
+                child: OutlinedButton(
+                  onPressed: () {
+                    final cubit = context.read<AcademicYearCubit>();
+                    onDeleteAcademicYear(context, academicYear, cubit);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.red,
+                    side: const BorderSide(color: AppColors.red, width: 1),
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size(70.w, 32.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
+                  child: CustomText(
+                    title: 'delete'.tr(),
+                    textStyle: Theme.of(
+                      context,
+                    ).textTheme.titleMedium!.copyWith(
+                          fontSize: 13.sp,
+                          color: AppColors.red,
+                        ),
                   ),
                 ),
               ),

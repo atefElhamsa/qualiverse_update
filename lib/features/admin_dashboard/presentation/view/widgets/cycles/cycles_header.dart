@@ -24,10 +24,15 @@ class CyclesHeader extends StatelessWidget {
           Expanded(
             child: CustomText(title: 'year'.tr(), textStyle: headerStyle),
           ),
-          CustomText(
-            title: 'action'.tr(),
-            textAlign: TextAlign.center,
-            textStyle: headerStyle,
+          SizedBox(
+            width: 168.w,
+            child: Center(
+              child: CustomText(
+                title: 'action'.tr(),
+                textAlign: TextAlign.center,
+                textStyle: headerStyle,
+              ),
+            ),
           ),
         ],
       ),

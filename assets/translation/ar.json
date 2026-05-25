@@ -634,5 +634,8 @@
     "selectVirtualLabs": "اختر المختبرات الافتراضية",
     "changeFile": "تغيير الملف",
     "downloadPDF": "تحميل PDF",
-    "downloadWord": "تحميل Word"
+    "downloadWord": "تحميل Word",
+    "deleteAcademicYearConfirm": "هل أنت متأكد من رغبتك في حذف العام الدراسي \"{}\"؟",
+    "typeDeleteToConfirm": "يرجى كتابة كلمة \"delete\" لتفعيل زر الحذف.",
+    "deleteAcademicYear": "حذف العام الدراسي"
 }

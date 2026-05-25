@@ -78,6 +78,24 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
     }
   }
 
+  Future<void> deleteAcademicYear({required int id}) async {
+    emit(AcademicYearLoading());
+    try {
+      final response = await AcademicYearServices.deleteAcademicYear(id: id);
+      emit(AcademicYearDeleted(message: response.data!));
+      await fetchAcademicYears();
+    } catch (e) {
+      final msg = e.toString().replaceFirst('Exception: ', '').trim();
+      emit(AcademicYearDeleteError(message: msg));
+      emit(
+        AcademicYearSuccess(
+          academicYears: academicYears,
+          selectedAcademicYear: selectedAcademicYear,
+        ),
+      );
+    }
+  }
+
   void reset() {
     academicYears = [];
     selectedAcademicYear = null;

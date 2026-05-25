@@ -634,5 +634,8 @@
     "selectVirtualLabs": "Select Virtual Labs",
     "changeFile": "Change File",
     "downloadPDF": "Download PDF",
-    "downloadWord": "Download Word"
+    "downloadWord": "Download Word",
+    "deleteAcademicYearConfirm": "Are you sure you want to delete academic year \"{}\"?",
+    "typeDeleteToConfirm": "Please type \"delete\" to enable the delete button.",
+    "deleteAcademicYear": "Delete Academic Year"
 }

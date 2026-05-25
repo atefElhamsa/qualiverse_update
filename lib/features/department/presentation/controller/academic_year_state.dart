@@ -26,3 +26,15 @@ final class AcademicYearAddedError extends AcademicYearState {
 
   AcademicYearAddedError({required this.message});
 }
+
+final class AcademicYearDeleted extends AcademicYearState {
+  final String message;
+
+  AcademicYearDeleted({required this.message});
+}
+
+final class AcademicYearDeleteError extends AcademicYearState {
+  final String message;
+
+  AcademicYearDeleteError({required this.message});
+}

@@ -14,6 +14,12 @@ class CyclesListItems extends StatelessWidget {
         if (state is AcademicYearAddedError) {
           showSnackBar(context, state.message, AppColors.red);
         }
+        if (state is AcademicYearDeleted) {
+          showSnackBar(context, state.message, AppColors.green);
+        }
+        if (state is AcademicYearDeleteError) {
+          showSnackBar(context, state.message, AppColors.red);
+        }
       },
       builder: (context, state) {
         if (state is AcademicYearLoading) {

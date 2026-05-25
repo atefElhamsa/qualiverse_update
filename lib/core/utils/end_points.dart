@@ -43,6 +43,8 @@ class EndPoints {
 
   static const String uploadFiles = "CourseDescriptionGenerations/upload-files";
 
+  static String deleteAcademicYear(int id) => "AcademicYear/$id";
+
   static String confirmFiles(String id) =>
       "CourseDescriptionGenerations/$id/confirm-files";
 

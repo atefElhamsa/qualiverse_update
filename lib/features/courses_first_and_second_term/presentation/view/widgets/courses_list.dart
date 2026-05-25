@@ -21,9 +21,7 @@ class CoursesList extends StatelessWidget {
                 yearId: AcademicYearCubit.get(context).selectedAcademicYear!.id,
                 levelId: level.id,
                 semesterId: TermCubit.get(context).selectedTerm!.id,
-                departmentId: level.levelNumber <= 2
-                    ? null
-                    : DepartmentCubit.get(context).selectedDepartment?.id,
+                departmentId: DepartmentCubit.get(context).selectedDepartment?.id,
               );
             },
           );
