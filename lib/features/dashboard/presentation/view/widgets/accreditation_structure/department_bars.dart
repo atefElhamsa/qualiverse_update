@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/dashboard/data/models/department_data_model.dart';
 
@@ -74,32 +73,18 @@ class DepartmentBarState extends State<DepartmentBar> {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 700),
                 curve: Curves.easeOutCubic,
-                width: 115.w,
+                width: 45.w,
                 height: animated ? displayHeight : 0,
                 decoration: BoxDecoration(
                   color: widget.item.value == 0
                       ? AppColors.textGrey.withOpacity(0.1)
                       : AppColors.evidenceColorSlide,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(3.r),
-                    topRight: Radius.circular(3.r),
+                    topLeft: Radius.circular(6.r),
+                    topRight: Radius.circular(6.r),
                   ),
                 ),
               ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          // Label below
-          CustomText(
-            title: widget.item.label,
-            textAlign: TextAlign.center,
-            textStyle: GoogleFonts.inter(
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w600,
-              color:
-                  Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                  ? AppColors.textGrey
-                  : AppColors.white.withOpacity(0.75),
             ),
           ),
         ],

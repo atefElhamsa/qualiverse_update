@@ -18,7 +18,9 @@ class EvidencePerCriterionView extends StatelessWidget {
           return const SizedBox.shrink();
         }
         final data = state.data;
-        final maxValue = data.isEmpty ? 1.0 : data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
+        final maxValue = data.isEmpty
+            ? 1.0
+            : data.map((d) => d.value).reduce((a, b) => a > b ? a : b);
         final displayMaxValue = maxValue == 0 ? 1.0 : maxValue;
         return Container(
           width: double.infinity,

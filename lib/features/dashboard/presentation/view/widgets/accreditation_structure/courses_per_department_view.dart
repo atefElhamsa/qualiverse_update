@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_cubit.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/courses_per_department/courses_per_department_state.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
@@ -63,20 +64,51 @@ class CoursesPerDepartmentView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  // Bars
+                  // Bars and Labels
                   Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: data.isEmpty
-                          ? List.generate(5, (i) => _buildSkeletonBar(context))
-                          : List.generate(data.length, (i) {
-                              return DepartmentBar(
-                                item: data[i],
-                                maxValue: displayMaxValue,
-                                maxHeight: 180.h,
-                                delay: Duration(milliseconds: i * 100),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Bars Row
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: data.isEmpty
+                              ? List.generate(5, (i) => _buildSkeletonBar(context))
+                              : List.generate(data.length, (i) {
+                                  return DepartmentBar(
+                                    item: data[i],
+                                    maxValue: displayMaxValue,
+                                    maxHeight: 180.h,
+                                    delay: Duration(milliseconds: i * 100),
+                                  );
+                                }),
+                        ),
+                        if (data.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          // Labels Row
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(data.length, (i) {
+                              return Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                                  child: CustomText(
+                                    title: data[i].label,
+                                    textAlign: TextAlign.center,
+                                    textStyle: GoogleFonts.inter(
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                                          ? AppColors.textGrey
+                                          : AppColors.white.withOpacity(0.75),
+                                    ),
+                                  ),
+                                ),
                               );
                             }),
+                          ),
+                        ],
+                      ],
                     ),
                   ),
                 ],

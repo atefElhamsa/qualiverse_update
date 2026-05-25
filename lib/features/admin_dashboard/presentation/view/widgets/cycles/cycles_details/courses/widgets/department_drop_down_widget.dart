@@ -64,7 +64,13 @@ class _CoursesDepartmentDropDownWidgetState
 
               final departments = state.departments;
 
-              final isValid = departments.any(
+              final List<DepartmentModel> dropdownItems = [];
+              if (isLevel1Or2) {
+                dropdownItems.add(DepartmentModel(id: -1, code: '', name: 'noSelect'.tr()));
+              }
+              dropdownItems.addAll(departments);
+
+              final isValid = dropdownItems.any(
                 (e) => e.id == state.selectedDepartment?.id,
               );
               final selectedValue =
@@ -72,12 +78,12 @@ class _CoursesDepartmentDropDownWidgetState
                   (widget.useCubitSelection && isValid
                       ? state.selectedDepartment?.id
                       : null);
-              final selectedItem = departments
+              final selectedItem = dropdownItems
                   .where((d) => d.id == selectedValue)
-                  .firstOrNull;
+                  .firstOrNull ?? (isLevel1Or2 ? dropdownItems.first : null);
 
               return CustomBaseDropDown<DepartmentModel>(
-                items: departments,
+                items: dropdownItems,
                 itemLabelBuilder: (d) => d.name,
                 itemValueBuilder: (d) => d.id,
                 value: selectedItem,
@@ -86,6 +92,7 @@ class _CoursesDepartmentDropDownWidgetState
                 isExpanded: widget.isExpanded,
                 isDisabled: isDisabled,
                 isItemDisabled: (item) {
+                  if (item.id == -1) return false;
                   if (!isLevel1Or2) return false;
                   final lower = item.name.toLowerCase();
                   final isDataAnalysis =
@@ -95,6 +102,13 @@ class _CoursesDepartmentDropDownWidgetState
                 },
                 onChanged: (value) {
                   if (value == null) return;
+                  if (value == -1) {
+                    DepartmentCubit.get(context).selectDepartment(department: null);
+                    if (widget.onChanged != null) {
+                      widget.onChanged!(-1);
+                    }
+                    return;
+                  }
                   if (widget.onChanged != null) {
                     widget.onChanged!(value as int);
                     return;

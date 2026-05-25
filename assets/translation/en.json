@@ -637,5 +637,7 @@
     "downloadWord": "Download Word",
     "deleteAcademicYearConfirm": "Are you sure you want to delete academic year \"{}\"?",
     "typeDeleteToConfirm": "Please type \"delete\" to enable the delete button.",
-    "deleteAcademicYear": "Delete Academic Year"
+    "deleteAcademicYear": "Delete Academic Year",
+    "noAcademicYears": "No academic years found. Please add an academic year first.",
+    "noYears": "No years available"
 }

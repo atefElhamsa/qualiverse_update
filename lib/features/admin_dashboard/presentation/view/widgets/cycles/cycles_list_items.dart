@@ -36,8 +36,8 @@ class CyclesListItems extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.all(24),
                   child: CustomText(
-                    title: 'noDataFound'.tr(),
-                    textStyle: const TextStyle(color: AppColors.grey),
+                    title: 'noAcademicYears'.tr(),
+                    textStyle: const TextStyle(color: AppColors.black),
                   ),
                 )
               : Column(

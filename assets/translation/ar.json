@@ -637,5 +637,7 @@
     "downloadWord": "تحميل Word",
     "deleteAcademicYearConfirm": "هل أنت متأكد من رغبتك في حذف العام الدراسي \"{}\"؟",
     "typeDeleteToConfirm": "يرجى كتابة كلمة \"delete\" لتفعيل زر الحذف.",
-    "deleteAcademicYear": "حذف العام الدراسي"
+    "deleteAcademicYear": "حذف العام الدراسي",
+    "noAcademicYears": "لا توجد سنوات دراسية مضافة. يرجى إضافة عام دراسي أولاً.",
+    "noYears": "لا توجد سنوات"
 }

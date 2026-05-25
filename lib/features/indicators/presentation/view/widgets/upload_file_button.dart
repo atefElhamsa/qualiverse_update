@@ -19,7 +19,8 @@ class UploadFileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<IndicatorsCubit, IndicatorsState>(
       builder: (context, state) {
-        final isLoading = state is IndicatorUploadLoading &&
+        final isLoading =
+            state is IndicatorUploadLoading &&
             state.indicatorId == indicatorModel.id;
         return SizedBox(
           width: 128,

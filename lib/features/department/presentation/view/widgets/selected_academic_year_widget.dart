@@ -35,7 +35,9 @@ class SelectedAcademicYearWidget extends StatelessWidget {
             dropButtonModel: DropButtonModel(
               selectedData: selectedYearNumber,
               listOfData: yearNumbers,
-              hintText: "selectedYear".tr(),
+              hintText: state.academicYears.isEmpty
+                  ? "noYears".tr()
+                  : "selectedYear".tr(),
               hintSize: 20.sp,
               onChanged: (value) {
                 if (value == null) return;

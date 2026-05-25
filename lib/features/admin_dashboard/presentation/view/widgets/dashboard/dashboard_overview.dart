@@ -45,6 +45,23 @@ class _DashboardOverviewState extends State<DashboardOverview> {
 
   @override
   Widget build(BuildContext context) {
+    final yearCubit = context.watch<AcademicYearCubit>();
+    if (yearCubit.selectedAcademicYear == null) {
+      return SizedBox(
+        height: 500.h,
+        child: Center(
+          child: CustomText(
+            title: 'noAcademicYears'.tr(),
+            textStyle: TextStyle(
+              fontSize: 18.sp,
+              color: AppColors.textGrey,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+
     return BlocListener<AcademicYearCubit, AcademicYearState>(
       listener: (context, state) {
         if (state is AcademicYearSuccess &&

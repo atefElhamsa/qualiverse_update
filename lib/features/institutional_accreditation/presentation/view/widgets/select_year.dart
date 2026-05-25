@@ -35,7 +35,9 @@ class SelectYear extends StatelessWidget {
             dropButtonModel: DropButtonModel(
               selectedData: selectedYearNumber,
               listOfData: yearNumbers,
-              hintText: "selectedYear".tr(),
+              hintText: state.academicYears.isEmpty
+                  ? "noYears".tr()
+                  : "selectedYear".tr(),
               hintSize: 20.sp,
               onChanged: (value) {
                 if (value == null) return;
@@ -48,11 +50,14 @@ class SelectYear extends StatelessWidget {
 
                 final typeState = context.read<TypesCubit>().state;
                 final typeId = (typeState is TypesSuccess)
-                    ? typeState.types.firstWhere((t) => t.name.contains("Institutional")).id
+                    ? typeState.types
+                          .firstWhere((t) => t.name.contains("Institutional"))
+                          .id
                     : null;
-                
+
                 final meState = context.read<MeCubit>().state;
-                final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+                final isAdmin =
+                    meState is MeSuccess && meState.meModel.role == 'admin';
 
                 context
                     .read<InstitutionalAccreditationCubit>()
@@ -61,9 +66,7 @@ class SelectYear extends StatelessWidget {
                       accreditationTypeId: typeId,
                       isAdmin: isAdmin,
                     );
-                context
-                        .read<InstitutionalAccreditationCubit>()
-                        .selectedYearId =
+                context.read<InstitutionalAccreditationCubit>().selectedYearId =
                     selectedModel.id;
               },
             ),

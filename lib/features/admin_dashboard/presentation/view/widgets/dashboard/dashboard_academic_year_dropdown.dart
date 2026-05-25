@@ -54,7 +54,7 @@ class DashboardAcademicYearDropdown extends StatelessWidget {
               child: DropdownButton<int>(
                 value: selectedYearNumber,
                 hint: Text(
-                  "selectedYear".tr(),
+                  state.academicYears.isEmpty ? "noYears".tr() : "selectedYear".tr(),
                   style: TextStyle(fontSize: 15.sp, color: AppColors.textGrey),
                 ),
                 isExpanded: true,
