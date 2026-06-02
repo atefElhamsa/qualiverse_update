@@ -60,7 +60,10 @@ class CustomDropButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(15.r),
-                border: Border.all(color: Colors.grey.withOpacity(0.2), width: 1),
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.2),
+                  width: 1,
+                ),
               ),
             ),
             iconStyleData: IconStyleData(

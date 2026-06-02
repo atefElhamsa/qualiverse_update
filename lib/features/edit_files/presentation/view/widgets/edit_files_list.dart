@@ -12,7 +12,7 @@ class EditFilesList extends StatelessWidget {
     return BlocBuilder<CourseFolderCubit, CourseFolderState>(
       builder: (context, state) {
         if (state is CourseFolderLoading) {
-          return const CustomLoading();
+          return const EditFilesShimmer();
         }
         if (state is CourseFolderError) {
           return RetryWidget(
@@ -51,9 +51,7 @@ class EditFilesList extends StatelessWidget {
                         width: itemWidth,
                         child: GestureDetector(
                           onTap: () {
-                            CourseFolderCubit.get(
-                              context,
-                            ).selectCourseFolder(
+                            CourseFolderCubit.get(context).selectCourseFolder(
                               courseFolder: courseFolders[index],
                             );
                             showDialog(

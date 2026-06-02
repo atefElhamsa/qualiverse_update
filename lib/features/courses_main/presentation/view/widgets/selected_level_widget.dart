@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:qualiverse/core/shared_widgets/dropdown_shimmer.dart';
 import '../../../../../routing/all_routes_imports.dart';
 
 class SelectedLevelWidget extends StatelessWidget {
@@ -13,7 +13,7 @@ class SelectedLevelWidget extends StatelessWidget {
     return BlocBuilder<LevelCubit, LevelState>(
       builder: (context, state) {
         if (state is LevelLoading) {
-          return const CustomLoading();
+          return const DropdownShimmer();
         }
         if (state is LevelError) {
           return RetryWidget(

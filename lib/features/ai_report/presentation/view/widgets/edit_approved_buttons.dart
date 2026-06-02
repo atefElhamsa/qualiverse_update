@@ -25,7 +25,7 @@ class EditApprovedButtons extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: onApprovedPressed ??
-                () => context.push(AppRoutes.aiDescriptionResultScreen),
+                () => context.push(AppRoutes.aiReportResultScreen),
             child: Container(
               height: 50.h,
               padding: EdgeInsets.symmetric(horizontal: 24.w),

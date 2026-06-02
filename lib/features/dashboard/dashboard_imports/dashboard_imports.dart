@@ -29,6 +29,7 @@ export 'package:qualiverse/features/dashboard/presentation/view/widgets/accredit
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/three_containers_right_accreditation_structure.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_body.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_scaffold.dart';
+export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_shimmer.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_tabs.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/dashboard_top_and_title.dart';
 export 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/custom_filter_dropdown.dart';

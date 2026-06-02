@@ -91,4 +91,7 @@ class AppRoutes {
 
   // Route for the AI description result preview
   static const String aiDescriptionResultScreen = '/ai_description_result';
+
+  // Route for the AI report result preview
+  static const String aiReportResultScreen = '/ai_report_result';
 }

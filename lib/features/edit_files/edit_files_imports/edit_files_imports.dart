@@ -21,6 +21,7 @@ export 'package:qualiverse/features/edit_files/presentation/view/widgets/delete_
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_delete_download_list.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_body.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_list.dart';
+export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_shimmer.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_new_button.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top.dart';
 export 'package:qualiverse/features/edit_files/presentation/view/widgets/edit_files_top_and_title.dart';

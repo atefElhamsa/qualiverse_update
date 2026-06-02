@@ -1,10 +1,12 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
+import 'package:qualiverse/routing/app_routes.dart';
 
 class AiReportBody extends StatefulWidget {
   const AiReportBody({super.key});
@@ -42,8 +44,10 @@ class _AiReportBodyState extends State<AiReportBody> {
     );
     if (result != null && result.files.single.path != null) {
       setState(() {
+        if (uploadedFilesReport[index] == null) {
+          countUploadedFileDone++;
+        }
         uploadedFilesReport[index] = File(result.files.single.path!);
-        countUploadedFileDone++;
       });
     }
   }
@@ -66,38 +70,119 @@ class _AiReportBodyState extends State<AiReportBody> {
       ),
       FileItemModel(
         titleFile: "stampFile",
-        aboutFile: "basicSentence".tr(),
+        aboutFile: "",
         onTap: () => pickFile(2),
         file: uploadedFilesReport[2],
       ),
     ];
     return CustomScaffold(
       widget: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const AiReportTop(),
-          CustomText(
-            title: "youMustUploadThreeFilesInPdfWordTypeOnly".tr(),
-            textStyle: Theme.of(context).textTheme.labelSmall!,
+          _buildWarningMessage(context),
+          SizedBox(height: 12.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 45.w),
+            child: ListFileItemWidget(fileItemModels: fileItemModels),
           ),
-          const SizedBox(height: 10),
-          // Display the list of file items.
-          ListFileItemWidget(fileItemModels: fileItemModels),
-          const SizedBox(height: 20),
-          // Display the number of uploaded files and buttons.
-          // StartEndNumberFileCompleted(
-          //   countUploadedFileDone: countUploadedFileDone,
-          //   maxFiles: maxFiles,
-          // ),
-          const SizedBox(height: 10),
-          // Display the progress bar.
-          LinearProgressWidget(value: progress),
-          // Display the buttons for editing and approving.
-          const SizedBox(height: 10),
-          const EditApprovedButtons(),
-          const SizedBox(height: 10),
+          SizedBox(height: 20.h),
+          _buildBottomActionBar(context),
+          SizedBox(height: 20.h),
         ],
+      ),
+    );
+  }
+
+  Widget _buildWarningMessage(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 45.w),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.red.withOpacity(0.06),
+              blurRadius: 20,
+              offset: const Offset(0, 5),
+            ),
+          ],
+          border: Border.all(color: AppColors.red.withOpacity(0.04)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.info_rounded, color: AppColors.red, size: 20.sp),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Text(
+                "youMustUploadThreeFilesInPdfWordTypeOnly".tr(),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: AppColors.red.withOpacity(0.8),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBottomActionBar(BuildContext context) {
+    final isAr = context.locale.languageCode == 'ar';
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40.w),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                // Completed files status on the left
+                Row(
+                  children: [
+                    CustomText(
+                      title: "$countUploadedFileDone / $maxFiles",
+                      textStyle: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge!.copyWith(fontSize: 24.sp),
+                    ),
+                    const SizedBox(width: 10),
+                    CustomText(
+                      title: isAr ? 'ملفات تم رفعها' : 'files completed',
+                      textStyle: Theme.of(
+                        context,
+                      ).textTheme.headlineLarge!.copyWith(fontSize: 24.sp),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                // Approved button on the right
+                EditApprovedButtons(
+                  onApprovedPressed: () {
+                    context.pushNamed(AppRoutes.aiReportResultScreen);
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 10.h),
+            LinearProgressWidget(value: progress),
+          ],
+        ),
       ),
     );
   }

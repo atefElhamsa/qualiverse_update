@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'widgets/criterions_table_shimmer.dart';
 
 class CriterionsContent extends StatefulWidget {
   const CriterionsContent({super.key});
@@ -101,7 +102,7 @@ class _CriterionsContentState extends State<CriterionsContent> {
             BlocBuilder<CriterionsCubit, CriterionsState>(
               builder: (context, state) {
                 if (state is CriterionsLoading) {
-                  return const Center(child: CustomLoading());
+                  return const CriterionsTableShimmer();
                 }
 
                 if (state is CriterionsError) {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../../routing/all_routes_imports.dart';
+import 'courses_table_shimmer.dart';
 
 class CoursesTableBuilderWidget extends StatefulWidget {
   final String searchQuery;
@@ -99,10 +100,7 @@ class LoadingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(32),
-      child: Center(child: CustomLoading()),
-    );
+    return const CoursesTableShimmer();
   }
 }
 

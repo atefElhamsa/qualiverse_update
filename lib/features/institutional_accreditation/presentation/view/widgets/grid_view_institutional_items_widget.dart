@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 
+import 'institutional_accreditation_shimmer.dart';
+
 class GridViewInstitutionalItemsWidget extends StatelessWidget {
   const GridViewInstitutionalItemsWidget({super.key});
 
@@ -17,7 +19,7 @@ class GridViewInstitutionalItemsWidget extends StatelessWidget {
     >(
       builder: (context, state) {
         if (state is InstitutionalAccreditationLoading) {
-          return const CustomLoading();
+          return const InstitutionalAccreditationShimmer();
         }
         if (state is InstitutionalAccreditationError) {
           return RetryWidget(
@@ -46,7 +48,8 @@ class GridViewInstitutionalItemsWidget extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return ItemWidget(
-                itemModel: institutionalItems[index % institutionalItems.length],
+                itemModel:
+                    institutionalItems[index % institutionalItems.length],
                 accreditationModel: accreditations[index],
                 onTap: () {
                   context

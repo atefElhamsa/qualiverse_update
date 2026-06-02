@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../../routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'indicators_table_shimmer.dart';
 
 class IndicatorsTable extends StatefulWidget {
   const IndicatorsTable({super.key});
@@ -60,7 +61,7 @@ class _IndicatorsTableState extends State<IndicatorsTable> {
       child: BlocBuilder<CycleIndicatorCubit, CycleIndicatorState>(
         builder: (context, state) {
           if (state is CycleIndicatorLoading) {
-            return const CustomLoading();
+            return const IndicatorsTableShimmer();
           }
           if (state is CycleIndicatorError) {
             return RetryWidget(title: state.error, onPressed: fetchIfReady);

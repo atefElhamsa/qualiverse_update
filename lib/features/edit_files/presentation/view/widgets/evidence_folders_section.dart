@@ -25,13 +25,34 @@ class EvidenceFoldersSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EvidenceFolderCubit, EvidenceFolderState>(
       builder: (context, state) {
+        if (state is EvidenceFolderLoading) {
+          return const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [EditFilesShimmer(itemCount: 3), SizedBox(height: 20)],
+          );
+        }
         if (state is EvidenceFolderSuccess) {
           final List<EvidenceFolderModel> allApiFolders = state.evidenceFolders;
-          
+
           // FIND REAL FOLDERS BY NAME
-          final statsFolder = _findFolder(allApiFolders, ['Statistics', 'إحصائيات', 'الإحصائيات', 'إحصائية']);
-          final surveyFolder = _findFolder(allApiFolders, ['Survey', 'Surveys', 'استبيان', 'استبيانات', 'الاستبيانات']);
-          final docAnalysisFolder = _findFolder(allApiFolders, ['Documentary Analysis', 'التحليل الوثائقي', 'تحليل وثائقي']);
+          final statsFolder = _findFolder(allApiFolders, [
+            'Statistics',
+            'إحصائيات',
+            'الإحصائيات',
+            'إحصائية',
+          ]);
+          final surveyFolder = _findFolder(allApiFolders, [
+            'Survey',
+            'Surveys',
+            'استبيان',
+            'استبيانات',
+            'الاستبيانات',
+          ]);
+          final docAnalysisFolder = _findFolder(allApiFolders, [
+            'Documentary Analysis',
+            'التحليل الوثائقي',
+            'تحليل وثائقي',
+          ]);
 
           final List<EvidenceFolderModel> orderedFolders = [];
           if (statsFolder != null) orderedFolders.add(statsFolder);
@@ -39,11 +60,14 @@ class EvidenceFoldersSection extends StatelessWidget {
           if (docAnalysisFolder != null) orderedFolders.add(docAnalysisFolder);
 
           // ADD REST OF FOLDERS
-          orderedFolders.addAll(allApiFolders.where((f) => 
-            f.id != statsFolder?.id && 
-            f.id != surveyFolder?.id && 
-            f.id != docAnalysisFolder?.id
-          ));
+          orderedFolders.addAll(
+            allApiFolders.where(
+              (f) =>
+                  f.id != statsFolder?.id &&
+                  f.id != surveyFolder?.id &&
+                  f.id != docAnalysisFolder?.id,
+            ),
+          );
 
           if (orderedFolders.isEmpty) return const SizedBox.shrink();
 
@@ -62,7 +86,9 @@ class EvidenceFoldersSection extends StatelessWidget {
                           folder: folder,
                           itemWidth: itemWidth,
                           isStatistics: folder.id == statsFolder?.id,
-                          isGeneral: (folder.id == surveyFolder?.id || folder.id == docAnalysisFolder?.id),
+                          isGeneral:
+                              (folder.id == surveyFolder?.id ||
+                              folder.id == docAnalysisFolder?.id),
                           departmentId: departmentId,
                           yearId: yearId,
                           termId: termId,
@@ -83,7 +109,10 @@ class EvidenceFoldersSection extends StatelessWidget {
     );
   }
 
-  EvidenceFolderModel? _findFolder(List<EvidenceFolderModel> list, List<String> names) {
+  EvidenceFolderModel? _findFolder(
+    List<EvidenceFolderModel> list,
+    List<String> names,
+  ) {
     try {
       return list.firstWhere((f) => names.contains(f.name.trim()));
     } catch (_) {
@@ -160,23 +189,23 @@ class _FolderGridItemState extends State<_FolderGridItem> {
                               courseId: widget.courseId,
                             )
                           : widget.isGeneral
-                              ? EvidenceFileGeneralScreen(
-                                  folderId: widget.folder.id,
-                                  folderName: widget.folder.name,
-                                  departmentId: widget.departmentId,
-                                  academicYearId: widget.yearId,
-                                  termId: widget.termId,
-                                  levelId: widget.levelId,
-                                  courseId: widget.courseId,
-                                )
-                              : EvidenceFolderFilesScreen(
-                                  folderName: widget.folder.name,
-                                  folderId: widget.folder.id,
-                                  departmentId: widget.departmentId,
-                                  academicYearId: widget.yearId,
-                                  termId: widget.termId,
-                                  levelId: widget.levelId,
-                                ),
+                          ? EvidenceFileGeneralScreen(
+                              folderId: widget.folder.id,
+                              folderName: widget.folder.name,
+                              departmentId: widget.departmentId,
+                              academicYearId: widget.yearId,
+                              termId: widget.termId,
+                              levelId: widget.levelId,
+                              courseId: widget.courseId,
+                            )
+                          : EvidenceFolderFilesScreen(
+                              folderName: widget.folder.name,
+                              folderId: widget.folder.id,
+                              departmentId: widget.departmentId,
+                              academicYearId: widget.yearId,
+                              termId: widget.termId,
+                              levelId: widget.levelId,
+                            ),
                     ),
                   ),
                 ),
@@ -189,17 +218,20 @@ class _FolderGridItemState extends State<_FolderGridItem> {
             cursor: SystemMouseCursors.click,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: EdgeInsets.symmetric(
-                horizontal: 14.w,
-                vertical: 12.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
               constraints: BoxConstraints(minHeight: 56.h),
               decoration: BoxDecoration(
                 color: _isHovered ? const Color(0xFFF1F5F9) : AppColors.grey,
                 borderRadius: BorderRadius.circular(25.r),
-                boxShadow: _isHovered 
-                  ? [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))]
-                  : [],
+                boxShadow: _isHovered
+                    ? [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : [],
               ),
               child: Row(
                 children: [
@@ -209,16 +241,25 @@ class _FolderGridItemState extends State<_FolderGridItem> {
                     height: 38.h,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: _isHovered 
-                          ? [const Color(0xFF0F569E), const Color(0xFF4285F4)]
-                          : [AppColors.itemContainerColorEdit1, AppColors.itemContainerColorEdit2],
+                        colors: _isHovered
+                            ? [const Color(0xFF0F569E), const Color(0xFF4285F4)]
+                            : [
+                                AppColors.itemContainerColorEdit1,
+                                AppColors.itemContainerColorEdit2,
+                              ],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),
                       borderRadius: BorderRadius.circular(8.r),
                       boxShadow: _isHovered
-                        ? [BoxShadow(color: const Color(0xFF4285F4).withOpacity(0.3), blurRadius: 5, offset: const Offset(0, 2))]
-                        : [],
+                          ? [
+                              BoxShadow(
+                                color: const Color(0xFF4285F4).withOpacity(0.3),
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ]
+                          : [],
                     ),
                     child: Center(
                       child: Icon(
@@ -235,7 +276,9 @@ class _FolderGridItemState extends State<_FolderGridItem> {
                       style: GoogleFonts.almarai(
                         fontSize: 13.sp,
                         fontWeight: FontWeight.w600,
-                        color: _isHovered ? const Color(0xFF0F569E) : AppColors.mainBlack,
+                        color: _isHovered
+                            ? const Color(0xFF0F569E)
+                            : AppColors.mainBlack,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

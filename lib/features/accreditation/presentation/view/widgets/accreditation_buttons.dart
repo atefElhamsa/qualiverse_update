@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qualiverse/features/accreditation/presentation/view/widgets/accreditation_buttons_shimmer.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AccreditationBottomBody extends StatelessWidget {
@@ -10,7 +11,7 @@ class AccreditationBottomBody extends StatelessWidget {
     return BlocBuilder<TypesCubit, TypesState>(
       builder: (context, state) {
         if (state is TypesLoading) {
-          return const CustomLoading();
+          return const AccreditationButtonsShimmer();
         }
         if (state is TypesError) {
           return RetryWidget(

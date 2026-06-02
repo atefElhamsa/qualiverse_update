@@ -639,5 +639,19 @@
     "typeDeleteToConfirm": "يرجى كتابة كلمة \"delete\" لتفعيل زر الحذف.",
     "deleteAcademicYear": "حذف العام الدراسي",
     "noAcademicYears": "لا توجد سنوات دراسية مضافة. يرجى إضافة عام دراسي أولاً.",
-    "noYears": "لا توجد سنوات"
+    "noYears": "لا توجد سنوات",
+    "creditHours": "عدد الساعات المعتمدة",
+    "enterCreditHours": "أدخل الساعات المعتمدة",
+    "weeksCount": "عدد الأسابيع",
+    "enterWeeksCount": "أدخل عدد الأسابيع",
+    "theoreticalHours": "الساعات النظرية",
+    "enterTheoreticalHours": "أدخل الساعات النظرية",
+    "practicalHours": "الساعات العملية",
+    "enterPracticalHours": "أدخل الساعات العملية",
+    "fieldHours": "الساعات الميدانية",
+    "enterFieldHours": "أدخل الساعات الميدانية",
+    "selfLearningHours": "ساعات التعلم الذاتي",
+    "enterSelfLearningHours": "أدخل ساعات التعلم الذاتي",
+    "otherHours": "ساعات أخرى",
+    "enterOtherHours": "أدخل ساعات أخرى"
 }

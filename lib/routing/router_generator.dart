@@ -27,6 +27,7 @@ class RouterGenerator {
       ScreensRoutes.coursesMainRoute(),
       ScreensRoutes.aiMainRoute(),
       ScreensRoutes.aiReportRoute(),
+      ScreensRoutes.aiReportResultRoute(),
       ScreensRoutes.aiDescriptionRoute(),
       ScreensRoutes.aiCourseSelectionRoute(),
       ScreensRoutes.aiDescriptionResultRoute(),

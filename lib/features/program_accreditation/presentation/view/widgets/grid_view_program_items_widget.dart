@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'program_accreditation_shimmer.dart';
 
 class GridViewProgramItemsWidget extends StatelessWidget {
   const GridViewProgramItemsWidget({super.key});
@@ -13,7 +14,7 @@ class GridViewProgramItemsWidget extends StatelessWidget {
     return BlocBuilder<ProgramAccreditationCubit, ProgramAccreditationState>(
       builder: (context, state) {
         if (state is ProgramAccreditationLoading) {
-          return const CustomLoading();
+          return const ProgramAccreditationShimmer();
         }
         if (state is ProgramAccreditationError) {
           return RetryWidget(

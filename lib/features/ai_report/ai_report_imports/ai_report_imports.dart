@@ -9,3 +9,15 @@ export 'package:qualiverse/features/ai_report/presentation/view/widgets/file_ite
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/linear_progress.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/list_file_item_widget.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/start_end_number_file_completed.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/ai_report_result_screen.dart';
+export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_cubit.dart';
+export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_state.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_basic_info_step.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_credit_hours_step.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_instructors_step.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_topics_step.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_assessments_step.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_exam_card.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_steps_content.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_navigation_row.dart';
+export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_initial_helper.dart';

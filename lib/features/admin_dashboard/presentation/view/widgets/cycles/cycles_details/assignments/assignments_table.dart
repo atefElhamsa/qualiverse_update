@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'assignments_table_shimmer.dart';
 
 class AssignmentsTable extends StatelessWidget {
   const AssignmentsTable({super.key});
@@ -11,7 +12,7 @@ class AssignmentsTable extends StatelessWidget {
     return BlocBuilder<AssignmentsCubit, AssignmentsState>(
       builder: (context, state) {
         if (state is AssignmentsLoading || state is AssignmentsInitial) {
-          return const Center(child: CustomLoading());
+          return const AssignmentsTableShimmer();
         }
         if (state is AssignmentsError) {
           return Center(

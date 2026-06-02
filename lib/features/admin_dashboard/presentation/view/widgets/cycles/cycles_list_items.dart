@@ -23,7 +23,7 @@ class CyclesListItems extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AcademicYearLoading) {
-          return const CustomLoading();
+          return const CyclesListShimmer();
         }
         if (state is AcademicYearError) {
           return Center(child: Text(state.message));

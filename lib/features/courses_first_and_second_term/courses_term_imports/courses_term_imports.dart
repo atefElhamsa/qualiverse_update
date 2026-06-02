@@ -9,6 +9,7 @@ export 'package:qualiverse/features/courses_first_and_second_term/presentation/v
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_buttons_report_description_widget.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_first_and_second_term_body.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_list.dart';
+export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/courses_shimmer.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/first_and_second_term_top.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/first_and_second_term_top_and_title.dart';
 export 'package:qualiverse/features/courses_first_and_second_term/presentation/view/widgets/second_term_button.dart';

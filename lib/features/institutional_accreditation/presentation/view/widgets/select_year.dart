@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:qualiverse/core/shared_widgets/custom_shimmer.dart';
 import '../../../../../routing/all_routes_imports.dart';
 
 class SelectYear extends StatelessWidget {
@@ -13,7 +14,11 @@ class SelectYear extends StatelessWidget {
     return BlocBuilder<AcademicYearCubit, AcademicYearState>(
       builder: (context, state) {
         if (state is AcademicYearLoading) {
-          return const CustomLoading();
+          return CustomShimmer.rectangular(
+            height: 55.h,
+            width: 592.w,
+            borderRadius: BorderRadius.circular(15.r),
+          );
         }
         if (state is AcademicYearError) {
           return RetryWidget(

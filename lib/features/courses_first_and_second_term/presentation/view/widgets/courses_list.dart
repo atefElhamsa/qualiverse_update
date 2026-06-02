@@ -10,7 +10,7 @@ class CoursesList extends StatelessWidget {
     return BlocBuilder<CourseCubit, CourseState>(
       builder: (context, state) {
         if (state is CourseLoading) {
-          return const CustomLoading();
+          return const CoursesShimmer();
         }
         if (state is CourseError) {
           return RetryWidget(

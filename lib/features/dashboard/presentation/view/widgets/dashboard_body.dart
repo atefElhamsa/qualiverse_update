@@ -20,7 +20,9 @@ class DashboardBody extends StatelessWidget {
       child: BlocBuilder<DashboardCubit, DashboardState>(
         builder: (context, state) {
           if (state is DashboardLoading) {
-            return const Center(child: CustomLoading());
+            return const DashboardScaffold(
+              widget: DashboardShimmer(),
+            );
           }
           if (state is DashboardFailure) {
             return Center(child: Text(state.errorMessage));

@@ -213,7 +213,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
           builder: (context) {
             if (state is UsersLoading ||
                 state is ActivateDeactivateUserLoading) {
-              return const Center(child: CustomLoading());
+              return const UsersTableShimmer();
             }
             if (state is UsersFailure) {
               return Center(

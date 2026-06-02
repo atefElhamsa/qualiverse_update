@@ -639,5 +639,19 @@
     "typeDeleteToConfirm": "Please type \"delete\" to enable the delete button.",
     "deleteAcademicYear": "Delete Academic Year",
     "noAcademicYears": "No academic years found. Please add an academic year first.",
-    "noYears": "No years available"
+    "noYears": "No years available",
+    "creditHours": "Credit Hours",
+    "enterCreditHours": "Enter credit hours",
+    "weeksCount": "Weeks Count",
+    "enterWeeksCount": "Enter weeks count",
+    "theoreticalHours": "Theoretical Hours",
+    "enterTheoreticalHours": "Enter theoretical hours",
+    "practicalHours": "Practical Hours",
+    "enterPracticalHours": "Enter practical hours",
+    "fieldHours": "Field Hours",
+    "enterFieldHours": "Enter field hours",
+    "selfLearningHours": "Self-Learning Hours",
+    "enterSelfLearningHours": "Enter self-learning hours",
+    "otherHours": "Other Hours",
+    "enterOtherHours": "Enter other hours"
 }

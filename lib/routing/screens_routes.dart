@@ -90,6 +90,18 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute aiReportResultRoute() {
+    return GoRoute(
+      path: AppRoutes.aiReportResultScreen,
+      name: AppRoutes.aiReportResultScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AiReportResultScreen(),
+      ),
+    );
+  }
+
   static GoRoute aiMainRoute() {
     return GoRoute(
       path: AppRoutes.aiMainScreen,

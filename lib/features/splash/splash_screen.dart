@@ -33,13 +33,25 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _initializeApp() async {
-    // 1. فحص التحديث وإظهار بوب أب إجباري إذا كان هناك تحديث
+    if (mounted) {
+      progressController.animateTo(
+        0.50,
+        duration: const Duration(seconds: 4),
+        curve: Curves.easeOutQuad,
+      );
+    }
     await UpdaterService.checkForUpdate(context);
 
-    // 2. الانتظار قليلاً لضمان رؤية الأنميشن
-    await Future.delayed(const Duration(milliseconds: 2500));
+    if (mounted) {
+      await progressController.animateTo(
+        0.65,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeOut,
+      );
+    }
 
-    // 3. الانتقال للصفحة التالية
+    await Future.delayed(const Duration(milliseconds: 500));
+
     if (mounted) {
       navigateToLogin();
     }
@@ -50,6 +62,14 @@ class _SplashScreenState extends State<SplashScreen>
         CashHelper.getData(key: KeysTexts.onboardingShown) == "true";
 
     if (!LoginStorage.hasToken) {
+      if (mounted) {
+        await progressController.animateTo(
+          1.0,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOut,
+        );
+      }
+      if (!mounted) return;
       if (onboardingShown) {
         context.pushReplacementNamed(AppRoutes.loginScreen);
       } else {
@@ -59,11 +79,32 @@ class _SplashScreenState extends State<SplashScreen>
     }
 
     try {
+      if (mounted) {
+        progressController.animateTo(
+          0.90,
+          duration: const Duration(seconds: 8),
+          curve: Curves.easeOutQuad,
+        );
+      }
       await MeService().myInfo();
+      if (mounted) {
+        await progressController.animateTo(
+          1.0,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      }
       if (!mounted) return;
       context.pushReplacementNamed(AppRoutes.homeScreen);
     } catch (e) {
       await LoginStorage.clear();
+      if (mounted) {
+        await progressController.animateTo(
+          1.0,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      }
       if (!mounted) return;
       if (onboardingShown) {
         context.pushReplacementNamed(AppRoutes.loginScreen);
@@ -120,7 +161,13 @@ class _SplashScreenState extends State<SplashScreen>
     textController.forward();
 
     await Future.delayed(const Duration(milliseconds: 400));
-    progressController.forward();
+    if (mounted) {
+      progressController.animateTo(
+        0.25,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
   @override

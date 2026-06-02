@@ -75,10 +75,7 @@ class _DashboardOverviewState extends State<DashboardOverview> {
         builder: (context, state) {
           if (state is DashboardOverviewLoading ||
               state is DashboardOverviewInitial) {
-            return SizedBox(
-              height: 500.h,
-              child: const Center(child: CustomLoading()),
-            );
+            return const AdminDashboardShimmer();
           }
 
           if (state is DashboardOverviewError) {

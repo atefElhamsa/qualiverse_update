@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class ListFileItemWidget extends StatelessWidget {
@@ -12,10 +13,13 @@ class ListFileItemWidget extends StatelessWidget {
     // Create a row of file items.
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(fileItemModels.length, (index) {
-        return FileItemWidget(fileItemModel: fileItemModels[index]);
+      children: List.generate(fileItemModels.length * 2 - 1, (index) {
+        if (index.isOdd) {
+          return SizedBox(width: 24.w);
+        }
+        final itemIndex = index ~/ 2;
+        return FileItemWidget(fileItemModel: fileItemModels[itemIndex]);
       }),
     );
   }
