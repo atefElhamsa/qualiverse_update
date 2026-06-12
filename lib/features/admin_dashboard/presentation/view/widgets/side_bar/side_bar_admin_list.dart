@@ -16,6 +16,7 @@ class SideBarAdminList extends StatelessWidget {
             title: 'dashboard',
             page: AdminPage.dashboard,
             selectedPage: adminDashboardCubit.selectedSidebarItem,
+            icon: Icons.space_dashboard,
             onTap: () {
               adminDashboardCubit.changePage(page: AdminPage.dashboard);
             },
@@ -24,6 +25,7 @@ class SideBarAdminList extends StatelessWidget {
             title: 'users',
             page: AdminPage.users,
             selectedPage: adminDashboardCubit.selectedSidebarItem,
+            icon: Icons.people_outline,
             onTap: () {
               adminDashboardCubit.changePage(page: AdminPage.users);
             },
@@ -32,6 +34,7 @@ class SideBarAdminList extends StatelessWidget {
             title: 'cycles',
             page: AdminPage.cycles,
             selectedPage: adminDashboardCubit.selectedSidebarItem,
+            icon: Icons.folder_shared_outlined,
             onTap: () {
               adminDashboardCubit.changePage(page: AdminPage.cycles);
             },

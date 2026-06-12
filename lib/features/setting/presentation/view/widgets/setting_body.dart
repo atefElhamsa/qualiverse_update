@@ -8,6 +8,7 @@ class SettingBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDrawerVisible = HomeBodyInherited.of(context).isDrawerVisible;
+
     return CustomScaffoldSetting(
       widget: LayoutBuilder(
         builder: (context, constraints) {

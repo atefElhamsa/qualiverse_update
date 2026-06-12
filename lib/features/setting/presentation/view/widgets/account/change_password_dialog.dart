@@ -25,25 +25,49 @@ class ChangePasswordDialog extends StatelessWidget {
       },
       builder: (context, state) {
         final changePasswordCubit = ChangePasswordCubit.get(context);
+        final isLight =
+            Theme.of(context).scaffoldBackgroundColor == AppColors.white;
+
         return AlertDialog(
-          backgroundColor: AppColors.white,
-          actionsPadding: EdgeInsets.all(16.h),
+          backgroundColor: isLight ? AppColors.white : const Color(0xFF1E293B),
+          actionsPadding: EdgeInsets.only(bottom: 24.h, left: 24.w, right: 24.w),
           actionsAlignment: MainAxisAlignment.center,
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(20.r),
           ),
-          title: CustomText(
-            title: 'changePassword'.tr(),
-            textAlign: TextAlign.center,
-            textStyle: GoogleFonts.inter(
-              fontSize: 24.sp,
-              fontWeight: FontWeight.w700,
-              color: AppColors.drColor,
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: EdgeInsets.all(12.r),
+                decoration: BoxDecoration(
+                  color: AppColors.blue.withOpacity(0.08),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.lock_reset_rounded,
+                  color: AppColors.blue,
+                  size: 28.r,
+                ),
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                'changePassword'.tr(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w800,
+                  color: isLight ? AppColors.drColor : AppColors.white,
+                ),
+              ),
+            ],
+          ),
+          content: Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.h),
+            child: ChangePasswordFields(
+              changePasswordCubit: changePasswordCubit,
             ),
-          ),
-          content: ChangePasswordFields(
-            changePasswordCubit: changePasswordCubit,
           ),
           actions: [
             ChangeAndCancelButtons(changePasswordCubit: changePasswordCubit),

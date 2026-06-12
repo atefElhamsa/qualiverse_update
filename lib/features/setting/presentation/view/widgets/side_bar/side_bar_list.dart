@@ -16,6 +16,7 @@ class SideBarList extends StatelessWidget {
             title: 'account1',
             page: SettingsPage.account,
             selectedPage: settingCubit.selectedPage,
+            icon: Icons.manage_accounts_rounded,
             onTap: () {
               settingCubit.changePage(SettingsPage.account);
             },
@@ -24,6 +25,7 @@ class SideBarList extends StatelessWidget {
             title: 'notifications1',
             page: SettingsPage.notifications,
             selectedPage: settingCubit.selectedPage,
+            icon: Icons.notifications_active_rounded,
             onTap: () {
               settingCubit.changePage(SettingsPage.notifications);
             },
@@ -32,6 +34,7 @@ class SideBarList extends StatelessWidget {
             title: 'language1',
             page: SettingsPage.language,
             selectedPage: settingCubit.selectedPage,
+            icon: Icons.language_rounded,
             onTap: () {
               settingCubit.changePage(SettingsPage.language);
             },
@@ -40,6 +43,7 @@ class SideBarList extends StatelessWidget {
             title: 'help1',
             page: SettingsPage.help,
             selectedPage: settingCubit.selectedPage,
+            icon: Icons.help_center_rounded,
             onTap: () {
               settingCubit.changePage(SettingsPage.help);
             },
@@ -47,7 +51,7 @@ class SideBarList extends StatelessWidget {
         ];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 10.h,
+          spacing: 12.h,
           children: List.generate(
             sidesItem.length,
             (index) => SideItem(sideItemModel: sidesItem[index]),

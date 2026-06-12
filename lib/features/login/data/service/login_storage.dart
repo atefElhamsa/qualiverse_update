@@ -1,4 +1,5 @@
 import '../../../../core/all_core_imports/all_core_imports.dart';
+import 'login_interceptor.dart';
 
 class LoginStorage {
   // =============================
@@ -35,6 +36,7 @@ class LoginStorage {
     token = tokenValue;
     refreshToken = refreshTokenValue;
     refreshTokenExpiration = refreshTokenExpirationValue;
+    LoginInterceptor().loggedOut = false;
   }
 
   // =============================

@@ -13,6 +13,15 @@ class SideItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSelected = sideItemModel.isSelected;
+    final isLight = Theme.of(context).scaffoldBackgroundColor == AppColors.white;
+
+    final activeColor = isLight ? AppColors.blue : AppColors.selectedItemColor1;
+    final inactiveColor = isLight ? AppColors.textGrey : AppColors.greyLight;
+    final itemBg = isSelected
+        ? (isLight 
+            ? AppColors.blue.withOpacity(0.08) 
+            : AppColors.selectedItemColor1.withOpacity(0.12))
+        : AppColors.transparent;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -21,44 +30,41 @@ class SideItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           width: double.infinity,
-          height: 50.h,
-          margin: EdgeInsetsDirectional.only(end: 25.w),
+          height: 48.h,
+          margin: EdgeInsets.symmetric(horizontal: 16.w),
           decoration: BoxDecoration(
-            gradient: isSelected
-                ? const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      AppColors.selectedItemColor1,
-                      AppColors.selectedItemColor2,
-                    ],
-                  )
-                : null,
-            borderRadius: BorderRadius.circular(6.r),
+            color: itemBg,
+            borderRadius: BorderRadius.circular(12.r),
           ),
           child: Row(
             children: [
+              // Left Indicator Pill
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                width: 13,
-                height: double.infinity,
-                color: isSelected
-                    ? AppColors.colorButtonLight
-                    : AppColors.transparent,
+                width: 4.w,
+                height: 20.h,
+                decoration: BoxDecoration(
+                  color: isSelected ? activeColor : AppColors.transparent,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
               ),
-
-              const SizedBox(width: 12),
-
-              CustomText(
-                title: sideItemModel.title.tr(),
-                textStyle: GoogleFonts.inter(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w600,
-                  color:
-                      Theme.of(context).scaffoldBackgroundColor ==
-                          AppColors.white
-                      ? AppColors.mainBlack
-                      : AppColors.white,
+              SizedBox(width: 12.w),
+              // Icon
+              Icon(
+                sideItemModel.icon,
+                color: isSelected ? activeColor : inactiveColor,
+                size: 22.r,
+              ),
+              SizedBox(width: 14.w),
+              // Title Text
+              Expanded(
+                child: Text(
+                  sideItemModel.title.tr(),
+                  style: GoogleFonts.inter(
+                    fontSize: 16.sp,
+                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                    color: isSelected ? activeColor : inactiveColor,
+                  ),
                 ),
               ),
             ],
