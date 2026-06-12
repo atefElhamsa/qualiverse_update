@@ -11,9 +11,11 @@ class ApiErrorModel {
 
   factory ApiErrorModel.fromJson(Map<String, dynamic> json) {
     return ApiErrorModel(
-      code: json['code'],
-      description: json['description'],
-      statusCode: json['statusCode'],
+      code: json['code']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      statusCode: json['statusCode'] is int
+          ? json['statusCode'] as int
+          : int.tryParse(json['statusCode']?.toString() ?? '') ?? 0,
     );
   }
 }

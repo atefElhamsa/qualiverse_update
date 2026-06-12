@@ -8,7 +8,7 @@ class AssignmentIndicatorAdminService {
   getAssignmentIndicatorsAdmin({
     required int academicYearId,
     String? doctorId,
-    int? status,
+    String? status,
   }) async {
     try {
       final response = await dio.get(

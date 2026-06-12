@@ -1,4 +1,4 @@
-import '../../../../core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class AssignModel {
   final String? data;

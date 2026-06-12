@@ -308,7 +308,7 @@ class EndPoints {
   static String getAssignmentInidicatorAdmin({
     required int academicYearId,
     String? doctorId,
-    int? status,
+    String? status,
   }) {
     final buffer = StringBuffer("Indicator/assignments?");
     buffer.write("AcademicYearId=$academicYearId");
@@ -329,7 +329,10 @@ class EndPoints {
     return "Indicator/$indicatorId/reject";
   }
 
-  static String getMyAssignments({required int academicYearId, int? status}) {
+  static String getMyAssignments({
+    required int academicYearId,
+    String? status,
+  }) {
     final buffer = StringBuffer("Indicator/assignments/me?");
     buffer.write("academicYearId=$academicYearId");
     if (status != null) {

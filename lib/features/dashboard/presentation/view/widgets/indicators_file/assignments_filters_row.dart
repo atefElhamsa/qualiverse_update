@@ -50,11 +50,16 @@ class AssignmentsFiltersRow extends StatelessWidget {
                       }).toList(),
                       onChanged: (val) {
                         if (val == null) return;
-                        final selectedYear = cubit.academicYears.firstWhere((e) => e.id == val);
+                        final selectedYear = cubit.academicYears.firstWhere(
+                          (e) => e.id == val,
+                        );
                         cubit.selectAcademicYear(academicYear: selectedYear);
                         context.read<AssignmentsUserCubit>().getAssignments(
                           academicYearId: selectedYear.id,
-                          status: context.read<AssignmentStatusCubit>().selectedStatus?.value,
+                          status: context
+                              .read<AssignmentStatusCubit>()
+                              .selectedStatus
+                              ?.value,
                         );
                       },
                     );
@@ -82,16 +87,16 @@ class AssignmentsFiltersRow extends StatelessWidget {
                 BlocBuilder<AssignmentStatusCubit, AssignmentStatusState>(
                   builder: (context, state) {
                     final cubit = context.read<AssignmentStatusCubit>();
-                    return CustomFilterDropdown<int?>(
+                    return CustomFilterDropdown<String?>(
                       hint: 'status'.tr(),
                       value: cubit.selectedStatus?.value,
                       items: [
-                        DropdownMenuItem<int?>(
+                        DropdownMenuItem<String?>(
                           value: null,
                           child: Text('all'.tr()),
                         ),
                         ...cubit.statuses.map((status) {
-                          return DropdownMenuItem<int?>(
+                          return DropdownMenuItem<String?>(
                             value: status.value,
                             child: Text(status.name.toLowerCase().tr()),
                           );
@@ -101,11 +106,16 @@ class AssignmentsFiltersRow extends StatelessWidget {
                         if (val == null) {
                           cubit.resetSelection();
                         } else {
-                          final selectedStatus = cubit.statuses.firstWhere((e) => e.value == val);
+                          final selectedStatus = cubit.statuses.firstWhere(
+                            (e) => e.value == val,
+                          );
                           cubit.selectStatus(selectedStatus);
                         }
-                        
-                        final yearId = context.read<AcademicYearCubit>().selectedAcademicYear?.id;
+
+                        final yearId = context
+                            .read<AcademicYearCubit>()
+                            .selectedAcademicYear
+                            ?.id;
                         if (yearId != null) {
                           context.read<AssignmentsUserCubit>().getAssignments(
                             academicYearId: yearId,

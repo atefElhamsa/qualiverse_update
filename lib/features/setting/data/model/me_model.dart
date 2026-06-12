@@ -46,4 +46,14 @@ class MeModel {
     role: json['role'],
     isActive: json['isActive'],
   );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'email': email,
+    'firstName': firstName,
+    'userName': userName,
+    'lastName': lastName,
+    'role': role,
+    'isActive': isActive,
+  };
 }

@@ -89,6 +89,7 @@ class LoginStorage {
     CashHelper.removeData(key: KeysTexts.token);
     CashHelper.removeData(key: KeysTexts.refreshToken);
     CashHelper.removeData(key: KeysTexts.refreshTokenExpiration);
+    CashHelper.removeData(key: KeysTexts.meModel);
   }
 
   // Returns true if the token will expire in the next `duration` seconds

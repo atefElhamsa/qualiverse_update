@@ -33,24 +33,39 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _initializeApp() async {
+    // Wait for logo and text entry animations to start showing
+    await Future.delayed(const Duration(milliseconds: 800));
+
+    // Start the progress animation from 0.0 to 0.85 smoothly
     if (mounted) {
       progressController.animateTo(
-        0.50,
-        duration: const Duration(seconds: 4),
-        curve: Curves.easeOutQuad,
+        0.85,
+        duration: const Duration(milliseconds: 1800),
+        curve: Curves.easeOutCubic,
       );
     }
-    await UpdaterService.checkForUpdate(context);
+
+    final startTime = DateTime.now();
 
     if (mounted) {
-      await progressController.animateTo(
-        0.65,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeOut,
-      );
+      await UpdaterService.checkForUpdate(context);
     }
 
-    await Future.delayed(const Duration(milliseconds: 500));
+    // Wait at least 1.8 seconds total to ensure the progress animation is smooth
+    final elapsed = DateTime.now().difference(startTime);
+    final remainingDelay = const Duration(milliseconds: 1800) - elapsed;
+    if (remainingDelay > Duration.zero) {
+      await Future.delayed(remainingDelay);
+    }
+
+    // Complete the progress animation to 1.0 smoothly
+    if (mounted) {
+      await progressController.animateTo(
+        1.0,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOutCubic,
+      );
+    }
 
     if (mounted) {
       navigateToLogin();
@@ -62,14 +77,6 @@ class _SplashScreenState extends State<SplashScreen>
         CashHelper.getData(key: KeysTexts.onboardingShown) == "true";
 
     if (!LoginStorage.hasToken) {
-      if (mounted) {
-        await progressController.animateTo(
-          1.0,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeOut,
-        );
-      }
-      if (!mounted) return;
       if (onboardingShown) {
         context.pushReplacementNamed(AppRoutes.loginScreen);
       } else {
@@ -78,40 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
       return;
     }
 
-    try {
-      if (mounted) {
-        progressController.animateTo(
-          0.90,
-          duration: const Duration(seconds: 8),
-          curve: Curves.easeOutQuad,
-        );
-      }
-      await MeService().myInfo();
-      if (mounted) {
-        await progressController.animateTo(
-          1.0,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeOut,
-        );
-      }
-      if (!mounted) return;
-      context.pushReplacementNamed(AppRoutes.homeScreen);
-    } catch (e) {
-      await LoginStorage.clear();
-      if (mounted) {
-        await progressController.animateTo(
-          1.0,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeOut,
-        );
-      }
-      if (!mounted) return;
-      if (onboardingShown) {
-        context.pushReplacementNamed(AppRoutes.loginScreen);
-      } else {
-        context.pushReplacementNamed(AppRoutes.onboardingScreen);
-      }
-    }
+    context.pushReplacementNamed(AppRoutes.homeScreen);
   }
 
   void initAnimations() {
@@ -159,15 +133,6 @@ class _SplashScreenState extends State<SplashScreen>
 
     await Future.delayed(const Duration(milliseconds: 600));
     textController.forward();
-
-    await Future.delayed(const Duration(milliseconds: 400));
-    if (mounted) {
-      progressController.animateTo(
-        0.25,
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.easeOut,
-      );
-    }
   }
 
   @override

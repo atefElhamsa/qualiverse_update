@@ -10,7 +10,7 @@ class AssignmentsUserCubit extends Cubit<AssignmentsUserState> {
 
   Future<void> getAssignments({
     required int academicYearId,
-    int? status,
+    String? status,
   }) async {
     emit(AssignmentsUserLoading());
     try {

@@ -7,7 +7,7 @@ class AssignmentsUserService {
 
   Future<AssignmentsUserModel> getAssignmentsUser({
     required int academicYearId,
-    int? status,
+    String? status,
   }) async {
     try {
       final response = await dio.get(
@@ -19,7 +19,9 @@ class AssignmentsUserService {
       if (response.statusCode == 200) {
         final model = AssignmentsUserModel.fromJson(response.data);
         if (!model.isSuccess) {
-          throw Exception(model.error?.description ?? 'Failed to load assignments');
+          throw Exception(
+            model.error?.description ?? 'Failed to load assignments',
+          );
         }
         return model;
       } else {

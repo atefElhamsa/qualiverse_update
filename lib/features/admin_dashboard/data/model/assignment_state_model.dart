@@ -9,7 +9,7 @@ class AssignmentStatusResponseModel {
 }
 
 class AssignmentStateModel {
-  final int value;
+  final String value;
   final String name;
   AssignmentStateModel({required this.name, required this.value});
 

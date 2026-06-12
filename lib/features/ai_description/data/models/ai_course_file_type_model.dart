@@ -5,9 +5,6 @@ class AiCourseFileTypeModel {
   AiCourseFileTypeModel({required this.value, required this.name});
 
   factory AiCourseFileTypeModel.fromJson(Map<String, dynamic> json) {
-    return AiCourseFileTypeModel(
-      value: json['value'],
-      name: json['name'],
-    );
+    return AiCourseFileTypeModel(value: json['value'], name: json['name']);
   }
 }

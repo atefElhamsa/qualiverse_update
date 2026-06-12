@@ -28,7 +28,15 @@ void main() async {
         BlocProvider(create: (context) => SettingCubit()),
         BlocProvider(create: (context) => AdminDashboardCubit()),
         BlocProvider(create: (context) => DashboardOverviewCubit()),
-        BlocProvider(create: (context) => MeCubit()..getMyInfo()),
+        BlocProvider(
+          create: (context) {
+            final cubit = MeCubit();
+            if (LoginStorage.hasToken) {
+              cubit.getMyInfo();
+            }
+            return cubit;
+          },
+        ),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => LogoutCubit()),
         BlocProvider(create: (context) => CourseCubit()),

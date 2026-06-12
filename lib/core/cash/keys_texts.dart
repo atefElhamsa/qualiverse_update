@@ -7,4 +7,5 @@ class KeysTexts {
   static const String userPassword = "user_password";
   static const String preferredLanguages = "preferred_languages";
   static const String onboardingShown = "onboarding_shown";
+  static const String meModel = "me_model";
 }
