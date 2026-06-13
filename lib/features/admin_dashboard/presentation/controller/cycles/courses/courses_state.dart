@@ -31,3 +31,17 @@ final class DeleteCourseFailure extends CoursesState {
 
   DeleteCourseFailure({required this.error});
 }
+
+final class UpdateCourseLoading extends CoursesState {}
+
+final class UpdateCourseSuccess extends CoursesState {
+  final String message;
+
+  UpdateCourseSuccess({required this.message});
+}
+
+final class UpdateCourseFailure extends CoursesState {
+  final String error;
+
+  UpdateCourseFailure({required this.error});
+}

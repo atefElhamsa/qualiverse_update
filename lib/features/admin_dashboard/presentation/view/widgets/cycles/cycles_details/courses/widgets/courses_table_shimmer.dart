@@ -92,7 +92,7 @@ class CoursesTableShimmer extends StatelessWidget {
                     ),
                     // Actions
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

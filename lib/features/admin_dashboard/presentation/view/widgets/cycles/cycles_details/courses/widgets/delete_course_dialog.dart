@@ -89,7 +89,8 @@ class DeleteCourseDialog extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             return DeleteAndCancelButtons(
-              onPressed: () => cubit.removeAssignCourse(courseId: course.courseId),
+              onPressed: () =>
+                  cubit.removeAssignCourse(courseId: course.courseId),
             );
           },
         ),
@@ -165,7 +166,8 @@ class DeleteCourseEntirelyDialog extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             return DeleteAndCancelButtons(
-              onPressed: () => cubit.deleteCourseEntirely(courseId: course.courseId),
+              onPressed: () =>
+                  cubit.deleteCourseEntirely(courseId: course.courseId),
             );
           },
         ),

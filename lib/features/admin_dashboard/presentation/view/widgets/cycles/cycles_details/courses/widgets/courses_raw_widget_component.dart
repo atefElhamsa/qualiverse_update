@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'edit_course_dialog.dart';
 
 Widget buildCourseRow(BuildContext context, CourseItemModel course) {
   return Padding(
@@ -14,7 +15,7 @@ Widget buildCourseRow(BuildContext context, CourseItemModel course) {
         cell(context, course.level.name, centered: true),
         cell(context, course.semester.name, centered: true),
         cell(context, course.doctor, centered: true, flex: 2),
-        Expanded(child: courseActions(context, course)),
+        Expanded(flex: 2, child: courseActions(context, course)),
       ],
     ),
   );
@@ -139,6 +140,26 @@ Widget courseActions(BuildContext context, CourseItemModel course) {
             ),
           ),
         ),
+      SizedBox(width: 8.w),
+      Tooltip(
+        message: 'editCourse'.tr(),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              showEditCourseDialog(context: context, course: course);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: AppColors.blue,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: const Icon(Icons.edit_outlined, color: AppColors.white),
+            ),
+          ),
+        ),
+      ),
       SizedBox(width: 8.w),
       Tooltip(
         message: 'deleteCourse'.tr(),

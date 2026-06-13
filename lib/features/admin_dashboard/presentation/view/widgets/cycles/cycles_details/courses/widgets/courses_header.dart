@@ -23,7 +23,7 @@ class CoursesHeader extends StatelessWidget {
           _cell(context, 'level'.tr(), centered: true),
           _cell(context, 'term'.tr(), centered: true),
           _cell(context, 'assignedDoctor'.tr(), centered: true, flex: 2),
-          _cell(context, 'action'.tr(), centered: true),
+          _cell(context, 'action'.tr(), centered: true, flex: 2),
         ],
       ),
     );

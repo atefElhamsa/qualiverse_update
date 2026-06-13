@@ -11,6 +11,7 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
   final int? selectedId;
   final bool useCubitSelection;
   final bool? isDisabled;
+  final bool allowAnyDepartment;
   const CoursesDepartmentDropDownWidget({
     super.key,
     this.height,
@@ -19,6 +20,7 @@ class CoursesDepartmentDropDownWidget extends StatefulWidget {
     this.selectedId,
     this.useCubitSelection = true,
     this.isDisabled,
+    this.allowAnyDepartment = false,
   });
 
   @override
@@ -92,6 +94,7 @@ class _CoursesDepartmentDropDownWidgetState
                 isExpanded: widget.isExpanded,
                 isDisabled: isDisabled,
                 isItemDisabled: (item) {
+                  if (widget.allowAnyDepartment) return false;
                   if (item.id == -1) return false;
                   if (!isLevel1Or2) return false;
                   final lower = item.name.toLowerCase();

@@ -41,20 +41,33 @@ class CustomTextFormField extends StatelessWidget {
             decoration: InputDecoration(
               fillColor: AppColors.transparent,
               filled: true,
-              suffixIcon: GestureDetector(
-                onTap: () {
+              suffixIcon: ValueListenableBuilder<TextEditingValue>(
+                valueListenable: textFieldModel.controller,
+                builder: (context, value, child) {
                   if (isPasswordField) {
-                    context.read<PasswordCubit>().toggle();
+                    return GestureDetector(
+                      onTap: () {
+                        context.read<PasswordCubit>().toggle();
+                      },
+                      child: Icon(
+                        isObscured ? Icons.visibility : Icons.visibility_off,
+                        color: AppColors.greyLight,
+                      ),
+                    );
                   } else {
-                    textFieldModel.controller.clear();
+                    return value.text.isNotEmpty
+                        ? GestureDetector(
+                            onTap: () {
+                              textFieldModel.controller.clear();
+                            },
+                            child: const Icon(
+                              Icons.clear,
+                              color: AppColors.greyLight,
+                            ),
+                          )
+                        : const SizedBox.shrink();
                   }
                 },
-                child: Icon(
-                  isPasswordField
-                      ? (isObscured ? Icons.visibility : Icons.visibility_off)
-                      : Icons.clear,
-                  color: AppColors.greyLight,
-                ),
               ),
               hintText: textFieldModel.hintText,
               hintStyle: Theme.of(context).textTheme.labelSmall!.copyWith(

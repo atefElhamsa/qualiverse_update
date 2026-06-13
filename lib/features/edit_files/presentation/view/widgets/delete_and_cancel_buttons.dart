@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
 
@@ -25,12 +26,12 @@ class DeleteAndCancelButtons extends StatelessWidget {
           buttonModel: ButtonModel(
             onPressed: isLoading ? null : onPressed,
             backgroundColor: AppColors.red,
-            radius: 20,
-            space: 10.h,
+            radius: 12,
+            space: 12.h,
             customText: CustomText(
               title: isLoading ? "" : "delete".tr(),
-              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                fontSize: 20.sp,
+              textStyle: GoogleFonts.inter(
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.white,
               ),
@@ -49,7 +50,7 @@ class DeleteAndCancelButtons extends StatelessWidget {
               ),
             ),
           ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 12),
         CustomButton(
           buttonModel: ButtonModel(
             onPressed: isLoading
@@ -57,15 +58,15 @@ class DeleteAndCancelButtons extends StatelessWidget {
                 : () {
                     context.pop();
                   },
-            backgroundColor: AppColors.green,
-            radius: 20,
-            space: 10.h,
+            backgroundColor: const Color(0xFFE5E7EB),
+            radius: 12,
+            space: 12.h,
             customText: CustomText(
               title: "cancel".tr(),
-              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                fontSize: 20.sp,
+              textStyle: GoogleFonts.inter(
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w600,
-                color: AppColors.white,
+                color: AppColors.mainBlack,
               ),
             ),
           ),

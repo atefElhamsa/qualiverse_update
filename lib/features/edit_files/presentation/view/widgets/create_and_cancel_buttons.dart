@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../routing/all_routes_imports.dart';
 
@@ -28,21 +29,20 @@ class CreateAndCancelButtons extends StatelessWidget {
                   onPressed: () {
                     createFolderCubit.createFolder(courseId: courseId);
                   },
-                  backgroundColor: AppColors.green,
-                  radius: 20,
-                  space: 10.h,
+                  backgroundColor: AppColors.drColor,
+                  radius: 12,
+                  space: 12.h,
                   customText: CustomText(
                     title: "create".tr(),
-                    textStyle: Theme.of(context).textTheme.headlineLarge!
-                        .copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
-                        ),
+                    textStyle: GoogleFonts.inter(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               CustomButton(
                 buttonModel: ButtonModel(
                   onPressed: () {
@@ -50,17 +50,16 @@ class CreateAndCancelButtons extends StatelessWidget {
                     createFolderCubit.newFolderNameEnController.clear();
                     context.pop();
                   },
-                  backgroundColor: AppColors.red,
-                  radius: 20,
-                  space: 10.h,
+                  backgroundColor: const Color(0xFFE5E7EB),
+                  radius: 12,
+                  space: 12.h,
                   customText: CustomText(
                     title: "cancel".tr(),
-                    textStyle: Theme.of(context).textTheme.headlineLarge!
-                        .copyWith(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
-                        ),
+                    textStyle: GoogleFonts.inter(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.mainBlack,
+                    ),
                   ),
                 ),
               ),

@@ -35,30 +35,63 @@ class ShowCreateFolderDialog extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return AlertDialog(
+          return Dialog(
             backgroundColor: AppColors.white,
-            actionsPadding: EdgeInsets.all(16.h),
-            actionsAlignment: MainAxisAlignment.center,
-            alignment: Alignment.center,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(24.r),
             ),
-            title: CustomText(
-              title: 'createFolder'.tr(),
-              textAlign: TextAlign.center,
-              textStyle: GoogleFonts.inter(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w700,
-                color: AppColors.drColor,
+            child: SingleChildScrollView(
+              child: Container(
+                width: 440.w,
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 28.h),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(16.r),
+                      decoration: BoxDecoration(
+                        color: AppColors.drColor.withOpacity(0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.create_new_folder_outlined,
+                        size: 40.sp,
+                        color: AppColors.drColor,
+                      ),
+                    ),
+                    SizedBox(height: 16.h),
+                    CustomText(
+                      title: 'createFolder'.tr(),
+                      textAlign: TextAlign.center,
+                      textStyle: GoogleFonts.inter(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.drColor,
+                      ),
+                    ),
+                    SizedBox(height: 8.h),
+                    CustomText(
+                      title: context.locale.languageCode == 'ar'
+                          ? 'أدخل اسم المجلد باللغتين العربية والإنجليزية لتنظيم ملفاتك'
+                          : 'Enter folder names in Arabic and English to organize files',
+                      textAlign: TextAlign.center,
+                      textStyle: GoogleFonts.inter(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.greyLight,
+                      ),
+                    ),
+                    SizedBox(height: 24.h),
+                    CreateFolderField(createFolderCubit: createFolderCubit),
+                    SizedBox(height: 28.h),
+                    CreateAndCancelButtons(
+                      createFolderCubit: createFolderCubit,
+                      courseId: courseId!,
+                    ),
+                  ],
+                ),
               ),
             ),
-            content: CreateFolderField(createFolderCubit: createFolderCubit),
-            actions: [
-              CreateAndCancelButtons(
-                createFolderCubit: createFolderCubit,
-                courseId: courseId!,
-              ),
-            ],
           );
         },
       ),

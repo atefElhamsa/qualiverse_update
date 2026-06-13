@@ -76,4 +76,57 @@ class CyclesCoursesService {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
+
+  static Future<ActivateDeactivateUserModel> updateCourse({
+    required int courseId,
+    String? nameAr,
+    String? nameEn,
+    required String code,
+    int? departmentId,
+    required int levelId,
+    required int termId,
+    required int yearId,
+  }) async {
+    try {
+      final response = await dio.put(
+        EndPoints.updateCourse,
+        data: {
+          "id": courseId,
+          "names": [
+            if (nameAr != null) {"languageCode": "ar", "name": nameAr},
+            if (nameEn != null) {"languageCode": "en", "name": nameEn},
+          ],
+          "code": code,
+          "departmentId": departmentId,
+          "levelId": levelId,
+          "termId": termId,
+          "academicYearId": yearId,
+        },
+      );
+      final Map<String, dynamic> body = response.data;
+      final result = ActivateDeactivateUserModel.fromJson(body);
+      if (result.isSuccess != true) {
+        throw Exception(result.error?.description ?? 'Failed to update course');
+      }
+      return result;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw Exception('Unauthorized');
+      }
+
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        throw Exception('No Internet Connection');
+      }
+
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
+      if (errorData is Map && errorData.containsKey('description')) {
+        throw Exception(errorData['description']);
+      }
+      throw Exception(errorData?.toString() ?? 'Server Error');
+    } catch (e) {
+      throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
+    }
+  }
 }

@@ -32,14 +32,17 @@ class CourseCubit extends Cubit<CourseState> {
         departmentId: departmentId,
         lang: lang,
       );
+      if (isClosed) return;
       courses = data.courses!;
       emit(CourseSuccess(courses: courses, selectedCourse: selectedCourse));
     } catch (e) {
+      if (isClosed) return;
       final msg = e.toString().replaceFirst('Exception: ', '').trim();
       if (msg.contains('No Internet')) {
         emit(CourseError(message: 'Check your internet connection'));
       } else if (msg.contains('Unauthorized')) {
         await LoginStorage.clear();
+        if (isClosed) return;
         reset();
         emit(CourseError(message: 'Session expired, please login again'));
       } else {
@@ -51,6 +54,8 @@ class CourseCubit extends Cubit<CourseState> {
   void reset() {
     courses = [];
     selectedCourse = null;
-    emit(CourseInitial());
+    if (!isClosed) {
+      emit(CourseInitial());
+    }
   }
 }

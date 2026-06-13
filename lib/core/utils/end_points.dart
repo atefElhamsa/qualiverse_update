@@ -25,6 +25,7 @@ class EndPoints {
   static const String templates = "Course/templates";
   static const String courseFromTemplate = "Course/from-template";
   static const String newCourse = "Course/new";
+  static const String updateCourse = "Course";
   static const String uploadEvidenceGeneral = "EvidenceFolder/upload/general";
   static const String uploadEvidenceStatistics =
       "EvidenceFolder/upload/statistics";

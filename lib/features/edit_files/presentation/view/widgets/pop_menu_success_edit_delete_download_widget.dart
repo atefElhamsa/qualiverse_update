@@ -59,35 +59,60 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
                       );
                     }
                   },
-                  child: AlertDialog(
+                  child: Dialog(
                     backgroundColor: AppColors.white,
-                    actionsPadding: EdgeInsets.all(16.h),
-                    actionsAlignment: MainAxisAlignment.center,
-                    alignment: Alignment.center,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.r),
+                      borderRadius: BorderRadius.circular(24.r),
                     ),
-                    title: CustomText(
-                      title: 'deleteFolder'.tr(),
-                      textAlign: TextAlign.center,
-                      textStyle: GoogleFonts.inter(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.red,
+                    child: SingleChildScrollView(
+                      child: Container(
+                        width: 440.w,
+                        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 28.h),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(16.r),
+                              decoration: BoxDecoration(
+                                color: AppColors.red.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.delete_outline_rounded,
+                                size: 40.sp,
+                                color: AppColors.red,
+                              ),
+                            ),
+                            SizedBox(height: 16.h),
+                            CustomText(
+                              title: 'deleteFolder'.tr(),
+                              textAlign: TextAlign.center,
+                              textStyle: GoogleFonts.inter(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.red,
+                              ),
+                            ),
+                            SizedBox(height: 12.h),
+                            CustomText(
+                              title: "deleteFolderMessage".tr(),
+                              textAlign: TextAlign.center,
+                              textStyle: GoogleFonts.inter(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.mainBlack,
+                              ),
+                            ),
+                            SizedBox(height: 28.h),
+                            DeleteAndCancelButtons(
+                              onPressed: () {
+                                deleteFolderCubit.deleteFolder(folderId: folderId);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    content: CustomText(
-                      title: "deleteFolderMessage".tr(),
-                      textStyle: Theme.of(context).textTheme.headlineLarge!
-                          .copyWith(color: AppColors.mainBlack),
-                    ),
-                    actions: [
-                      DeleteAndCancelButtons(
-                        onPressed: () {
-                          deleteFolderCubit.deleteFolder(folderId: folderId);
-                        },
-                      ),
-                    ],
                   ),
                 ),
               ),
@@ -124,32 +149,65 @@ class PopMenuSuccessEditDeleteDownloadWidget extends StatelessWidget {
                       );
                     }
                   },
-                  child: AlertDialog(
+                  child: Dialog(
                     backgroundColor: AppColors.white,
-                    actionsPadding: EdgeInsets.all(16.h),
-                    actionsAlignment: MainAxisAlignment.center,
-                    alignment: Alignment.center,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.r),
+                      borderRadius: BorderRadius.circular(24.r),
                     ),
-                    title: CustomText(
-                      title: 'updateFolder'.tr(),
-                      textAlign: TextAlign.center,
-                      textStyle: GoogleFonts.inter(
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.drColor,
+                    child: SingleChildScrollView(
+                      child: Container(
+                        width: 440.w,
+                        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 28.h),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(16.r),
+                              decoration: BoxDecoration(
+                                color: AppColors.drColor.withOpacity(0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.drive_file_rename_outline_rounded,
+                                size: 40.sp,
+                                color: AppColors.drColor,
+                              ),
+                            ),
+                            SizedBox(height: 16.h),
+                            CustomText(
+                              title: 'updateFolder'.tr(),
+                              textAlign: TextAlign.center,
+                              textStyle: GoogleFonts.inter(
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.drColor,
+                              ),
+                            ),
+                            SizedBox(height: 8.h),
+                            CustomText(
+                              title: context.locale.languageCode == 'ar'
+                                  ? 'قم بتحديث اسم المجلد باللغتين العربية والإنجليزية'
+                                  : 'Update the folder name in Arabic and English',
+                              textAlign: TextAlign.center,
+                              textStyle: GoogleFonts.inter(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.greyLight,
+                              ),
+                            ),
+                            SizedBox(height: 24.h),
+                            UpdateFolderField(
+                              updateFolderCubit: updateFolderCubit,
+                            ),
+                            SizedBox(height: 28.h),
+                            UpdateAndCancelButtons(
+                              updateFolderCubit: updateFolderCubit,
+                              folderId: folderId,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    content: UpdateFolderField(
-                      updateFolderCubit: updateFolderCubit,
-                    ),
-                    actions: [
-                      UpdateAndCancelButtons(
-                        updateFolderCubit: updateFolderCubit,
-                        folderId: folderId,
-                      ),
-                    ],
                   ),
                 ),
               ),

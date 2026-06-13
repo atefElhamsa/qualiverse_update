@@ -49,11 +49,53 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
     emit(DeleteCourseLoading());
     try {
-      final result = await CyclesCoursesService.deleteCourse(courseId: courseId);
+      final result = await CyclesCoursesService.deleteCourse(
+        courseId: courseId,
+      );
       emit(DeleteCourseSuccess(message: result));
     } catch (e) {
       emit(
         DeleteCourseFailure(
+          error: e.toString().replaceFirst("Exception: ", "").trim(),
+        ),
+      );
+    }
+  }
+
+  Future<void> updateCourse({
+    required int courseId,
+    String? nameAr,
+    String? nameEn,
+    required String code,
+    int? departmentId,
+    required int levelId,
+    required int termId,
+    required int yearId,
+  }) async {
+    if (!await checkInternet()) {
+      emit(UpdateCourseFailure(error: "checkInternet".tr()));
+      return;
+    }
+    emit(UpdateCourseLoading());
+    try {
+      final result = await CyclesCoursesService.updateCourse(
+        courseId: courseId,
+        nameAr: nameAr,
+        nameEn: nameEn,
+        code: code,
+        departmentId: departmentId,
+        levelId: levelId,
+        termId: termId,
+        yearId: yearId,
+      );
+      emit(
+        UpdateCourseSuccess(
+          message: result.data ?? 'Course updated successfully',
+        ),
+      );
+    } catch (e) {
+      emit(
+        UpdateCourseFailure(
           error: e.toString().replaceFirst("Exception: ", "").trim(),
         ),
       );
