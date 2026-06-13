@@ -39,6 +39,7 @@ class AiReportNavigationRow extends StatelessWidget {
                           ? Icons.arrow_back_rounded
                           : Icons.arrow_forward_rounded)
                     : Icons.check_circle_rounded,
+                isLoading: cubit.currentPage == 4 && state is AiReportLoading,
                 onTap: cubit.currentPage < 4
                     ? () => cubit.nextPage()
                     : () => cubit.submitReport(),

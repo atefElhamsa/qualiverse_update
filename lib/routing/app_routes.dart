@@ -33,6 +33,9 @@ class AppRoutes {
   // Route for the AI report screen.
   static const String aiReportScreen = '/ai_report';
 
+  // Route for the AI report status screen.
+  static const String aiReportStatusScreen = '/ai_report_status';
+
   // Route for the AI description screen.
   static const String aiDescriptionScreen = '/ai_description';
 
@@ -93,5 +96,6 @@ class AppRoutes {
   static const String aiDescriptionResultScreen = '/ai_description_result';
 
   // Route for the AI report result preview
-  static const String aiReportResultScreen = '/ai_report_result';
+  static const String aiReportResultScreen = "/ai-report-result";
+  static const String aiReportJobStatusScreen = "/ai-report-job-status";
 }

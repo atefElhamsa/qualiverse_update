@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:qualiverse/features/ai_report/presentation/view/ai_report_job_status_screen.dart';
 
 import 'all_routes_imports.dart';
+import '../features/ai_report/data/models/ai_report_extract_response_model.dart';
 
 class ScreensRoutes {
   static GoRoute aiDescriptionRoute() {
@@ -90,15 +92,31 @@ class ScreensRoutes {
     );
   }
 
+  static GoRoute aiReportStatusRoute() {
+    return GoRoute(
+      path: AppRoutes.aiReportStatusScreen,
+      name: AppRoutes.aiReportStatusScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AiReportStatusScreen(),
+      ),
+    );
+  }
+
   static GoRoute aiReportResultRoute() {
     return GoRoute(
       path: AppRoutes.aiReportResultScreen,
       name: AppRoutes.aiReportResultScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AiReportResultScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final AiReportExtractResponse? extractResponse =
+            state.extra as AiReportExtractResponse?;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiReportResultScreen(extractResponse: extractResponse),
+        );
+      },
     );
   }
 
@@ -354,6 +372,21 @@ class ScreensRoutes {
             folderName: args['folderName'],
             folderId: args['folderId'],
           ),
+        );
+      },
+    );
+  }
+
+  static GoRoute aiReportJobStatusRoute() {
+    return GoRoute(
+      path: AppRoutes.aiReportJobStatusScreen,
+      name: AppRoutes.aiReportJobStatusScreen,
+      pageBuilder: (context, state) {
+        final String jobId = state.extra as String? ?? '';
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiReportJobStatusScreen(jobId: jobId),
         );
       },
     );

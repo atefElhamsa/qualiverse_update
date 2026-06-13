@@ -73,7 +73,9 @@ class LoginInterceptor extends Interceptor {
       }
 
       // Retry queued requests
-      for (final q in queue) {
+      final currentQueue = List.from(queue);
+      queue.clear();
+      for (final q in currentQueue) {
         try {
           final res = await retry(q.options);
           if (!q.completer.isCompleted) {
@@ -85,7 +87,6 @@ class LoginInterceptor extends Interceptor {
           }
         }
       }
-      queue.clear();
 
       // Retry original request
       try {

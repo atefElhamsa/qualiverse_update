@@ -41,6 +41,15 @@ class EndPoints {
   static const String assignmentsStatus = "Enum/AssignmentStatus";
   static const String unreadNotificationCount = "Notification/unread-count";
   static const String startGeneration = "CourseDescriptionGenerations/start";
+  static const String aiReportHealth = "AIReports/health";
+  static const String aiReportProviders = "AIReports/providers";
+  static const String aiReportExtract = "AIReports/extract";
+  static const String aiReportSubmit = "AIReports/submit";
+  static String aiReportStatus(String jobId) => "AIReports/status/$jobId";
+  static String aiReportDownloadPdf(String jobId) =>
+      "AIReports/download/pdf/$jobId";
+  static String aiReportDownloadDocx(String jobId) =>
+      "AIReports/download/docx/$jobId";
 
   static const String uploadFiles = "CourseDescriptionGenerations/upload-files";
 

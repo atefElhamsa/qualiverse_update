@@ -17,7 +17,7 @@ class AiMainButtons extends StatelessWidget {
         _buildPremiumButton(
           context,
           title: "report".tr(),
-          onPressed: () => context.pushNamed(AppRoutes.aiReportScreen),
+          onPressed: () => context.pushNamed(AppRoutes.aiReportStatusScreen),
           gradient: const LinearGradient(
             colors: [Color(0xFF64B5F6), Color(0xFF1E88E5)],
             begin: Alignment.topLeft,

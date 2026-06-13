@@ -5,7 +5,7 @@ class PremiumInputField extends StatelessWidget {
   final String label;
   final TextEditingController? controller;
   final IconData icon;
-  final String hint;
+  final String? hint;
   final double? fontSize;
   final double? labelFontSize;
   final VoidCallback? onTap;
@@ -18,7 +18,7 @@ class PremiumInputField extends StatelessWidget {
     required this.label,
     this.controller,
     required this.icon,
-    required this.hint,
+    this.hint,
     this.fontSize,
     this.labelFontSize,
     this.onTap,

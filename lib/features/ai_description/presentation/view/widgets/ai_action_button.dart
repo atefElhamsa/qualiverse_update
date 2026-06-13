@@ -7,6 +7,7 @@ class AiActionButton extends StatelessWidget {
   final IconData icon;
   final VoidCallback onTap;
   final bool isSecondary;
+  final bool isLoading;
 
   const AiActionButton({
     super.key,
@@ -14,6 +15,7 @@ class AiActionButton extends StatelessWidget {
     required this.icon,
     required this.onTap,
     this.isSecondary = false,
+    this.isLoading = false,
   });
 
   @override
@@ -22,7 +24,7 @@ class AiActionButton extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: onTap,
+        onTap: isLoading ? null : onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 16.h),
@@ -51,31 +53,40 @@ class AiActionButton extends StatelessWidget {
               ),
             ],
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (isSecondary)
-                Icon(
-                  isRtl
-                      ? Icons.arrow_forward_rounded
-                      : Icons.arrow_back_rounded,
-                  color: const Color(0xFF0D47A1),
-                  size: 22.sp,
+          child: isLoading 
+              ? SizedBox(
+                  height: 24.sp,
+                  width: 24.sp,
+                  child: CircularProgressIndicator(
+                    color: isSecondary ? const Color(0xFF0D47A1) : Colors.white,
+                    strokeWidth: 3,
+                  ),
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (isSecondary)
+                      Icon(
+                        isRtl
+                            ? Icons.arrow_forward_rounded
+                            : Icons.arrow_back_rounded,
+                        color: const Color(0xFF0D47A1),
+                        size: 22.sp,
+                      ),
+                    if (isSecondary) SizedBox(width: 12.w),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: isSecondary ? const Color(0xFF0D47A1) : Colors.white,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 18.sp,
+                        letterSpacing: isRtl ? 0 : 0.5,
+                      ),
+                    ),
+                    if (!isSecondary) SizedBox(width: 12.w),
+                    if (!isSecondary) Icon(icon, color: Colors.white, size: 22.sp),
+                  ],
                 ),
-              if (isSecondary) SizedBox(width: 12.w),
-              Text(
-                title,
-                style: TextStyle(
-                  color: isSecondary ? const Color(0xFF0D47A1) : Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 18.sp,
-                  letterSpacing: isRtl ? 0 : 0.5,
-                ),
-              ),
-              if (!isSecondary) SizedBox(width: 12.w),
-              if (!isSecondary) Icon(icon, color: Colors.white, size: 22.sp),
-            ],
-          ),
         ),
       ),
     );

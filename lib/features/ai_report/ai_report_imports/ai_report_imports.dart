@@ -1,4 +1,10 @@
 export 'package:qualiverse/features/ai_report/data/models/file_item_model.dart';
+export 'package:qualiverse/features/ai_report/data/models/ai_report_status_model.dart';
+export 'package:qualiverse/features/ai_report/data/models/ai_report_model.dart';
+export 'package:qualiverse/features/ai_report/data/service/ai_report_service.dart';
+export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_status_cubit.dart';
+export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_status_state.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/ai_report_status_screen.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/ai_report_screen.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_body.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_found_file.dart';
@@ -9,6 +15,14 @@ export 'package:qualiverse/features/ai_report/presentation/view/widgets/file_ite
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/linear_progress.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/list_file_item_widget.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/widgets/start_end_number_file_completed.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_info_banner.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_bottom_action_bar.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_loading_overlay.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_status_error_widget.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_status_health_card.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_status_course_nature_section.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_status_proceed_button.dart';
+export 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_status_provider_card.dart';
 export 'package:qualiverse/features/ai_report/presentation/view/ai_report_result_screen.dart';
 export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_cubit.dart';
 export 'package:qualiverse/features/ai_report/presentation/controller/ai_report_state.dart';
