@@ -96,6 +96,7 @@ class _AssignCourseDialogState extends State<AssignCourseDialog> {
                 dropdownOpen: dropdownOpen,
                 onToggle: toggleDropdown,
                 onSelect: onDoctorSelected,
+                allowedRoles: const ['admin', 'doctor'],
               ),
             ],
           ),

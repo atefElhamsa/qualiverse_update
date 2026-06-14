@@ -27,9 +27,15 @@ void showAssignDialog(
               }
               // ✅ Manual fetch after assign
               indicatorCubit.fetchCycleIndicators(
-                yearId: AcademicYearCubit.get(outerContext).selectedAcademicYear!.id,
-                departmentId: DepartmentCubit.get(outerContext).selectedDepartment?.id,
-                criterionId: ProgramAccreditationCubit.get(outerContext).selectedProgramAccreditation!.id,
+                yearId: AcademicYearCubit.get(
+                  outerContext,
+                ).selectedAcademicYear!.id,
+                departmentId: DepartmentCubit.get(
+                  outerContext,
+                ).selectedDepartment?.id,
+                criterionId: ProgramAccreditationCubit.get(
+                  outerContext,
+                ).selectedProgramAccreditation!.id,
               );
             });
           }
@@ -162,6 +168,7 @@ class AssignIndicatorDialogState extends State<AssignIndicatorDialog> {
                     dropdownOpen: dropdownOpen,
                     onToggle: toggleDropdown,
                     onSelect: onDoctorSelected,
+                    allowedRoles: const ['admin', 'doctor'],
                   ),
                   SizedBox(height: 16.h),
                   DeadlineSection(

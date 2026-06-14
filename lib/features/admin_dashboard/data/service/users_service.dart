@@ -4,9 +4,14 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class UsersService {
   static final Dio dio = ApiClient.dio;
 
-  static Future<UserManagementResponseModel> getUsers() async {
+  static Future<UserManagementResponseModel> getUsers({List<String>? roles}) async {
     try {
-      final response = await dio.get(EndPoints.user);
+      final response = await dio.get(
+        EndPoints.user,
+        queryParameters: {
+          if (roles != null && roles.isNotEmpty) 'roles': roles,
+        },
+      );
       final Map<String, dynamic> body = response.data;
       final result = UserManagementResponseModel.fromJson(body);
       if (!result.isSuccess) {

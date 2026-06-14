@@ -6,6 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/home/data/models/side_bar_item_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_cubit.dart';
+import 'package:qualiverse/features/ai_description/presentation/controller/ai_description_state.dart';
 
 class SideBarItem extends StatefulWidget {
   final AdvancedDrawerController? controller;
@@ -38,6 +41,11 @@ class _SideBarItemState extends State<SideBarItem> {
         child: InkWell(
           mouseCursor: SystemMouseCursors.click,
           onTap: () {
+            final aiDescriptionCubit = context.read<AiDescriptionCubit>();
+            if (aiDescriptionCubit.isGenerationStarted &&
+                aiDescriptionCubit.state is! AiDescriptionConfirmSuccess) {
+              aiDescriptionCubit.endGeneration();
+            }
             widget.controller?.hideDrawer();
             context.push(widget.sideBarItemModel.route!);
           },

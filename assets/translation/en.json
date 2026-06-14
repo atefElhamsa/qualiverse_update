@@ -612,6 +612,7 @@
     "programFile": "Program File",
     "templateFile": "Template File",
     "uploadingFiles": "Uploading Files...",
+    "generatingFile": "Generating file...",
     "doYouWantToConfirmTheseFiles": "Do you want to confirm these files for AI generation?",
     "confirmFiles": "Confirm Files",
     "finalizeGeneration": "Finalize Generation",

@@ -62,6 +62,11 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
                 state is AiDescriptionCustomUploadLoading ||
                 state is AiDescriptionFinalConfirmLoading;
 
+            String? loadingMessage;
+            if (state is AiDescriptionSubmitDetailsLoading) {
+              loadingMessage = "generatingFile";
+            }
+
             return Stack(
               children: [
                 CustomScaffold(
@@ -88,7 +93,8 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
                     ],
                   ),
                 ),
-                if (isProcessing) const AiDescriptionLoadingOverlay(),
+                if (isProcessing)
+                  AiDescriptionLoadingOverlay(message: loadingMessage),
               ],
             );
           },

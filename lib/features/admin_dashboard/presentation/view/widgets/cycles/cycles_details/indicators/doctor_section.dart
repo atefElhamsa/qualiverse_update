@@ -12,19 +12,30 @@ class DoctorSection extends StatelessWidget {
     required this.dropdownOpen,
     required this.onToggle,
     required this.onSelect,
+    this.allowedRoles = const ['doctor'],
   });
 
   final UserManagementModel? selectedDoctor;
   final bool dropdownOpen;
   final VoidCallback onToggle;
   final Function(UserManagementModel) onSelect;
+  final List<String> allowedRoles;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersCubit, UsersState>(
       builder: (context, state) {
         final doctors = state is UsersSuccess
-            ? state.users.where((u) => u.role == 'doctor').toList()
+            ? state.users
+                  .where(
+                    (u) => u.roles.any(
+                      (userRole) => allowedRoles.any(
+                        (allowedRole) =>
+                            allowedRole.toLowerCase() == userRole.toLowerCase(),
+                      ),
+                    ),
+                  )
+                  .toList()
             : <UserManagementModel>[];
 
         return Column(

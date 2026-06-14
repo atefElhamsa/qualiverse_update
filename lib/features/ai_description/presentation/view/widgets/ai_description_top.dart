@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class AiDescriptionTop extends StatelessWidget {
@@ -13,7 +14,12 @@ class AiDescriptionTop extends StatelessWidget {
       height: 280.h,
       child: Stack(
         children: [
-          const FirstTermTop(),
+          BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
+            builder: (context, state) {
+              final cubit = context.read<AiDescriptionCubit>();
+              return FirstTermTop(isDisabled: cubit.currentPage == 5);
+            },
+          ),
           Positioned(
             top: 80.h,
             left: 0,

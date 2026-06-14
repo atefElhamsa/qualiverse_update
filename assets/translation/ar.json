@@ -611,6 +611,7 @@
     "programFile": "ملف البرنامج",
     "templateFile": "ملف النموذج",
     "uploadingFiles": "جاري رفع الملفات...",
+    "generatingFile": "جاري إنشاء الملف...",
     "doYouWantToConfirmTheseFiles": "هل تريد تأكيد هذه الملفات لبدء عملية التوليد بالذكاء الاصطناعي؟",
     "confirmFiles": "تأكيد الملفات",
     "finalizeGeneration": "إنهاء عملية التوليد",

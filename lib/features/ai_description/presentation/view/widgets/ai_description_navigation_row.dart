@@ -13,7 +13,7 @@ class AiDescriptionNavigationRow extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<AiDescriptionCubit>();
         bool isRtl = context.locale.languageCode == 'ar';
-        
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 50.w),
           child: Row(
@@ -22,7 +22,9 @@ class AiDescriptionNavigationRow extends StatelessWidget {
               if (cubit.currentPage > 0)
                 AiActionButton(
                   title: "back".tr(),
-                  icon: isRtl ? Icons.arrow_forward_rounded : Icons.arrow_back_rounded,
+                  icon: isRtl
+                      ? Icons.arrow_forward_rounded
+                      : Icons.arrow_back_rounded,
                   onTap: () => cubit.previousPage(),
                   isSecondary: true,
                 )
@@ -31,8 +33,13 @@ class AiDescriptionNavigationRow extends StatelessWidget {
               AiActionButton(
                 title: cubit.currentPage < 4 ? "next".tr() : "submit".tr(),
                 icon: cubit.currentPage < 4
-                    ? (isRtl ? Icons.arrow_back_rounded : Icons.arrow_forward_rounded)
+                    ? (isRtl
+                          ? Icons.arrow_back_rounded
+                          : Icons.arrow_forward_rounded)
                     : Icons.check_circle_rounded,
+                isLoading:
+                    cubit.currentPage == 4 &&
+                    state is AiDescriptionSubmitDetailsLoading,
                 onTap: cubit.currentPage < 4
                     ? () => cubit.nextPage()
                     : () => cubit.submitDetails(),

@@ -9,10 +9,10 @@ class UsersCubit extends Cubit<UsersState> {
 
   List<UserManagementModel> users = [];
 
-  Future<void> fetchUsers() async {
+  Future<void> fetchUsers({List<String>? roles}) async {
     emit(UsersLoading());
     try {
-      final data = await UsersService.getUsers();
+      final data = await UsersService.getUsers(roles: roles);
       users = data.data!;
       emit(UsersSuccess(users: users));
     } catch (e) {

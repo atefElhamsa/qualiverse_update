@@ -297,6 +297,15 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
 
     emit(AiDescriptionSubmitDetailsLoading());
     try {
+      if (_generationFuture != null && !isGenerationCompleted) {
+        await _generationFuture;
+      }
+
+      if (!isGenerationCompleted && _generationFuture != null) {
+        emit(AiDescriptionSubmitDetailsError("generationFailed".tr()));
+        return;
+      }
+
       final Map<String, dynamic> data = {
         "basic_info": {
           "course_title": titleController.text.trim(),

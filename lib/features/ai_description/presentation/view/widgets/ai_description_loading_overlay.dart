@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 
 class AiDescriptionLoadingOverlay extends StatelessWidget {
-  const AiDescriptionLoadingOverlay({super.key});
+  final String? message;
+  const AiDescriptionLoadingOverlay({super.key, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +39,11 @@ class AiDescriptionLoadingOverlay extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Text(
-                    "uploadingFiles".tr(),
+                    message?.tr() ?? "uploadingFiles".tr(),
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.grey,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.grey,
+                    ),
                   ),
                 ],
               ),
