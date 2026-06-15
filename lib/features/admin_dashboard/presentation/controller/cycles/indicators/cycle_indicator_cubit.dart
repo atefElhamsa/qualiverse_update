@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
       cycleIndicators = data;
       emit(CycleIndicatorLoaded(cycleIndicators: cycleIndicators));
     } catch (e) {
-      emit(CycleIndicatorError(error: e.toString()));
+      emit(CycleIndicatorError(error: e.toString().tr()));
     }
   }
 
@@ -36,15 +37,19 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
       final msg = await CyclesIndicatorService.deleteCycleIndicator(
         indicatorId: indicatorId,
       );
-      emit(CycleIndicatorDeleteSuccess(msg: msg));
+      emit(CycleIndicatorDeleteSuccess(msg: msg.tr()));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('No Internet')) {
-        emit(CycleIndicatorActionError(error: 'Check your internet connection'));
+        emit(
+          CycleIndicatorActionError(
+            error: 'Check your internet connection'.tr(),
+          ),
+        );
       } else if (msg.contains('Unauthorized')) {
         reset();
       } else {
-        emit(CycleIndicatorActionError(error: 'Something went wrong'));
+        emit(CycleIndicatorActionError(error: 'Something went wrong'.tr()));
       }
     }
   }
@@ -65,11 +70,15 @@ class CycleIndicatorCubit extends Cubit<CycleIndicatorState> {
         nameEn: nameEn,
         descriptionEn: descriptionEn,
       );
-      emit(CycleIndicatorCreateSuccess(message: message));
+      emit(CycleIndicatorCreateSuccess(message: message.tr()));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('No Internet')) {
-        emit(CycleIndicatorActionError(error: 'Check your internet connection'));
+        emit(
+          CycleIndicatorActionError(
+            error: 'Check your internet connection'.tr(),
+          ),
+        );
       } else if (msg.contains('Unauthorized')) {
         reset();
       } else {

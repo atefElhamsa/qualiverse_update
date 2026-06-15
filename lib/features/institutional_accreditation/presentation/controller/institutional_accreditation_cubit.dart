@@ -41,7 +41,15 @@ class InstitutionalAccreditationCubit
         accreditationTypeId: accreditationTypeId,
         isAdmin: isAdmin,
       );
-      institutionalAccreditations = data;
+      
+      final uniqueData = <String, AccreditationModel>{};
+      for (var item in data) {
+        if (!uniqueData.containsKey(item.name.trim())) {
+          uniqueData[item.name.trim()] = item;
+        }
+      }
+      
+      institutionalAccreditations = uniqueData.values.toList();
       emit(
         InstitutionalAccreditationSuccess(
           accreditations: institutionalAccreditations,

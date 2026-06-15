@@ -9,7 +9,7 @@ class AiDescriptionWarningMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 45.w),
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         decoration: BoxDecoration(
@@ -32,10 +32,10 @@ class AiDescriptionWarningMessage extends StatelessWidget {
               child: Text(
                 "youMustUploadTwoFilesInPdfWordTypeOnly".tr(),
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: AppColors.red.withOpacity(0.8),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                    ),
+                  color: AppColors.red.withOpacity(0.8),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp,
+                ),
               ),
             ),
           ],

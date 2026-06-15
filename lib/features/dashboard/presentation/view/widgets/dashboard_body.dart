@@ -1,9 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/dashboard/presentation/controller/assignmets/assignments_user_cubit.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
-
 
 class DashboardBody extends StatelessWidget {
   const DashboardBody({super.key});
@@ -20,9 +20,7 @@ class DashboardBody extends StatelessWidget {
       child: BlocBuilder<DashboardCubit, DashboardState>(
         builder: (context, state) {
           if (state is DashboardLoading) {
-            return const DashboardScaffold(
-              widget: DashboardShimmer(),
-            );
+            return const DashboardScaffold(widget: DashboardShimmer());
           }
           if (state is DashboardFailure) {
             return Center(child: Text(state.errorMessage));
@@ -32,7 +30,8 @@ class DashboardBody extends StatelessWidget {
               providers: [
                 BlocProvider(
                   create: (_) => EvidenceStatusCubit(
-                    data: state.data.indicatorOverview?.statusDistribution
+                    data:
+                        state.data.indicatorOverview?.statusDistribution
                             ?.map(
                               (e) => ChartDataModel(
                                 label: e.status ?? '',
@@ -46,7 +45,8 @@ class DashboardBody extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (_) => EvidencePerCriterionCubit(
-                    data: (state.data.indicatorOverview?.indicatorsPerCriterion)
+                    data:
+                        (state.data.indicatorOverview?.indicatorsPerCriterion)
                             ?.map((e) {
                               if (e is! Map) {
                                 return const CriterionDataModel(
@@ -65,10 +65,13 @@ class DashboardBody extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (_) => CoursesPerDepartmentCubit(
-                    data: state.data.accreditationStructure?.coursesPerDepartment
+                    data:
+                        state.data.accreditationStructure?.coursesPerDepartment
                             ?.map(
                               (e) => DepartmentDataModel(
-                                label: e.departmentName ?? '',
+                                label: _getLocalizedDeptName(
+                                  e.departmentName ?? '',
+                                ),
                                 value: (e.count ?? 0).toDouble(),
                               ),
                             )
@@ -78,7 +81,8 @@ class DashboardBody extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (_) => MonthlyChartCubit(
-                    data: state.data.indicatorUploads
+                    data:
+                        state.data.indicatorUploads
                             ?.map(
                               (e) => MonthlyChartDataModel(
                                 month: e.month ?? '',
@@ -91,7 +95,8 @@ class DashboardBody extends StatelessWidget {
                 ),
                 BlocProvider(
                   create: (_) => EvidenceCubit(
-                    data: (state.data.programVsInstitution?.items)?.map((e) {
+                    data:
+                        (state.data.programVsInstitution?.items)?.map((e) {
                           if (e is! Map) {
                             return EvidenceDataModel(
                               criterion: '',
@@ -142,6 +147,23 @@ class DashboardBody extends StatelessWidget {
         return AppColors.rejectedColorIndicator; // أحمر
       default:
         return AppColors.grey;
+    }
+  }
+
+  String _getLocalizedDeptName(String name) {
+    switch (name) {
+      case 'Computer Science':
+        return 'computerScience'.tr();
+      case 'Information Technology':
+        return 'informationTechnology'.tr();
+      case 'Information System':
+        return 'informationSystems'.tr();
+      case 'Software Engineering':
+        return 'softwareEngineering'.tr();
+      case 'Data Analysis and Artificial Intelligence':
+        return 'dataAnalysisAndAI'.tr();
+      default:
+        return name;
     }
   }
 }

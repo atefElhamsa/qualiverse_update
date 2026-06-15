@@ -8,33 +8,66 @@ class AiReportNotFoundFile extends StatelessWidget {
 
   final String titleFile;
 
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 5,
-      children: [
-        // image upload file
-        Image.asset(AppImages.iconUpload, fit: BoxFit.cover),
-        CustomText(
-          title: "chooseFile".tr(),
-          textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 24.sp,
-            color: AppColors.colorButtonLight,
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Premium icon circle
+          Container(
+            width: 56.w,
+            height: 56.w,
+            decoration: BoxDecoration(
+              color: const Color(0xFFEFF6FF), // Light blue background
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF3B82F6).withOpacity(0.15),
+                  blurRadius: 12,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Image.asset(
+                AppImages.iconUpload,
+                height: 28.h,
+                color: const Color(0xFF2563EB), // Primary blue
+              ),
+            ),
           ),
-        ),
-        CustomText(
-          title: "uploadHint".tr(),
-          textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 21.sp,
-            color: AppColors.greyLight,
+          SizedBox(height: 16.h),
+          // Title (e.g. Survey PDF)
+          Text(
+            titleFile.tr(),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontSize: 18.sp,
+              color: const Color(0xFF1E293B), // Slate 800
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        CustomText(
-          title: titleFile.tr(),
-          textStyle: Theme.of(context).textTheme.headlineLarge!,
-        ),
-      ],
+          SizedBox(height: 8.h),
+          // "Choose a file"
+          Text(
+            "chooseFile".tr(),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: 15.sp,
+              color: const Color(0xFF3B82F6), // Blue 500
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 4.h),
+          // Hint text
+          Text(
+            "uploadHint".tr(),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 13.sp,
+              color: const Color(0xFF94A3B8), // Slate 400
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

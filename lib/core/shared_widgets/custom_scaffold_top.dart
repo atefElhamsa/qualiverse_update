@@ -42,10 +42,12 @@ class CustomScaffoldTop extends StatelessWidget {
           // Applies a predefined text style from the current theme.
           textStyle: Theme.of(context).textTheme.headlineLarge!,
         ),
-        // Adds a sized box for spacing.
-        const SizedBox(height: 10),
-        // Displays a custom widget for drawer and back button functionality.
-        CustomDrawerAndBackWidget(controller: controller, isDisabled: isDisabled),
+        if (!isDisabled) ...[
+          // Adds a sized box for spacing.
+          const SizedBox(height: 10),
+          // Displays a custom widget for drawer and back button functionality.
+          CustomDrawerAndBackWidget(controller: controller, isDisabled: isDisabled),
+        ],
       ],
     );
   }

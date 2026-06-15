@@ -32,6 +32,7 @@ class SelectYear extends StatelessWidget {
           final academicYearCubit = AcademicYearCubit.get(context);
           final List<int> yearNumbers = state.academicYears
               .map((e) => e.yearNumber)
+              .toSet()
               .toList();
 
           final int? selectedYearNumber =
@@ -49,30 +50,11 @@ class SelectYear extends StatelessWidget {
                 final selectedModel = state.academicYears.firstWhere(
                   (d) => d.yearNumber == value,
                 );
+                // This triggers the BlocListener in InstitutionalAccreditationBody
+                // which will automatically fetch the accreditations.
                 academicYearCubit.selectAcademicYear(
                   academicYear: selectedModel,
                 );
-
-                final typeState = context.read<TypesCubit>().state;
-                final typeId = (typeState is TypesSuccess)
-                    ? typeState.types
-                          .firstWhere((t) => t.name.contains("Institutional"))
-                          .id
-                    : null;
-
-                final meState = context.read<MeCubit>().state;
-                final isAdmin =
-                    meState is MeSuccess && meState.meModel.role == 'admin';
-
-                context
-                    .read<InstitutionalAccreditationCubit>()
-                    .fetchInstitutionalAccreditations(
-                      academicYearId: selectedModel.id,
-                      accreditationTypeId: typeId,
-                      isAdmin: isAdmin,
-                    );
-                context.read<InstitutionalAccreditationCubit>().selectedYearId =
-                    selectedModel.id;
               },
             ),
           );

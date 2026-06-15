@@ -38,6 +38,12 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
         if (state is UpdateUserRoleSuccess) {
           showSnackBar(context, state.message, AppColors.green);
           context.read<UsersCubit>().fetchUsers();
+
+          final meState = context.read<MeCubit>().state;
+          if (meState is MeSuccess && meState.meModel.id == widget.user.id) {
+            context.read<MeCubit>().getMyInfo();
+          }
+
           Navigator.pop(context);
         }
         if (state is UpdateUserRoleFailure) {

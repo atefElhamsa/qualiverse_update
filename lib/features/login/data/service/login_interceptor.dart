@@ -21,10 +21,7 @@ class LoginInterceptor extends Interceptor {
   }
 
   @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (isAuthPath(options.path)) {
       handler.next(options);
       return;
@@ -113,22 +110,34 @@ class LoginInterceptor extends Interceptor {
         data: {"token": token, "refreshToken": refreshToken},
       );
 
-      if (res.statusCode != 200 || res.data['isSuccess'] != true) return false;
+      if (res.statusCode != 200) return false;
 
-      final data = res.data['data'];
+      final responseData = res.data;
+      if (responseData['isSuccess'] == false) return false;
+
+      final data = responseData['data'] ?? responseData;
+
+      final newToken = data['token'];
+      final newRefreshToken = data['refreshToken'];
+
+      if (newToken == null || newRefreshToken == null) return false;
 
       LoginStorage.setSession(
-        tokenValue: data['token'],
-        refreshTokenValue: data['refreshToken'],
-        refreshTokenExpirationValue: DateTime.parse(
-          data['refreshTokenExpiration'],
-        ),
+        tokenValue: newToken,
+        refreshTokenValue: newRefreshToken,
+        refreshTokenExpirationValue: data['refreshTokenExpiration'] != null
+            ? DateTime.tryParse(data['refreshTokenExpiration'].toString()) ??
+                  LoginStorage.refreshTokenExpiration ??
+                  DateTime.now().add(const Duration(days: 7))
+            : LoginStorage.refreshTokenExpiration ??
+                  DateTime.now().add(const Duration(days: 7)),
       );
 
       await LoginStorage.savePersistent();
 
       return true;
-    } catch (_) {
+    } catch (e) {
+      print("Token Refresh Error: $e");
       return false;
     }
   }

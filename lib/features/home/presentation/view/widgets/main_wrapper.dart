@@ -7,8 +7,13 @@ import 'package:qualiverse/features/all_features_imports/all_features_imports.da
 
 class MainWrapper extends StatefulWidget {
   final Widget child;
+  final bool disabledGestures;
 
-  const MainWrapper({super.key, required this.child});
+  const MainWrapper({
+    super.key,
+    required this.child,
+    this.disabledGestures = false,
+  });
 
   @override
   State<MainWrapper> createState() => _MainWrapperState();
@@ -71,6 +76,7 @@ class _MainWrapperState extends State<MainWrapper> {
       openRatio: isMobile ? 0.75 : 0.22,
       animationCurve: Curves.easeInOut,
       rtlOpening: context.locale.languageCode == 'ar',
+      disabledGestures: widget.disabledGestures,
       controller: advancedDrawerController,
       backdropColor: Colors.transparent,
       animationDuration: const Duration(milliseconds: 300),

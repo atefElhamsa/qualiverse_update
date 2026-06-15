@@ -21,7 +21,9 @@ class GridViewProgramItemsWidget extends StatelessWidget {
             title: state.message,
             onPressed: () {
               final meState = context.read<MeCubit>().state;
-              final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+              final isAdmin =
+                  meState is MeSuccess &&
+                  meState.meModel.role.toLowerCase() == 'admin';
               context
                   .read<ProgramAccreditationCubit>()
                   .fetchProgramAccreditations(

@@ -32,42 +32,43 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MainWrapper(
-      child: BlocListener<AiDescriptionCubit, AiDescriptionState>(
-        listener: (context, state) {
-          if (state is AiDescriptionSubmitError) {
-            showSnackBar(context, state.message, AppColors.red);
-          } else if (state is AiDescriptionSubmitDetailsError) {
-            showSnackBar(context, state.message, AppColors.red);
-          } else if (state is AiDescriptionValidationError) {
-            showSnackBar(context, state.message, AppColors.red);
-          } else if (state is AiDescriptionDownloadError) {
-            showSnackBar(context, state.message, AppColors.red);
-          } else if (state is AiDescriptionCustomUploadError) {
-            showSnackBar(context, state.message, AppColors.red);
-          } else if (state is AiDescriptionFinalConfirmSuccess) {
-            showSnackBar(context, state.message, AppColors.green);
-            context.read<AiDescriptionCubit>().reset();
-            context.go(AppRoutes.homeScreen);
-          } else if (state is AiDescriptionFinalConfirmError) {
-            showSnackBar(context, state.message, AppColors.red);
+    return BlocListener<AiDescriptionCubit, AiDescriptionState>(
+      listener: (context, state) {
+        if (state is AiDescriptionSubmitError) {
+          showSnackBar(context, state.message, AppColors.red);
+        } else if (state is AiDescriptionSubmitDetailsError) {
+          showSnackBar(context, state.message, AppColors.red);
+        } else if (state is AiDescriptionValidationError) {
+          showSnackBar(context, state.message, AppColors.red);
+        } else if (state is AiDescriptionDownloadError) {
+          showSnackBar(context, state.message, AppColors.red);
+        } else if (state is AiDescriptionCustomUploadError) {
+          showSnackBar(context, state.message, AppColors.red);
+        } else if (state is AiDescriptionFinalConfirmSuccess) {
+          showSnackBar(context, state.message, AppColors.green);
+          context.read<AiDescriptionCubit>().reset();
+          context.go(AppRoutes.homeScreen);
+        } else if (state is AiDescriptionFinalConfirmError) {
+          showSnackBar(context, state.message, AppColors.red);
+        }
+      },
+      child: BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
+        builder: (context, state) {
+          final cubit = context.read<AiDescriptionCubit>();
+          final bool isProcessing =
+              state is AiDescriptionSubmitDetailsLoading ||
+              state is AiDescriptionDownloadLoading ||
+              state is AiDescriptionCustomUploadLoading ||
+              state is AiDescriptionFinalConfirmLoading;
+
+          String? loadingMessage;
+          if (state is AiDescriptionSubmitDetailsLoading) {
+            loadingMessage = "generatingFile";
           }
-        },
-        child: BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
-          builder: (context, state) {
-            final cubit = context.read<AiDescriptionCubit>();
-            final bool isProcessing =
-                state is AiDescriptionSubmitDetailsLoading ||
-                state is AiDescriptionDownloadLoading ||
-                state is AiDescriptionCustomUploadLoading ||
-                state is AiDescriptionFinalConfirmLoading;
 
-            String? loadingMessage;
-            if (state is AiDescriptionSubmitDetailsLoading) {
-              loadingMessage = "generatingFile";
-            }
-
-            return Stack(
+          return MainWrapper(
+            disabledGestures: cubit.currentPage == 5,
+            child: Stack(
               children: [
                 CustomScaffold(
                   widget: Column(
@@ -96,9 +97,9 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
                 if (isProcessing)
                   AiDescriptionLoadingOverlay(message: loadingMessage),
               ],
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

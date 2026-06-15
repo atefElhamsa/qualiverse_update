@@ -30,11 +30,11 @@ class AssignCubit extends Cubit<AssignState> {
         doctorId: doctorId,
         deadline: deadline,
       );
-      emit(AssignSuccess(message: result));
+      emit(AssignSuccess(message: result.tr()));
     } catch (e) {
       emit(
         AssignFailure(
-          error: e.toString().replaceFirst("Exception: ", "").trim(),
+          error: e.toString().replaceFirst("Exception: ", "").trim().tr(),
         ),
       );
     }
@@ -50,11 +50,11 @@ class AssignCubit extends Cubit<AssignState> {
       final result = await AssignService.removeAssignIndicator(
         indicatorId: indicatorId,
       );
-      emit(DeleteAssignSuccess(message: result));
+      emit(DeleteAssignSuccess(message: result.tr()));
     } catch (e) {
       emit(
         AssignFailure(
-          error: e.toString().replaceFirst("Exception: ", "").trim(),
+          error: e.toString().replaceFirst("Exception: ", "").trim().tr(),
         ),
       );
     }
@@ -74,11 +74,11 @@ class AssignCubit extends Cubit<AssignState> {
         courseId: courseId,
         doctorId: doctorId,
       );
-      emit(AssignSuccess(message: result));
+      emit(AssignSuccess(message: result.tr()));
     } catch (e) {
       emit(
         AssignFailure(
-          error: e.toString().replaceFirst("Exception: ", "").trim(),
+          error: e.toString().replaceFirst("Exception: ", "").trim().tr(),
         ),
       );
     }
@@ -92,12 +92,12 @@ class AssignCubit extends Cubit<AssignState> {
     emit(DeleteAssignLoading());
     try {
       final result = await AssignService.removeAssignCourse(courseId: courseId);
-      emit(DeleteAssignSuccess(message: result));
+      emit(DeleteAssignSuccess(message: result.tr()));
       
     } catch (e) {
       emit(
         AssignFailure(
-          error: e.toString().replaceFirst("Exception: ", "").trim(),
+          error: e.toString().replaceFirst("Exception: ", "").trim().tr(),
         ),
       );
     }

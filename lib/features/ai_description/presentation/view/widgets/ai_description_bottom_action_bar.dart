@@ -22,7 +22,7 @@ class AiDescriptionBottomActionBar extends StatelessWidget {
       builder: (context, state) {
         final isUploaded = cubit.isUploaded;
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
             decoration: BoxDecoration(

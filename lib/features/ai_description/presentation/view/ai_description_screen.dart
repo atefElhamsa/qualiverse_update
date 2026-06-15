@@ -31,6 +31,14 @@ class _AiDescriptionScreenState extends State<AiDescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MainWrapper(child: AiDescriptionBody(courseId: widget.courseId));
+    return BlocBuilder<AiDescriptionCubit, AiDescriptionState>(
+      builder: (context, state) {
+        final cubit = context.read<AiDescriptionCubit>();
+        return MainWrapper(
+          disabledGestures: cubit.currentPage == 5,
+          child: AiDescriptionBody(courseId: widget.courseId),
+        );
+      },
+    );
   }
 }

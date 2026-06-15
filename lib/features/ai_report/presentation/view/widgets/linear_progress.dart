@@ -29,7 +29,7 @@ class _LinearProgressWidgetState extends State<LinearProgressWidget> {
           valueColor: const AlwaysStoppedAnimation(Colors.green),
         ),
         if (widget.value == 1.0) ...[
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           CustomText(
             title: "doneSuccessfully".tr(),
             textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

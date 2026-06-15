@@ -18,60 +18,91 @@ class _InstitutionalAccreditationBodyState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkAndFetch();
+      final yearCubit = context.read<AcademicYearCubit>();
+      final yearState = yearCubit.state;
+      if (yearState is AcademicYearSuccess &&
+          yearState.academicYears.isNotEmpty) {
+        final latestYear = yearState.academicYears.reduce(
+          (a, b) => a.yearNumber > b.yearNumber ? a : b,
+        );
+        if (yearState.selectedAcademicYear?.id != latestYear.id) {
+          yearCubit.selectAcademicYear(academicYear: latestYear);
+        } else {
+          _checkAndFetch();
+        }
+      } else {
+        _checkAndFetch();
+      }
     });
   }
 
   Future<void> _checkAndFetch() async {
     final yearCubit = context.read<AcademicYearCubit>();
     final yearState = yearCubit.state;
-    
-    if (yearState is AcademicYearSuccess && yearState.academicYears.isNotEmpty) {
-      final selectedYear = yearState.selectedAcademicYear ?? 
-          yearState.academicYears.reduce((a, b) => a.yearNumber > b.yearNumber ? a : b);
-      
+
+    if (yearState is AcademicYearSuccess &&
+        yearState.academicYears.isNotEmpty) {
+      final selectedYear =
+          yearState.selectedAcademicYear ??
+          yearState.academicYears.reduce(
+            (a, b) => a.yearNumber > b.yearNumber ? a : b,
+          );
+
       if (yearState.selectedAcademicYear == null) {
         yearCubit.selectAcademicYear(academicYear: selectedYear);
       }
 
-        final instCubit = context.read<InstitutionalAccreditationCubit>();
-        final typeState = context.read<TypesCubit>().state;
-        int? typeId;
+      final instCubit = context.read<InstitutionalAccreditationCubit>();
+      final typeState = context.read<TypesCubit>().state;
+      int? typeId;
 
-        if (typeState is TypesSuccess && typeState.types.isNotEmpty) {
-          try {
-            typeId = typeState.types
-                .firstWhere(
-                  (t) =>
-                      t.name.toLowerCase().contains("institutional") ||
-                      t.name.contains("مؤسسي"),
-                )
-                .id;
-          } catch (e) {
-            // Fallback to first type if not found by name
-            typeId = typeState.types.first.id;
-          }
+      if (typeState is TypesSuccess && typeState.types.isNotEmpty) {
+        try {
+          typeId = typeState.types
+              .firstWhere(
+                (t) =>
+                    t.name.toLowerCase().contains("institutional") ||
+                    t.name.contains("مؤسسي"),
+              )
+              .id;
+        } catch (e) {
+          // Fallback to first type if not found by name
+          typeId = typeState.types.first.id;
         }
+      } else {
+        // Wait for TypesCubit to load
+        return;
+      }
 
-        final meState = context.read<MeCubit>().state;
-        final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+      final meState = context.read<MeCubit>().state;
+      final isAdmin =
+          meState is MeSuccess && meState.meModel.role.toLowerCase() == 'admin';
 
-        instCubit.fetchInstitutionalAccreditations(
-          academicYearId: selectedYear.id,
-          accreditationTypeId: typeId,
-          isAdmin: isAdmin,
-        );
-        instCubit.selectedYearId = selectedYear.id;
+      instCubit.fetchInstitutionalAccreditations(
+        academicYearId: selectedYear.id,
+        accreditationTypeId: typeId,
+        isAdmin: isAdmin,
+      );
+      instCubit.selectedYearId = selectedYear.id;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final inherited = HomeBodyInherited.of(context);
-    return BlocListener<AcademicYearCubit, AcademicYearState>(
-      listener: (context, state) {
-        _checkAndFetch();
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AcademicYearCubit, AcademicYearState>(
+          listener: (context, state) {
+            _checkAndFetch();
+          },
+        ),
+        BlocListener<TypesCubit, TypesState>(
+          listener: (context, state) {
+            _checkAndFetch();
+          },
+        ),
+      ],
       child: CustomScaffold(
         onRefresh: () => _checkAndFetch(),
         widget: Column(

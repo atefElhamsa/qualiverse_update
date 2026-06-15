@@ -32,6 +32,19 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
       emit(ChangePasswordError(error: "fillAllFields".tr()));
       return;
     }
+
+    if (newPasswordController.text.length < 8) {
+      emit(
+        ChangePasswordError(error: "Password must be at least 8 characters"),
+      );
+      return;
+    }
+
+    if (newPasswordController.text != confirmPasswordController.text) {
+      emit(ChangePasswordError(error: "Passwords do not match"));
+      return;
+    }
+
     if (!await checkInternet()) {
       emit(ChangePasswordError(error: "checkInternet".tr()));
       return;

@@ -15,7 +15,9 @@ class SideBarMenu extends StatelessWidget {
     final _ = context.locale;
     final isAdmin =
         context.watch<MeCubit>().state is MeSuccess &&
-        (context.watch<MeCubit>().state as MeSuccess).meModel.role == 'admin';
+        (context.watch<MeCubit>().state as MeSuccess).meModel.role
+                .toLowerCase() ==
+            'admin';
 
     final visibleItems = sideBarItems
         .where((item) => !item.isAdmin || isAdmin)

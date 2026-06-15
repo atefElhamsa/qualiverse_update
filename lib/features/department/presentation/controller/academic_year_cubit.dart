@@ -27,7 +27,14 @@ class AcademicYearCubit extends Cubit<AcademicYearState> {
     emit(AcademicYearLoading());
     try {
       final data = await AcademicYearServices.getAcademicYears();
-      academicYears = data;
+      
+      final uniqueYears = <int, AcademicYearModel>{};
+      for (var year in data) {
+        if (!uniqueYears.containsKey(year.yearNumber)) {
+          uniqueYears[year.yearNumber] = year;
+        }
+      }
+      academicYears = uniqueYears.values.toList();
 
       if (academicYears.isEmpty) {
         selectedAcademicYear = null;

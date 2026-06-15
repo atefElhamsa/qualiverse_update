@@ -47,7 +47,7 @@ class _SideBarItemState extends State<SideBarItem> {
               aiDescriptionCubit.endGeneration();
             }
             widget.controller?.hideDrawer();
-            context.push(widget.sideBarItemModel.route!);
+            context.go(widget.sideBarItemModel.route!);
           },
           borderRadius: BorderRadius.circular(12.r),
           child: AnimatedScale(

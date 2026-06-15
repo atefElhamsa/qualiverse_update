@@ -13,7 +13,7 @@ class ProgramAccreditationScreen extends StatelessWidget {
     final academicYearId = data['academicYearId'] as int;
     final departmentId = data['departmentId'] as int?;
     final meState = context.read<MeCubit>().state;
-    final isAdmin = meState is MeSuccess && meState.meModel.role == 'admin';
+    final isAdmin = meState is MeSuccess && meState.meModel.role.toLowerCase() == 'admin';
     final typeState = context.read<TypesCubit>().state;
     int? typeId;
     if (typeState is TypesSuccess && typeState.types.isNotEmpty) {

@@ -88,14 +88,14 @@ class AiDescriptionBody extends StatelessWidget {
       children: [
         const AiDescriptionTop(),
         const AiDescriptionWarningMessage(),
-        SizedBox(height: 8.h),
+        SizedBox(height: 15.h),
         AiDescriptionFileUploadSection(
           onPickProgram: () => _pickFile(context, true),
           onPickTemplate: () => _pickFile(context, false),
           programFile: cubit.programFile,
           templateFile: cubit.templateFile,
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 15.h),
         AiDescriptionBottomActionBar(
           courseId: courseId,
           cubit: cubit,
