@@ -28,7 +28,9 @@ class DashboardServices {
         throw Exception(response.data['message'] ?? 'Failed to load dashboard');
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Failed to load dashboard');
+      throw Exception(
+        e.response?.data['message'] ?? 'Failed to load dashboard',
+      );
     } catch (e) {
       throw Exception('Failed to load dashboard');
     }

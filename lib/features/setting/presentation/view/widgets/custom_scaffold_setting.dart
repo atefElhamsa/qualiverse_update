@@ -17,11 +17,15 @@ class CustomScaffoldSetting extends StatelessWidget {
       height: screenHeight,
       padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
       decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-          ? const BoxDecoration(
+          ? BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [AppColors.scaffoldLight1, AppColors.colorButtonLight],
+                colors: [
+                  AppColors.scaffoldLight1,
+                  AppColors.colorButtonLight,
+                  Colors.purple.shade300,
+                ],
               ),
             )
           : const BoxDecoration(color: AppColors.mainBlack),

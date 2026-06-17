@@ -19,12 +19,16 @@ class DashboardScaffold extends StatelessWidget {
       width: screenWidth,
       height: screenHeight,
       decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-          ? const BoxDecoration(
+          ? BoxDecoration(
               gradient: LinearGradient(
                 // Define gradient for light theme.
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [AppColors.scaffoldLight1, AppColors.colorButtonLight],
+                colors: [
+                  AppColors.scaffoldLight1,
+                  AppColors.colorButtonLight,
+                  Colors.purple.shade300,
+                ],
               ),
             )
           : const BoxDecoration(color: AppColors.mainBlack),

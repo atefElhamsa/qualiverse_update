@@ -8,4 +8,5 @@ class KeysTexts {
   static const String preferredLanguages = "preferred_languages";
   static const String onboardingShown = "onboarding_shown";
   static const String meModel = "me_model";
+  static const String appVersion = "app_version";
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/dashboard/data/services/dashboard_services.dart';
 import 'dashboard_state.dart';
@@ -27,9 +26,7 @@ class DashboardCubit extends Cubit<DashboardState> {
       } else {
         emit(DashboardFailure(errorMessage: 'Empty data received from server'));
       }
-    } catch (e, stack) {
-      debugPrint('Dashboard Error: $e');
-      debugPrint('Stack Trace: $stack');
+    } catch (e) {
       emit(DashboardFailure(errorMessage: e.toString()));
     }
   }

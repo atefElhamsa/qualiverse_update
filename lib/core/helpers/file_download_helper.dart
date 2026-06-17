@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:qualiverse/core/network/api_client.dart';
 import 'package:qualiverse/core/utils/end_points.dart';
 
@@ -13,6 +14,13 @@ class FileDownloadHelper {
     void Function(int received, int total)? onProgress,
   }) async {
     try {
+      // Check network connectivity first
+      final List<ConnectivityResult> connectivityResult = await (Connectivity()
+          .checkConnectivity());
+      if (connectivityResult.contains(ConnectivityResult.none)) {
+        return 'النت قطع، يرجى التحقق من اتصالك بالإنترنت';
+      }
+
       // Build full URL
       final url = filePath.startsWith('http')
           ? filePath
@@ -40,7 +48,7 @@ class FileDownloadHelper {
         deleteOnError: true,
         options: Options(
           responseType: ResponseType.bytes,
-          receiveTimeout: const Duration(minutes: 5),
+          receiveTimeout: const Duration(seconds: 30),
           headers: {'Accept': '*/*'},
         ),
       );
@@ -53,13 +61,14 @@ class FileDownloadHelper {
       return null;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        return 'Session expired, please login again';
+        return 'انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى';
       }
       if (e.type == DioExceptionType.connectionError ||
-          e.type == DioExceptionType.connectionTimeout) {
-        return 'No internet connection';
+          e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        return 'النت قطع، يرجى التحقق من اتصالك بالإنترنت';
       }
-      return e.message ?? 'Download failed';
+      return 'فشل التحميل: ${e.message}';
     } catch (e) {
       return e.toString().replaceFirst('Exception: ', '').trim();
     }

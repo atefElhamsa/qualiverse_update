@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
+import 'package:qualiverse/features/login/presentation/view/widgets/update_prompt_helper.dart';
+
 class FieldsWidget extends StatelessWidget {
   const FieldsWidget({super.key, required this.loginCubit});
 
@@ -26,6 +28,7 @@ class FieldsWidget extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
               ),
+              onTap: () => UpdatePromptHelper.checkUpdateAndPrompt(context),
               onFieldSubmitted: (submit) {
                 FocusScope.of(context).requestFocus(loginCubit.passwordNode);
               },

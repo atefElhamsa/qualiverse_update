@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qualiverse/core/helpers/updater_service.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -76,16 +77,47 @@ class _SplashScreenState extends State<SplashScreen>
     final bool onboardingShown =
         CashHelper.getData(key: KeysTexts.onboardingShown) == "true";
 
-    if (!LoginStorage.hasToken) {
-      if (onboardingShown) {
-        context.pushReplacementNamed(AppRoutes.loginScreen);
-      } else {
-        context.pushReplacementNamed(AppRoutes.onboardingScreen);
-      }
-      return;
-    }
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      String currentVersion = packageInfo.version;
+      String? savedVersion = CashHelper.getData(key: KeysTexts.appVersion);
 
-    context.pushReplacementNamed(AppRoutes.homeScreen);
+      if (!LoginStorage.hasToken) {
+        if (savedVersion != currentVersion) {
+          await CashHelper.saveData(
+            key: KeysTexts.appVersion,
+            value: currentVersion,
+          );
+        }
+        if (onboardingShown) {
+          context.pushReplacementNamed(AppRoutes.loginScreen);
+        } else {
+          context.pushReplacementNamed(AppRoutes.onboardingScreen);
+        }
+        return;
+      }
+
+      if (savedVersion != null && savedVersion != currentVersion) {
+        // Version changed, navigate to login so the user sees the prompt there.
+        if (mounted) context.pushReplacementNamed(AppRoutes.loginScreen);
+      } else {
+        await CashHelper.saveData(
+          key: KeysTexts.appVersion,
+          value: currentVersion,
+        );
+        if (mounted) context.pushReplacementNamed(AppRoutes.homeScreen);
+      }
+    } catch (e) {
+      if (!LoginStorage.hasToken) {
+        if (onboardingShown) {
+          context.pushReplacementNamed(AppRoutes.loginScreen);
+        } else {
+          context.pushReplacementNamed(AppRoutes.onboardingScreen);
+        }
+      } else {
+        context.pushReplacementNamed(AppRoutes.homeScreen);
+      }
+    }
   }
 
   void initAnimations() {

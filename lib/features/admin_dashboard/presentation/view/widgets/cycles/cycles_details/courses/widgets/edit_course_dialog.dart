@@ -110,6 +110,10 @@ class _EditCourseDialogState extends State<EditCourseDialog> {
       showSnackBar(context, 'Please fill Code field', AppColors.red);
       return;
     }
+    if (code.length < 4 || code.length > 6) {
+      showSnackBar(context, 'codeLengthError'.tr(), AppColors.red);
+      return;
+    }
 
     final yearId = AcademicYearCubit.get(context).selectedAcademicYear?.id ?? 0;
     final nameAr = arabicNameController.text.trim().isEmpty

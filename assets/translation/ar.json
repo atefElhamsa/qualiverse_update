@@ -671,5 +671,10 @@
     "selfLearningHours": "ساعات التعلم الذاتي",
     "enterSelfLearningHours": "أدخل ساعات التعلم الذاتي",
     "otherHours": "ساعات أخرى",
-    "enterOtherHours": "أدخل ساعات أخرى"
+    "enterOtherHours": "أدخل ساعات أخرى",
+    "codeLengthError": "يجب أن يكون كود المقرر بين 4 و 6 أحرف",
+    "updateDetected": "تحديث جديد",
+    "continueWithSameAccount": "هل تريد الدخول بنفس الحساب الذي سجلت الدخول به سابقاً؟",
+    "yes": "نعم",
+    "no": "لا"
 }

@@ -671,5 +671,10 @@
     "selfLearningHours": "Self-Learning Hours",
     "enterSelfLearningHours": "Enter self-learning hours",
     "otherHours": "Other Hours",
-    "enterOtherHours": "Enter other hours"
+    "enterOtherHours": "Enter other hours",
+    "codeLengthError": "Code must be between 4 and 6 characters",
+    "updateDetected": "Update Detected",
+    "continueWithSameAccount": "Do you want to log in with the same account you logged in with before?",
+    "yes": "Yes",
+    "no": "No"
 }

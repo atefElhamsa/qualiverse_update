@@ -61,17 +61,23 @@ class CreateCourseDialogState extends State<CreateCourseDialog>
         termId: selectedTermId!,
       );
     } else if (tabController.index == 1) {
-      if (codeController.text.isEmpty ||
+      final codeText = codeController.text.trim();
+      if (codeText.isEmpty ||
           arabicNameController.text.isEmpty ||
           englishNameController.text.isEmpty) {
         showSnackBar(context, 'Please fill all fields', AppColors.red);
+        return;
+      }
+      
+      if (codeText.length < 4 || codeText.length > 6) {
+        showSnackBar(context, 'codeLengthError'.tr(), AppColors.red);
         return;
       }
 
       cubit.createNewCourse(
         nameAr: arabicNameController.text,
         nameEn: englishNameController.text,
-        code: codeController.text,
+        code: codeText,
         departmentId: selectedDeptId,
         levelId: selectedLevelId!,
         termId: selectedTermId!,
