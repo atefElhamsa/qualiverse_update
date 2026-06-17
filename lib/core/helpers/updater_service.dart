@@ -90,6 +90,7 @@ class _UpdateDialogWidget extends StatefulWidget {
 
 class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
   bool _isDownloading = false;
+  bool _isWaitingForNetwork = false;
   double _progress = 0.0;
   String _statusText = 'جاهز لبدء التحديث';
   StreamSubscription? _connectivitySubscription;
@@ -103,11 +104,11 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
   Future<void> _startDownloadAndInstall() async {
     setState(() {
       _isDownloading = true;
+      _isWaitingForNetwork = false;
       _statusText = 'جاري التحميل... يرجى الانتظار';
     });
 
     try {
-      // Assuming the installer name is always qualiverse_setup.exe
       final exeUrl =
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
       final request = http.Request('GET', Uri.parse(exeUrl));
@@ -119,6 +120,19 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       ) {
         if (result.contains(ConnectivityResult.none)) {
           client.close(); // Abort the HTTP request immediately
+          if (mounted) {
+            setState(() {
+              _isWaitingForNetwork = true;
+              _isDownloading = false;
+              _statusText =
+                  'انقطع الاتصال.. في انتظار عودة الإنترنت للاستكمال أوتوماتيكياً';
+            });
+          }
+        } else if (_isWaitingForNetwork) {
+          // Network is back! Auto-resume
+          if (mounted) {
+            _startDownloadAndInstall();
+          }
         }
       });
 
@@ -155,20 +169,37 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       _connectivitySubscription?.cancel();
 
       setState(() {
-        _statusText = 'اكتمل التحميل. جاري بدء التثبيت...';
+        _statusText = 'اكتمل التحميل. جاري التحديث... التطبيق سيغلق الآن.';
       });
 
-      // Start the installer silently
-      await Process.start(file.path, ['/VERYSILENT', '/SUPPRESSMSGBOXES']);
+      final localAppData = Platform.environment['LOCALAPPDATA'];
+      final exePath = '$localAppData\\QualiVerse\\qualiverse.exe';
+      await Process.start(
+        'powershell',
+        [
+          '-Command',
+          'Start-Sleep -Seconds 2; \$proc = Start-Process -FilePath \'${file.path}\' -ArgumentList \'/VERYSILENT\', \'/SUPPRESSMSGBOXES\' -PassThru; \$proc.WaitForExit(); Start-Process -FilePath \'$exePath\''
+        ],
+        mode: ProcessStartMode.detached,
+      );
 
-      // Close the current app completely to allow installer to overwrite files
       exit(0);
     } catch (e) {
       _connectivitySubscription?.cancel();
       setState(() {
-        _statusText =
-            'انقطع الاتصال بالإنترنت. يرجى التأكد من الشبكة والمحاولة مرة أخرى.';
+        _isWaitingForNetwork = true;
         _isDownloading = false;
+        _statusText =
+            'انقطع الاتصال.. في انتظار عودة الإنترنت للاستكمال أوتوماتيكياً';
+      });
+      _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+        result,
+      ) {
+        if (!result.contains(ConnectivityResult.none) &&
+            _isWaitingForNetwork &&
+            mounted) {
+          _startDownloadAndInstall();
+        }
       });
     }
   }
@@ -196,7 +227,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: Colors.blue.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -225,17 +256,21 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
               ),
             ),
             const SizedBox(height: 30),
-            if (_isDownloading) ...[
-              LinearProgressIndicator(
-                value: _progress > 0 ? _progress : null,
-                backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[700]!),
-                minHeight: 10,
-                borderRadius: BorderRadius.circular(5),
-              ),
+            if (_isDownloading || _isWaitingForNetwork) ...[
+              if (_isWaitingForNetwork)
+                const Center(child: CircularProgressIndicator())
+              else
+                LinearProgressIndicator(
+                  value: _progress > 0 ? _progress : null,
+                  backgroundColor: Colors.grey[200],
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue[700]!),
+                  minHeight: 10,
+                  borderRadius: BorderRadius.circular(5),
+                ),
               const SizedBox(height: 12),
               Text(
                 _statusText,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 14,
                   color: Colors.blueGrey,
