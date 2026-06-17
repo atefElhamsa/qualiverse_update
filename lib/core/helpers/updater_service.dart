@@ -176,49 +176,13 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       _connectivitySubscription?.cancel();
 
       setState(() {
-        _statusText =
-            'اكتمل التحميل. جاري التحديث في الخلفية... التطبيق سيغلق الآن ويعود تلقائياً.';
+        _statusText = 'اكتمل التحميل. جاري التحديث...';
       });
 
-      final exePath = Platform.resolvedExecutable;
-      final ps1File = File('${tempDir.path}\\qualiverse_update_script.ps1');
-      final scriptContent =
-          '''
-Start-Transcript -Path "${tempDir.path}\\qualiverse_update_log.txt" -Force
-Write-Host "Waiting 2 seconds for app to close..."
-Start-Sleep -Seconds 2
-Write-Host "Starting installer: ${file.path}"
-Start-Process -FilePath "${file.path}" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/FORCECLOSEAPPLICATIONS"
-\$timeout = 60
-Write-Host "Waiting for installer process to appear..."
-while (!(Get-Process "qualiverse_setup*" -ErrorAction SilentlyContinue) -and \$timeout -gt 0) {
-    Start-Sleep -Seconds 1
-    \$timeout--
-}
-Write-Host "Timeout remaining: \$timeout"
-\$proc = Get-Process "qualiverse_setup*" -ErrorAction SilentlyContinue
-if (\$proc) {
-    Write-Host "Installer process found! Waiting for it to finish..."
-    \$proc | Wait-Process
-    Write-Host "Installer finished."
-} else {
-    Write-Host "Installer process never appeared."
-}
-Write-Host "Restarting app: \$exePath"
-Start-Process -FilePath "$exePath"
-Stop-Transcript
-''';
-      await ps1File.writeAsString(scriptContent);
+      // Start the installer normally so the user sees Next -> Install
+      await Process.start(file.path, []);
 
-      await Process.start('powershell', [
-        '-ExecutionPolicy',
-        'Bypass',
-        '-WindowStyle',
-        'Hidden',
-        '-File',
-        ps1File.path,
-      ], mode: ProcessStartMode.detached);
-
+      // Close the current app completely
       exit(0);
     } catch (e) {
       _connectivitySubscription?.cancel();
