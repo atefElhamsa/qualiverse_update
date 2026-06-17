@@ -55,6 +55,11 @@ class FolderFilesCubit extends Cubit<FolderFilesState> {
       getFolderFiles(folderId: folderId);
     } catch (e) {
       final msg = e.toString();
+      final match = RegExp(
+        r'description:\s*(.*?),\s*statusCode',
+      ).firstMatch(msg);
+      final description = match?.group(1);
+
       if (msg.contains('No Internet')) {
         emit(UploadFilesFailure(error: 'Check your internet connection'));
       } else if (msg.contains('Unauthorized')) {
@@ -63,7 +68,9 @@ class FolderFilesCubit extends Cubit<FolderFilesState> {
         emit(UploadFilesFailure(error: 'Session expired, please login again'));
       } else {
         emit(
-          UploadFilesFailure(error: msg.replaceFirst('Exception: ', '').trim()),
+          UploadFilesFailure(
+            error: description ?? msg.replaceFirst('Exception: ', '').trim(),
+          ),
         );
       }
     }

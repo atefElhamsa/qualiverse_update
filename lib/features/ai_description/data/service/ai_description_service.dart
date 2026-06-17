@@ -379,13 +379,10 @@ class AiDescriptionService {
 
   static Future<AiGenericResponseModel> confirmGeneration({
     required String generationId,
-    required String docxUrl,
-    required String pdfUrl,
   }) async {
     try {
       final response = await dio.post(
         EndPoints.confirmGeneration(generationId),
-        data: {'docxUrl': docxUrl, 'pdfUrl': pdfUrl},
       );
       final dynamic body = response.data;
       final result = AiGenericResponseModel.fromJson(body);
@@ -424,9 +421,7 @@ class AiDescriptionService {
     required String generationId,
   }) async {
     try {
-      final response = await dio.post(
-        EndPoints.endGeneration(generationId),
-      );
+      final response = await dio.post(EndPoints.endGeneration(generationId));
       final dynamic body = response.data;
       final result = AiGenericResponseModel.fromJson(body);
       if (!result.isSuccess) {

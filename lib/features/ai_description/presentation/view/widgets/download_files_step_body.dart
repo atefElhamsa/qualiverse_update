@@ -42,15 +42,27 @@ class DownloadFilesStepBody extends StatelessWidget {
     );
   }
 
+  String _getPdfTitle() {
+    if (cubit.customPdfFile != null) {
+      return cubit.customPdfFile!.path.split('/').last.split('\\').last;
+    }
+    return "PDF";
+  }
+
+  String _getDocxTitle() {
+    if (cubit.customDocxFile != null) {
+      return cubit.customDocxFile!.path.split('/').last.split('\\').last;
+    }
+    return "DOCX";
+  }
+
   Widget _buildFilesRow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         // PDF Section
         FileSectionWidget(
-          title: cubit.customPdfFile != null
-              ? cubit.customPdfFile!.path.split(RegExp(r'[/\\]')).last
-              : (cubit.pdfName ?? "evaluation.pdf"),
+          title: _getPdfTitle(),
           icon: Icons.picture_as_pdf_rounded,
           iconColor: AppColors.aiPdf,
           isReady: cubit.pdfUrl != null || cubit.customPdfFile != null,
@@ -60,9 +72,7 @@ class DownloadFilesStepBody extends StatelessWidget {
         ),
         // DOCX Section
         FileSectionWidget(
-          title: cubit.customDocxFile != null
-              ? cubit.customDocxFile!.path.split(RegExp(r'[/\\]')).last
-              : (cubit.docxName ?? "evaluation.docx"),
+          title: _getDocxTitle(),
           icon: Icons.description_rounded,
           iconColor: AppColors.aiDocx,
           isReady: cubit.docxUrl != null || cubit.customDocxFile != null,

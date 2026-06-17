@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FolderFileItem extends StatefulWidget {
   final FileModel file;
@@ -25,10 +26,56 @@ class _FolderFileItemState extends State<FolderFileItem> {
   bool _hovered = false;
   bool _isDownloading = false;
 
+  Future<void> _openFile(BuildContext context) async {
+    String path = widget.file.filePath;
+
+    if (widget.file.isFromAI && !path.startsWith('http')) {
+      if (path.startsWith('/api/')) path = path.substring(5);
+      if (path.startsWith('api/')) path = path.substring(4);
+      path = '${EndPoints.baseUrlToOpenFile}/$path';
+
+      if (path.contains('fileType=1')) {
+        path = path.replaceAll('fileType=1', 'fileType=Pdf');
+      } else if (path.contains('fileType=0')) {
+        path = path.replaceAll('fileType=0', 'fileType=Docx');
+      }
+    } else if (!path.startsWith('http')) {
+      path =
+          '${EndPoints.baseUrlToOpenFile}${path.startsWith('/') ? path.substring(1) : path}';
+    }
+
+    try {
+      final url = Uri.parse(path);
+      if (!await canLaunchUrl(url)) {
+        throw Exception('Cannot open URL');
+      }
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      if (context.mounted) {
+        showSnackBar(context, 'فشل فتح الملف: ${e.toString()}', AppColors.red);
+      }
+    }
+  }
+
   Future<void> _downloadFile(BuildContext context) async {
     setState(() => _isDownloading = true);
+
+    String path = widget.file.filePath;
+    if (widget.file.isFromAI && !path.startsWith('http')) {
+      if (path.startsWith('/api/')) path = path.substring(5);
+      if (path.startsWith('api/')) path = path.substring(4);
+      path = '${EndPoints.baseUrlToOpenFile}/$path';
+
+      // Fix fileType enum if it's stored as integer
+      if (path.contains('fileType=1')) {
+        path = path.replaceAll('fileType=1', 'fileType=Pdf');
+      } else if (path.contains('fileType=0')) {
+        path = path.replaceAll('fileType=0', 'fileType=Docx');
+      }
+    }
+
     final error = await FileDownloadHelper.downloadAndOpen(
-      filePath: widget.file.filePath,
+      filePath: path,
       fileName: widget.file.fileName,
     );
     if (!mounted) return;
@@ -167,11 +214,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: GestureDetector(
-        onTap: () {
-          context.read<IndicatorsCubit>().openIndicatorFile(
-            widget.file.filePath,
-          );
-        },
+        onTap: () => _openFile(context),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),

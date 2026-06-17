@@ -427,30 +427,18 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
       if (_generationFuture != null && !isGenerationCompleted) {
         await _generationFuture;
       }
-      final docxRes = await AiDescriptionService.downloadFiles(
-        generationId: generationId!,
-        fileType: 0,
-      );
-      final pdfRes = await AiDescriptionService.downloadFiles(
-        generationId: generationId!,
-        fileType: 1,
-      );
+      // The backend now directly returns the file on download.
+      // We just construct the URLs to be used.
+      docxUrl = EndPoints.downloadFiles(generationId!, 0);
+      pdfUrl = EndPoints.downloadFiles(generationId!, 1);
 
-      if (docxRes.isSuccess && docxRes.data != null) {
-        docxUrl = docxRes.data!.url;
-        docxName = docxRes.data!.fileName;
-        if (aiDocxUrl == null) {
-          aiDocxUrl = docxUrl;
-          aiDocxName = docxName;
-        }
+      if (aiDocxUrl == null) {
+        aiDocxUrl = docxUrl;
+        aiDocxName = "Course_Description.docx";
       }
-      if (pdfRes.isSuccess && pdfRes.data != null) {
-        pdfUrl = pdfRes.data!.url;
-        pdfName = pdfRes.data!.fileName;
-        if (aiPdfUrl == null) {
-          aiPdfUrl = pdfUrl;
-          aiPdfName = pdfName;
-        }
+      if (aiPdfUrl == null) {
+        aiPdfUrl = pdfUrl;
+        aiPdfName = "Course_Description.pdf";
       }
       emit(AiDescriptionFileUpdated());
     } catch (e) {
@@ -477,18 +465,12 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
   }
 
   Future<void> downloadFile(int fileType) async {
+    // This method is no longer used by UI, UI handles download directly.
     if (generationId == null) return;
     emit(AiDescriptionDownloadLoading());
     try {
-      final result = await AiDescriptionService.downloadFiles(
-        generationId: generationId!,
-        fileType: fileType,
-      );
-      if (result.isSuccess && result.data != null) {
-        emit(AiDescriptionDownloadSuccess(result.data!.url));
-      } else {
-        emit(AiDescriptionDownloadError("Download failed"));
-      }
+      final url = EndPoints.downloadFiles(generationId!, fileType);
+      emit(AiDescriptionDownloadSuccess(url));
     } catch (e) {
       emit(AiDescriptionDownloadError(e.toString()));
     }
@@ -528,8 +510,6 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     try {
       final result = await AiDescriptionService.confirmGeneration(
         generationId: generationId!,
-        docxUrl: docxUrl!,
-        pdfUrl: pdfUrl!,
       );
       if (result.isSuccess) {
         try {

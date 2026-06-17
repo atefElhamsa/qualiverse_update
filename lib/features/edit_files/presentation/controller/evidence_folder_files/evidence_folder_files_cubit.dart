@@ -256,11 +256,30 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         departmentId: departmentId,
       );
     } catch (e) {
-      emit(
-        UploadEvidenceFilesFailure(
-          error: e.toString().replaceFirst('Exception: ', '').trim(),
-        ),
-      );
+      final msg = e.toString();
+      final match = RegExp(
+        r'description:\s*(.*?),\s*statusCode',
+      ).firstMatch(msg);
+      final description = match?.group(1);
+
+      if (msg.contains('No Internet')) {
+        emit(
+          UploadEvidenceFilesFailure(error: 'Check your internet connection'),
+        );
+      } else if (msg.contains('Unauthorized')) {
+        await LoginStorage.clear();
+        emit(
+          UploadEvidenceFilesFailure(
+            error: 'Session expired, please login again',
+          ),
+        );
+      } else {
+        emit(
+          UploadEvidenceFilesFailure(
+            error: description ?? msg.replaceFirst('Exception: ', '').trim(),
+          ),
+        );
+      }
     }
   }
 
