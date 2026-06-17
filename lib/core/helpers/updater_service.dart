@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
-
 class UpdaterService {
   static String get _versionUrl =>
       'https://raw.githubusercontent.com/atefElhamsa/qualiverse_update/main/version.json?t=${DateTime.now().millisecondsSinceEpoch}';
@@ -101,44 +101,37 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       // Assuming the installer name is always qualiverse_setup.exe
       final exeUrl =
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
-      final request = http.Request('GET', Uri.parse(exeUrl));
-      final response = await http.Client().send(request);
-
-      if (response.statusCode != 200) {
-        setState(() {
-          _statusText = 'فشل التحميل. تأكد من توفر الملف على جيت هاب.';
-          _isDownloading = false;
-        });
-        return;
-      }
-
-      final contentLength = response.contentLength ?? 0;
+      
       final tempDir = await getTemporaryDirectory();
-      final file = File(
-        '${tempDir.path}\\qualiverse_setup_v${widget.latestVersion}.exe',
-      );
-      final sink = file.openWrite();
+      final savePath = '${tempDir.path}\\qualiverse_setup_v${widget.latestVersion}.exe';
 
-      int downloaded = 0;
-      await response.stream.forEach((chunk) {
-        sink.add(chunk);
-        downloaded += chunk.length;
-        if (contentLength > 0) {
-          setState(() {
-            _progress = downloaded / contentLength;
-            _statusText =
-                'جاري التحميل: ${(downloaded / 1024 / 1024).toStringAsFixed(1)} ميجا / ${(contentLength / 1024 / 1024).toStringAsFixed(1)} ميجا';
-          });
-        }
-      });
-      await sink.close();
+      final dio = Dio();
+      int lastUpdateTime = 0;
+
+      await dio.download(
+        exeUrl,
+        savePath,
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            final now = DateTime.now().millisecondsSinceEpoch;
+            if (now - lastUpdateTime > 100 || received == total) {
+              lastUpdateTime = now;
+              setState(() {
+                _progress = received / total;
+                _statusText =
+                    'جاري التحميل: ${(received / 1024 / 1024).toStringAsFixed(1)} ميجا / ${(total / 1024 / 1024).toStringAsFixed(1)} ميجا';
+              });
+            }
+          }
+        },
+      );
 
       setState(() {
         _statusText = 'اكتمل التحميل. جاري بدء التثبيت...';
       });
 
-      // Start the installer
-      await Process.start(file.path, []);
+      // Start the installer detached so it continues running after app exits
+      await Process.start(savePath, [], mode: ProcessStartMode.detached);
 
       // Close the current app completely to allow installer to overwrite files
       exit(0);
