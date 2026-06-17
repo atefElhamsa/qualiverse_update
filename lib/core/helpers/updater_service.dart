@@ -120,7 +120,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       final sink = file.openWrite();
 
       int downloaded = 0;
-      await response.stream.forEach((chunk) {
+      await response.stream.timeout(const Duration(seconds: 2)).forEach((chunk) {
         sink.add(chunk);
         downloaded += chunk.length;
         if (contentLength > 0) {
