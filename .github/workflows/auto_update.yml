@@ -24,20 +24,22 @@ jobs:
         shell: pwsh
         run: |
           $pubspec = Get-Content "pubspec.yaml" -Raw
-          $match = [regex]::Match($pubspec, '(?m)^version:\s*(\d+\.\d+\.\d+)\+(\d+)$')
+          $match = [regex]::Match($pubspec, '(?m)^version:\s*(\d+\.\d+\.)(\d+)\+(\d+)$')
           if ($match.Success) {
-            $base = $match.Groups[1].Value
-            $build = [int]$match.Groups[2].Value + 1
-            $newVersion = "version: $base+$build"
+            $prefix = $match.Groups[1].Value
+            $oldBuild = [int]$match.Groups[3].Value
+            $newBuild = $oldBuild + 1
+            
+            $newVersion = "version: ${prefix}${newBuild}+${newBuild}"
             $pubspec = $pubspec -replace '(?m)^version:\s*\d+\.\d+\.\d+\+\d+$', $newVersion
             Set-Content -Path "pubspec.yaml" -Value $pubspec
             
             git config user.name "github-actions"
             git config user.email "actions@github.com"
             git add pubspec.yaml
-            git commit -m "chore: auto-increment version to $base+$build [skip ci]"
+            git commit -m "chore: auto-increment version to ${prefix}${newBuild}+${newBuild} [skip ci]"
             git push origin HEAD:${{ github.ref }}
-            Write-Host "Version bumped to $base+$build and pushed back to repo."
+            Write-Host "Version bumped to ${prefix}${newBuild}+${newBuild} and pushed back to repo."
           }
 
       - name: Setup Flutter
