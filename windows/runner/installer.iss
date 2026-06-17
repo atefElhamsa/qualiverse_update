@@ -26,4 +26,4 @@ Name: "{autoprograms}\QualiVerse"; Filename: "{app}\qualiverse.exe"
 Name: "{autodesktop}\QualiVerse"; Filename: "{app}\qualiverse.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\qualiverse.exe"; Description: "{cm:LaunchProgram,QualiVerse}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\qualiverse.exe"; Description: "{cm:LaunchProgram,QualiVerse}"; Flags: nowait postinstall

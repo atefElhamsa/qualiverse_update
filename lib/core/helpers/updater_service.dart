@@ -137,8 +137,8 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
         _statusText = 'اكتمل التحميل. جاري بدء التثبيت...';
       });
 
-      // Start the installer
-      await Process.start(file.path, []);
+      // Start the installer silently
+      await Process.start(file.path, ['/VERYSILENT', '/SUPPRESSMSGBOXES']);
 
       // Close the current app completely to allow installer to overwrite files
       exit(0);
