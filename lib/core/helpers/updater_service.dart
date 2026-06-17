@@ -172,8 +172,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
         _statusText = 'اكتمل التحميل. جاري التحديث... التطبيق سيغلق الآن.';
       });
 
-      final localAppData = Platform.environment['LOCALAPPDATA'];
-      final exePath = '$localAppData\\QualiVerse\\qualiverse.exe';
+      final exePath = Platform.resolvedExecutable;
       await Process.start(
         'powershell',
         [
