@@ -18,7 +18,6 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
-          token: ${{ secrets.GH_PAT }}
 
       - name: Auto-increment Version
         shell: pwsh
