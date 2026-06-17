@@ -112,9 +112,11 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
       final request = http.Request('GET', Uri.parse(exeUrl));
       final client = http.Client();
-      
+
       _connectivitySubscription?.cancel();
-      _connectivitySubscription = Connectivity().onConnectivityChanged.listen((result) {
+      _connectivitySubscription = Connectivity().onConnectivityChanged.listen((
+        result,
+      ) {
         if (result.contains(ConnectivityResult.none)) {
           client.close(); // Abort the HTTP request immediately
         }
@@ -138,9 +140,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       final sink = file.openWrite();
 
       int downloaded = 0;
-      await response.stream.forEach((
-        chunk,
-      ) {
+      await response.stream.forEach((chunk) {
         sink.add(chunk);
         downloaded += chunk.length;
         if (contentLength > 0) {
