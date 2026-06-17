@@ -144,7 +144,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       exit(0);
     } catch (e) {
       setState(() {
-        _statusText = 'حدث خطأ أثناء التحميل: $e';
+        _statusText = 'انقطع الاتصال بالإنترنت. يرجى التأكد من الشبكة والمحاولة مرة أخرى.';
         _isDownloading = false;
       });
     }
