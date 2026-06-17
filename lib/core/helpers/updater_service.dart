@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
@@ -90,6 +92,13 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
   bool _isDownloading = false;
   double _progress = 0.0;
   String _statusText = 'جاهز لبدء التحديث';
+  StreamSubscription? _connectivitySubscription;
+
+  @override
+  void dispose() {
+    _connectivitySubscription?.cancel();
+    super.dispose();
+  }
 
   Future<void> _startDownloadAndInstall() async {
     setState(() {
@@ -102,7 +111,16 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       final exeUrl =
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
       final request = http.Request('GET', Uri.parse(exeUrl));
-      final response = await http.Client().send(request);
+      final client = http.Client();
+      
+      _connectivitySubscription?.cancel();
+      _connectivitySubscription = Connectivity().onConnectivityChanged.listen((result) {
+        if (result.contains(ConnectivityResult.none)) {
+          client.close(); // Abort the HTTP request immediately
+        }
+      });
+
+      final response = await client.send(request);
 
       if (response.statusCode != 200) {
         setState(() {
@@ -120,7 +138,9 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       final sink = file.openWrite();
 
       int downloaded = 0;
-      await response.stream.timeout(const Duration(seconds: 2)).forEach((chunk) {
+      await response.stream.forEach((
+        chunk,
+      ) {
         sink.add(chunk);
         downloaded += chunk.length;
         if (contentLength > 0) {
@@ -132,6 +152,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
         }
       });
       await sink.close();
+      _connectivitySubscription?.cancel();
 
       setState(() {
         _statusText = 'اكتمل التحميل. جاري بدء التثبيت...';
@@ -143,6 +164,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       // Close the current app completely to allow installer to overwrite files
       exit(0);
     } catch (e) {
+      _connectivitySubscription?.cancel();
       setState(() {
         _statusText =
             'انقطع الاتصال بالإنترنت. يرجى التأكد من الشبكة والمحاولة مرة أخرى.';
