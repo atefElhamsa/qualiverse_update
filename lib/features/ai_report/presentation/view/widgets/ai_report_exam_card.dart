@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/utils/date_picker_utils.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/premium_input_field.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportExamCard extends StatelessWidget {
   final String title;
@@ -58,10 +57,7 @@ class AiReportExamCard extends StatelessWidget {
             onTap: onTap,
             borderRadius: BorderRadius.circular(20.r),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-                vertical: 16.h,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -74,7 +70,9 @@ class AiReportExamCard extends StatelessWidget {
                             : const Color(0xFF0D47A1).withOpacity(0.1),
                         child: Icon(
                           icon,
-                          color: isExpanded ? Colors.white : const Color(0xFF0D47A1),
+                          color: isExpanded
+                              ? Colors.white
+                              : const Color(0xFF0D47A1),
                           size: 20.sp,
                         ),
                       ),
@@ -106,11 +104,7 @@ class AiReportExamCard extends StatelessWidget {
           AnimatedCrossFade(
             firstChild: const SizedBox.shrink(),
             secondChild: Padding(
-              padding: EdgeInsets.only(
-                left: 20.w,
-                right: 20.w,
-                bottom: 20.h,
-              ),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
               child: Column(
                 children: [
                   Divider(
@@ -126,7 +120,9 @@ class AiReportExamCard extends StatelessWidget {
                           label: isAr ? "نوع التقييم" : "Assessment Type",
                           controller: typeController,
                           icon: Icons.help_outline_rounded,
-                          hint: isAr ? "مثال: ورقة، مشروع" : "e.g., Paper, Project",
+                          hint: isAr
+                              ? "مثال: ورقة، مشروع"
+                              : "e.g., Paper, Project",
                         ),
                       ),
                       SizedBox(width: 20.w),
@@ -152,8 +148,9 @@ class AiReportExamCard extends StatelessWidget {
                           onTap: () async {
                             final date = await showPremiumDatePicker(context);
                             if (date != null) {
-                              dateController.text =
-                                  DateFormat('yyyy-MM-dd').format(date);
+                              dateController.text = DateFormat(
+                                'yyyy-MM-dd',
+                              ).format(date);
                             }
                           },
                         ),
@@ -169,8 +166,9 @@ class AiReportExamCard extends StatelessWidget {
                           onTap: () async {
                             final date = await showPremiumDatePicker(context);
                             if (date != null) {
-                              evalDateController.text =
-                                  DateFormat('yyyy-MM-dd').format(date);
+                              evalDateController.text = DateFormat(
+                                'yyyy-MM-dd',
+                              ).format(date);
                             }
                           },
                         ),
@@ -194,8 +192,9 @@ class AiReportExamCard extends StatelessWidget {
                 ],
               ),
             ),
-            crossFadeState:
-                isExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+            crossFadeState: isExpanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
             duration: const Duration(milliseconds: 300),
           ),
         ],

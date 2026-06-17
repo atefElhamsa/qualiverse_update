@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_report/data/models/ai_report_job_status_model.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportJobStatusInfoCard extends StatelessWidget {
   final AiReportJobStatusData data;
@@ -65,10 +64,10 @@ class AiReportJobStatusInfoCard extends StatelessWidget {
               Text(
                 isAr ? "معلومات التقرير" : "Report Information",
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.colorButtonLight,
-                      fontSize: 20.sp,
-                    ),
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.colorButtonLight,
+                  fontSize: 20.sp,
+                ),
               ),
             ],
           ),

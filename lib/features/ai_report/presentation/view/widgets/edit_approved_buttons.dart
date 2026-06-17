@@ -2,8 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/routing/app_routes.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EditApprovedButtons extends StatelessWidget {
   final VoidCallback? onApprovedPressed;
@@ -24,7 +23,8 @@ class EditApprovedButtons extends StatelessWidget {
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: onApprovedPressed ??
+            onTap:
+                onApprovedPressed ??
                 () => context.push(AppRoutes.aiReportResultScreen),
             child: Container(
               height: 50.h,
@@ -51,10 +51,10 @@ class EditApprovedButtons extends StatelessWidget {
                   Text(
                     title ?? "approved".tr(),
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: AppColors.white,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: AppColors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),

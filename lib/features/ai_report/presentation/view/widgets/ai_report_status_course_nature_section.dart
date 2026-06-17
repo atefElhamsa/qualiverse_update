@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_status_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportStatusCourseNatureSection extends StatelessWidget {
   final String? selectedCourseNature;

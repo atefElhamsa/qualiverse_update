@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_report/data/models/ai_report_extract_response_model.dart';
-import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:go_router/go_router.dart';
-import 'package:qualiverse/routing/app_routes.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportResultScreen extends StatelessWidget {
   final AiReportExtractResponse? extractResponse;

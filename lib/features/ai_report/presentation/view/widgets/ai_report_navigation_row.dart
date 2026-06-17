@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/ai_description/presentation/view/widgets/ai_action_button.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_cubit.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_state.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportNavigationRow extends StatelessWidget {
   const AiReportNavigationRow({super.key});

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_status_cubit.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportStatusErrorWidget extends StatelessWidget {
   final String error;
@@ -96,7 +95,9 @@ class AiReportStatusErrorWidget extends StatelessWidget {
             ),
             SizedBox(height: 35.h),
             ElevatedButton.icon(
-              onPressed: onRetry ?? () => context.read<AiReportStatusCubit>().fetchStatus(),
+              onPressed:
+                  onRetry ??
+                  () => context.read<AiReportStatusCubit>().fetchStatus(),
               icon: Icon(
                 Icons.refresh_rounded,
                 color: Colors.white,

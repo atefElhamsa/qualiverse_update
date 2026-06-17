@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_filex/open_filex.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportFoundFile extends StatelessWidget {
   const AiReportFoundFile({super.key, this.file});

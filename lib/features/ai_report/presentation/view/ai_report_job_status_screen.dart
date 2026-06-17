@@ -2,14 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/features/home/presentation/view/widgets/main_wrapper.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import '../controller/ai_report_job_status_cubit.dart';
-import 'widgets/ai_report_top.dart';
-import 'widgets/ai_report_job_status_info_card.dart';
-import 'widgets/ai_report_job_status_download_buttons.dart';
-import 'widgets/ai_report_job_status_loading.dart';
-import 'widgets/ai_report_status_error_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportJobStatusScreen extends StatelessWidget {
   final String jobId;
@@ -47,7 +40,8 @@ class AiReportJobStatusBody extends StatelessWidget {
                 AiReportStatusErrorWidget(
                   error: state.message,
                   isAr: isAr,
-                  onRetry: () => context.read<AiReportJobStatusCubit>().startPolling(),
+                  onRetry: () =>
+                      context.read<AiReportJobStatusCubit>().startPolling(),
                 ),
               ] else if (state is AiReportJobStatusSuccess) ...[
                 Padding(

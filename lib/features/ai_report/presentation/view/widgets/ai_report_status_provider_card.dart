@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
-import 'package:qualiverse/features/ai_report/data/models/ai_report_status_model.dart';
-import 'package:qualiverse/features/login/presentation/view/widgets/error_widget.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportStatusProviderCard extends StatefulWidget {
   final String name;

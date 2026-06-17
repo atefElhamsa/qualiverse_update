@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_cubit.dart';
-import 'package:qualiverse/features/ai_report/presentation/controller/ai_report_state.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_basic_info_step.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_credit_hours_step.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_topics_step.dart';
-import 'package:qualiverse/features/ai_report/presentation/view/widgets/ai_report_assessments_step.dart';
-import 'ai_report_instructors_step.dart';
+import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportStepsContent extends StatelessWidget {
   const AiReportStepsContent({super.key});
