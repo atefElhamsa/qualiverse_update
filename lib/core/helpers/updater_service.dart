@@ -115,7 +115,8 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
     });
 
     try {
-      final exeUrl = widget.downloadUrl ??
+      final exeUrl =
+          widget.downloadUrl ??
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
       final request = http.Request('GET', Uri.parse(exeUrl));
       final client = http.Client();
@@ -179,14 +180,32 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       });
 
       final exePath = Platform.resolvedExecutable;
-      await Process.start(
-        'powershell',
-        [
-          '-Command',
-          'Start-Sleep -Seconds 2; \$proc = Start-Process -FilePath \'${file.path}\' -ArgumentList \'/VERYSILENT\', \'/SUPPRESSMSGBOXES\', \'/FORCECLOSEAPPLICATIONS\' -PassThru; \$proc.WaitForExit(); Start-Process -FilePath \'$exePath\''
-        ],
-        mode: ProcessStartMode.detached,
-      );
+      final ps1File = File('${tempDir.path}\\qualiverse_update_script.ps1');
+      final scriptContent =
+          '''
+Start-Sleep -Seconds 2
+Start-Process -FilePath "${file.path}" -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/FORCECLOSEAPPLICATIONS"
+\$timeout = 60
+while (!(Get-Process "qualiverse_setup*" -ErrorAction SilentlyContinue) -and \$timeout -gt 0) {
+    Start-Sleep -Seconds 1
+    \$timeout--
+}
+\$proc = Get-Process "qualiverse_setup*" -ErrorAction SilentlyContinue
+if (\$proc) {
+    \$proc | Wait-Process
+}
+Start-Process -FilePath "$exePath"
+''';
+      await ps1File.writeAsString(scriptContent);
+
+      await Process.start('powershell', [
+        '-ExecutionPolicy',
+        'Bypass',
+        '-WindowStyle',
+        'Hidden',
+        '-File',
+        ps1File.path,
+      ], mode: ProcessStartMode.detached);
 
       exit(0);
     } catch (e) {
