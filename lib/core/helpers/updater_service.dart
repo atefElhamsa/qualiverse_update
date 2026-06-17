@@ -20,6 +20,7 @@ class UpdaterService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final latestVersion = data['version'] as String;
+        final downloadUrl = data['url'] as String?;
 
         final info = await PackageInfo.fromPlatform();
         final currentVersion = info.version;
@@ -27,7 +28,7 @@ class UpdaterService {
         if (_isNewer(latestVersion, currentVersion)) {
           if (context.mounted) {
             // هذا سيعلق الشاشة تماماً حتى يقوم المستخدم بالتحديث
-            await _showForcedUpdateDialog(context, latestVersion);
+            await _showForcedUpdateDialog(context, latestVersion, downloadUrl);
           }
         }
       }
@@ -67,13 +68,17 @@ class UpdaterService {
   static Future<void> _showForcedUpdateDialog(
     BuildContext context,
     String latestVersion,
+    String? downloadUrl,
   ) async {
     await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => PopScope(
         canPop: false,
-        child: _UpdateDialogWidget(latestVersion: latestVersion),
+        child: _UpdateDialogWidget(
+          latestVersion: latestVersion,
+          downloadUrl: downloadUrl,
+        ),
       ),
     );
   }
@@ -81,8 +86,9 @@ class UpdaterService {
 
 class _UpdateDialogWidget extends StatefulWidget {
   final String latestVersion;
+  final String? downloadUrl;
 
-  const _UpdateDialogWidget({required this.latestVersion});
+  const _UpdateDialogWidget({required this.latestVersion, this.downloadUrl});
 
   @override
   State<_UpdateDialogWidget> createState() => _UpdateDialogWidgetState();
@@ -109,7 +115,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
     });
 
     try {
-      final exeUrl =
+      final exeUrl = widget.downloadUrl ??
           'https://github.com/atefElhamsa/qualiverse_update/releases/download/v${widget.latestVersion}/qualiverse_setup.exe';
       final request = http.Request('GET', Uri.parse(exeUrl));
       final client = http.Client();
@@ -177,7 +183,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
         'powershell',
         [
           '-Command',
-          'Start-Sleep -Seconds 2; \$proc = Start-Process -FilePath \'${file.path}\' -ArgumentList \'/VERYSILENT\', \'/SUPPRESSMSGBOXES\' -PassThru; \$proc.WaitForExit(); Start-Process -FilePath \'$exePath\''
+          'Start-Sleep -Seconds 2; \$proc = Start-Process -FilePath \'${file.path}\' -ArgumentList \'/VERYSILENT\', \'/SUPPRESSMSGBOXES\', \'/FORCECLOSEAPPLICATIONS\' -PassThru; \$proc.WaitForExit(); Start-Process -FilePath \'$exePath\''
         ],
         mode: ProcessStartMode.detached,
       );
