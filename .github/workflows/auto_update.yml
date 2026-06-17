@@ -89,24 +89,13 @@ jobs:
             exit 1
           }
 
-      - name: Prepare Git
-        shell: pwsh
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git remote set-url origin https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
-
       - name: Create version tag
         shell: pwsh
         run: |
           $tag = "v${{ steps.get_version.outputs.version }}"
-          # امسح التاج لو موجود محلياً أو بعيداً وارفعه من جديد
           git tag -f $tag
-          git push origin refs/tags/$tag --force
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          $repoUrl = "https://${{ secrets.GH_PAT }}@github.com/atefElhamsa/qualiverse_update.git"
+          git push $repoUrl refs/tags/$tag --force
 
 
       - name: Create / Update Release
@@ -125,7 +114,7 @@ jobs:
       - name: Update version.json on main
         shell: pwsh
         run: |
-          $repo = "https://$env:GH_PAT@github.com/atefElhamsa/qualiverse_update.git"
+          $repo = "https://${{ secrets.GH_PAT }}@github.com/atefElhamsa/qualiverse_update.git"
           $folder = "updater_temp"
 
           git clone $repo $folder
@@ -166,5 +155,3 @@ jobs:
           git add version.json appcast.xml
           git commit -m "chore: update version to $version" || Write-Host "No changes"
           git push origin main
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
