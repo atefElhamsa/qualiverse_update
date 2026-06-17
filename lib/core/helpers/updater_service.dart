@@ -120,7 +120,7 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       final sink = file.openWrite();
 
       int downloaded = 0;
-      await response.stream.timeout(const Duration(seconds: 15)).forEach((chunk) {
+      await response.stream.forEach((chunk) {
         sink.add(chunk);
         downloaded += chunk.length;
         if (contentLength > 0) {
@@ -144,7 +144,8 @@ class _UpdateDialogWidgetState extends State<_UpdateDialogWidget> {
       exit(0);
     } catch (e) {
       setState(() {
-        _statusText = 'انقطع الاتصال بالإنترنت. يرجى التأكد من الشبكة والمحاولة مرة أخرى.';
+        _statusText =
+            'انقطع الاتصال بالإنترنت. يرجى التأكد من الشبكة والمحاولة مرة أخرى.';
         _isDownloading = false;
       });
     }
