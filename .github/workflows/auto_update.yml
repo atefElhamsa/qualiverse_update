@@ -95,6 +95,8 @@ jobs:
           $tag = "v${{ steps.get_version.outputs.version }}"
           git tag -f $tag
           $repoUrl = "https://${{ secrets.GH_PAT }}@github.com/atefElhamsa/qualiverse_update.git"
+          # إزالة الـ Token الافتراضي بتاع الأكشن عشان ميغطيش على الـ GH_PAT
+          git config --local --unset-all http.https://github.com/.extraheader
           git push $repoUrl refs/tags/$tag --force
 
 
@@ -116,6 +118,9 @@ jobs:
         run: |
           $repo = "https://${{ secrets.GH_PAT }}@github.com/atefElhamsa/qualiverse_update.git"
           $folder = "updater_temp"
+
+          # إزالة الـ Token الافتراضي بتاع الأكشن
+          git config --global --unset-all http.https://github.com/.extraheader || Write-Host "No global extraheader"
 
           git clone $repo $folder
           cd $folder
