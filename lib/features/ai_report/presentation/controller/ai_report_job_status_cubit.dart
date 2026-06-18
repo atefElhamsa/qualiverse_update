@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/service/ai_report_service.dart';
 import '../../data/models/ai_report_job_status_model.dart';
+import '../../data/models/ai_report_history_model.dart';
 
 sealed class AiReportJobStatusState {}
 
@@ -41,9 +42,38 @@ class AiReportJobStatusCubit extends Cubit<AiReportJobStatusState> {
       final response = await AiReportService.getReportStatus(jobId);
       final data = response.data;
       if (data != null) {
-        if (data.status.toLowerCase() == 'done') {
+        if (data.status.toLowerCase() == 'done' ||
+            data.status.toLowerCase() == 'completed') {
           _timer?.cancel();
-          emit(AiReportJobStatusSuccess(data));
+
+          // Fetch history to get the download URLs
+          final historyResponse = await AiReportService.getHistory();
+          final historyItem = historyResponse.data.firstWhere(
+            (item) => item.jobId == jobId,
+            orElse: () => AiReportHistoryItem(
+              aiRequestId: 0,
+              isPublished: false,
+              files: [],
+            ),
+          );
+
+          final updatedData = AiReportJobStatusData(
+            jobId: data.jobId,
+            status: data.status,
+            createdAt: data.createdAt,
+            completedAt: data.completedAt,
+            files: historyItem.files.isNotEmpty ? historyItem.files : data.files,
+            downloadUrl: data.downloadUrl,
+            error: data.error,
+            aiRequestId: historyItem.aiRequestId,
+            isPublished: historyItem.isPublished,
+            reportData: data.reportData,
+          );
+
+          emit(AiReportJobStatusSuccess(updatedData));
+        } else if (data.status.toLowerCase() == 'failed') {
+          _timer?.cancel();
+          emit(AiReportJobStatusError(data.error ?? 'Job failed'));
         } else {
           // Still loading
           emit(AiReportJobStatusLoading(data: data));

@@ -17,7 +17,10 @@ class AiMainButtons extends StatelessWidget {
         _buildPremiumButton(
           context,
           title: "report".tr(),
-          onPressed: () => context.pushNamed(AppRoutes.aiReportStatusScreen),
+          onPressed: () => context.pushNamed(
+            AppRoutes.aiCourseSelectionScreen,
+            extra: AppRoutes.aiReportStatusScreen,
+          ),
           gradient: const LinearGradient(
             colors: [Color(0xFF64B5F6), Color(0xFF1E88E5)],
             begin: Alignment.topLeft,
@@ -28,7 +31,10 @@ class AiMainButtons extends StatelessWidget {
         _buildPremiumButton(
           context,
           title: "specification".tr(),
-          onPressed: () => context.pushNamed(AppRoutes.aiCourseSelectionScreen),
+          onPressed: () => context.pushNamed(
+            AppRoutes.aiCourseSelectionScreen,
+            extra: AppRoutes.aiDescriptionScreen,
+          ),
           gradient: const LinearGradient(
             colors: [Color(0xFF1E3A8A), Color(0xFF1E40AF)],
             begin: Alignment.topLeft,
@@ -59,7 +65,9 @@ class AiMainButtons extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.r),
             boxShadow: [
               BoxShadow(
-                color: (gradient as LinearGradient).colors.last.withOpacity(0.3),
+                color: (gradient as LinearGradient).colors.last.withOpacity(
+                  0.3,
+                ),
                 blurRadius: 15,
                 offset: const Offset(0, 8),
               ),
@@ -69,10 +77,10 @@ class AiMainButtons extends StatelessWidget {
             child: Text(
               title,
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.1,
-                  ),
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.1,
+              ),
             ),
           ),
         ),

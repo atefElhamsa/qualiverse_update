@@ -15,90 +15,96 @@ class AiReportStatusCourseNatureSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const options = ['practical', 'clinical'];
+    // If null, default to practical visually
+    final isPractical =
+        selectedCourseNature == 'practical' || selectedCourseNature == null;
+    final isClinical = selectedCourseNature == 'clinical';
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40.w),
-      child: Container(
-        padding: EdgeInsets.all(20.r),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(color: Colors.grey.withOpacity(0.1)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.03),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.school_rounded,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.science,
+                color: AppColors.colorButtonLight,
+                size: 22.sp,
+              ),
+              SizedBox(width: 10.w),
+              Text(
+                isAr ? 'طبيعة المقرر (اختياري)' : 'Course Nature (Optional)',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
                   color: AppColors.colorButtonLight,
-                  size: 22.sp,
+                  fontSize: 16.sp,
                 ),
-                SizedBox(width: 10.w),
-                Text(
-                  isAr ? 'طبيعة المقرر (اختياري)' : 'Course Nature (Optional)',
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.colorButtonLight,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 14.h),
-            // None chip
-            Wrap(
-              spacing: 10.w,
-              runSpacing: 8.h,
-              children: [
-                _NatureChip(
-                  label: isAr ? 'بدون تحديد' : 'None',
-                  icon: Icons.remove_circle_outline_rounded,
-                  isSelected: selectedCourseNature == null,
+              ),
+            ],
+          ),
+          SizedBox(height: 14.h),
+          Row(
+            children: [
+              Expanded(
+                child: _CourseNatureCard(
+                  isSelected: isPractical,
+                  icon: Icons.science_rounded,
+                  iconColor: Colors.green,
+                  iconBgColor: Colors.green.withOpacity(0.15),
+                  title: isAr ? 'Practical (العملي)' : 'Practical',
+                  subtitle: isAr ? 'المقررات العملية' : 'Practical Courses',
+                  isDefault: true,
+                  isAr: isAr,
                   onTap: () => context
                       .read<AiReportStatusCubit>()
-                      .selectCourseNature(null),
+                      .selectCourseNature('practical'),
                 ),
-                ...options.map(
-                  (opt) => _NatureChip(
-                    label: opt[0].toUpperCase() + opt.substring(1),
-                    icon: opt == 'practical'
-                        ? Icons.science_rounded
-                        : Icons.local_hospital_rounded,
-                    isSelected: selectedCourseNature == opt,
-                    onTap: () => context
-                        .read<AiReportStatusCubit>()
-                        .selectCourseNature(opt),
-                  ),
+              ),
+              SizedBox(width: 16.w),
+              Expanded(
+                child: _CourseNatureCard(
+                  isSelected: isClinical,
+                  icon: Icons.local_hospital_rounded,
+                  iconColor: AppColors.colorButtonLight,
+                  iconBgColor: AppColors.colorButtonLight.withOpacity(0.15),
+                  title: isAr ? 'Clinical (الإكلينيكي)' : 'Clinical',
+                  subtitle: isAr ? 'المقررات الإكلينيكية' : 'Clinical Courses',
+                  isDefault: false,
+                  isAr: isAr,
+                  onTap: () => context
+                      .read<AiReportStatusCubit>()
+                      .selectCourseNature('clinical'),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
 
-class _NatureChip extends StatelessWidget {
-  final String label;
-  final IconData icon;
+class _CourseNatureCard extends StatelessWidget {
   final bool isSelected;
+  final IconData icon;
+  final Color iconColor;
+  final Color iconBgColor;
+  final String title;
+  final String subtitle;
+  final bool isDefault;
+  final bool isAr;
   final VoidCallback onTap;
 
-  const _NatureChip({
-    required this.label,
-    required this.icon,
+  const _CourseNatureCard({
     required this.isSelected,
+    required this.icon,
+    required this.iconColor,
+    required this.iconBgColor,
+    required this.title,
+    required this.subtitle,
+    required this.isDefault,
+    required this.isAr,
     required this.onTap,
   });
 
@@ -108,33 +114,94 @@ class _NatureChip extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppColors.colorButtonLight
-              : Colors.grey.withOpacity(0.06),
+              ? AppColors.colorButtonLight.withOpacity(0.04)
+              : Colors.white,
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: isSelected
                 ? AppColors.colorButtonLight
                 : Colors.grey.withOpacity(0.2),
+            width: isSelected ? 1.5 : 1.0,
           ),
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
-              icon,
+              isSelected
+                  ? Icons.radio_button_checked_rounded
+                  : Icons.radio_button_unchecked_rounded,
+              color: isSelected
+                  ? AppColors.colorButtonLight
+                  : Colors.grey.shade400,
               size: 18.sp,
-              color: isSelected ? Colors.white : Colors.grey.shade600,
             ),
-            SizedBox(width: 8.w),
-            Text(
-              label,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.grey.shade700,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                fontSize: 14.sp,
+            SizedBox(width: 10.w),
+            Container(
+              padding: EdgeInsets.all(8.r),
+              decoration: BoxDecoration(
+                color: iconBgColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: iconColor, size: 18.sp),
+            ),
+            SizedBox(width: 10.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13.sp,
+                            color: AppColors.mainBlack,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (isDefault) ...[
+                        SizedBox(width: 4.w),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6.w,
+                            vertical: 2.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
+                          child: Text(
+                            isAr ? "افتراضي" : "Default",
+                            style: TextStyle(
+                              color: Colors.green.shade700,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  SizedBox(height: 2.h),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 11.sp,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],

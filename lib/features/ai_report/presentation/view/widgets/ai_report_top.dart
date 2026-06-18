@@ -11,12 +11,12 @@ class AiReportTop extends StatelessWidget {
     final inherited = HomeBodyInherited.of(context);
     return SizedBox(
       width: double.infinity,
-      height: 280.h,
+      height: 240.h,
       child: Stack(
         children: [
           CustomScaffoldTop(controller: inherited.controller),
           Positioned(
-            top: 80.h,
+            top: 40.h,
             left: 0,
             right: 0,
             child: Column(

@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/features/ai_report/presentation/view/ai_report_job_status_screen.dart';
 
 import 'all_routes_imports.dart';
-import '../features/ai_report/data/models/ai_report_extract_response_model.dart';
 
 class ScreensRoutes {
   static GoRoute aiDescriptionRoute() {
@@ -24,11 +23,14 @@ class ScreensRoutes {
     return GoRoute(
       path: AppRoutes.aiCourseSelectionScreen,
       name: AppRoutes.aiCourseSelectionScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AiCourseSelectionScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final nextRoute = state.extra as String;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiCourseSelectionScreen(nextRoute: nextRoute),
+        );
+      },
     );
   }
 
@@ -96,11 +98,14 @@ class ScreensRoutes {
     return GoRoute(
       path: AppRoutes.aiReportStatusScreen,
       name: AppRoutes.aiReportStatusScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AiReportStatusScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final courseId = state.extra as int;
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiReportStatusScreen(courseId: courseId),
+        );
+      },
     );
   }
 

@@ -6,19 +6,23 @@ import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class AiReportStatusScreen extends StatelessWidget {
-  const AiReportStatusScreen({super.key});
+  final int courseId;
+
+  const AiReportStatusScreen({super.key, required this.courseId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AiReportStatusCubit()..fetchStatus(),
-      child: const MainWrapper(child: AiReportStatusBody()),
+      child: MainWrapper(child: AiReportStatusBody(courseId: courseId)),
     );
   }
 }
 
 class AiReportStatusBody extends StatelessWidget {
-  const AiReportStatusBody({super.key});
+  final int courseId;
+
+  const AiReportStatusBody({super.key, required this.courseId});
 
   Widget _buildProvidersHeader(BuildContext context, bool isAr) {
     return Padding(
@@ -47,21 +51,26 @@ class AiReportStatusBody extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40.w),
-      child: Column(
+      child: Row(
         children: list.map((entry) {
           final String name = entry.key;
           final ProviderConfig config = entry.value;
           final bool isSelected =
               selectedProvider?.toLowerCase() == name.toLowerCase();
 
-          return AiReportStatusProviderCard(
-            name: name,
-            config: config,
-            isSelected: isSelected,
-            isAr: isAr,
-            onTap: () {
-              context.read<AiReportStatusCubit>().selectProvider(name);
-            },
+          return Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 6.w),
+              child: AiReportStatusProviderCard(
+                name: name,
+                config: config,
+                isSelected: isSelected,
+                isAr: isAr,
+                onTap: () {
+                  context.read<AiReportStatusCubit>().selectProvider(name);
+                },
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -75,51 +84,66 @@ class AiReportStatusBody extends StatelessWidget {
       builder: (context, state) {
         return CustomScaffold(
           onRefresh: () => context.read<AiReportStatusCubit>().fetchStatus(),
-          widget: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          widget: Stack(
+            clipBehavior: Clip.none,
             children: [
-              const AiReportTop(),
-              SizedBox(height: 10.h),
-              if (state is AiReportStatusLoading)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 80.h),
-                  child: const Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.colorButtonLight,
-                    ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const AiReportTop(),
+                  if (state is AiReportStatusLoading)
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 40.h),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.colorButtonLight,
+                        ),
+                      ),
+                    )
+                  else if (state is AiReportStatusError)
+                    AiReportStatusErrorWidget(
+                      error: state.errorMessage,
+                      isAr: isAr,
+                    )
+                  else if (state is AiReportStatusLoaded)
+                    Column(
+                      children: [
+                        _buildProvidersHeader(context, isAr),
+                        SizedBox(height: 10.h),
+                        _buildProvidersList(
+                          context,
+                          state.providers,
+                          state.selectedProvider,
+                          isAr,
+                        ),
+                        SizedBox(height: 12.h),
+                        AiReportStatusCourseNatureSection(
+                          selectedCourseNature: state.selectedCourseNature,
+                          isAr: isAr,
+                        ),
+                        SizedBox(height: 16.h),
+                        AiReportStatusProceedButton(
+                          isAr: isAr,
+                          selectedProvider: state.selectedProvider,
+                          selectedCourseNature: state.selectedCourseNature,
+                          courseId: courseId,
+                        ),
+                        SizedBox(height: 10.h),
+                      ],
+                    )
+                  else
+                    const SizedBox.shrink(),
+                ],
+              ),
+              if (state is AiReportStatusLoaded)
+                PositionedDirectional(
+                  top: 30.h,
+                  end: 40.w,
+                  child: AiReportStatusHealthCard(
+                    health: state.health,
+                    isAr: isAr,
                   ),
-                )
-              else if (state is AiReportStatusError)
-                AiReportStatusErrorWidget(error: state.errorMessage, isAr: isAr)
-              else if (state is AiReportStatusLoaded)
-                Column(
-                  children: [
-                    AiReportStatusHealthCard(health: state.health, isAr: isAr),
-                    SizedBox(height: 25.h),
-                    _buildProvidersHeader(context, isAr),
-                    SizedBox(height: 15.h),
-                    _buildProvidersList(
-                      context,
-                      state.providers,
-                      state.selectedProvider,
-                      isAr,
-                    ),
-                    SizedBox(height: 20.h),
-                    AiReportStatusCourseNatureSection(
-                      selectedCourseNature: state.selectedCourseNature,
-                      isAr: isAr,
-                    ),
-                    SizedBox(height: 30.h),
-                    AiReportStatusProceedButton(
-                      isAr: isAr,
-                      selectedProvider: state.selectedProvider,
-                      selectedCourseNature: state.selectedCourseNature,
-                    ),
-                    SizedBox(height: 20.h),
-                  ],
-                )
-              else
-                const SizedBox.shrink(),
+                ),
             ],
           ),
         );

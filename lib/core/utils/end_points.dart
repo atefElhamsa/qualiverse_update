@@ -45,11 +45,10 @@ class EndPoints {
   static const String aiReportProviders = "AIReports/providers";
   static const String aiReportExtract = "AIReports/extract";
   static const String aiReportSubmit = "AIReports/submit";
+  static const String aiReportHistory = "AIReports/history";
+  static String aiReportPublish(int aiRequestId) => "AIReports/$aiRequestId/publish";
   static String aiReportStatus(String jobId) => "AIReports/status/$jobId";
-  static String aiReportDownloadPdf(String jobId) =>
-      "AIReports/download/pdf/$jobId";
-  static String aiReportDownloadDocx(String jobId) =>
-      "AIReports/download/docx/$jobId";
+  static String aiReportDownloadFile(int fileId) => "AIReports/files/$fileId";
 
   static const String uploadFiles = "CourseDescriptionGenerations/upload-files";
 

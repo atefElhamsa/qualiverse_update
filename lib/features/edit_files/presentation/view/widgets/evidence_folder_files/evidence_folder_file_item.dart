@@ -56,16 +56,12 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
     final cubit = EvidenceFolderFilesCubit.get(context);
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => _DeleteConfirmationDialog(
-        fileName: widget.file.fileName,
-      ),
+      builder: (context) =>
+          _DeleteConfirmationDialog(fileName: widget.file.fileName),
     );
 
     if (confirmed == true) {
-      await cubit.deleteFile(
-        fileId: widget.file.id,
-        folderId: widget.folderId,
-      );
+      await cubit.deleteFile(fileId: widget.file.id, folderId: widget.folderId);
     }
   }
 
@@ -108,9 +104,15 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                 width: 40.w,
                 height: 40.h,
                 decoration: BoxDecoration(
-                  color: _isItemHovered ? fileTypeData.mainColor.withOpacity(0.1) : fileTypeData.bgColor,
+                  color: _isItemHovered
+                      ? fileTypeData.mainColor.withOpacity(0.1)
+                      : fileTypeData.bgColor,
                   borderRadius: BorderRadius.circular(10.r),
-                  border: _isItemHovered ? Border.all(color: fileTypeData.mainColor.withOpacity(0.2)) : null,
+                  border: _isItemHovered
+                      ? Border.all(
+                          color: fileTypeData.mainColor.withOpacity(0.2),
+                        )
+                      : null,
                 ),
                 child: Icon(
                   fileTypeData.icon,
@@ -128,7 +130,9 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                       style: GoogleFonts.almarai(
                         fontSize: 15.sp,
                         fontWeight: FontWeight.w600,
-                        color: _isItemHovered ? const Color(0xFF0F569E) : const Color(0xFF333333),
+                        color: _isItemHovered
+                            ? const Color(0xFF0F569E)
+                            : const Color(0xFF333333),
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -144,7 +148,10 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                         ),
                         Text(
                           ' • ',
-                          style: TextStyle(color: Colors.grey.shade300, fontSize: 11.sp),
+                          style: TextStyle(
+                            color: Colors.grey.shade300,
+                            fontSize: 11.sp,
+                          ),
                         ),
                         Text(
                           widget.file.fileType.toUpperCase(),
@@ -168,7 +175,8 @@ class _EvidenceFolderFileItemState extends State<EvidenceFolderFileItem> {
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
                             valueColor: AlwaysStoppedAnimation<Color>(
-                                fileTypeData.mainColor),
+                              fileTypeData.mainColor,
+                            ),
                           ),
                         )
                       : _ActionHoverButton(
@@ -263,8 +271,11 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                     color: const Color(0xFFFFF1F1),
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  child: Icon(Icons.delete_outline_rounded,
-                      color: const Color(0xFFE53935), size: 24.sp),
+                  child: Icon(
+                    Icons.delete_outline_rounded,
+                    color: const Color(0xFFE53935),
+                    size: 24.sp,
+                  ),
                 ),
                 SizedBox(width: 15.w),
                 Text(
@@ -328,8 +339,10 @@ class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
                     cursor: SystemMouseCursors.click,
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 25.w, vertical: 8.h),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 25.w,
+                        vertical: 8.h,
+                      ),
                       decoration: BoxDecoration(
                         color: _isDeleteHovered
                             ? const Color(0xFFD32F2F)
@@ -414,11 +427,7 @@ class _ActionHoverButtonState extends State<_ActionHoverButton> {
               color: _isHovered ? widget.hoverColor : Colors.transparent,
               borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(
-              widget.icon,
-              color: widget.color,
-              size: 20.sp,
-            ),
+            child: Icon(widget.icon, color: widget.color, size: 20.sp),
           ),
         ),
       ),

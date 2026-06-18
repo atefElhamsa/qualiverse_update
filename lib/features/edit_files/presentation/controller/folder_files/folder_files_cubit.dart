@@ -19,8 +19,9 @@ class FolderFilesCubit extends Cubit<FolderFilesState> {
   Future<void> getFolderFiles({required int folderId}) async {
     try {
       emit(FolderFilesLoading());
-      final files = await FileService.getFolderFiles(folderId: folderId);
-      emit(FolderFilesSuccess(files: files.files!));
+      final result = await FileService.getFolderFiles(folderId: folderId);
+      files = result.files ?? [];
+      emit(FolderFilesSuccess(files: files));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('No Internet')) {

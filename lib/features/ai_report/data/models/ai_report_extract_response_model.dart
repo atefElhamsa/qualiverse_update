@@ -2,7 +2,7 @@ import 'ai_report_model.dart';
 
 class AiReportExtractResponse {
   final bool isSuccess;
-  final String jobId;
+  final int aiRequestId;
   final String downloadUrlDocx;
   final String downloadUrlPdf;
   final String downloadUrl;
@@ -12,7 +12,7 @@ class AiReportExtractResponse {
 
   AiReportExtractResponse({
     required this.isSuccess,
-    this.jobId = '',
+    this.aiRequestId = 0,
     this.downloadUrlDocx = '',
     this.downloadUrlPdf = '',
     this.downloadUrl = '',
@@ -25,13 +25,33 @@ class AiReportExtractResponse {
     final data = json['data'] ?? {};
     return AiReportExtractResponse(
       isSuccess: json['isSuccess'] ?? false,
-      jobId: data['job_id']?.toString() ?? '',
-      downloadUrlDocx: data['download_url_docx']?.toString() ?? '',
-      downloadUrlPdf: data['download_url_pdf']?.toString() ?? '',
-      downloadUrl: data['download_url']?.toString() ?? '',
-      processingTimeSeconds: (data['processing_time_seconds'] as num?)?.toDouble() ?? 0.0,
-      reportData: AiReportModel.fromJson(data['report_data'] ?? data),
-      rawJson: (data['report_data'] as Map<String, dynamic>?) ?? data,
+      aiRequestId:
+          (data['aiRequestId'] as int?) ??
+          int.tryParse(data['job_id']?.toString() ?? '') ??
+          0,
+      downloadUrlDocx:
+          data['downloadUrlDocx']?.toString() ??
+          data['download_url_docx']?.toString() ??
+          '',
+      downloadUrlPdf:
+          data['downloadUrlPdf']?.toString() ??
+          data['download_url_pdf']?.toString() ??
+          '',
+      downloadUrl:
+          data['downloadUrl']?.toString() ??
+          data['download_url']?.toString() ??
+          '',
+      processingTimeSeconds:
+          (data['processingTimeSeconds'] as num?)?.toDouble() ??
+          (data['processing_time_seconds'] as num?)?.toDouble() ??
+          0.0,
+      reportData: AiReportModel.fromJson(
+        data['reportData'] ?? data['report_data'] ?? data,
+      ),
+      rawJson:
+          (data['reportData'] as Map<String, dynamic>?) ??
+          (data['report_data'] as Map<String, dynamic>?) ??
+          data,
     );
   }
 }

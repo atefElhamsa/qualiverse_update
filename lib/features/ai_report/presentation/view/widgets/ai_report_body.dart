@@ -11,11 +11,13 @@ import 'package:qualiverse/routing/app_routes.dart';
 class AiReportBody extends StatefulWidget {
   final String? selectedProvider;
   final String? selectedCourseNature;
+  final int courseId;
 
   const AiReportBody({
     super.key,
     this.selectedProvider,
     this.selectedCourseNature,
+    required this.courseId,
   });
 
   @override
@@ -62,6 +64,7 @@ class _AiReportBodyState extends State<AiReportBody> {
       final data = await AiReportService.extractReport(
         provider: widget.selectedProvider,
         courseNature: widget.selectedCourseNature,
+        courseId: widget.courseId,
         surveyPdf: _files[0]!,
         descriptionPdf: _files[1]!,
         statsPdf: _files[2]!,

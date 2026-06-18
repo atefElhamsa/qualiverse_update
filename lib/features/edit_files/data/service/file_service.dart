@@ -17,28 +17,32 @@ class FileService {
       }
       return result;
     } on DioException catch (e) {
-      // Unauthorized
       if (e.response?.statusCode == 401) {
         throw Exception('Unauthorized');
       }
-
-      // Not Found
       if (e.response?.statusCode == 404) {
         throw Exception('Resource was not found');
       }
-
-      // No Internet
       if (e.type == DioExceptionType.connectionError ||
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-
-      // Server error
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      dynamic errorData = e.response?.data;
+      if (errorData is Map) {
+        final err = errorData['error'] ?? errorData['message'];
+        if (err is Map && err.containsKey('description')) {
+          throw Exception(err['description']);
+        }
+        if (errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        if (err is String) {
+          throw Exception(err);
+        }
+      } else if (errorData is String) {
+        throw Exception(errorData);
+      }
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -76,11 +80,22 @@ class FileService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      dynamic errorData = e.response?.data;
+      if (errorData is Map) {
+        final err = errorData['error'] ?? errorData['message'];
+        if (err is Map && err.containsKey('description')) {
+          throw Exception(err['description']);
+        }
+        if (errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        if (err is String) {
+          throw Exception(err);
+        }
+      } else if (errorData is String) {
+        throw Exception(errorData);
+      }
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -112,11 +127,22 @@ class FileService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      throw Exception(
-        e.response?.data?['message'] ??
-            e.response?.data?['error'] ??
-            'Server Error',
-      );
+      dynamic errorData = e.response?.data;
+      if (errorData is Map) {
+        final err = errorData['error'] ?? errorData['message'];
+        if (err is Map && err.containsKey('description')) {
+          throw Exception(err['description']);
+        }
+        if (errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        if (err is String) {
+          throw Exception(err);
+        }
+      } else if (errorData is String) {
+        throw Exception(errorData);
+      }
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }

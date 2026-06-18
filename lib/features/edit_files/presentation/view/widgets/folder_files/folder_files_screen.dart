@@ -81,9 +81,8 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
           final isUploading = state is UploadFilesLoading;
 
           // Filter files based on search query
-          final allFiles = state is FolderFilesSuccess
-              ? state.files
-              : <FileModel>[];
+          final cubit = FolderFilesCubit.get(context);
+          final allFiles = cubit.files;
           final filteredFiles = _searchQuery.isEmpty
               ? allFiles
               : allFiles
@@ -137,7 +136,12 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
       );
     }
 
-    if (state is FolderFilesSuccess || state is DeleteFileLoading) {
+    if (state is FolderFilesSuccess ||
+        state is DeleteFileLoading ||
+        state is DeleteFileFailure ||
+        state is DeleteFileSuccess ||
+        state is UploadFilesSuccess ||
+        state is UploadFilesFailure) {
       return FolderFilesList(
         files: filteredFiles,
         isArabic: isArabic,
@@ -145,6 +149,10 @@ class _FolderFilesScreenState extends State<FolderFilesScreen> {
       );
     }
 
-    return const SizedBox();
+    return FolderFilesList(
+      files: filteredFiles,
+      isArabic: isArabic,
+      folderId: widget.folderId,
+    );
   }
 }

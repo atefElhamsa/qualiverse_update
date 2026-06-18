@@ -18,19 +18,10 @@ class AiReportJobStatusDownloadButtons extends StatelessWidget {
 
   Future<void> _downloadFile(
     BuildContext context,
-    String? url,
+    int fileId,
     String fileName,
   ) async {
-    if (url == null || url.isEmpty) {
-      showSnackBar(context, "Download URL not available", AppColors.red);
-      return;
-    }
-
-    final fullUrl = url.startsWith('http') ? url : '${EndPoints.baseUrl}$url';
-
     try {
-      final isAr = context.locale.languageCode == 'ar';
-
       final FileSaveLocation? result = await getSaveLocation(
         suggestedName: fileName,
       );
@@ -40,20 +31,8 @@ class AiReportJobStatusDownloadButtons extends StatelessWidget {
 
       final savePath = result.path;
 
-      final dio = ApiClient.dio;
-      final response = await dio.download(fullUrl, savePath);
-
-      if (response.statusCode == 200) {
-        await OpenFilex.open(savePath);
-      } else {
-        showSnackBar(
-          context,
-          isAr
-              ? "الخادم غير متصل. الموديل أوفلاين حالياً."
-              : "Server is offline.",
-          AppColors.red,
-        );
-      }
+      await AiReportService.downloadReportFile(fileId, savePath);
+      await OpenFilex.open(savePath);
     } catch (e) {
       final isAr = context.locale.languageCode == 'ar';
       showSnackBar(
@@ -72,72 +51,135 @@ class AiReportJobStatusDownloadButtons extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         children: [
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFE53935), // Deeper red for PDF
-              foregroundColor: Colors.white,
-              elevation: 4,
-              shadowColor: const Color(0xFFE53935).withOpacity(0.5),
-              minimumSize: const Size(double.infinity, 55),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
+          if (data.files != null && data.files!.isNotEmpty)
+            ...data.files!.map((file) {
+              final isPdf =
+                  file.fileType.toLowerCase().contains('pdf') ||
+                  file.fileName.toLowerCase().endsWith('.pdf');
+              final isWord =
+                  file.fileType.toLowerCase().contains('word') ||
+                  file.fileType.toLowerCase().contains('document') ||
+                  file.fileName.toLowerCase().endsWith('.docx');
+
+              final bgColor = isPdf
+                  ? const Color(0xFFE53935)
+                  : (isWord
+                        ? const Color(0xFF1E88E5)
+                        : const Color(0xFF43A047));
+              final icon = isPdf
+                  ? Icons.picture_as_pdf_rounded
+                  : (isWord
+                        ? Icons.description_rounded
+                        : Icons.insert_drive_file_rounded);
+
+              return Padding(
+                padding: EdgeInsets.only(bottom: 15.h),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: bgColor,
+                    foregroundColor: Colors.white,
+                    elevation: 4,
+                    shadowColor: bgColor.withOpacity(0.5),
+                    minimumSize: const Size(double.infinity, 55),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
+                  ),
+                  onPressed: () =>
+                      _downloadFile(context, file.id, file.fileName),
+                  icon: Icon(icon, size: 24.sp),
+                  label: Text(
+                    isAr
+                        ? "تحميل ${file.fileName}"
+                        : "Download ${file.fileName}",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              );
+            })
+          else
+            Padding(
+              padding: EdgeInsets.only(bottom: 15.h),
+              child: Text(
+                isAr
+                    ? "لا توجد ملفات للتحميل"
+                    : "No files available for download",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
               ),
             ),
-            onPressed: () => _downloadFile(
-              context,
-              EndPoints.aiReportDownloadPdf(data.jobId),
-              'report_${data.jobId}.pdf',
-            ),
-            icon: Icon(Icons.picture_as_pdf_rounded, size: 24.sp),
-            label: Text(
-              isAr ? "تحميل التقرير (PDF)" : "Download Report (PDF)",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-          SizedBox(height: 15.h),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF1E88E5), // Deeper blue for DOCX
-              foregroundColor: Colors.white,
-              elevation: 4,
-              shadowColor: const Color(0xFF1E88E5).withOpacity(0.5),
-              minimumSize: const Size(double.infinity, 55),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.r),
-              ),
-            ),
-            onPressed: () => _downloadFile(
-              context,
-              EndPoints.aiReportDownloadDocx(data.jobId),
-              'report_${data.jobId}.docx',
-            ),
-            icon: Icon(Icons.description_rounded, size: 24.sp),
-            label: Text(
-              isAr ? "تحميل التقرير (DOCX)" : "Download Report (DOCX)",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
           SizedBox(height: 20.h),
           TextButton.icon(
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.colorButtonLight,
+              backgroundColor: AppColors.colorButtonLight,
+              foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.r),
               ),
             ),
-            onPressed: () => context.pushReplacementNamed(AppRoutes.homeScreen),
-            icon: Icon(Icons.home_rounded, size: 20.sp),
+            onPressed: () async {
+              if (data.aiRequestId == null) {
+                showSnackBar(
+                  context,
+                  isAr ? 'رقم الطلب غير متوفر' : 'Request ID is not available',
+                  AppColors.red,
+                );
+                return;
+              }
+
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) =>
+                    const Center(child: CircularProgressIndicator()),
+              );
+
+              try {
+                final response = await AiReportService.publishReport(
+                  data.aiRequestId!,
+                );
+                if (!context.mounted) return;
+                Navigator.pop(context); // close dialog
+
+                if (response.isSuccess) {
+                  showSnackBar(
+                    context,
+                    isAr ? "تم النشر بنجاح" : "Published successfully",
+                    AppColors.green,
+                  );
+                  context.pushReplacementNamed(AppRoutes.homeScreen);
+                } else {
+                  showSnackBar(
+                    context,
+                    response.error?.description ??
+                        (isAr
+                            ? 'حدث خطأ غير متوقع'
+                            : 'An unexpected error occurred'),
+                    AppColors.red,
+                  );
+                }
+              } catch (e) {
+                if (!context.mounted) return;
+                Navigator.pop(context); // close dialog
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(e.toString()),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            icon: Icon(Icons.send_rounded, size: 20.sp),
             label: Text(
-              isAr ? "العودة للرئيسية" : "Back to Home",
+              isAr ? "تقديم التقرير" : "Submit Report",
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w700),
             ),
           ),

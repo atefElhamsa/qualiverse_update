@@ -15,7 +15,7 @@ class AiReportResultScreen extends StatelessWidget {
       create: (context) {
         final cubit = AiReportCubit();
         if (extractResponse != null) {
-          cubit.init(extractResponse!.rawJson);
+          cubit.init(extractResponse!.aiRequestId, extractResponse!.rawJson);
         }
         return cubit;
       },

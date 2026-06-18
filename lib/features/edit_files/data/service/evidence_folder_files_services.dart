@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:qualiverse/features/ai_report/data/models/ai_report_publish.dart';
 import '../../../../routing/all_routes_imports.dart';
 
 class EvidenceFolderFilesServices {
@@ -19,7 +22,8 @@ class EvidenceFolderFilesServices {
       return result;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) throw Exception('Unauthorized');
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -49,7 +53,8 @@ class EvidenceFolderFilesServices {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -87,7 +92,8 @@ class EvidenceFolderFilesServices {
         );
       }
     } on DioException catch (e) {
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
+      final errorData =
+          e.response?.data?['error'] ?? e.response?.data?['message'];
       if (errorData is Map && errorData.containsKey('description')) {
         throw Exception(errorData['description']);
       }
@@ -97,26 +103,60 @@ class EvidenceFolderFilesServices {
     }
   }
 
-  static Future<String> deleteEvidenceFile({required int fileId}) async {
+  static Future<AiReportPublishResponse> deleteEvidenceFile({
+    required int fileId,
+  }) async {
     try {
       final response = await dio.delete(
         EndPoints.deleteEvidenceFile(id: fileId),
       );
-      final Map<String, dynamic> body = response.data;
+      var body = response.data;
+      final result = AiReportPublishResponse.fromJson(body);
 
-      if (body['isSuccess'] != true) {
-        throw Exception('Failed to delete evidence file');
+      if (!result.isSuccess) {
+        throw Exception(result.error?.description ?? 'Delete Failed');
       }
-      return body['message'] ?? 'File deleted successfully';
+      return result;
     } on DioException catch (e) {
-      final errorData = e.response?.data?['error'] ?? e.response?.data?['message'];
-      if (errorData is Map && errorData.containsKey('description')) {
-        throw Exception(errorData['description']);
+      if (e.response?.data != null) {
+        dynamic errorData = e.response!.data;
+
+        if (errorData is String) {
+          try {
+            errorData = jsonDecode(errorData);
+          } catch (_) {}
+        }
+
+        if (errorData is Map) {
+          if (errorData.containsKey('description')) {
+            throw Exception(errorData['description']);
+          }
+          final err = errorData['error'] ?? errorData['message'];
+          if (err is Map && err.containsKey('description')) {
+            throw Exception(err['description']);
+          } else if (err is String) {
+            final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+            final match = regex.firstMatch(err);
+            if (match != null && match.group(1) != null) {
+              throw Exception(match.group(1)!.trim());
+            }
+            throw Exception(err);
+          }
+        } else if (errorData is String) {
+          final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+          final match = regex.firstMatch(errorData);
+          if (match != null && match.group(1) != null) {
+            throw Exception(match.group(1)!.trim());
+          }
+          throw Exception(errorData);
+        }
+
+        throw Exception("Server error");
       }
-      throw Exception(errorData?.toString() ?? 'Delete Failed');
+
+      throw Exception("No Internet Connection");
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
   }
-
 }

@@ -34,15 +34,14 @@ class _FolderFileActionIconState extends State<FolderFileActionIcon> {
           onTap: widget.onTap,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            width: 34.w,
-            height: 34.h,
+            padding: EdgeInsets.all(8.r),
             decoration: BoxDecoration(
               color: _hovered
                   ? widget.color.withOpacity(0.15)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(10.r),
             ),
-            child: Icon(widget.icon, color: widget.color, size: 15.sp),
+            child: Icon(widget.icon, color: widget.color, size: 20.sp),
           ),
         ),
       ),

@@ -25,7 +25,40 @@ class AiReportStatusProviderCard extends StatefulWidget {
 
 class _AiReportStatusProviderCardState
     extends State<AiReportStatusProviderCard> {
-  bool _isExpanded = false;
+  String _getBadgeText(String name, bool isAr) {
+    switch (name.toLowerCase()) {
+      case 'openai':
+        return isAr ? "موصى به" : "Recommended";
+      case 'ollama':
+        return isAr ? "نماذج محلية" : "Local Models";
+      case 'cohere':
+        return isAr ? "موثوق وآمن" : "Secure";
+      default:
+        return isAr ? "قريباً" : "Soon";
+    }
+  }
+
+  Color _getBadgeColor(String name) {
+    if (name.toLowerCase() == 'openai') return AppColors.green;
+    return Colors.grey.shade500;
+  }
+
+  String _getBottomText(
+    String name,
+    ProviderConfig config,
+    bool isAr,
+    bool isConfigured,
+  ) {
+    if (name.toLowerCase() == 'openai') {
+      return isAr ? "الأسرع والأكثر استقراراً" : "Fastest & Most Stable";
+    }
+    if (!isConfigured) {
+      return config.model.isNotEmpty
+          ? config.model
+          : (isAr ? "قريباً" : "Soon");
+    }
+    return config.model;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,24 +73,21 @@ class _AiReportStatusProviderCardState
 
     switch (name.toLowerCase()) {
       case 'cohere':
-        logoIcon = Icons.psychology_rounded;
-        brandColor = const Color(0xFF64B5F6);
+        logoIcon = Icons.copyright_rounded;
+        brandColor = const Color(0xFF673AB7);
         break;
       case 'openai':
-        logoIcon = Icons.bolt_rounded;
+        logoIcon = Icons.data_object_rounded;
         brandColor = const Color(0xFF10B981);
         break;
       case 'anthropic':
-        logoIcon = Icons.psychology_alt_rounded;
-        brandColor = const Color(0xFFF59E0B);
-        break;
       case 'google':
-        logoIcon = Icons.auto_awesome_rounded;
-        brandColor = const Color(0xFF4285F4);
+        logoIcon = Icons.lock_outline_rounded;
+        brandColor = Colors.grey.shade400;
         break;
       case 'ollama':
-        logoIcon = Icons.dns_rounded;
-        brandColor = const Color(0xFF1E293B);
+        logoIcon = Icons.pets_rounded;
+        brandColor = const Color(0xFF10B981);
         break;
       default:
         logoIcon = Icons.api_rounded;
@@ -66,154 +96,42 @@ class _AiReportStatusProviderCardState
 
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeInOut,
-        decoration: BoxDecoration(
-          color: isConfigured
-              ? (isSelected ? const Color(0xFFF3F8FF) : Colors.white)
-              : const Color(0xFFFAFAFA),
-          borderRadius: BorderRadius.circular(20.r),
-          border: Border.all(
-            color: isSelected
-                ? AppColors.colorButtonLight
-                : (isConfigured
-                      ? AppColors.green.withOpacity(0.25)
-                      : Colors.grey.withOpacity(0.12)),
-            width: isSelected ? 2.r : 1.r,
+      child: InkWell(
+        onTap: isConfigured
+            ? widget.onTap
+            : () {
+                showSnackBar(
+                  context,
+                  isAr
+                      ? "هذا المزود غير مفعّل على الخادم حالياً."
+                      : "This provider is not configured on the server currently.",
+                  AppColors.red,
+                );
+              },
+        borderRadius: BorderRadius.circular(16.r),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 8.w),
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFFF3F8FF) : Colors.white,
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(
+              color: isSelected
+                  ? AppColors.colorButtonLight
+                  : const Color(0xFFEEEEEE),
+              width: isSelected ? 2.r : 1.r,
+            ),
           ),
-          boxShadow: [
-            if (isSelected)
-              BoxShadow(
-                color: AppColors.colorButtonLight.withOpacity(0.08),
-                blurRadius: 16.r,
-                offset: const Offset(0, 4),
-              )
-            else if (isConfigured)
-              BoxShadow(
-                color: Colors.black.withOpacity(0.02),
-                blurRadius: 8.r,
-                offset: const Offset(0, 2),
-              ),
-          ],
-        ),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: isConfigured
-                  ? widget.onTap
-                  : () {
-                      showSnackBar(
-                        context,
-                        isAr
-                            ? "هذا المزود غير مفعّل على الخادم حالياً."
-                            : "This provider is not configured on the server currently.",
-                        AppColors.red,
-                      );
-                    },
-              borderRadius: BorderRadius.circular(20.r),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                child: Row(
-                  children: [
-                    // Brand Icon
-                    Container(
-                      padding: EdgeInsets.all(10.r),
-                      decoration: BoxDecoration(
-                        color: isConfigured
-                            ? brandColor.withOpacity(0.12)
-                            : Colors.grey.withOpacity(0.08),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        logoIcon,
-                        color: isConfigured ? brandColor : Colors.grey,
-                        size: 24.sp,
-                      ),
-                    ),
-                    SizedBox(width: 16.w),
-                    // Model Name and Info
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                name.toUpperCase(),
-                                style: Theme.of(context).textTheme.titleMedium!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: isConfigured
-                                          ? AppColors.mainBlack
-                                          : Colors.grey.shade400,
-                                      fontSize: 16.sp,
-                                    ),
-                              ),
-                              SizedBox(width: 8.w),
-                              if (isSelected)
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                    vertical: 2.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.colorButtonLight
-                                        .withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(6.r),
-                                  ),
-                                  child: Text(
-                                    isAr ? "نشط" : "Active",
-                                    style: TextStyle(
-                                      color: AppColors.colorButtonLight,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10.sp,
-                                    ),
-                                  ),
-                                )
-                              else if (isConfigured)
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                    vertical: 2.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.green.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(6.r),
-                                  ),
-                                  child: Text(
-                                    isAr ? "مُعدّ" : "Configured",
-                                    style: TextStyle(
-                                      color: AppColors.green,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 10.sp,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          SizedBox(height: 4.h),
-                          Text(
-                            config.model,
-                            style: TextStyle(
-                              color: isConfigured
-                                  ? Colors.grey.shade600
-                                  : Colors.grey.shade400,
-                              fontSize: 13.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Trailing: Selection Radio / Padlock
-                    if (!isConfigured)
-                      Icon(
-                        Icons.lock_outline_rounded,
-                        color: Colors.grey.shade400,
-                        size: 20.sp,
-                      )
-                    else
-                      AnimatedContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Top row: Radio / Lock
+              Align(
+                alignment: AlignmentDirectional.topStart,
+                child: isConfigured
+                    ? AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
                         padding: EdgeInsets.all(2.r),
                         decoration: BoxDecoration(
@@ -231,90 +149,75 @@ class _AiReportStatusProviderCardState
                               ? AppColors.colorButtonLight
                               : Colors.transparent,
                         ),
+                      )
+                    : Icon(
+                        Icons.circle_outlined,
+                        color: Colors.grey.shade300,
+                        size: 20.sp,
                       ),
-                    SizedBox(width: 8.w),
-                    // Expand arrow
-                    IconButton(
-                      icon: AnimatedRotation(
-                        duration: const Duration(milliseconds: 200),
-                        turns: _isExpanded ? 0.5 : 0.0,
-                        child: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: isConfigured
-                              ? AppColors.colorButtonLight
-                              : Colors.grey.shade400,
-                          size: 24.sp,
-                        ),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isExpanded = !_isExpanded;
-                        });
-                      },
-                    ),
-                  ],
+              ),
+              SizedBox(height: 8.h),
+              // Brand Icon
+              Container(
+                padding: EdgeInsets.all(12.r),
+                decoration: BoxDecoration(
+                  color: isConfigured
+                      ? brandColor.withOpacity(0.12)
+                      : Colors.grey.withOpacity(0.05),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  logoIcon,
+                  color: isConfigured ? brandColor : Colors.grey.shade400,
+                  size: 32.sp,
                 ),
               ),
-            ),
-            // Expansion Details
-            AnimatedCrossFade(
-              firstChild: const SizedBox.shrink(),
-              secondChild: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Divider(height: 1, color: Color(0xFFEEEEEE)),
-                    SizedBox(height: 12.h),
-                    _buildDetailRow(
-                      context,
-                      label: isAr ? "النموذج" : "Model Name",
-                      value: config.model,
-                    ),
-                    if (config.baseUrl != null) ...[
-                      SizedBox(height: 8.h),
-                      _buildDetailRow(
-                        context,
-                        label: isAr ? "عنوان الخدمة" : "Base URL",
-                        value: config.baseUrl!,
-                      ),
-                    ],
-                  ],
+              SizedBox(height: 16.h),
+              // Provider Name
+              Text(
+                name.isEmpty
+                    ? name
+                    : name[0].toUpperCase() + name.substring(1).toLowerCase(),
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.mainBlack,
+                  fontSize: 16.sp,
                 ),
               ),
-              crossFadeState: _isExpanded
-                  ? CrossFadeState.showSecond
-                  : CrossFadeState.showFirst,
-              duration: const Duration(milliseconds: 200),
-            ),
-          ],
+              SizedBox(height: 8.h),
+              // Badge
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                decoration: BoxDecoration(
+                  color: _getBadgeColor(name).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Text(
+                  _getBadgeText(name, isAr),
+                  style: TextStyle(
+                    color: _getBadgeColor(name),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 11.sp,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16.h),
+              // Bottom Text
+              Text(
+                _getBottomText(name, config, isAr, isConfigured),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget _buildDetailRow(
-    BuildContext context, {
-    required String label,
-    required String value,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "$label: ",
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.grey,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(color: AppColors.mainBlack),
-          ),
-        ),
-      ],
     );
   }
 }

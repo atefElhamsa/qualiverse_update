@@ -97,6 +97,15 @@ class _EvidenceFileGeneralScreenState extends State<EvidenceFileGeneralScreen> {
           if (state is UploadEvidenceFilesFailure) {
             showSnackBar(context, state.error, Colors.red);
           }
+          if (state is DeleteEvidenceFileSuccess) {
+            showSnackBar(context, state.message, AppColors.green);
+          }
+          if (state is DeleteEvidenceFileFailure) {
+            showSnackBar(context, state.error, Colors.red);
+          }
+          if (state is EvidenceFolderFilesFailure) {
+            showSnackBar(context, state.error, Colors.red);
+          }
         },
         builder: (context, state) {
           final cubit = EvidenceFolderFilesCubit.get(context);

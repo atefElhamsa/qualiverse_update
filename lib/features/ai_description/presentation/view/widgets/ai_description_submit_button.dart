@@ -53,12 +53,16 @@ class AiDescriptionSubmitButton extends StatelessWidget {
               SizedBox(width: 15.w),
             ],
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (isUnsaved) {
-                  cubit.uploadCustomFile(
+                  await cubit.uploadCustomFile(
                     docx: cubit.customDocxFile!,
                     pdf: cubit.customPdfFile!,
                   );
+                  // If upload is successful, hasUnsavedCustomFiles will become false
+                  if (!cubit.hasUnsavedCustomFiles) {
+                    cubit.confirmFinal();
+                  }
                 } else {
                   cubit.confirmFinal();
                 }
@@ -73,7 +77,7 @@ class AiDescriptionSubmitButton extends StatelessWidget {
                 elevation: 4,
               ),
               child: Text(
-                isUnsaved ? "saveChanges".tr() : "submit".tr(),
+                "submit".tr(),
                 style: GoogleFonts.almarai(
                   fontSize: 22.sp,
                   fontWeight: FontWeight.bold,

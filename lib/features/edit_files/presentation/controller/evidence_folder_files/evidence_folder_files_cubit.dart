@@ -39,7 +39,6 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         departmentId: departmentId,
         levelId: levelId,
         termId: termId,
-        lang: 'ar',
       );
 
       if (response.isSuccess && response.data != null) {
@@ -53,7 +52,11 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         );
       }
     } catch (e) {
-      emit(StatisticsPreviewFailure(error: e.toString()));
+      emit(
+        StatisticsPreviewFailure(
+          error: e.toString().replaceFirst('Exception: ', '').trim(),
+        ),
+      );
     }
   }
 
@@ -157,12 +160,13 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
   Future<void> deleteFile({required int fileId, required int folderId}) async {
     try {
       emit(DeleteEvidenceFileLoading());
-      final msg = await EvidenceFolderFilesServices.deleteEvidenceFile(
+      final response = await EvidenceFolderFilesServices.deleteEvidenceFile(
         fileId: fileId,
       );
-      emit(DeleteEvidenceFileSuccess(message: msg));
+      emit(
+        DeleteEvidenceFileSuccess(message: response.error?.description ?? ""),
+      );
 
-      // Refresh logic based on the TYPE we are currently viewing
       switch (currentType) {
         case EvidenceFolderType.statistics:
           if (lastYearId != null) {

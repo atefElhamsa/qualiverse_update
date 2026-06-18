@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiCourseSelectionBody extends StatefulWidget {
-  const AiCourseSelectionBody({super.key});
+  const AiCourseSelectionBody({super.key, required this.nextRoute});
+  final String nextRoute;
 
   @override
   State<AiCourseSelectionBody> createState() => _AiCourseSelectionBodyState();
@@ -21,8 +22,7 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
       final deptCubit = DepartmentCubit.get(context);
       if (levelCubit.selectedLevel != null &&
           levelCubit.selectedLevel!.levelNumber <= 2) {
-        final deptName =
-            deptCubit.selectedDepartment?.name.toLowerCase() ?? '';
+        final deptName = deptCubit.selectedDepartment?.name.toLowerCase() ?? '';
         final isDataAnalysis =
             deptName.contains("data analysis") ||
             deptName.contains("تحليل البيانات");
@@ -109,7 +109,9 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                                 }
                               }
                             },
-                            child: const SelectedDepartmentWidget(checkLevel: true),
+                            child: const SelectedDepartmentWidget(
+                              checkLevel: true,
+                            ),
                           ),
                         ),
                         SizedBox(width: 20.w),
@@ -134,7 +136,8 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                               final levelCubit = LevelCubit.get(context);
                               if (levelCubit.selectedLevel != null &&
                                   levelCubit.selectedLevel!.levelNumber <= 2) {
-                                final deptName = state.selectedDepartment?.name
+                                final deptName =
+                                    state.selectedDepartment?.name
                                         .toLowerCase() ??
                                     '';
                                 final isDataAnalysis =
@@ -142,8 +145,9 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                                     deptName.contains("تحليل البيانات");
                                 if (state.selectedDepartment != null &&
                                     !isDataAnalysis) {
-                                  DepartmentCubit.get(context)
-                                      .selectDepartment(department: null);
+                                  DepartmentCubit.get(
+                                    context,
+                                  ).selectDepartment(department: null);
                                   return;
                                 }
                               }
@@ -159,7 +163,10 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                       child: const SelectedCourseWidget(),
                     ),
                     SizedBox(height: 40.h),
-                    _buildNextButton(context),
+                    _buildNextButton(
+                      context: context,
+                      nextRoute: widget.nextRoute,
+                    ),
                   ],
                 ),
               ),
@@ -186,7 +193,10 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
     }
   }
 
-  Widget _buildNextButton(BuildContext context) {
+  Widget _buildNextButton({
+    required BuildContext context,
+    required String nextRoute,
+  }) {
     return SizedBox(
       width: 200.w,
       height: 55.h,
@@ -201,10 +211,7 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
                 AppColors.red,
               );
             } else {
-              context.pushNamed(
-                AppRoutes.aiDescriptionScreen,
-                extra: selectedCourse.id,
-              );
+              context.pushNamed(nextRoute, extra: selectedCourse.id);
             }
           },
           backgroundColor: AppColors.scaffoldLight1,

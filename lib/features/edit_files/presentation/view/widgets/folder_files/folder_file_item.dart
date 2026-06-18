@@ -89,92 +89,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
     final cubit = FolderFilesCubit.get(context);
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.r),
-        ),
-        title: Row(
-          children: [
-            Container(
-              width: 36.w,
-              height: 36.h,
-              decoration: BoxDecoration(
-                color: AppColors.red.withOpacity(0.12),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Icon(
-                Icons.delete_outline_rounded,
-                color: AppColors.red,
-                size: 20.sp,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Text(
-              'deleteFile'.tr(),
-              style: GoogleFonts.almarai(
-                fontSize: 17.sp,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-        content: RichText(
-          text: TextSpan(
-            style: GoogleFonts.almarai(
-              fontSize: 15.sp,
-              color: AppColors.greyLight,
-            ),
-            children: [
-              TextSpan(text: 'confirmDeleteFile'.tr()),
-              TextSpan(
-                text: ' "${widget.file.fileName}" ',
-                style: GoogleFonts.almarai(
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.mainBlack,
-                  fontSize: 15.sp,
-                ),
-              ),
-              const TextSpan(text: '؟'),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              minimumSize: Size(60.w, 36.h),
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-            ),
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(
-              'cancel'.tr(),
-              style: GoogleFonts.almarai(
-                color: AppColors.greyLight,
-                fontWeight: FontWeight.w600,
-                fontSize: 15.sp,
-              ),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.red,
-              foregroundColor: Colors.white,
-              minimumSize: Size(70.w, 36.h),
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-            ),
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(
-              'delete'.tr(),
-              style: GoogleFonts.almarai(
-                fontWeight: FontWeight.w700,
-                fontSize: 15.sp,
-              ),
-            ),
-          ),
-        ],
-      ),
+      builder: (ctx) => _DeleteConfirmationDialog(fileName: widget.file.fileName),
     );
 
     if (confirmed == true && context.mounted) {
@@ -185,11 +100,14 @@ class _FolderFileItemState extends State<FolderFileItem> {
   Color get _typeColor {
     final t = widget.file.fileType.toLowerCase();
     if (t.contains('pdf')) return const Color(0xFFE53935);
-    if (t.contains('doc') || t.contains('word')) return const Color(0xFF1565C0);
+    if (t.contains('doc') || t.contains('word')) return const Color(0xFF1E88E5);
     if (t.contains('png') || t.contains('jpg') || t.contains('image')) {
-      return const Color(0xFF2E7D32);
+      return const Color(0xFF8E24AA);
     }
-    return const Color(0xFF6D4C41);
+    if (t.contains('xls') || t.contains('xlsx') || t.contains('csv')) {
+      return const Color(0xFF43A047);
+    }
+    return Colors.blueGrey;
   }
 
   IconData get _typeIcon {
@@ -201,8 +119,8 @@ class _FolderFileItemState extends State<FolderFileItem> {
     if (t.contains('png') || t.contains('jpg') || t.contains('image')) {
       return Icons.image_rounded;
     }
-    if (t.contains('.xls') || t.contains('.xlsx')) {
-      return Icons.file_copy_rounded;
+    if (t.contains('xls') || t.contains('xlsx') || t.contains('csv')) {
+      return Icons.table_chart_rounded;
     }
     return Icons.insert_drive_file_rounded;
   }
@@ -389,6 +307,143 @@ class _FolderFileItemState extends State<FolderFileItem> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DeleteConfirmationDialog extends StatefulWidget {
+  final String fileName;
+  const _DeleteConfirmationDialog({required this.fileName});
+
+  @override
+  State<_DeleteConfirmationDialog> createState() =>
+      _DeleteConfirmationDialogState();
+}
+
+class _DeleteConfirmationDialogState extends State<_DeleteConfirmationDialog> {
+  bool _isDeleteHovered = false;
+  bool _isCancelHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.r)),
+      child: Container(
+        width: 450.w,
+        padding: EdgeInsets.all(24.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10.r),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF1F1),
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  child: Icon(
+                    Icons.delete_outline_rounded,
+                    color: const Color(0xFFE53935),
+                    size: 24.sp,
+                  ),
+                ),
+                SizedBox(width: 15.w),
+                Text(
+                  'deleteFile'.tr(),
+                  style: GoogleFonts.almarai(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF1A1A1A),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            RichText(
+              text: TextSpan(
+                style: GoogleFonts.almarai(
+                  fontSize: 15.sp,
+                  color: Colors.grey.shade600,
+                ),
+                children: [
+                  TextSpan(text: '${'confirmDeleteFile'.tr()} '),
+                  TextSpan(
+                    text: '"${widget.fileName}"',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1A1A1A),
+                    ),
+                  ),
+                  const TextSpan(text: ' ?'),
+                ],
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () => Navigator.pop(context, false),
+                  child: MouseRegion(
+                    onEnter: (_) => setState(() => _isCancelHovered = true),
+                    onExit: (_) => setState(() => _isCancelHovered = false),
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      'cancel'.tr(),
+                      style: GoogleFonts.almarai(
+                        fontSize: 13.sp,
+                        color: _isCancelHovered
+                            ? const Color(0xFF1A1A1A)
+                            : Colors.grey.shade500,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 25.w),
+                GestureDetector(
+                  onTap: () => Navigator.pop(context, true),
+                  child: MouseRegion(
+                    onEnter: (_) => setState(() => _isDeleteHovered = true),
+                    onExit: (_) => setState(() => _isDeleteHovered = false),
+                    cursor: SystemMouseCursors.click,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 25.w,
+                        vertical: 8.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _isDeleteHovered
+                            ? const Color(0xFFD32F2F)
+                            : const Color(0xFFEF5350),
+                        borderRadius: BorderRadius.circular(12.r),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFEF5350).withOpacity(0.3),
+                            blurRadius: _isDeleteHovered ? 12 : 8,
+                            offset: Offset(0, _isDeleteHovered ? 6 : 4),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        'delete'.tr(),
+                        style: GoogleFonts.almarai(
+                          color: Colors.white,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

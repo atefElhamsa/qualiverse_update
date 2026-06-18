@@ -7,12 +7,14 @@ class AiReportStatusProceedButton extends StatelessWidget {
   final bool isAr;
   final String? selectedProvider;
   final String? selectedCourseNature;
+  final int courseId;
 
   const AiReportStatusProceedButton({
     super.key,
     required this.isAr,
     required this.selectedProvider,
     required this.selectedCourseNature,
+    required this.courseId,
   });
 
   @override
@@ -27,6 +29,7 @@ class AiReportStatusProceedButton extends StatelessWidget {
               extra: {
                 'provider': selectedProvider,
                 'courseNature': selectedCourseNature,
+                'courseId': courseId,
               },
             );
           },

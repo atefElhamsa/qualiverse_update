@@ -91,6 +91,9 @@ class _EvidenceFileStatisticsScreenState
           if (state is UploadEvidenceFilesFailure) {
             showSnackBar(context, state.error, AppColors.red);
           }
+          if (state is DeleteEvidenceFileFailure) {
+            showSnackBar(context, state.error, AppColors.red);
+          }
         },
         builder: (context, state) {
           final cubit = EvidenceFolderFilesCubit.get(context);

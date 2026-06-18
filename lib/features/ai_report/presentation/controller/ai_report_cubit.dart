@@ -10,11 +10,13 @@ class AiReportCubit extends Cubit<AiReportState> with AiReportControllersMixin {
 
   int currentPage = 0;
   Map<String, dynamic> extractedData = {};
+  int aiRequestId = 0;
 
   // ===========================================================================
   // 1. INITIALIZATION LOGIC
   // ===========================================================================
-  void init(Map<String, dynamic> data) {
+  void init(int id, Map<String, dynamic> data) {
+    aiRequestId = id;
     extractedData = data;
 
     _initBasicInfo(data);
@@ -274,7 +276,7 @@ class AiReportCubit extends Cubit<AiReportState> with AiReportControllersMixin {
       requestData.addAll(_buildExtraDataPayload());
       requestData.addAll(_buildDynamicListsPayload());
 
-      final responseBody = await AiReportService.submitReport(requestData);
+      final responseBody = await AiReportService.submitReport(aiRequestId, requestData);
 
       final dataObj = responseBody['data'];
       String jobId = '';
@@ -282,7 +284,12 @@ class AiReportCubit extends Cubit<AiReportState> with AiReportControllersMixin {
         jobId = dataObj['job_id']?.toString() ?? '';
       }
 
-      emit(AiReportSuccess("AI Report submitted successfully!", jobId: jobId));
+      emit(
+        AiReportSuccess(
+          "AI Report submitted successfully!",
+          jobId: jobId,
+        ),
+      );
     } catch (e) {
       emit(AiReportError(e.toString()));
     }

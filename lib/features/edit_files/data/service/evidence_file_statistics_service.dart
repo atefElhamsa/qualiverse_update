@@ -29,19 +29,24 @@ class EvidenceFileStatisticsService {
             : null,
       );
 
-      return StatisticsPreviewResponse.fromJson(response.data);
+      var body = response.data;
+      final result = StatisticsPreviewResponse.fromJson(body);
+
+      if (!result.isSuccess) {
+        throw Exception(
+          result.error?.description ?? "Failed to preview statistics",
+        );
+      }
+
+      return result;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) throw Exception('Unauthorized');
-      if (e.type == DioExceptionType.connectionError ||
-          e.type == DioExceptionType.connectionTimeout) {
-        throw Exception('No Internet Connection');
+      if (e.response?.data != null) {
+        final result = StatisticsPreviewResponse.fromJson(e.response!.data);
+
+        throw Exception(result.error?.description ?? "Server error");
       }
-      final errorData =
-          e.response?.data?['error'] ?? e.response?.data?['message'];
-      if (errorData is Map && errorData.containsKey('description')) {
-        throw Exception(errorData['description']);
-      }
-      throw Exception(errorData?.toString() ?? 'Server Error');
+
+      throw Exception("No Internet Connection");
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -192,12 +197,31 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData =
-          e.response?.data?['error'] ?? e.response?.data?['message'];
-      if (errorData is Map && errorData.containsKey('description')) {
-        throw Exception(errorData['description']);
+      dynamic errorData = e.response?.data;
+      if (errorData is Map) {
+        if (errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        final err = errorData['error'] ?? errorData['message'];
+        if (err is Map && err.containsKey('description')) {
+          throw Exception(err['description']);
+        } else if (err is String) {
+          final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+          final match = regex.firstMatch(err);
+          if (match != null && match.group(1) != null) {
+            throw Exception(match.group(1)!.trim());
+          }
+          throw Exception(err);
+        }
+      } else if (errorData is String) {
+        final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+        final match = regex.firstMatch(errorData);
+        if (match != null && match.group(1) != null) {
+          throw Exception(match.group(1)!.trim());
+        }
+        throw Exception(errorData);
       }
-      throw Exception(errorData?.toString() ?? 'Server Error');
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
@@ -249,12 +273,31 @@ class EvidenceFileStatisticsService {
           e.type == DioExceptionType.connectionTimeout) {
         throw Exception('No Internet Connection');
       }
-      final errorData =
-          e.response?.data?['error'] ?? e.response?.data?['message'];
-      if (errorData is Map && errorData.containsKey('description')) {
-        throw Exception(errorData['description']);
+      dynamic errorData = e.response?.data;
+      if (errorData is Map) {
+        if (errorData.containsKey('description')) {
+          throw Exception(errorData['description']);
+        }
+        final err = errorData['error'] ?? errorData['message'];
+        if (err is Map && err.containsKey('description')) {
+          throw Exception(err['description']);
+        } else if (err is String) {
+          final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+          final match = regex.firstMatch(err);
+          if (match != null && match.group(1) != null) {
+            throw Exception(match.group(1)!.trim());
+          }
+          throw Exception(err);
+        }
+      } else if (errorData is String) {
+        final regex = RegExp(r'description:\s*(.*?)(?:,|})');
+        final match = regex.firstMatch(errorData);
+        if (match != null && match.group(1) != null) {
+          throw Exception(match.group(1)!.trim());
+        }
+        throw Exception(errorData);
       }
-      throw Exception(errorData?.toString() ?? 'Server Error');
+      throw Exception('Server Error');
     } catch (e) {
       throw Exception(e.toString().replaceFirst('Exception: ', '').trim());
     }
