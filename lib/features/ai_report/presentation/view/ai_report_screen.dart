@@ -7,7 +7,6 @@ class AiReportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // extra = {'provider': String?, 'courseNature': String?, 'courseId': int}
     final extra = GoRouterState.of(context).extra as Map<String, dynamic>?;
     final String? provider = extra?['provider'] as String?;
     final String? courseNature = extra?['courseNature'] as String?;

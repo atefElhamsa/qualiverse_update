@@ -26,34 +26,12 @@ class _FolderFileItemState extends State<FolderFileItem> {
   bool _hovered = false;
   bool _isDownloading = false;
 
-  Future<void> _openFile(BuildContext context) async {
-    String path = widget.file.filePath;
-
-    if (widget.file.isFromAI && !path.startsWith('http')) {
-      if (path.startsWith('/api/')) path = path.substring(5);
-      if (path.startsWith('api/')) path = path.substring(4);
-      path = '${EndPoints.baseUrlToOpenFile}/$path';
-
-      if (path.contains('fileType=1')) {
-        path = path.replaceAll('fileType=1', 'fileType=Pdf');
-      } else if (path.contains('fileType=0')) {
-        path = path.replaceAll('fileType=0', 'fileType=Docx');
-      }
-    } else if (!path.startsWith('http')) {
-      path =
-          '${EndPoints.baseUrlToOpenFile}${path.startsWith('/') ? path.substring(1) : path}';
-    }
-
-    try {
-      final url = Uri.parse(path);
-      if (!await canLaunchUrl(url)) {
-        throw Exception('Cannot open URL');
-      }
+  Future<void> _openFile() async {
+    final String fullUrl =
+        "${EndPoints.baseUrlToOpenFile}/${widget.file.filePath}";
+    final Uri url = Uri.parse(fullUrl);
+    if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      if (context.mounted) {
-        showSnackBar(context, 'فشل فتح الملف: ${e.toString()}', AppColors.red);
-      }
     }
   }
 
@@ -89,7 +67,8 @@ class _FolderFileItemState extends State<FolderFileItem> {
     final cubit = FolderFilesCubit.get(context);
     final confirmed = await showDialog<bool>(
       context: context,
-      builder: (ctx) => _DeleteConfirmationDialog(fileName: widget.file.fileName),
+      builder: (ctx) =>
+          _DeleteConfirmationDialog(fileName: widget.file.fileName),
     );
 
     if (confirmed == true && context.mounted) {
@@ -132,7 +111,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: GestureDetector(
-        onTap: () => _openFile(context),
+        onTap: () => _openFile(),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
@@ -315,6 +294,7 @@ class _FolderFileItemState extends State<FolderFileItem> {
 
 class _DeleteConfirmationDialog extends StatefulWidget {
   final String fileName;
+
   const _DeleteConfirmationDialog({required this.fileName});
 
   @override

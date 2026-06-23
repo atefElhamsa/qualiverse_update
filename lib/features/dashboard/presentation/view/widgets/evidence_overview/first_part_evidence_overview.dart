@@ -11,15 +11,17 @@ class FirstPartEvidenceOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.start,
-        runSpacing: 30.h,
-        children: [
-          const EvidenceStatusChart(),
-          const DropButtonList(),
-          const EvidenceSummaryCards(),
-        ],
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Expanded(flex: 13, child: EvidenceStatusChart()),
+            SizedBox(width: 20.w),
+            const Expanded(flex: 8, child: DropButtonList()),
+            SizedBox(width: 20.w),
+            const Expanded(flex: 7, child: EvidenceSummaryCards()),
+          ],
+        ),
       ),
     );
   }

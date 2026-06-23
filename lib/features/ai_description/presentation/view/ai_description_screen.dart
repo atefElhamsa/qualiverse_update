@@ -36,7 +36,10 @@ class _AiDescriptionScreenState extends State<AiDescriptionScreen> {
         final cubit = context.read<AiDescriptionCubit>();
         return MainWrapper(
           disabledGestures: cubit.currentPage == 5,
-          child: AiDescriptionBody(courseId: widget.courseId),
+          child: AiDescriptionBody(
+            courseId: widget.courseId,
+            title: "specification",
+          ),
         );
       },
     );

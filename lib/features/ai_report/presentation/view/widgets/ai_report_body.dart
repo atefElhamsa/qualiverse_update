@@ -103,11 +103,11 @@ class _AiReportBodyState extends State<AiReportBody> {
         file: _files[1],
       ), // descriptionPdf
       FileItemModel(
-        titleFile: 'statusPDF',
+        titleFile: 'statisticsPDF',
         aboutFile: '',
         onTap: () => _pickFile(2),
         file: _files[2],
-      ), // statusPdf
+      ), // statisticsPdf
     ];
 
     return Stack(

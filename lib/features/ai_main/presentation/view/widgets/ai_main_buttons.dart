@@ -19,7 +19,10 @@ class AiMainButtons extends StatelessWidget {
           title: "report".tr(),
           onPressed: () => context.pushNamed(
             AppRoutes.aiCourseSelectionScreen,
-            extra: AppRoutes.aiReportStatusScreen,
+            extra: {
+              "nextRoute": AppRoutes.aiReportStatusScreen,
+              "title": "report",
+            },
           ),
           gradient: const LinearGradient(
             colors: [Color(0xFF64B5F6), Color(0xFF1E88E5)],
@@ -33,7 +36,10 @@ class AiMainButtons extends StatelessWidget {
           title: "specification".tr(),
           onPressed: () => context.pushNamed(
             AppRoutes.aiCourseSelectionScreen,
-            extra: AppRoutes.aiDescriptionScreen,
+            extra: {
+              "nextRoute": AppRoutes.aiDescriptionScreen,
+              "title": "specification",
+            },
           ),
           gradient: const LinearGradient(
             colors: [Color(0xFF1E3A8A), Color(0xFF1E40AF)],

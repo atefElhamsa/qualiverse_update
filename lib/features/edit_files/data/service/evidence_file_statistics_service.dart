@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class EvidenceFileStatisticsService {
@@ -138,7 +139,7 @@ class EvidenceFileStatisticsService {
       final Map<String, dynamic> body = response.data;
 
       if (body['isSuccess'] == true) {
-        return 'File uploaded successfully';
+        return 'fileUploadedSuccessfully'.tr();
       } else {
         final errorData = body['error'] ?? body['message'];
         if (errorData is Map && errorData.containsKey('description')) {
@@ -257,7 +258,7 @@ class EvidenceFileStatisticsService {
       final Map<String, dynamic> body = response.data;
 
       if (body['isSuccess'] == true) {
-        return 'File uploaded successfully';
+        return 'fileUploadedSuccessfully'.tr();
       } else {
         final errorData = body['error'] ?? body['message'];
         if (errorData is Map && errorData.containsKey('description')) {

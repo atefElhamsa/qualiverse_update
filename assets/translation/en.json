@@ -67,7 +67,7 @@
     "chooseFile": "Choose a file",
     "uploadHint": "Click to Upload file",
     "descriptionPDF": "Description PDF",
-    "statusPDF": "Status PDF",
+    "statisticsPDF": "Statistics PDF",
     "surveyPDF": "Survey PDF",
     "basicSentence": "Enter basic information:\nDoctor Name - Course Name",
     "start": "Start",
@@ -676,5 +676,16 @@
     "updateDetected": "Update Detected",
     "continueWithSameAccount": "Do you want to log in with the same account you logged in with before?",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "Verification failed": "Verification failed",
+    "Server error": "Server error",
+    "No Internet Connection": "No Internet Connection",
+    "uploadConfirmedSuccessfully": "Upload confirmed successfully",
+    "fileUploadedSuccessfully": "File uploaded successfully",
+    "filesUploadedSuccessfully": "Files uploaded successfully",
+    "fileDeletedSuccessfully": "File deleted successfully",
+    "notificationMarkedAsRead": "Notification marked as read",
+    "allNotificationsMarkedAsRead": "All notifications marked as read",
+    "notificationDeletedSuccessfully": "Notification deleted successfully",
+    "oldNotificationsCleanedUpSuccessfully": "Old notifications cleaned up successfully"
 }

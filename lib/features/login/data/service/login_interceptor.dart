@@ -1,19 +1,44 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
-
+import 'package:flutter/foundation.dart';
 import '../../../../routing/all_routes_imports.dart';
 
 class LoginInterceptor extends Interceptor {
   static final LoginInterceptor instance = LoginInterceptor.internal();
-
   factory LoginInterceptor() => instance;
-
   LoginInterceptor.internal();
 
-  bool isRefreshing = false;
   bool loggedOut = false;
-  final List<QueuedRequest> queue = [];
+
+  /// 🔥 Single refresh lock (THE CORE FIX)
+  Completer<void>? _refreshCompleter;
+
+  Future<void> forceRefreshToken() async {
+    if (!LoginStorage.hasToken) return;
+
+    if (_refreshCompleter != null) {
+      return _refreshCompleter!.future;
+    }
+
+    _refreshCompleter = Completer<void>();
+
+    try {
+      final success = await _refreshToken();
+
+      if (!success) {
+        _refreshCompleter!.completeError("SESSION_EXPIRED");
+        _logout();
+        return;
+      }
+
+      _refreshCompleter!.complete();
+    } catch (e) {
+      _refreshCompleter!.completeError(e);
+      // We don't rethrow here to avoid crashing if called standalone
+    } finally {
+      _refreshCompleter = null;
+    }
+  }
 
   bool isAuthPath(String path) {
     return path.contains(EndPoints.login) ||
@@ -21,9 +46,21 @@ class LoginInterceptor extends Interceptor {
   }
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     if (isAuthPath(options.path)) {
       handler.next(options);
+      return;
+    }
+
+    try {
+      await _ensureTokenValid();
+    } catch (_) {
+      handler.reject(
+        DioException(requestOptions: options, error: "SESSION_EXPIRED"),
+      );
       return;
     }
 
@@ -46,63 +83,68 @@ class LoginInterceptor extends Interceptor {
     }
 
     if (err.response?.statusCode == 401) {
-      if (isRefreshing) {
-        final completer = Completer<Response>();
-        queue.add(QueuedRequest(err.requestOptions, completer));
-        try {
-          final response = await completer.future;
-          handler.resolve(response);
-        } catch (e) {
-          handler.next(e is DioException ? e : err);
-        }
-        return;
-      }
-
-      isRefreshing = true;
-      final refreshed = await refreshToken();
-      isRefreshing = false;
-
-      if (!refreshed) {
-        failAllQueued(err);
-        logout();
-        handler.next(err);
-        return;
-      }
-
-      // Retry queued requests
-      final currentQueue = List.from(queue);
-      queue.clear();
-      for (final q in currentQueue) {
-        try {
-          final res = await retry(q.options);
-          if (!q.completer.isCompleted) {
-            q.completer.complete(res);
-          }
-        } catch (e) {
-          if (!q.completer.isCompleted) {
-            q.completer.completeError(e);
-          }
-        }
-      }
-
-      // Retry original request
       try {
-        final response = await retry(err.requestOptions);
+        await _ensureTokenValid();
+
+        final response = await _retry(err.requestOptions);
         handler.resolve(response);
+        return;
       } catch (_) {
+        _logout();
         handler.next(err);
+        return;
       }
-      return;
     }
 
-    handler.next(err); // Any other error
+    handler.next(err);
   }
 
-  Future<bool> refreshToken() async {
+  /// ==============================
+  /// 🔥 CORE REFRESH CONTROLLER
+  /// ==============================
+  Future<void> _ensureTokenValid() async {
+    if (!LoginStorage.hasToken) return;
+
+    /// لو refresh شغال بالفعل → نستنى نفس النتيجة
+    if (_refreshCompleter != null) {
+      return _refreshCompleter!.future;
+    }
+
+    /// لو التوكن مش محتاج refresh → نكمل عادي
+    if (!LoginStorage.accessTokenExpiresSoon) return;
+
+    _refreshCompleter = Completer<void>();
+
+    try {
+      final success = await _refreshToken();
+
+      if (!success) {
+        _refreshCompleter!.completeError("SESSION_EXPIRED");
+        _logout();
+        return;
+      }
+
+      _refreshCompleter!.complete();
+    } catch (e) {
+      _refreshCompleter!.completeError(e);
+      rethrow;
+    } finally {
+      _refreshCompleter = null;
+    }
+  }
+
+  /// ==============================
+  /// 🔥 ACTUAL REFRESH CALL
+  /// ==============================
+  Future<bool> _refreshToken() async {
     final token = LoginStorage.token;
     final refreshToken = LoginStorage.refreshToken;
 
     if (token == null || refreshToken == null) return false;
+
+    debugPrint("================== REFRESH TOKEN STARTED ==================");
+    debugPrint("OLD TOKEN: $token");
+    debugPrint("OLD REFRESH TOKEN: $refreshToken");
 
     try {
       final res = await ApiClient.refreshDio.post(
@@ -110,18 +152,18 @@ class LoginInterceptor extends Interceptor {
         data: {"token": token, "refreshToken": refreshToken},
       );
 
-      if (res.statusCode != 200) return false;
-
-      final responseData = res.data;
-      if (responseData['isSuccess'] == false) return false;
-
-      final data = responseData['data'] ?? responseData;
+      final data = res.data['data'] ?? res.data;
 
       final newToken = data['token'];
       final newRefreshToken = data['refreshToken'];
 
+      debugPrint("NEW TOKEN: $newToken");
+      debugPrint("NEW REFRESH TOKEN: $newRefreshToken");
+      debugPrint("===========================================================");
+
       if (newToken == null || newRefreshToken == null) return false;
 
+      /// 🔥 update session atomically
       LoginStorage.setSession(
         tokenValue: newToken,
         refreshTokenValue: newRefreshToken,
@@ -131,18 +173,30 @@ class LoginInterceptor extends Interceptor {
                   DateTime.now().add(const Duration(days: 7))
             : LoginStorage.refreshTokenExpiration ??
                   DateTime.now().add(const Duration(days: 7)),
+        expiresInSeconds: data['expiresIn'] is int
+            ? data['expiresIn']
+            : int.tryParse(data['expiresIn']?.toString() ?? ''),
       );
 
       await LoginStorage.savePersistent();
 
       return true;
     } catch (e) {
-      print("Token Refresh Error: $e");
-      return false;
+      if (e is DioException &&
+          e.response != null &&
+          e.response!.statusCode! >= 400 &&
+          e.response!.statusCode! < 500) {
+        return false;
+      }
+
+      rethrow;
     }
   }
 
-  Future<Response> retry(RequestOptions req) {
+  /// ==============================
+  /// 🔁 RETRY REQUEST
+  /// ==============================
+  Future<Response> _retry(RequestOptions req) {
     final token = LoginStorage.token;
 
     final options = Options(
@@ -151,8 +205,8 @@ class LoginInterceptor extends Interceptor {
         ...req.headers,
         if (token != null) 'Authorization': 'Bearer $token',
       },
-      contentType: req.contentType,
       responseType: req.responseType,
+      contentType: req.contentType,
       followRedirects: req.followRedirects,
       receiveTimeout: req.receiveTimeout,
       sendTimeout: req.sendTimeout,
@@ -166,31 +220,14 @@ class LoginInterceptor extends Interceptor {
     );
   }
 
-  void failAllQueued(DioException err) {
-    for (final q in queue) {
-      if (!q.completer.isCompleted) {
-        q.completer.completeError(
-          DioException(
-            requestOptions: q.options,
-            message: 'Session expired',
-            type: DioExceptionType.cancel,
-          ),
-        );
-      }
-    }
-    queue.clear();
-  }
+  /// ==============================
+  /// 🚪 LOGOUT
+  /// ==============================
+  void _logout() {
+    if (loggedOut) return;
 
-  void logout() {
     loggedOut = true;
     LoginStorage.clear();
     SessionDialog.showSessionExpired();
   }
-}
-
-class QueuedRequest {
-  final RequestOptions options;
-  final Completer<Response> completer;
-
-  QueuedRequest(this.options, this.completer);
 }

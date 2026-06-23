@@ -27,18 +27,20 @@ class CoursesPerDepartmentView extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 800),
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                ? AppColors.grey
+                ? AppColors.white
                 : AppColors.mainBlack,
+            borderRadius: BorderRadius.circular(24.r),
+            border: Border.all(color: Colors.grey.withOpacity(0.1), width: 1),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: const Offset(0, 4),
+                color: Colors.black.withOpacity(0.04),
+                offset: const Offset(0, 10),
+                blurRadius: 30,
                 spreadRadius: 0,
-                blurRadius: 4,
               ),
             ],
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -125,20 +127,23 @@ class CoursesPerDepartmentView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            width: 40.w,
+            width: 45.w,
             height: 100.h,
             decoration: BoxDecoration(
               color: AppColors.textGrey.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(3.r),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(6.r),
+                topRight: Radius.circular(6.r),
+              ),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Container(
-            width: 30.w,
-            height: 10.h,
+            width: 35.w,
+            height: 8.h,
             decoration: BoxDecoration(
               color: AppColors.textGrey.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(4.r),
             ),
           ),
         ],

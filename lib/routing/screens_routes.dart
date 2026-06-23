@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:qualiverse/features/ai_report/presentation/view/ai_report_job_status_screen.dart';
+import 'package:qualiverse/features/ai_report/presentation/view/ai_report_history_screen.dart';
 
 import 'all_routes_imports.dart';
 
@@ -24,11 +25,13 @@ class ScreensRoutes {
       path: AppRoutes.aiCourseSelectionScreen,
       name: AppRoutes.aiCourseSelectionScreen,
       pageBuilder: (context, state) {
-        final nextRoute = state.extra as String;
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        final nextRoute = extra["nextRoute"] as String;
+        final title = extra["title"] as String;
         return buildPageWithTransition(
           context: context,
           state: state,
-          child: AiCourseSelectionScreen(nextRoute: nextRoute),
+          child: AiCourseSelectionScreen(nextRoute: nextRoute, title: title),
         );
       },
     );
@@ -38,11 +41,15 @@ class ScreensRoutes {
     return GoRoute(
       path: AppRoutes.aiDescriptionResultScreen,
       name: AppRoutes.aiDescriptionResultScreen,
-      pageBuilder: (context, state) => buildPageWithTransition(
-        context: context,
-        state: state,
-        child: const AiDescriptionResultScreen(),
-      ),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>?;
+        final title = extra?["title"] as String? ?? "";
+        return buildPageWithTransition(
+          context: context,
+          state: state,
+          child: AiDescriptionResultScreen(title: title),
+        );
+      },
     );
   }
 
@@ -394,6 +401,18 @@ class ScreensRoutes {
           child: AiReportJobStatusScreen(jobId: jobId),
         );
       },
+    );
+  }
+
+  static GoRoute aiReportHistoryRoute() {
+    return GoRoute(
+      path: AppRoutes.aiReportHistoryScreen,
+      name: AppRoutes.aiReportHistoryScreen,
+      pageBuilder: (context, state) => buildPageWithTransition(
+        context: context,
+        state: state,
+        child: const AiReportHistoryScreen(),
+      ),
     );
   }
 }

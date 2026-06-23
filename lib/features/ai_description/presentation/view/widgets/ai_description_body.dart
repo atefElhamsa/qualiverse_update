@@ -9,7 +9,12 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionBody extends StatelessWidget {
   final int courseId;
-  const AiDescriptionBody({super.key, required this.courseId});
+  final String title;
+  const AiDescriptionBody({
+    super.key,
+    required this.courseId,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +29,7 @@ class AiDescriptionBody extends StatelessWidget {
         return CustomScaffold(
           widget: Stack(
             children: [
-              _buildMainContent(context, cubit),
+              _buildMainContent(context, cubit, title),
               if (isProcessing) const AiDescriptionLoadingOverlay(),
             ],
           ),
@@ -33,15 +38,16 @@ class AiDescriptionBody extends StatelessWidget {
     );
   }
 
-  // --- Logic & Event Handlers ---
-
   void _onStateChanged(BuildContext context, AiDescriptionState state) {
     if (state is AiDescriptionStartError) {
       showSnackBar(context, state.message, AppColors.red);
     } else if (state is AiDescriptionUploadError) {
       showSnackBar(context, state.message, AppColors.red);
     } else if (state is AiDescriptionConfirmSuccess) {
-      context.pushReplacementNamed(AppRoutes.aiDescriptionResultScreen);
+      context.pushReplacementNamed(
+        AppRoutes.aiDescriptionResultScreen,
+        extra: {"title": title},
+      );
     } else if (state is AiDescriptionConfirmError) {
       showSnackBar(context, state.message, AppColors.red);
     }
@@ -82,11 +88,15 @@ class AiDescriptionBody extends StatelessWidget {
 
   // --- UI Layout Sections ---
 
-  Widget _buildMainContent(BuildContext context, AiDescriptionCubit cubit) {
+  Widget _buildMainContent(
+    BuildContext context,
+    AiDescriptionCubit cubit,
+    String title,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const AiDescriptionTop(),
+        AiDescriptionTop(title: title),
         const AiDescriptionWarningMessage(),
         SizedBox(height: 15.h),
         AiDescriptionFileUploadSection(

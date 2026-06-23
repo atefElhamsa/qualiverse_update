@@ -8,14 +8,17 @@ class FirstPartAccreditationStructure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          const CoursesPerDepartmentChart(),
-          SizedBox(width: 150.w),
-          const ThreeContainersRightAccreditationStructure(),
-        ],
+    return SizedBox(
+      width: double.infinity,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Expanded(flex: 14, child: CoursesPerDepartmentChart()),
+            SizedBox(width: 20.w),
+            const Expanded(flex: 6, child: ThreeContainersRightAccreditationStructure()),
+          ],
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ class LoginStorage {
   static String? token;
   static String? refreshToken;
   static DateTime? refreshTokenExpiration;
+  static DateTime? accessTokenExpiration; // جديد: عمر الـ access token نفسه
 
   // =============================
   // Load once عند فتح التطبيق
@@ -19,9 +20,19 @@ class LoginStorage {
     final expirationString = CashHelper.getData(
       key: KeysTexts.refreshTokenExpiration,
     );
-
     if (expirationString != null) {
       refreshTokenExpiration = DateTime.parse(expirationString);
+    }
+
+    final accessExpString = CashHelper.getData(
+      key: KeysTexts.accessTokenExpiration,
+    );
+    if (accessExpString != null) {
+      accessTokenExpiration = DateTime.tryParse(accessExpString);
+    }
+
+    if (hasToken && isRefreshTokenExpired) {
+      await clear();
     }
   }
 
@@ -32,10 +43,16 @@ class LoginStorage {
     required String tokenValue,
     required String refreshTokenValue,
     required DateTime refreshTokenExpirationValue,
+    int? expiresInSeconds, // من الـ response: "expiresIn": 900
   }) {
     token = tokenValue;
     refreshToken = refreshTokenValue;
     refreshTokenExpiration = refreshTokenExpirationValue;
+
+    accessTokenExpiration = expiresInSeconds != null
+        ? DateTime.now().add(Duration(seconds: expiresInSeconds))
+        : DateTime.now().add(const Duration(minutes: 15)); // fallback احتياطي
+
     LoginInterceptor().loggedOut = false;
   }
 
@@ -60,6 +77,13 @@ class LoginStorage {
         value: refreshTokenExpiration!.toIso8601String(),
       );
     }
+
+    if (accessTokenExpiration != null) {
+      await CashHelper.saveData(
+        key: KeysTexts.accessTokenExpiration,
+        value: accessTokenExpiration!.toIso8601String(),
+      );
+    }
   }
 
   // =============================
@@ -72,12 +96,13 @@ class LoginStorage {
     return DateTime.now().isAfter(refreshTokenExpiration!);
   }
 
-  // Optional – refresh قبل الانتهاء بدقيقة
-  static bool get shouldRefreshSoon {
-    if (refreshTokenExpiration == null) return false;
+  /// هل الـ access token هيخلص قريب (خلال نص دقيقة)؟
+  /// ده اللي بنستخدمه للـ proactive refresh قبل بعت الـ request.
+  static bool get accessTokenExpiresSoon {
+    if (accessTokenExpiration == null) return false;
     return DateTime.now()
-        .add(const Duration(minutes: 1))
-        .isAfter(refreshTokenExpiration!);
+        .add(const Duration(seconds: 30))
+        .isAfter(accessTokenExpiration!);
   }
 
   // =============================
@@ -87,19 +112,12 @@ class LoginStorage {
     token = null;
     refreshToken = null;
     refreshTokenExpiration = null;
+    accessTokenExpiration = null;
 
     CashHelper.removeData(key: KeysTexts.token);
     CashHelper.removeData(key: KeysTexts.refreshToken);
     CashHelper.removeData(key: KeysTexts.refreshTokenExpiration);
+    CashHelper.removeData(key: KeysTexts.accessTokenExpiration);
     CashHelper.removeData(key: KeysTexts.meModel);
-  }
-
-  // Returns true if the token will expire in the next `duration` seconds
-  static bool get tokenExpiresSoon {
-    if (refreshTokenExpiration == null) return false;
-    final now = DateTime.now();
-    return refreshTokenExpiration!.isBefore(
-      now.add(const Duration(seconds: 60)),
-    );
   }
 }

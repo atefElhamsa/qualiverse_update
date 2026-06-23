@@ -10,6 +10,10 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CashHelper.init();
   await LoginStorage.loadFromCache();
+  if (LoginStorage.hasToken) {
+    LoginInterceptor.instance.forceRefreshToken();
+  }
+
   Bloc.observer = MyBlocObserver();
   runApp(
     MultiBlocProvider(

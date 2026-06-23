@@ -9,4 +9,5 @@ class KeysTexts {
   static const String onboardingShown = "onboarding_shown";
   static const String meModel = "me_model";
   static const String appVersion = "app_version";
+  static const String accessTokenExpiration = "accessTokenExpiration";
 }

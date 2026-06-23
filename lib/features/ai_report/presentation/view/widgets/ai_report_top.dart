@@ -1,10 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiReportTop extends StatelessWidget {
-  const AiReportTop({super.key});
+  final bool hideHistory;
+  final bool disableSidebar;
+
+  const AiReportTop({
+    super.key,
+    this.hideHistory = false,
+    this.disableSidebar = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,10 @@ class AiReportTop extends StatelessWidget {
       height: 240.h,
       child: Stack(
         children: [
-          CustomScaffoldTop(controller: inherited.controller),
+          CustomScaffoldTop(
+            controller: inherited.controller,
+            isDisabled: disableSidebar,
+          ),
           Positioned(
             top: 40.h,
             left: 0,
@@ -72,6 +83,57 @@ class AiReportTop extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (!hideHistory) ...[
+                  SizedBox(height: 16.h),
+                  InkWell(
+                    onTap: () {
+                      context.push(AppRoutes.aiReportHistoryScreen);
+                    },
+                    borderRadius: BorderRadius.circular(20.r),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 8.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.r),
+                        border: Border.all(
+                          color: AppColors.aiPrimary.withOpacity(0.3),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.aiPrimary.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.history,
+                            size: 20.sp,
+                            color: AppColors.aiPrimary,
+                          ),
+                          SizedBox(width: 8.w),
+                          Text(
+                            context.locale.languageCode == 'ar'
+                                ? 'سجل التقارير'
+                                : 'Reports History',
+                            style: Theme.of(context).textTheme.labelMedium!
+                                .copyWith(
+                                  color: AppColors.aiPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14.sp,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

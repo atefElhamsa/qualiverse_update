@@ -44,6 +44,7 @@ class RouterGenerator {
       ScreensRoutes.rapporteurReportSecondTermRoute(),
       ScreensRoutes.adminDashboardRoute(),
       ScreensRoutes.evidenceFolderFilesRoute(),
+      ScreensRoutes.aiReportHistoryRoute(),
     ],
   );
 }

@@ -1,36 +1,70 @@
 <div align="center">
-  <img src="assets/images/logo.png" alt="Qualiverse Logo" width="180"/>
-  <h1>🌌 Qualiverse</h1>
-  <p><b>Advanced AI-Powered Accreditation & Quality Management System</b><br>Designed for Higher Education & Faculties of Computers and Informatics</p>
 
-  [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)](https://flutter.dev)
-  [![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
-  [![BLoC](https://img.shields.io/badge/State_Management-BLoC-blue?style=for-the-badge)](https://bloclibrary.dev)
-  [![Clean Architecture](https://img.shields.io/badge/Architecture-Clean-success?style=for-the-badge)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+  <img src="assets/images/logo.png" alt="Qualiverse Logo" width="200"/>
+
+  <h1>🌌 Qualiverse</h1>
+  
+  <p><b>An Advanced AI-Powered Accreditation & Quality Management System</b></p>
+  <p><i>The Ultimate Graduation Project for Higher Education & Faculties of Computers and Informatics</i></p>
+
+  <!-- Badges -->
+  <p>
+    <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white" alt="Flutter"/></a>
+    <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white" alt="Dart"/></a>
+    <a href="https://bloclibrary.dev"><img src="https://img.shields.io/badge/State_Management-BLoC-blue?style=for-the-badge" alt="BLoC"/></a>
+    <a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html"><img src="https://img.shields.io/badge/Architecture-Clean-success?style=for-the-badge" alt="Clean Architecture"/></a>
+    <img src="https://img.shields.io/badge/Platform-Desktop_(Windows)-lightgrey?style=for-the-badge&logo=windows" alt="Windows Desktop" />
+  </p>
+
 </div>
 
 ---
 
 ## 📖 About The Project
 
-**Qualiverse** is a comprehensive, enterprise-grade mobile and web application built with **Flutter**. It is designed to revolutionize the way educational institutions manage their accreditation processes, quality assurance, and academic tracking.
+**Qualiverse** is an enterprise-grade desktop application designed to revolutionize how educational institutions manage their accreditation processes, quality assurance, and academic tracking.
 
 Developed as a standout **Graduation Project**, Qualiverse eliminates manual paperwork by automating the generation of complex academic reports using **Artificial Intelligence**. It provides a centralized hub for tracking courses, managing evidence files, and monitoring the overall performance of faculty members.
 
-Whether you are an Admin overseeing the entire college's quality cycle, or a Doctor managing your assigned courses, Qualiverse provides a seamless, localized, and highly responsive experience.
+---
+
+## 🎯 The Vision
+
+The goal of this project is to bridge the gap between traditional, paper-heavy academic quality management and modern, AI-driven solutions. It empowers colleges to:
+- **Save Time:** Automate repetitive reporting tasks.
+- **Ensure Accuracy:** Reduce human error in accreditation evidence collection.
+- **Enhance Visibility:** Provide Admins and Quality Assurance staff with real-time insights into institutional progress.
 
 ---
 
 ## ✨ Key Features
 
-- 🤖 **AI-Powered Report Generation:** Automatically generate comprehensive Course Descriptions, AI Reports, and Quality Files. Export them directly to **PDF** or **DOCX** formats with a single click.
-- 🔐 **Role-Based Access Control (RBAC):** Secure, customized interfaces tailored for **Admins**, **Doctors**, and **Quality Assurance Users**.
-- 📂 **Smart Evidence Management:** Upload, download, and organize accreditation files (Excel, Word, PDF, Images) into structured Evidence Folders with real-time tracking.
-- 📊 **Interactive Dashboards & Analytics:** Visualize real-time metrics, academic cycles, and compliance indicators using advanced charting libraries.
-- 👨‍🏫 **Task & Course Assignment:** Admins can assign specific academic courses and quality indicators to faculty members, complete with deadlines and progress tracking.
-- 🌍 **Full Localization (i18n):** Native support for both **English (LTR)** and **Arabic (RTL)**, allowing users to switch languages instantly.
-- 🎨 **Adaptive & Responsive UI:** Pixel-perfect layouts that adapt seamlessly across Mobile, Tablet, and Desktop using dynamic screen utilities.
-- 🔔 **Real-Time Notifications:** Stay in the loop with automated alerts for assignments, approaching deadlines, and system updates.
+| Feature | Description |
+|---------|-------------|
+| 🤖 **AI Report Generation** | Automatically generate comprehensive Course Descriptions, AI Reports, and Quality Files. Export directly to **PDF** or **DOCX** with a single click. |
+| 🔐 **Role-Based Access (RBAC)**| Secure, customized interfaces tailored for **Admins**, **Doctors**, and **Quality Assurance Users**. |
+| 📂 **Smart Evidence Management**| Upload, download, and organize accreditation files (Excel, Word, PDF, Images) into structured Evidence Folders with real-time tracking. |
+| 📊 **Interactive Dashboards** | Visualize real-time metrics, academic cycles, and compliance indicators using advanced charting libraries. |
+| 👨‍🏫 **Task & Course Assignment**| Admins can assign specific academic courses and quality indicators to faculty members, complete with deadlines. |
+| 🌍 **Full Localization (i18n)** | Native support for both **English (LTR)** and **Arabic (RTL)**, allowing users to switch languages instantly. |
+| 🎨 **Premium UI/UX** | Pixel-perfect, modern layouts optimized seamlessly for Desktop environments using dynamic screen utilities and smooth micro-animations. |
+
+---
+
+## 💻 App Previews & Screenshots
+
+<p align="center">
+  <img src="assets/images/login.png" width="400" alt="Login Screen" />
+  <img src="assets/images/admin_dashboard.png" width="400" alt="Admin Dashboard" />
+  <br><br>
+  <img src="assets/images/dashboard.png" width="400" alt="Doctor Dashboard" />
+  <img src="assets/images/ai.png" width="400" alt="AI Generator" />
+  <br><br>
+  <img src="assets/images/accreditation_page.png" width="400" alt="Accreditation Page" />
+  <img src="assets/images/course_files_page.png" width="400" alt="Course Page" />
+  <br><br>
+  <img src="assets/images/setting_page.png" width="804" alt="Indicators Page" />
+</p>
 
 ---
 
@@ -38,74 +72,27 @@ Whether you are an Admin overseeing the entire college's quality cycle, or a Doc
 
 This project was built following industry best practices, emphasizing scalability, maintainability, and clean code principles.
 
-### **Core Frameworks**
-- **Framework:** [Flutter](https://flutter.dev/)
+### **Core Stack**
+- **Framework:** Flutter (Desktop)
 - **Language:** Dart
 - **State Management:** `flutter_bloc` (Strict separation of Business Logic from UI)
 - **Routing:** `go_router` (Advanced declarative routing)
 
-### **Architecture**
-- **Feature-Driven Architecture:** The codebase is modularized by feature, making it highly scalable and easy for multiple developers to collaborate.
-- **Clean Architecture Principles:** Separation of concerns between Data (Services/Models), Domain, and Presentation (Views/Cubits).
+### **Architecture: Feature-Driven Clean Architecture**
+The application enforces strict boundaries between layers:
+- **Presentation:** UI, Widgets, and BLoC/Cubit for state management.
+- **Domain:** Business logic, Entities, and abstract Repository definitions.
+- **Data:** API Clients, Dio Interceptors, and Local Storage implementation.
 
-### **Networking & Storage**
-- **API Client:** `dio` (With custom interceptors for token management and error handling)
-- **Local Storage:** `shared_preferences` (For caching user sessions and localization preferences)
-
-### **UI & UX Libraries**
-- **Responsiveness:** `flutter_screenutil`
-- **Typography & Icons:** `google_fonts`, `easy_localization`
-- **Data Visualization:** `syncfusion_flutter_charts`, `fl_chart`
-- **File Handling:** `file_picker`, `url_launcher`
-
----
-
-## 📱 App Previews & Screenshots
-
-*(You can add screenshots of your application here to showcase the beautiful UI!)*
-
-<p align="center">
-  <img src="https://via.placeholder.com/200x400.png?text=Login+Screen" width="200" />
-  <img src="https://via.placeholder.com/200x400.png?text=Admin+Dashboard" width="200" />
-  <img src="https://via.placeholder.com/200x400.png?text=Evidence+Folders" width="200" />
-  <img src="https://via.placeholder.com/200x400.png?text=AI+Report+Generator" width="200" />
-</p>
-
----
-
-## 📂 Project Structure
-
-A glimpse into the scalable folder structure used in this application:
-
-```text
-lib/
-├── core/
-│   ├── errors/          # Global error handling and exceptions
-│   ├── networking/      # API Clients, Endpoints, Dio Interceptors
-│   ├── shared_widgets/  # Reusable UI components (Buttons, Dialogs, Loaders)
-│   └── utils/           # Themes, Colors, Constants
-├── features/
-│   ├── admin_dashboard/ # Admin controls, cycles, user management
-│   ├── edit_files/      # Evidence folders, File Uploads, AI Reports
-│   ├── home/            # Main navigation and landing screens
-│   ├── auth/            # Login, Registration, and Session handling
-│   └── ...              # Other independent modules
-├── routing/             # GoRouter configuration and route mapping
-└── main.dart            # Application entry point
-```
+### **Advanced Integrations**
+- **Networking:** Custom `dio` interceptors for seamless JWT Token Refresh and robust error handling.
+- **Storage:** Secure local storage for caching sessions and application state.
 
 ---
 
 ## 🚀 Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (v3.10.0 or higher)
-- Android Studio / VS Code
-- Git
-
-### Installation
+To run this application locally on your Windows machine:
 
 1. **Clone the repository:**
    ```bash
@@ -118,28 +105,23 @@ To get a local copy up and running, follow these simple steps.
    flutter pub get
    ```
 
-3. **Run the app:**
+3. **Run the app (Windows Desktop):**
    ```bash
-   flutter run
+   flutter run -d windows
    ```
 
 ---
 
-## 💡 Why This Project Stands Out (For Recruiters)
+## 🎓 Graduation Project Excellence
 
-If you are reviewing this repository, here is why **Qualiverse** demonstrates strong software engineering skills:
-- **Complex State Management:** Successfully utilized `flutter_bloc` to handle complex asynchronous operations, file uploads, and real-time UI updates without memory leaks.
-- **API Integration:** Robust handling of RESTful APIs, including multipart file uploads, downloading binaries (PDF/DOCX), and complex JSON parsing.
-- **Clean UI Implementation:** Hand-crafted, custom UI components with micro-animations and hover effects that rival premium enterprise software.
-- **Problem Solving:** Implemented custom error parsing algorithms to safely extract and display localized backend error messages to the user.
-- **Production Ready:** Includes robust error handling, loading states, localization, and responsive design methodologies.
+If you are a recruiter or an academic evaluator reviewing this repository, here is why **Qualiverse** stands out:
+- **Proactive Security:** Implemented advanced Proactive Token Refresh logic to renew authentication seamlessly before expiration.
+- **Complex State Management:** Successfully handled complex asynchronous operations, multipart file uploads, and real-time UI updates without memory leaks.
+- **Scalable Foundation:** The folder structure and architecture are designed to scale to hundreds of screens and developers.
+- **Production Ready:** Includes robust error handling, loading states, localization, and a highly responsive design methodology.
 
 ---
 
-## 🛡️ License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 <div align="center">
-  <i>Designed and developed with ❤️ using Flutter.</i>
+  <i>Designed and developed with ❤️ for the future of Higher Education.</i>
 </div>

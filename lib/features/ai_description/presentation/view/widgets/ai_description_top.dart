@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/all_features_imports/all_features_imports.dart';
 
 class AiDescriptionTop extends StatelessWidget {
-  const AiDescriptionTop({super.key});
+  const AiDescriptionTop({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class AiDescriptionTop extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "specification".tr().toUpperCase(),
+                    title.tr().toUpperCase(),
                     style: Theme.of(context).textTheme.labelLarge!.copyWith(
                       fontSize: 18.sp,
                       color: const Color(0xFF0D47A1),

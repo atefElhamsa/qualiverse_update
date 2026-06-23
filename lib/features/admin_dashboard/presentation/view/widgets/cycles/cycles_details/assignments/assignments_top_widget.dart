@@ -56,7 +56,11 @@ class _AssignmentsTopWidgetState extends State<AssignmentsTopWidget> {
               child: BlocBuilder<UsersCubit, UsersState>(
                 builder: (context, state) {
                   final doctors = state is UsersSuccess
-                      ? state.users.where((u) => u.role == 'doctor').toList()
+                      ? state.users
+                            .where(
+                              (u) => u.role == 'doctor' || u.role == 'admin',
+                            )
+                            .toList()
                       : <UserManagementModel>[];
 
                   return Column(

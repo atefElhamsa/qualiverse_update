@@ -20,7 +20,7 @@ class AccountVerificationFieldAndButton extends StatelessWidget {
           context.pop();
         }
         if (state is AccountVerificationFailure) {
-          showSnackBar(context, state.errorMessage, AppColors.red);
+          showSnackBar(context, state.errorMessage.tr(), AppColors.red);
         }
       },
       builder: (context, state) {

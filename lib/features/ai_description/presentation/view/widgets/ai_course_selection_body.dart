@@ -6,8 +6,13 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiCourseSelectionBody extends StatefulWidget {
-  const AiCourseSelectionBody({super.key, required this.nextRoute});
+  const AiCourseSelectionBody({
+    super.key,
+    required this.nextRoute,
+    required this.title,
+  });
   final String nextRoute;
+  final String title;
 
   @override
   State<AiCourseSelectionBody> createState() => _AiCourseSelectionBodyState();
@@ -40,7 +45,7 @@ class _AiCourseSelectionBodyState extends State<AiCourseSelectionBody> {
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AiDescriptionTop(),
+          AiDescriptionTop(title: widget.title),
           Transform.translate(
             offset: Offset(0, -40.h),
             child: Padding(

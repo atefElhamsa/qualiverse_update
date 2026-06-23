@@ -75,11 +75,11 @@ class AssignmentsRowWidget extends StatelessWidget {
         break;
       case 'submitted':
         color = AppColors.blue;
-        translatedStatus = isAr ? 'تم التسليم' : 'Submitted';
+        translatedStatus = isAr ? 'قيد المراجعة' : 'Submitted';
         break;
       case 'approved':
         color = AppColors.green;
-        translatedStatus = isAr ? 'مقبول' : 'Approved';
+        translatedStatus = isAr ? 'تمت الموافقة' : 'Approved';
         break;
       case 'rejected':
         color = AppColors.red;

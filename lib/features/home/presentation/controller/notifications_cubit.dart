@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/features/home/presentation/controller/notifications_state.dart';
 import '../../data/models/notification_model.dart';
 import '../../data/service/notifications_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class NotificationsCubit extends Cubit<NotificationsState> {
   NotificationsCubit() : super(NotificationsInitial());
@@ -72,7 +73,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     final result = await NotificationsService.deleteNotification(id: id);
     if (result.isSuccess) {
       allNotifications.removeWhere((n) => n.id == id);
-      emit(NotificationActionSuccess("Notification deleted successfully"));
+      emit(NotificationActionSuccess('notificationDeletedSuccessfully'.tr()));
       emit(
         NotificationsSuccess(
           notifications: List.from(allNotifications),
@@ -106,7 +107,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
           timeAgo: oldNotif.timeAgo,
         );
       }
-      emit(NotificationActionSuccess("Notification marked as read"));
+      emit(NotificationActionSuccess('notificationMarkedAsRead'.tr()));
       emit(
         NotificationsSuccess(
           notifications: List.from(allNotifications),
@@ -138,7 +139,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
           timeAgo: n.timeAgo,
         );
       }).toList();
-      emit(NotificationActionSuccess("All notifications marked as read"));
+      emit(NotificationActionSuccess('allNotificationsMarkedAsRead'.tr()));
       emit(
         NotificationsSuccess(
           notifications: List.from(allNotifications),
@@ -160,7 +161,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
       daysRetention: daysRetention,
     );
     if (result.isSuccess) {
-      emit(NotificationActionSuccess("Old notifications cleaned up successfully"));
+      emit(NotificationActionSuccess('oldNotificationsCleanedUpSuccessfully'.tr()));
       // Refresh the list
       getAllNotifications();
     } else {

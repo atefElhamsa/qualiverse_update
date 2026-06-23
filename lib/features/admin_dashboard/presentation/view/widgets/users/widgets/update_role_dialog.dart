@@ -119,18 +119,23 @@ class _UpdateRoleDialogState extends State<UpdateRoleDialog> {
                             'selectType'.tr(),
                             style: TextStyle(fontSize: 15.sp),
                           ),
-                          items: state.roles.map((role) {
-                            return DropdownMenuItem(
-                              value: role,
-                              child: Text(
-                                ("${role.name.toLowerCase()}Role").tr(),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  color: AppColors.mainBlack,
-                                ),
-                              ),
-                            );
-                          }).toList(),
+                          items: state.roles
+                              .where(
+                                (role) => role.name.toLowerCase() != 'admin',
+                              )
+                              .map((role) {
+                                return DropdownMenuItem(
+                                  value: role,
+                                  child: Text(
+                                    ("${role.name.toLowerCase()}Role").tr(),
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      color: AppColors.mainBlack,
+                                    ),
+                                  ),
+                                );
+                              })
+                              .toList(),
                           onChanged: (val) =>
                               setState(() => selectedRole = val),
                         ),

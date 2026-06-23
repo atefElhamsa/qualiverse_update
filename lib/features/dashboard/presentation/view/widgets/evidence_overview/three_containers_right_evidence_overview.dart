@@ -23,59 +23,92 @@ class EvidenceSummaryCards extends StatelessWidget {
           {
             "title": "reviewedEvidence",
             "count": overview?.approvedIndicators ?? 0,
-            "color": const Color(0xFFE8F5E9),
-            "textColor": Colors.green.shade700,
+            "icon": Icons.check_circle_outline,
+            "bgColor": const Color(0xFFE8F5E9),
+            "accentColor": Colors.green.shade600,
           },
           {
             "title": "pendingEvidence",
             "count": overview?.pendingIndicators ?? 0,
-            "color": const Color(0xFFFFF3E0),
-            "textColor": Colors.orange.shade800,
+            "icon": Icons.access_time_rounded,
+            "bgColor": const Color(0xFFFFF3E0),
+            "accentColor": Colors.orange.shade700,
           },
           {
             "title": "totalEvidence",
             "count": overview?.totalIndicators ?? 0,
-            "color": const Color(0xFFF5F5F5),
-            "textColor": AppColors.mainBlack,
+            "icon": Icons.folder_open_rounded,
+            "bgColor": const Color(0xFFF5F5F5),
+            "accentColor": AppColors.mainBlack,
           },
         ];
 
         return Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(data.length, (index) {
             final item = data[index];
             return Container(
-              width: 220.w,
-              margin: EdgeInsets.only(bottom: index == 2 ? 0 : 20.h),
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 12.w),
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
               decoration: BoxDecoration(
-                color: item['color'] as Color,
-                borderRadius: BorderRadius.circular(12.r),
+                color:
+                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
+                    ? AppColors.white
+                    : AppColors.mainBlack,
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: Colors.grey.withOpacity(0.1),
+                  width: 1,
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+                    color: (item['accentColor'] as Color).withOpacity(0.08),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
                   ),
                 ],
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  CustomText(
-                    title: item["title"].toString().tr(),
-                    textStyle: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w600,
-                      color: (item['textColor'] as Color).withOpacity(0.8),
+                  Container(
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      color: item['bgColor'] as Color,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      item['icon'] as IconData,
+                      color: item['accentColor'] as Color,
+                      size: 26.sp,
                     ),
                   ),
-                  SizedBox(height: 8.h),
-                  CustomText(
-                    title: item["count"].toString(),
-                    textStyle: TextStyle(
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w800,
-                      color: item['textColor'] as Color,
+                  SizedBox(width: 16.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          title: item["count"].toString(),
+                          textStyle: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.w800,
+                            color: item['accentColor'] as Color,
+                          ),
+                        ),
+                        SizedBox(height: 4.h),
+                        CustomText(
+                          title: item["title"].toString().tr(),
+                          textStyle: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium?.color
+                                    ?.withOpacity(0.6) ??
+                                Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

@@ -85,30 +85,32 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
           height: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                ? AppColors.grey
+                ? AppColors.white
                 : AppColors.mainBlack,
+            borderRadius: BorderRadius.circular(24.r),
+            border: Border.all(color: Colors.grey.withOpacity(0.1), width: 1),
             boxShadow: [
               BoxShadow(
-                color: AppColors.mainBlack.withOpacity(0.25),
-                offset: const Offset(0, 4),
+                color: Colors.black.withOpacity(0.04),
+                offset: const Offset(0, 10),
+                blurRadius: 30,
                 spreadRadius: 0,
-                blurRadius: 4,
               ),
             ],
+          ),
+          padding: EdgeInsets.only(
+            top: 24.h,
+            bottom: 8.h,
+            left: 16.w,
+            right: 16.w,
           ),
           child: Stack(
             alignment: Alignment.center,
             children: [
               SfCartesianChart(
                 plotAreaBorderWidth: 0,
-                backgroundColor:
-                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                        ? AppColors.grey
-                        : AppColors.mainBlack,
-                plotAreaBackgroundColor:
-                    Theme.of(context).scaffoldBackgroundColor == AppColors.white
-                        ? AppColors.grey
-                        : AppColors.mainBlack,
+                backgroundColor: Colors.transparent,
+                plotAreaBackgroundColor: Colors.transparent,
                 primaryXAxis: CategoryAxis(
                   isVisible: true,
                   axisLine: const AxisLine(width: 0),
@@ -118,37 +120,56 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                   maximumLabels: 12,
                   labelIntersectAction: AxisLabelIntersectAction.none,
                   labelAlignment: LabelAlignment.center,
-                  labelStyle:
-                      Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontSize: 15.sp,
-                    color:
-                        Theme.of(context).scaffoldBackgroundColor ==
-                                AppColors.white
-                            ? AppColors.textGrey
-                            : AppColors.white,
-                  ),
+                  labelStyle: Theme.of(context).textTheme.headlineLarge!
+                      .copyWith(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w600,
+                        color:
+                            Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color?.withOpacity(0.6) ??
+                            Colors.grey.shade600,
+                      ),
                 ),
                 primaryYAxis: const NumericAxis(
                   isVisible: false,
                   rangePadding: ChartRangePadding.additional,
                 ),
                 series: <CartesianSeries>[
-                  SplineSeries<MonthlyChartDataModel, String>(
+                  SplineAreaSeries<MonthlyChartDataModel, String>(
                     dataSource: data,
                     xValueMapper: (d, _) => d.month.toLowerCase().tr(),
                     yValueMapper: (d, _) => d.value,
                     splineType: SplineType.natural,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    width: 2.5,
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.viewAndDeleteIconColor.withOpacity(0.5),
+                        AppColors.viewAndDeleteIconColor.withOpacity(0.0),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderColor: AppColors.viewAndDeleteIconColor,
+                    borderWidth: 3.5,
                     animationDuration: 2000,
                     dataLabelSettings: DataLabelSettings(
                       isVisible: true,
                       labelAlignment: ChartDataLabelAlignment.top,
-                      textStyle: Theme.of(
-                        context,
-                      ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
+                      textStyle: Theme.of(context).textTheme.headlineLarge!
+                          .copyWith(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.viewAndDeleteIconColor,
+                          ),
                     ),
-                    markerSettings: const MarkerSettings(isVisible: false),
+                    markerSettings: const MarkerSettings(
+                      isVisible: true,
+                      height: 8,
+                      width: 8,
+                      color: AppColors.white,
+                      borderWidth: 2,
+                      borderColor: AppColors.viewAndDeleteIconColor,
+                    ),
                   ),
                 ],
               ),
@@ -176,8 +197,8 @@ class _MonthlyLineChartState extends State<MonthlyLineChart>
                 ),
             ],
           ),
-          ),
         ),
-      );
+      ),
+    );
   }
 }

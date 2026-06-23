@@ -1,16 +1,27 @@
+import 'package:qualiverse/routing/all_routes_imports.dart';
+
 class AiReportHistoryResponse {
   final bool isSuccess;
-  final List<AiReportHistoryItem> data;
+  final List<AiReportHistoryItem>? data;
+  final ApiErrorModel? error;
 
-  AiReportHistoryResponse({required this.isSuccess, required this.data});
+  AiReportHistoryResponse({
+    required this.isSuccess,
+    required this.data,
+    required this.error,
+  });
 
   factory AiReportHistoryResponse.fromJson(Map<String, dynamic> json) {
     return AiReportHistoryResponse(
       isSuccess: json['isSuccess'] ?? false,
-      data: (json['data'] as List<dynamic>?)
+      data:
+          (json['data'] as List<dynamic>?)
               ?.map((item) => AiReportHistoryItem.fromJson(item))
               .toList() ??
           [],
+      error: json['error'] != null
+          ? ApiErrorModel.fromJson(json['error'])
+          : null,
     );
   }
 }
@@ -51,7 +62,8 @@ class AiReportHistoryItem {
       provider: json['provider']?.toString(),
       isPublished: json['isPublished'] ?? false,
       createdOn: json['createdOn']?.toString(),
-      files: (json['files'] as List<dynamic>?)
+      files:
+          (json['files'] as List<dynamic>?)
               ?.map((item) => AiReportHistoryFile.fromJson(item))
               .toList() ??
           [],

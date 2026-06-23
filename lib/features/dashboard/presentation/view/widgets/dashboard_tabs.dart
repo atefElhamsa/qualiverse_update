@@ -1,7 +1,6 @@
 import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_overview/evidence_overview_content.dart';
 import 'package:qualiverse/features/dashboard/presentation/view/widgets/accreditation_structure/accreditation_structure_content.dart';
 import 'package:qualiverse/features/dashboard/presentation/view/widgets/evidence_uploads/evidence_uploads_content.dart';
-import 'package:qualiverse/features/dashboard/presentation/view/widgets/program_institution/program_institution_content.dart';
 import 'package:qualiverse/features/dashboard/presentation/view/widgets/indicators_file/indicators_file_content.dart';
 import 'package:qualiverse/core/all_core_imports/all_core_imports.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -22,7 +21,7 @@ class _DashboardTabsState extends State<DashboardTabs> {
     'evidenceOverview',
     'accreditationStructure',
     'evidenceUploads',
-    'programVsInstitution',
+    // 'programVsInstitution',
     'indicatorsAndFiles',
   ];
 
@@ -30,68 +29,93 @@ class _DashboardTabsState extends State<DashboardTabs> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GridView.builder(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: titles.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 2.8,
-          ),
-          itemBuilder: (context, index) {
-            return MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                child: AnimatedContainer(
-                  constraints: BoxConstraints(minWidth: 214.w, minHeight: 87.h),
-                  duration: const Duration(milliseconds: 200),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.mainBlack.withOpacity(0.25),
-                        offset: const Offset(0, 4),
-                        spreadRadius: 0,
-                        blurRadius: 4,
-                      ),
-                    ],
-                    color: selectedIndex == index
-                        ? AppColors.viewAndDeleteIconColor
-                        : Theme.of(context).scaffoldBackgroundColor ==
-                              AppColors.white
-                        ? AppColors.grey
-                        : AppColors.mainBlack,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Center(
-                    child: CustomText(
-                      title: titles[index].tr(),
-                      textAlign: TextAlign.center,
-                      textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: selectedIndex == index
-                            ? AppColors.white
-                            : Theme.of(context).colorScheme.onSecondary,
+          child: Row(
+            children: titles.asMap().entries.expand((entry) {
+              int index = entry.key;
+              return [
+                Expanded(
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        height: 90.h,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        decoration: BoxDecoration(
+                          color: selectedIndex == index
+                              ? AppColors.viewAndDeleteIconColor
+                              : Theme.of(context).scaffoldBackgroundColor ==
+                                    AppColors.white
+                              ? Colors.white
+                              : AppColors.mainBlack,
+                          borderRadius: BorderRadius.circular(16.r),
+                          border: Border.all(
+                            color: selectedIndex == index
+                                ? Colors.transparent
+                                : Colors.grey.withOpacity(0.15),
+                            width: 1.5,
+                          ),
+                          boxShadow: [
+                            if (selectedIndex == index)
+                              BoxShadow(
+                                color: AppColors.viewAndDeleteIconColor
+                                    .withOpacity(0.3),
+                                offset: const Offset(0, 8),
+                                spreadRadius: 0,
+                                blurRadius: 20,
+                              )
+                            else
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.02),
+                                offset: const Offset(0, 4),
+                                spreadRadius: 0,
+                                blurRadius: 10,
+                              ),
+                          ],
+                        ),
+                        child: Center(
+                          child: CustomText(
+                            title: titles[index].tr(),
+                            textAlign: TextAlign.center,
+                            textStyle: Theme.of(context).textTheme.bodyMedium!
+                                .copyWith(
+                                  fontWeight: selectedIndex == index
+                                      ? FontWeight.w700
+                                      : FontWeight.w600,
+                                  fontSize: 20.sp,
+                                  color: selectedIndex == index
+                                      ? AppColors.white
+                                      : Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.color
+                                                ?.withOpacity(0.6) ??
+                                            Colors.grey.shade700,
+                                ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-          },
+                if (index != titles.length - 1) SizedBox(width: 15.w),
+              ];
+            }).toList(),
+          ),
         ),
         const SizedBox(height: 24),
         [
           const EvidenceOverviewContent(),
           const AccreditationStructureContent(),
           const EvidenceUploadsContent(),
-          const ProgramInstitutionContent(),
+          // const ProgramInstitutionContent(),
           const IndicatorsFileContent(),
         ][selectedIndex],
         const SizedBox(height: 24),

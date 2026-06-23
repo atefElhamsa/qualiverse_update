@@ -42,13 +42,20 @@ class DashboardScaffold extends StatelessWidget {
         ),
         margin: Theme.of(context).scaffoldBackgroundColor == AppColors.white
             // Apply margin only for light theme.
-            ? EdgeInsets.only(top: 25.h, bottom: 25.h, left: 25.w, right: 25.w)
+            ? EdgeInsets.only(top: 15.h, bottom: 15.h, left: 15.w, right: 15.w)
             : null,
         decoration: Theme.of(context).scaffoldBackgroundColor == AppColors.white
             // Apply background color and border radius for light theme.
             ? BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(23.r),
+                borderRadius: BorderRadius.circular(25.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
               )
             : null,
         // Make the content scrollable.

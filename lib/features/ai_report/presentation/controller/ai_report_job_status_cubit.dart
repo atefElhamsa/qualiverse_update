@@ -48,7 +48,7 @@ class AiReportJobStatusCubit extends Cubit<AiReportJobStatusState> {
 
           // Fetch history to get the download URLs
           final historyResponse = await AiReportService.getHistory();
-          final historyItem = historyResponse.data.firstWhere(
+          final historyItem = historyResponse.data!.firstWhere(
             (item) => item.jobId == jobId,
             orElse: () => AiReportHistoryItem(
               aiRequestId: 0,
@@ -62,7 +62,9 @@ class AiReportJobStatusCubit extends Cubit<AiReportJobStatusState> {
             status: data.status,
             createdAt: data.createdAt,
             completedAt: data.completedAt,
-            files: historyItem.files.isNotEmpty ? historyItem.files : data.files,
+            files: historyItem.files.isNotEmpty
+                ? historyItem.files
+                : data.files,
             downloadUrl: data.downloadUrl,
             error: data.error,
             aiRequestId: historyItem.aiRequestId,

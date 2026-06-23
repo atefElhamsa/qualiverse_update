@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiCourseSelectionScreen extends StatefulWidget {
-  const AiCourseSelectionScreen({super.key, required this.nextRoute});
+  const AiCourseSelectionScreen({
+    super.key,
+    required this.nextRoute,
+    required this.title,
+  });
   final String? nextRoute;
+  final String title;
 
   @override
   State<AiCourseSelectionScreen> createState() =>
@@ -47,7 +52,10 @@ class _AiCourseSelectionScreenState extends State<AiCourseSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return MainWrapper(
-      child: AiCourseSelectionBody(nextRoute: widget.nextRoute!),
+      child: AiCourseSelectionBody(
+        nextRoute: widget.nextRoute!,
+        title: widget.title,
+      ),
     );
   }
 }

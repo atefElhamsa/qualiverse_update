@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class IndicatorServices {
   static final Dio dio = ApiClient.dio;
@@ -95,14 +96,14 @@ class IndicatorServices {
       
       // Handle empty response
       if (data == null) {
-        return "File deleted successfully";
+        return 'fileDeletedSuccessfully'.tr();
       }
 
       final result = DeleteFileIndicatorModel.fromJson(data);
       if (!result.isSuccess) {
         throw Exception(result.error?.description ?? "Failed to delete file");
       }
-      return result.data ?? "File deleted successfully";
+      return result.data ?? 'fileDeletedSuccessfully'.tr();
     } on DioException catch (e) {
       // Unauthorized
       if (e.response?.statusCode == 401) {

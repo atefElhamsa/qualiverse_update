@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'first_part_evidence_overview.dart';
-import 'evidence_per_criterion_chart.dart';
 
 class EvidenceOverviewContent extends StatelessWidget {
   const EvidenceOverviewContent({super.key});
@@ -14,8 +13,8 @@ class EvidenceOverviewContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FirstPartEvidenceOverview(),
-          SizedBox(height: 24),
-          EvidencePerCriterionChart(),
+          // SizedBox(height: 24),
+          // EvidencePerCriterionChart(),
         ],
       ),
     );

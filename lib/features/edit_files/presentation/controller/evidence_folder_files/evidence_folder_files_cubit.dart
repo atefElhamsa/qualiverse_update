@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 enum EvidenceFolderType { standard, statistics, general }
 
@@ -77,7 +78,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
 
       if (success) {
         emit(
-          ConfirmStatisticsSuccess(message: 'Upload confirmed successfully'),
+          ConfirmStatisticsSuccess(message: 'uploadConfirmedSuccessfully'.tr()),
         );
         await getStatistics(
           academicYearId: academicYearId,
@@ -146,7 +147,7 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
         semesterId: semesterId,
         levelId: levelId,
       );
-      emit(UploadEvidenceFilesSuccess(message: 'Files uploaded successfully'));
+      emit(UploadEvidenceFilesSuccess(message: 'filesUploadedSuccessfully'.tr()));
       await getEvidenceFiles(folderId: folderId);
     } catch (e) {
       emit(
@@ -160,12 +161,8 @@ class EvidenceFolderFilesCubit extends Cubit<EvidenceFolderFilesState> {
   Future<void> deleteFile({required int fileId, required int folderId}) async {
     try {
       emit(DeleteEvidenceFileLoading());
-      final response = await EvidenceFolderFilesServices.deleteEvidenceFile(
-        fileId: fileId,
-      );
-      emit(
-        DeleteEvidenceFileSuccess(message: response.error?.description ?? ""),
-      );
+      await EvidenceFolderFilesServices.deleteEvidenceFile(fileId: fileId);
+      emit(DeleteEvidenceFileSuccess(message: 'fileDeletedSuccessfully'.tr()));
 
       switch (currentType) {
         case EvidenceFolderType.statistics:

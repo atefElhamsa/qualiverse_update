@@ -59,32 +59,66 @@ class DepartmentBarState extends State<DepartmentBar> {
             opacity: animated ? 1 : 0,
             child: CustomText(
               title: widget.item.value.toInt().toString(),
-              textStyle: Theme.of(
-                context,
-              ).textTheme.headlineLarge!.copyWith(fontSize: 13.sp),
+              textStyle: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(context).primaryColor,
+                  ),
             ),
           ),
-          const SizedBox(height: 4),
-          // Bar
+          const SizedBox(height: 8),
+          // Bar with background track
           SizedBox(
             height: widget.maxHeight,
-            child: Align(
+            width: 45.w,
+            child: Stack(
               alignment: Alignment.bottomCenter,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 700),
-                curve: Curves.easeOutCubic,
-                width: 45.w,
-                height: animated ? displayHeight : 0,
-                decoration: BoxDecoration(
-                  color: widget.item.value == 0
-                      ? AppColors.textGrey.withOpacity(0.1)
-                      : AppColors.evidenceColorSlide,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(6.r),
-                    topRight: Radius.circular(6.r),
+              children: [
+                // Background Track
+                Container(
+                  width: 45.w,
+                  height: widget.maxHeight,
+                  decoration: BoxDecoration(
+                    color: AppColors.textGrey.withOpacity(0.04),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
-              ),
+                // Animated Fill Bar
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 800),
+                    curve: Curves.easeOutQuart,
+                    width: 45.w,
+                    height: animated ? displayHeight : 0,
+                    decoration: BoxDecoration(
+                      gradient: widget.item.value == 0
+                          ? null
+                          : LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [
+                                AppColors.evidenceColorSlide.withOpacity(0.7),
+                                AppColors.evidenceColorSlide,
+                              ],
+                            ),
+                      color: widget.item.value == 0
+                          ? AppColors.textGrey.withOpacity(0.1)
+                          : null,
+                      borderRadius: BorderRadius.circular(8.r),
+                      boxShadow: widget.item.value > 0
+                          ? [
+                              BoxShadow(
+                                color: AppColors.evidenceColorSlide.withOpacity(0.3),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              )
+                            ]
+                          : [],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

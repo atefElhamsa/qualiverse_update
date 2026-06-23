@@ -5,7 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
 
 class AiDescriptionResultScreen extends StatefulWidget {
-  const AiDescriptionResultScreen({super.key});
+  const AiDescriptionResultScreen({super.key, required this.title});
+  final String title;
 
   @override
   State<AiDescriptionResultScreen> createState() =>
@@ -73,7 +74,7 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
                 CustomScaffold(
                   widget: Column(
                     children: [
-                      const AiDescriptionTop(),
+                      AiDescriptionTop(title: widget.title),
                       if (!cubit.isCourseGenerated) ...[
                         const AiDescriptionSubmitStep(),
                       ] else ...[

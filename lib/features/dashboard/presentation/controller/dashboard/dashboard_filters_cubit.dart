@@ -11,18 +11,41 @@ class DashboardFiltersCubit extends Cubit<DashboardFiltersState> {
 
   void updateFilters({
     int? yearId,
+    bool clearYear = false,
     int? departmentId,
+    bool clearDepartment = false,
     int? levelId,
+    bool clearLevel = false,
     int? accreditationTypeId,
+    bool clearAccreditation = false,
     required DashboardCubit dashboardCubit,
   }) {
-    if (yearId != null) this.yearId = yearId;
-    if (departmentId != null) this.departmentId = departmentId;
-    if (levelId != null) this.levelId = levelId;
-    if (accreditationTypeId != null) this.accreditationTypeId = accreditationTypeId;
+    if (clearYear) {
+      this.yearId = null;
+    } else if (yearId != null) {
+      this.yearId = yearId;
+    }
+
+    if (clearDepartment) {
+      this.departmentId = null;
+    } else if (departmentId != null) {
+      this.departmentId = departmentId;
+    }
+
+    if (clearLevel) {
+      this.levelId = null;
+    } else if (levelId != null) {
+      this.levelId = levelId;
+    }
+
+    if (clearAccreditation) {
+      this.accreditationTypeId = null;
+    } else if (accreditationTypeId != null) {
+      this.accreditationTypeId = accreditationTypeId;
+    }
 
     emit(DashboardFiltersUpdated());
-    
+
     // Trigger dashboard refresh with new filters
     dashboardCubit.getDashboard(
       yearId: this.yearId,
@@ -34,5 +57,7 @@ class DashboardFiltersCubit extends Cubit<DashboardFiltersState> {
 }
 
 abstract class DashboardFiltersState {}
+
 class DashboardFiltersInitial extends DashboardFiltersState {}
+
 class DashboardFiltersUpdated extends DashboardFiltersState {}

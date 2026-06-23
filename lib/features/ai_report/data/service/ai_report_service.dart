@@ -123,8 +123,14 @@ class AiReportService {
 
   static Future<AiReportHistoryResponse> getHistory() async {
     try {
-      final response = await dio.get(EndPoints.aiReportHistory);
-      final Map<String, dynamic> body = response.data as Map<String, dynamic>;
+      final response = await dio.get(
+        EndPoints.aiReportHistory,
+        options: Options(
+          receiveTimeout: const Duration(seconds: 3),
+          sendTimeout: const Duration(seconds: 3),
+        ),
+      ).timeout(const Duration(seconds: 3));
+      var body = response.data;
       return AiReportHistoryResponse.fromJson(body);
     } on DioException catch (e) {
       throw Exception(_extractDioError(e));
