@@ -35,6 +35,9 @@ class TextFieldModel {
   // Type of action for the keyboard.
   final TextInputAction? textInputAction;
 
+  // Custom color for focused border
+  final Color? focusedBorderColor;
+
   // Constructor for TextFieldModel.
   // All parameters except onTap, focusNode, and onFieldSubmitted are required.
   const TextFieldModel({
@@ -49,5 +52,6 @@ class TextFieldModel {
     this.isObscured,
     this.onChanged,
     this.textInputAction,
+    this.focusedBorderColor,
   });
 }
