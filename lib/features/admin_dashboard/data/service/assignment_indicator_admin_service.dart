@@ -71,10 +71,14 @@ class AssignmentIndicatorAdminService {
   }
 
   static Future<ApproveRejectAssignmentResponseModel>
-  rejectAssignmentIndicator({required int indicatorId}) async {
+  rejectAssignmentIndicator({
+    required int indicatorId,
+    String rejectedComment = "",
+  }) async {
     try {
       final response = await dio.put(
         EndPoints.rejectAssignmentIndicator(indicatorId: indicatorId),
+        data: {'rejectedComment': rejectedComment},
       );
 
       return ApproveRejectAssignmentResponseModel.fromJson(response.data);

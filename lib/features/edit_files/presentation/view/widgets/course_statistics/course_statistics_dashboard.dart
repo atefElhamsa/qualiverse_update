@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qualiverse/routing/all_routes_imports.dart';
+import 'components/comment_section_widget.dart';
 
 class CourseStatisticsDashboard extends StatelessWidget {
   final GetFileDataModel data;
@@ -28,6 +29,12 @@ class CourseStatisticsDashboard extends StatelessWidget {
               .animate()
               .fadeIn(delay: 400.ms, duration: 600.ms)
               .scale(begin: const Offset(0.95, 0.95)),
+          SizedBox(height: 30.h),
+          CommentSectionWidget(data: data)
+              .animate()
+              .fadeIn(delay: 600.ms, duration: 600.ms)
+              .slideY(begin: 0.1),
+          SizedBox(height: 20.h),
         ],
       ),
     );

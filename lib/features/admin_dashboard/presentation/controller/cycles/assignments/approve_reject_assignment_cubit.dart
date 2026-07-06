@@ -37,12 +37,13 @@ class ApproveRejectAssignmentCubit extends Cubit<ApproveRejectAssignmentState> {
     }
   }
 
-  Future<void> rejectAssignment(int indicatorId) async {
+  Future<void> rejectAssignment(int indicatorId, String rejectedComment) async {
     emit(ApproveRejectAssignmentLoading(indicatorId: indicatorId));
     try {
       final response =
           await AssignmentIndicatorAdminService.rejectAssignmentIndicator(
             indicatorId: indicatorId,
+            rejectedComment: rejectedComment,
           );
       if (response.isSuccess) {
         emit(

@@ -221,9 +221,10 @@ class AssignmentsRowWidget extends StatelessWidget {
                       Tooltip(
                         message: isAr ? 'رفض' : 'Reject',
                         child: InkWell(
-                          onTap: () => context
-                              .read<ApproveRejectAssignmentCubit>()
-                              .rejectAssignment(assignment.indicatorId),
+                          onTap: () => _showRejectDialog(
+                            context,
+                            assignment.indicatorId,
+                          ),
                           borderRadius: BorderRadius.circular(8.r),
                           child: Container(
                             padding: EdgeInsets.all(4.w),
@@ -249,6 +250,100 @@ class AssignmentsRowWidget extends StatelessWidget {
               },
             ),
       ),
+    );
+  }
+
+  void _showRejectDialog(BuildContext context, int indicatorId) {
+    final TextEditingController commentController = TextEditingController();
+    final isAr = context.locale.languageCode == 'ar';
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.r),
+          ),
+          contentPadding: EdgeInsets.all(24.w),
+          title: Text(
+            isAr ? 'سبب الرفض' : 'Reject Reason',
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.mainBlack,
+            ),
+          ),
+          content: SizedBox(
+            width: 400.w,
+            child: TextField(
+              controller: commentController,
+              decoration: InputDecoration(
+                hintText: isAr
+                    ? 'أدخل سبب الرفض (اختياري)'
+                    : 'Enter reject reason (optional)',
+                hintStyle: TextStyle(
+                  fontSize: 14.sp,
+                  color: AppColors.mainGrey,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(color: AppColors.grey),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(color: AppColors.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                  borderSide: const BorderSide(color: AppColors.progressColor),
+                ),
+              ),
+              maxLines: 3,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              ),
+              child: Text(
+                isAr ? 'إلغاء' : 'Cancel',
+                style: TextStyle(
+                  color: AppColors.mainGrey,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+              ),
+              onPressed: () {
+                context.read<ApproveRejectAssignmentCubit>().rejectAssignment(
+                      indicatorId,
+                      commentController.text.trim(),
+                    );
+                Navigator.pop(context);
+              },
+              child: Text(
+                isAr ? 'رفض' : 'Reject',
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

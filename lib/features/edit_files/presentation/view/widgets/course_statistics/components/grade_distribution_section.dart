@@ -57,60 +57,45 @@ class GradeDistributionSection extends StatelessWidget {
         axisLine: const AxisLine(width: 0),
         labelStyle: GoogleFonts.almarai(
           fontWeight: FontWeight.bold,
-          color: const Color(0xFF1A1A1A),
+          color: const Color(0xFF757575),
           fontSize: 10.sp,
         ),
       ),
-      primaryYAxis: NumericAxis(
-        majorGridLines: MajorGridLines(
-          width: 1,
-          color: Colors.grey.shade100,
-          dashArray: const [5, 5],
-        ),
-        axisLine: const AxisLine(width: 0),
+      primaryYAxis: const NumericAxis(
+        majorGridLines: MajorGridLines(width: 0),
+        axisLine: AxisLine(width: 0),
         isVisible: false,
+        minimum: -1,
       ),
       series: <CartesianSeries<_GradeData, String>>[
-        ColumnSeries<_GradeData, String>(
+        SplineSeries<_GradeData, String>(
           animationDuration: 1500,
           dataSource: _getGradeDataList(),
           xValueMapper: (_GradeData g, _) => g.label,
           yValueMapper: (_GradeData g, _) => g.value,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10.r)),
-          width: 0.6,
-          spacing: 0.1,
-          onCreateRenderer: (ChartSeries<_GradeData, String> series) {
-            return _CustomColumnSeriesRenderer();
-          },
-          dataLabelSettings: _buildDataLabelSettings(),
-          pointColorMapper: (_GradeData g, _) => g.color,
+          color: const Color(0xFF2196F3),
+          width: 3,
+          markerSettings: MarkerSettings(
+            isVisible: true,
+            shape: DataMarkerType.circle,
+            color: Colors.white,
+            borderWidth: 2,
+            borderColor: const Color(0xFF2196F3),
+            width: 8.w,
+            height: 8.w,
+          ),
+          dataLabelSettings: DataLabelSettings(
+            isVisible: true,
+            labelAlignment: ChartDataLabelAlignment.top,
+            textStyle: GoogleFonts.almarai(
+              color: const Color(0xFF2196F3),
+              fontWeight: FontWeight.bold,
+              fontSize: 12.sp,
+            ),
+          ),
         ),
       ],
       annotations: _getChartAnnotations(),
-    );
-  }
-
-  DataLabelSettings _buildDataLabelSettings() {
-    return DataLabelSettings(
-      isVisible: true,
-      labelAlignment: ChartDataLabelAlignment.outer,
-      builder: (data, point, series, pointIndex, seriesIndex) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-          decoration: BoxDecoration(
-            color: const Color(0xFF0F569E),
-            borderRadius: BorderRadius.circular(5.r),
-          ),
-          child: Text(
-            point.y.toString(),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -130,12 +115,12 @@ class GradeDistributionSection extends StatelessWidget {
           CartesianChartAnnotation(
             widget: Icon(
               specialGrades[grade.label],
-              color: grade.color.withOpacity(0.8),
+              color: const Color(0xFF2196F3).withOpacity(0.8),
               size: 15.sp,
             ),
             coordinateUnit: CoordinateUnit.point,
             x: grade.label,
-            y: grade.value.toDouble() + 5,
+            y: grade.value.toDouble() + 3,
           ),
         );
       }
@@ -145,19 +130,19 @@ class GradeDistributionSection extends StatelessWidget {
 
   List<_GradeData> _getGradeDataList() {
     return [
-      _GradeData("A+", data.gradeAPlus ?? 0, const Color(0xFF0F569E)),
-      _GradeData("A", data.gradeA ?? 0, const Color(0xFF4285F4)),
-      _GradeData("A-", data.gradeAMinus ?? 0, const Color(0xFF76A9FF)),
-      _GradeData("B+", data.gradeBPlus ?? 0, const Color(0xFF1B5E20)),
-      _GradeData("B", data.gradeB ?? 0, const Color(0xFF388E3C)),
-      _GradeData("B-", data.gradeBMinus ?? 0, const Color(0xFF66BB6A)),
-      _GradeData("C+", data.gradeCPlus ?? 0, const Color(0xFFE65100)),
-      _GradeData("C", data.gradeC ?? 0, const Color(0xFFF57C00)),
-      _GradeData("C-", data.gradeCMinus ?? 0, const Color(0xFFFFB74D)),
-      _GradeData("D+", data.gradeDPlus ?? 0, const Color(0xFFC62828)),
-      _GradeData("D", data.gradeD ?? 0, const Color(0xFFE53935)),
-      _GradeData("D-", data.gradeDMinus ?? 0, const Color(0xFFEF5350)),
-      _GradeData("F", data.gradeF ?? 0, const Color(0xFF263238)),
+      _GradeData("A+", data.gradeAPlus ?? 0),
+      _GradeData("A", data.gradeA ?? 0),
+      _GradeData("A-", data.gradeAMinus ?? 0),
+      _GradeData("B+", data.gradeBPlus ?? 0),
+      _GradeData("B", data.gradeB ?? 0),
+      _GradeData("B-", data.gradeBMinus ?? 0),
+      _GradeData("C+", data.gradeCPlus ?? 0),
+      _GradeData("C", data.gradeC ?? 0),
+      _GradeData("C-", data.gradeCMinus ?? 0),
+      _GradeData("D+", data.gradeDPlus ?? 0),
+      _GradeData("D", data.gradeD ?? 0),
+      _GradeData("D-", data.gradeDMinus ?? 0),
+      _GradeData("F", data.gradeF ?? 0),
     ];
   }
 }
@@ -165,29 +150,5 @@ class GradeDistributionSection extends StatelessWidget {
 class _GradeData {
   final String label;
   final int value;
-  final Color color;
-  _GradeData(this.label, this.value, this.color);
-}
-
-class _CustomColumnSeriesRenderer
-    extends ColumnSeriesRenderer<_GradeData, String> {
-  @override
-  ColumnSegment<_GradeData, String> createSegment() {
-    return _CustomColumnSegment();
-  }
-}
-
-class _CustomColumnSegment extends ColumnSegment<_GradeData, String> {
-  @override
-  void onPaint(Canvas canvas) {
-    final Rect rect = segmentRect!.outerRect;
-    final Paint paint = Paint()
-      ..shader = LinearGradient(
-        colors: [fillPaint.color, fillPaint.color.withOpacity(0.7)],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ).createShader(rect);
-
-    canvas.drawRRect(segmentRect!, paint);
-  }
+  _GradeData(this.label, this.value);
 }
