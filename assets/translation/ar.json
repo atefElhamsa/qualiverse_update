@@ -687,5 +687,7 @@
     "notificationMarkedAsRead": "تم قراءة الإشعار",
     "allNotificationsMarkedAsRead": "تم قراءة جميع الإشعارات",
     "notificationDeletedSuccessfully": "تم حذف الإشعار بنجاح",
-    "oldNotificationsCleanedUpSuccessfully": "تم تنظيف الإشعارات القديمة بنجاح"
+    "oldNotificationsCleanedUpSuccessfully": "تم تنظيف الإشعارات القديمة بنجاح",
+    "deleteWeek": "حذف الأسبوع",
+    "areYouSureYouWantToDeleteThisWeek": "هل أنت متأكد من حذف هذا الأسبوع؟"
 }

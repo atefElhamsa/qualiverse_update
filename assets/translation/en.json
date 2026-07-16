@@ -687,5 +687,7 @@
     "notificationMarkedAsRead": "Notification marked as read",
     "allNotificationsMarkedAsRead": "All notifications marked as read",
     "notificationDeletedSuccessfully": "Notification deleted successfully",
-    "oldNotificationsCleanedUpSuccessfully": "Old notifications cleaned up successfully"
+    "oldNotificationsCleanedUpSuccessfully": "Old notifications cleaned up successfully",
+    "deleteWeek": "Delete Week",
+    "areYouSureYouWantToDeleteThisWeek": "Are you sure you want to delete this week?"
 }

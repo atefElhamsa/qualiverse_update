@@ -31,8 +31,100 @@ class LearningHoursStep extends StatelessWidget {
                   return WeeklyLearningCard(
                     week: index + 1,
                     controllers: cubit.weekControllers[index],
-                    onRemove:
-                        index >= 2 ? () => cubit.removeLearningWeek() : null,
+                    onRemove: index >= 2
+                        ? () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                backgroundColor: Colors.white,
+                                surfaceTintColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                                title: Text(
+                                  "deleteWeek".tr(),
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF0D47A1),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                content: Text(
+                                  "areYouSureYouWantToDeleteThisWeek".tr(),
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.black.withOpacity(0.7),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                actionsPadding: EdgeInsets.only(
+                                  bottom: 20.h,
+                                  left: 15.w,
+                                  right: 15.w,
+                                ),
+                                actions: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: OutlinedButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                              color: Colors.grey,
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10.h,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "cancel".tr(),
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 13.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12.w),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            cubit.removeLearningWeek(index);
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.red,
+                                            padding: EdgeInsets.symmetric(
+                                              vertical: 10.h,
+                                            ),
+                                            elevation: 0,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "delete".tr(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13.sp,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        : null,
                   );
                 },
               ),

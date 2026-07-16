@@ -37,11 +37,11 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     emit(AiDescriptionWeeksUpdated());
   }
 
-  void removeLearningWeek() {
-    if (learningWeeksCount > 15) {
+  void removeLearningWeek(int index) {
+    if (learningWeeksCount > 2) {
       learningWeeksCount--;
-      weekControllers.last.dispose();
-      weekControllers.removeLast();
+      weekControllers[index].dispose();
+      weekControllers.removeAt(index);
       emit(AiDescriptionWeeksUpdated());
     }
   }
