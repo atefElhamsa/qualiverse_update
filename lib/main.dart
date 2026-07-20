@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc_observer.dart';
 import 'my_app.dart';
 import 'routing/all_routes_imports.dart';
+import 'core/helpers/analytics_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await CashHelper.init();
   await LoginStorage.loadFromCache();
+  trackFirstLaunch();
   if (LoginStorage.hasToken) {
     LoginInterceptor.instance.forceRefreshToken();
   }
