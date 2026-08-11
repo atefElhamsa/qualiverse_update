@@ -8,11 +8,13 @@ import 'package:qualiverse/features/all_features_imports/all_features_imports.da
 class MainWrapper extends StatefulWidget {
   final Widget child;
   final bool disabledGestures;
+  final bool disableDrawer;
 
   const MainWrapper({
     super.key,
     required this.child,
     this.disabledGestures = false,
+    this.disableDrawer = false,
   });
 
   @override
@@ -76,7 +78,7 @@ class _MainWrapperState extends State<MainWrapper> {
       openRatio: isMobile ? 0.75 : 0.22,
       animationCurve: Curves.easeInOut,
       rtlOpening: context.locale.languageCode == 'ar',
-      disabledGestures: widget.disabledGestures,
+      disabledGestures: widget.disabledGestures || widget.disableDrawer,
       controller: advancedDrawerController,
       backdropColor: Colors.transparent,
       animationDuration: const Duration(milliseconds: 300),
@@ -106,6 +108,7 @@ class _MainWrapperState extends State<MainWrapper> {
             body: HomeBodyInherited(
               controller: advancedDrawerController,
               isDrawerVisible: isDrawerVisible,
+              disableDrawer: widget.disableDrawer,
               child: widget.child,
             ),
           );
@@ -118,11 +121,13 @@ class _MainWrapperState extends State<MainWrapper> {
 class HomeBodyInherited extends InheritedWidget {
   final AdvancedDrawerController controller;
   final bool isDrawerVisible;
+  final bool disableDrawer;
 
   const HomeBodyInherited({
     super.key,
     required this.controller,
     required this.isDrawerVisible,
+    this.disableDrawer = false,
     required super.child,
   });
 
@@ -132,5 +137,6 @@ class HomeBodyInherited extends InheritedWidget {
 
   @override
   bool updateShouldNotify(HomeBodyInherited oldWidget) =>
-      oldWidget.isDrawerVisible != isDrawerVisible;
+      oldWidget.isDrawerVisible != isDrawerVisible ||
+      oldWidget.disableDrawer != disableDrawer;
 }

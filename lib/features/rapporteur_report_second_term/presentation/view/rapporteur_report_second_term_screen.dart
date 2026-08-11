@@ -6,6 +6,6 @@ class RapporteurReportSecondTermScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MainWrapper(child: RapporteurReportSecondTermBody());
+    return const MainWrapper(disableDrawer: true, child: RapporteurReportSecondTermBody());
   }
 }

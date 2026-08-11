@@ -12,9 +12,15 @@ import 'custom_text.dart';
 class CustomScaffoldTop extends StatelessWidget {
   final AdvancedDrawerController? controller;
   final bool isDisabled;
+  final bool showBackButton;
   // Constructor for the CustomScaffoldTop widget.
   // It takes an optional key parameter.
-  const CustomScaffoldTop({super.key, this.controller, this.isDisabled = false});
+  const CustomScaffoldTop({
+    super.key,
+    this.controller,
+    this.isDisabled = false,
+    this.showBackButton = true,
+  });
 
   @override
   // Builds the UI for the CustomScaffoldTop widget.
@@ -46,7 +52,11 @@ class CustomScaffoldTop extends StatelessWidget {
           // Adds a sized box for spacing.
           const SizedBox(height: 10),
           // Displays a custom widget for drawer and back button functionality.
-          CustomDrawerAndBackWidget(controller: controller, isDisabled: isDisabled),
+          CustomDrawerAndBackWidget(
+            controller: controller,
+            isDisabled: isDisabled,
+            showBackButton: showBackButton,
+          ),
         ],
       ],
     );

@@ -1,9 +1,9 @@
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
-import 'package:dio/dio.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 const String supabaseUrl = 'https://zvdfzcslziprxywgshnd.supabase.co';
 const String supabaseKey = 'sb_publishable_yxkj2IvKxgeF7NiTncVcuQ_hM8CUVoA';
@@ -17,7 +17,6 @@ Future<void> trackFirstLaunch() async {
   final deviceId = const Uuid().v4();
   final packageInfo = await PackageInfo.fromPlatform();
   final currentVersion = packageInfo.version;
-
   String deviceName = 'Unknown';
   try {
     final deviceInfo = DeviceInfoPlugin();

@@ -69,6 +69,7 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
 
           return MainWrapper(
             disabledGestures: cubit.currentPage == 5,
+            disableDrawer: true,
             child: Stack(
               children: [
                 CustomScaffold(

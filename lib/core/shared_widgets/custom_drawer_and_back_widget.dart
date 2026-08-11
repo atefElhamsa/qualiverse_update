@@ -7,22 +7,27 @@ import 'package:qualiverse/routing/all_routes_imports.dart';
 class CustomDrawerAndBackWidget extends StatelessWidget {
   final AdvancedDrawerController? controller;
   final bool isDisabled;
+  final bool showBackButton;
 
   const CustomDrawerAndBackWidget({
     super.key,
     this.controller,
     this.isDisabled = false,
+    this.showBackButton = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    // In details pages (showBackButton = false), hide everything completely.
+    if (!showBackButton) return const SizedBox.shrink();
+
     return IgnorePointer(
       ignoring: isDisabled,
       child: Opacity(
         opacity: isDisabled ? 0.3 : 1.0,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          // Row to display drawer, space, and back icon.
+          // Row to display drawer and optionally the back icon.
           child: Row(
             children: [
               CustomDrawer(controller: controller),
