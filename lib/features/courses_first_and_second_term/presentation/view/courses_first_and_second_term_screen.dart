@@ -23,7 +23,6 @@ class CoursesFirstAndSecondTermScreen extends StatelessWidget {
         BlocProvider(create: (context) => EvidenceFolderFilesCubit()),
       ],
       child: MainWrapper(
-        disableDrawer: true,
         child: CoursesFirstAndSecondTermBody(
           title: courseArgs.termModel.name,
           courseArgs: courseArgs,

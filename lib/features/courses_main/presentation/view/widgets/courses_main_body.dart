@@ -18,7 +18,6 @@ class CoursesMainBody extends StatelessWidget {
         context.read<LevelCubit>().fetchLevels();
         context.read<DepartmentCubit>().fetchDepartments();
         context.read<TermCubit>().fetchTerms();
-        
       },
       widget: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

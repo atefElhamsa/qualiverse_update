@@ -20,7 +20,7 @@ class EditFilesBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const EditFilesTopAndTitle(),
+          EditFilesTopAndTitle(courseName: courseModel.name),
           const EditFilesNewButton(),
           const SizedBox(height: 20),
           EvidenceFoldersSection(

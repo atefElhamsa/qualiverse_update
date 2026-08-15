@@ -5,14 +5,20 @@ import 'package:qualiverse/features/all_features_imports/all_features_imports.da
 class FirstTermTop extends StatelessWidget {
   final bool isDisabled;
   final bool showBackButton;
-  const FirstTermTop({super.key, this.isDisabled = false, this.showBackButton = true});
+  const FirstTermTop({
+    super.key,
+    this.isDisabled = false,
+    this.showBackButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     final inherited = HomeBodyInherited.of(context);
     final isDrawerVisible = inherited.isDrawerVisible;
     // If drawer is disabled (details pages), hide menu icon and back button.
-    final effectiveShowBackButton = inherited.disableDrawer ? false : showBackButton;
+    final effectiveShowBackButton = inherited.disableDrawer
+        ? false
+        : showBackButton;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
