@@ -13,7 +13,6 @@ class AiReportScreen extends StatelessWidget {
     final int courseId = extra?['courseId'] as int;
 
     return MainWrapper(
-      disableDrawer: true,
       child: AiReportBody(
         selectedProvider: provider,
         selectedCourseNature: courseNature,

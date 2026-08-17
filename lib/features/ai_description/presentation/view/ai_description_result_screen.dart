@@ -67,38 +67,47 @@ class _AiDescriptionResultScreenState extends State<AiDescriptionResultScreen> {
             loadingMessage = "generatingFile";
           }
 
-          return MainWrapper(
-            disabledGestures: cubit.currentPage == 5,
-            disableDrawer: true,
-            child: Stack(
-              children: [
-                CustomScaffold(
-                  widget: Column(
-                    children: [
-                      AiDescriptionTop(title: widget.title),
-                      if (!cubit.isCourseGenerated) ...[
-                        const AiDescriptionSubmitStep(),
-                      ] else ...[
-                        if (cubit.currentPage < 5) ...[
-                          AiStepIndicator(
-                            currentPage: cubit.currentPage,
-                            totalSteps: 5,
-                          ),
-                          SizedBox(height: 20.h),
-                          const AiDescriptionStepsContent(),
-                          SizedBox(height: 30.h),
-                          const AiDescriptionNavigationRow(),
+          return PopScope(
+            canPop: !cubit.isCourseGenerated,
+            onPopInvokedWithResult: (didPop, result) {
+              if (didPop) return;
+              if (cubit.isCourseGenerated) {
+                cubit.goBackToSubmitStep();
+              }
+            },
+            child: MainWrapper(
+              disabledGestures: cubit.currentPage == 5,
+              disableDrawer: false,
+              child: Stack(
+                children: [
+                  CustomScaffold(
+                    widget: Column(
+                      children: [
+                        AiDescriptionTop(title: widget.title),
+                        if (!cubit.isCourseGenerated) ...[
+                          const AiDescriptionSubmitStep(),
                         ] else ...[
-                          const AiDescriptionStepsContent(),
+                          if (cubit.currentPage < 5) ...[
+                            AiStepIndicator(
+                              currentPage: cubit.currentPage,
+                              totalSteps: 5,
+                            ),
+                            SizedBox(height: 20.h),
+                            const AiDescriptionStepsContent(),
+                            SizedBox(height: 30.h),
+                            const AiDescriptionNavigationRow(),
+                          ] else ...[
+                            const AiDescriptionStepsContent(),
+                          ],
+                          SizedBox(height: 40.h),
                         ],
-                        SizedBox(height: 40.h),
                       ],
-                    ],
+                    ),
                   ),
-                ),
-                if (isProcessing)
-                  AiDescriptionLoadingOverlay(message: loadingMessage),
-              ],
+                  if (isProcessing)
+                    AiDescriptionLoadingOverlay(message: loadingMessage),
+                ],
+              ),
             ),
           );
         },

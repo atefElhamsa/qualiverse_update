@@ -26,7 +26,7 @@ class AiReportBody extends StatefulWidget {
 
 class _AiReportBodyState extends State<AiReportBody> {
   // 0 = surveyPdf | 1 = descriptionPdf | 2 = statsPdf
-  final List<File?> _files = List<File?>.filled(3, null, growable: false);
+  List<File?> _files = List<File?>.filled(3, null, growable: false);
 
   bool _isLoading = false;
 
@@ -70,7 +70,13 @@ class _AiReportBodyState extends State<AiReportBody> {
         statsPdf: _files[2]!,
       );
       if (mounted) {
-        context.pushNamed(AppRoutes.aiReportResultScreen, extra: data);
+        await context.pushNamed(AppRoutes.aiReportResultScreen, extra: data);
+        if (mounted) {
+          setState(() {
+            _files.clear();
+            _files = List<File?>.filled(3, null, growable: false);
+          });
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -85,6 +91,69 @@ class _AiReportBodyState extends State<AiReportBody> {
     }
   }
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    if (_uploadedCount == 0) return true;
+
+    final isAr = context.locale.languageCode == 'ar';
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        icon: Icon(
+          Icons.warning_amber_rounded,
+          color: AppColors.red,
+          size: 40.sp,
+        ),
+        title: Text(
+          isAr ? 'تحذير' : 'Warning',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.red,
+          ),
+        ),
+        content: Text(
+          isAr
+              ? 'لو رجعت هيتم مسح الملفات المرفوعة ($_uploadedCount/${_files.length}). هل أنت متأكد؟'
+              : 'Going back will clear the uploaded files ($_uploadedCount/${_files.length}). Are you sure?',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(
+              isAr ? 'إلغاء' : 'Cancel',
+              style: TextStyle(
+                color: AppColors.colorButtonLight,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.red,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
+            child: Text(isAr ? 'رجوع' : 'Go Back'),
+          ),
+        ],
+      ),
+    );
+
+    return confirmed ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isAr = context.locale.languageCode == 'ar';
@@ -95,48 +164,58 @@ class _AiReportBodyState extends State<AiReportBody> {
         aboutFile: '',
         onTap: () => _pickFile(0),
         file: _files[0],
-      ), // surveyPdf
+      ),
       FileItemModel(
         titleFile: 'descriptionPDF',
         aboutFile: '',
         onTap: () => _pickFile(1),
         file: _files[1],
-      ), // descriptionPdf
+      ),
       FileItemModel(
         titleFile: 'statisticsPDF',
         aboutFile: '',
         onTap: () => _pickFile(2),
         file: _files[2],
-      ), // statisticsPdf
+      ),
     ];
 
-    return Stack(
-      children: [
-        CustomScaffold(
-          widget: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const AiReportTop(),
-              const AiReportInfoBanner(),
-              SizedBox(height: 12.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 45.w),
-                child: ListFileItemWidget(fileItemModels: fileItems),
-              ),
-              SizedBox(height: 20.h),
-              AiReportBottomActionBar(
-                uploadedCount: _uploadedCount,
-                progress: _progress,
-                allUploaded: _allUploaded,
-                isAr: isAr,
-                onSubmit: () => _submit(context),
-              ),
-              SizedBox(height: 20.h),
-            ],
+    return PopScope(
+      canPop: _uploadedCount == 0,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
+        final shouldPop = await _onWillPop(context);
+        if (shouldPop && context.mounted) {
+          context.pop();
+        }
+      },
+      child: Stack(
+        children: [
+          CustomScaffold(
+            widget: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const AiReportTop(),
+                const AiReportInfoBanner(),
+                SizedBox(height: 12.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 45.w),
+                  child: ListFileItemWidget(fileItemModels: fileItems),
+                ),
+                SizedBox(height: 20.h),
+                AiReportBottomActionBar(
+                  uploadedCount: _uploadedCount,
+                  progress: _progress,
+                  allUploaded: _allUploaded,
+                  isAr: isAr,
+                  onSubmit: () => _submit(context),
+                ),
+                SizedBox(height: 20.h),
+              ],
+            ),
           ),
-        ),
-        if (_isLoading) AiReportLoadingOverlay(isAr: isAr),
-      ],
+          if (_isLoading) AiReportLoadingOverlay(isAr: isAr),
+        ],
+      ),
     );
   }
 }

@@ -37,7 +37,7 @@ class AiReportResultView extends StatelessWidget {
                   widget: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const AiReportTop(hideHistory: true, disableSidebar: true),
+                        const AiReportTop(hideHistory: true, disableSidebar: false),
                         AiStepIndicator(
                           currentPage: cubit.currentPage,
                           totalSteps: 5,

@@ -18,9 +18,16 @@ class CustomIconBack extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () {
-          // Navigate back to the previous screen using GoRouter.
-          context.pop();
+        onTap: () async {
+          // Use maybePop to respect PopScope. If it handles it, return.
+          final navigator = Navigator.of(context);
+          if (await navigator.maybePop()) {
+            return;
+          }
+          // Navigate back to the previous screen using GoRouter as fallback.
+          if (context.mounted && context.canPop()) {
+            context.pop();
+          }
         },
         // Display an image that changes based on the theme (light/dark).
         child: Image.asset(

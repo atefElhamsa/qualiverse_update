@@ -44,7 +44,7 @@ class AiDescriptionBody extends StatelessWidget {
     } else if (state is AiDescriptionUploadError) {
       showSnackBar(context, state.message, AppColors.red);
     } else if (state is AiDescriptionConfirmSuccess) {
-      context.pushReplacementNamed(
+      context.pushNamed(
         AppRoutes.aiDescriptionResultScreen,
         extra: {"title": title},
       );

@@ -97,9 +97,9 @@ class LoginStorage {
   }
 
   /// هل الـ access token هيخلص قريب (خلال نص دقيقة)؟
-  /// ده اللي بنستخدمه للـ proactive refresh قبل بعت الـ request.
+  /// لو مش عارفين الـ expiration → افترض إنه قريب ينتهي
   static bool get accessTokenExpiresSoon {
-    if (accessTokenExpiration == null) return false;
+    if (accessTokenExpiration == null) return true;
     return DateTime.now()
         .add(const Duration(seconds: 30))
         .isAfter(accessTokenExpiration!);

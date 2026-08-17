@@ -17,7 +17,7 @@ class AiReportJobStatusBody extends StatelessWidget {
           widget: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const AiReportTop(hideHistory: true, disableSidebar: true),
+              const AiReportTop(hideHistory: true, disableSidebar: false),
               SizedBox(height: 20.h),
               if (state is AiReportJobStatusLoading) ...[
                 AiReportJobStatusLoadingWidget(isAr: isAr),

@@ -245,6 +245,11 @@ class AiDescriptionCubit extends Cubit<AiDescriptionState> {
     }
   }
 
+  void goBackToSubmitStep() {
+    isCourseGenerated = false;
+    emit(AiDescriptionPageChanged(currentPage)); // Just to trigger a UI rebuild
+  }
+
   Future<void> _pollGenerationStatus() async {
     try {
       bool isFinished = false;

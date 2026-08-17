@@ -48,6 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     final startTime = DateTime.now();
 
+    // ✅ checkForUpdate دايماً يشتغل أول حاجة قبل أي navigation
     if (mounted) {
       await UpdaterService.checkForUpdate(context);
     }
@@ -72,6 +73,7 @@ class _SplashScreenState extends State<SplashScreen>
       navigateToLogin();
     }
   }
+
 
   Future<void> navigateToLogin() async {
     final bool onboardingShown =

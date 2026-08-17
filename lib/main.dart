@@ -13,7 +13,11 @@ void main() async {
   await LoginStorage.loadFromCache();
   trackFirstLaunch();
   if (LoginStorage.hasToken) {
-    LoginInterceptor.instance.forceRefreshToken();
+    try {
+      await LoginInterceptor.instance.forceRefreshToken();
+    } catch (_) {
+      // network error on startup - don't crash, just continue
+    }
   }
 
   Bloc.observer = MyBlocObserver();

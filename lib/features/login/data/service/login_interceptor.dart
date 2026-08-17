@@ -89,7 +89,21 @@ class LoginInterceptor extends Interceptor {
         final response = await _retry(err.requestOptions);
         handler.resolve(response);
         return;
+      } on DioException catch (e) {
+        // لو الـ retry فشل بسبب network error → مش logout، بس fail الـ request
+        if (e.response == null ||
+            e.type == DioExceptionType.connectionError ||
+            e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout) {
+          handler.next(err);
+          return;
+        }
+        // لو فشل بسبب auth failure حقيقية (4xx) → logout
+        _logout();
+        handler.next(err);
+        return;
       } catch (_) {
+        // أي error تاني غير DioException → logout
         _logout();
         handler.next(err);
         return;
